@@ -2,4 +2,7 @@
     <div class="top">
         <x-header.logo />
     </div>
-</header
+    <div class="bottom">
+        <x-header.meny />
+    </div>
+</header>
