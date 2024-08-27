@@ -1,0 +1,33 @@
+.table-box .table-options form.filter-form ul.filter-list
+    display: flex
+    gap: 15px
+    li
+        width: auto
+        height: 100%
+        position: relative
+        list-style: none
+        .preview
+            width: auto
+            min-width: 250px
+            height: 100%
+            padding: 0 15px
+            display: flex
+            justify-content: space-between
+            align-items: center
+            box-shadow: 2px 3px 8px 2px #ddd
+            border-radius: 5px
+            transition: var(--all-transition)
+            cursor: pointer
+            z-index: 1
+            span
+                font-size: 1rem
+                color: #666
+                font-weight: 600
+            i
+                font-size: 1.5rem
+                color: #666
+                font-weight: 600
+            input
+                display: none
+        .filter
+            display: none
