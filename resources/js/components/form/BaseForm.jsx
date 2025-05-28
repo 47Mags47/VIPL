@@ -1,23 +1,9 @@
 import HandleForm from "./handleForm";
 import Button from "./Button";
 import Error from "../FormError";
-import React from "react";
-
 
 export default function BaseForm({ action, method, header, children, info, type }) {
-    const { values, handleSubmit, handleInputChange, errors } = HandleForm();
-
-    const childrenWithProps = React.Children.map(children, child => {
-        if (!React.isValidElement(child)) return child;
-
-        const { name } = child.props || {};
-        if (!name) return child;
-
-        return React.cloneElement(child, {
-            value: values[name] || '',
-            onChange: handleInputChange
-        });
-    });
+    const { values, handleSubmit, errors } = HandleForm();
 
     return (
         <div className={"form-container " + (type ?? '')}>
@@ -31,8 +17,9 @@ export default function BaseForm({ action, method, header, children, info, type 
                         <Error name="form" />
                     </div>
                 )}
+
                 <div className="form-content">
-                   {childrenWithProps}
+                   {children}
                 </div>
                 <div className="form-buttons">
                     <Button type="submit" nameBtn="submit-btn" textBtn="Войти"/>
