@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dev page</title>
-
-    @vite('resources/js/App.jsx')
-    @vite('resources/sass/app.sass')
 </head>
 
 <body>
@@ -23,6 +20,7 @@
 
         li {
             padding: 5px 0;
+            list-style: none;
         }
 
         summary {
