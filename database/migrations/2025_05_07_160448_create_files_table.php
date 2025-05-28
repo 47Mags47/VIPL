@@ -1,0 +1,49 @@
+<?php
+
+use App\Models\Glossary\Bank;
+use App\Models\Glossary\Division;
+use App\Models\Glossary\FileStatus;
+use App\Models\Glossary\Payment;
+use App\Models\Payment\Event;
+use App\Models\Payment\Package;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('glossary__file_status', function (Blueprint $table) {
+            $table->id();
+            $table->string('code');
+            $table->string('name');
+        });
+
+        Schema::create('payment__files', function (Blueprint $table) {
+            $table->id();
+
+            $table->text('path');
+            $table->string('hash');
+            $table->bigInteger('size');
+            $table->json('errors');
+
+            $table->uuid('package_id')->constrained(Package::getTableName());
+            $table->foreignId('bank_id')->constrained(Bank::getTableName());
+            $table->foreignId('status_id')->constrained(FileStatus::getTableName());
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('payment__files');
+        Schema::dropIfExists('glossary__file_status');
+    }
+};

@@ -1,0 +1,21 @@
+<?php
+
+namespace Database\Seeders\Dev\Payment;
+
+use App\Models\Payment\File;
+use App\Models\Payment\Recipient;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class RecipientSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        foreach (File::all() as $file) {
+            Recipient::factory(25)->create(['file_id' => $file->id]);
+        }
+    }
+}

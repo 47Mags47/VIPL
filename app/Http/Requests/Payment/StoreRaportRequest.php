@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Requests\Payment;
+
+use App\Models\Payment\Event;
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreRaportRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true; // HACK дописать проверку
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'event' => ['required', 'exists:'. Event::getTableName() .',id']
+        ];
+    }
+}
