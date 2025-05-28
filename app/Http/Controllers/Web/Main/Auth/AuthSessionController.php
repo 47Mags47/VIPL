@@ -20,15 +20,9 @@ class AuthSessionController extends Controller
     {
         if (Auth::attempt($request->only(['email', 'password']))) {
             $request->session()->regenerate();
-<<<<<<< HEAD
             return redirect()->route('dev.route-list');
-=======
-            // return response()
-            return redirect()->route('dev-start');
->>>>>>> ca3ae35 (форма авторизации)
         }
 
-        // return back()->withErrors('Неверный логин или пароль');
         throw ValidationException::withMessages([
             'form' => __('auth.failed'),
         ]);
