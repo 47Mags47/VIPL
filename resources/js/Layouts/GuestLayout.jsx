@@ -1,6 +1,6 @@
 export default function GuestLayout({ children }) {
     return (
-        <div className="guest-layout">
+        <div className="layout guest-layout">
             {children}
         </div>
     );
