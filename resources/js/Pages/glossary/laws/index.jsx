@@ -1,11 +1,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Header from "../../../components/Header";
 
-export default function index({banks}) {
+export default function index() {
 
     return (
         <AuthenticatedLayout>
-            <Header />
+            <div>test react page</div>
         </AuthenticatedLayout>
     );
 }
