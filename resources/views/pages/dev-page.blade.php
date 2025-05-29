@@ -65,6 +65,17 @@
                     <ul>
                         <li><a href="{!! route('glossary.payments.index') !!}">glossary.payments.index</a></li>
                         <li><a href="{!! route('glossary.payments.create') !!}">glossary.payments.create</a></li>
+                        <li><a href="{!! route('glossary.payments.edit', ['payment' => 1]) !!}">glossary.payments.edit</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Законы</summary>
+                    <ul>
+                        <li><a href="{!! route('glossary.laws.index') !!}">glossary.laws.index</a></li>
+                        <li><a href="{!! route('glossary.laws.create') !!}">glossary.laws.create</a></li>
+                        <li><a href="{!! route('glossary.laws.edit', ['law' => 1]) !!}">glossary.laws.edit</a></li>
                     </ul>
                 </details>
             </li>

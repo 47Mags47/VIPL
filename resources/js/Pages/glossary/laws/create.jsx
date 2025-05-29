@@ -9,7 +9,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
     - source_id     Вид финансирования  => int, id вида фининсирования, объект приходит с бэка sources
 */
 
-export default function create() {
+export default function create(
+
+) {
     return (
         <AuthenticatedLayout>
             <div>test react page</div>

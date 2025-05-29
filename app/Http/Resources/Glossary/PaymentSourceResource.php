@@ -5,7 +5,7 @@ namespace App\Http\Resources\Glossary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PaymentsourceResource extends JsonResource
+class PaymentSourceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
