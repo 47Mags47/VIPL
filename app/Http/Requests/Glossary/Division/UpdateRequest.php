@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Glossary\Division;
 
+use App\Models\Glossary\Division;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -22,8 +23,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'min:3', 'max:10'],
-            'name' => ['required', 'string', 'min:3', 'max:255']
+            'code' => ['required', 'string', 'min:3', 'max:5', 'unique:' . Division::getTableName() . ',code,' . $this->code],
+            'name' => ['required', 'string', 'min:3', 'max:255', 'unique:' . Division::getTableName() . ',name,' . $this->name]
         ];
     }
 }

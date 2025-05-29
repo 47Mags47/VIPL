@@ -31,24 +31,13 @@ class DivisionController extends Controller
         return redirect()->route('glossary.divisions.index')->with('message', 'Запись успешно создана');
     }
 
-    public function print()
-    {
-        // DEV Печать справочника
-    }
-
     public function edit(Division $division)
     {
-        return Inertia::render('glossary/divisions/index', compact('division'));
+        return Inertia::render('glossary/divisions/index', ['division' => $division->toResource()]);
     }
 
     public function update(UpdateRequest $request, Division $division)
     {
-        if ($request->code !== $division->code)
-            $request->validate(['code'   => 'unique:' . Division::getTableName() . ',code']);
-
-        if ($request->name !== $division->name)
-            $request->validate(['name'   => 'unique:' . Division::getTableName() . ',name']);
-
         $division->update($request->only(['code', 'name']));
 
         return redirect()->route('glossary.divisions.index')->with('message', 'Запись успешно обновлена');

@@ -21,13 +21,21 @@ Route::middleware('auth')->prefix('/glossary')->name('glossary.')->group(functio
         });
     });
 
-    Route::prefix('/payments')->controller(PaymentController::class)->name('payments.')->group(function () {
-        Route::get('/modal', 'modal')->name('modal');
+    Route::prefix('/divisions')->controller(DivisionController::class)->name('divisions.')->group(function () {
         Route::get('/index', 'index')->name('index');
-        Route::get('/table', 'table')->name('table');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::post('/print', 'print')->name('print');
+        Route::prefix('/{division}')->group(function () {
+            Route::get('/edit', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+            Route::delete('/delete', 'delete')->name('delete');
+        });
+    });
+
+    Route::prefix('/payments')->controller(PaymentController::class)->name('payments.')->group(function () {
+        Route::get('/index', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
         Route::prefix('/{payment}')->group(function () {
             Route::get('/edit', 'edit')->name('edit');
             Route::put('/update', 'update')->name('update');
@@ -35,16 +43,4 @@ Route::middleware('auth')->prefix('/glossary')->name('glossary.')->group(functio
         });
     });
 
-    Route::prefix('/divisions')->controller(DivisionController::class)->name('divisions.')->group(function () {
-        Route::get('/index', 'index')->name('index');
-        Route::get('/table', 'table')->name('table');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/print', 'print')->name('print');
-        Route::prefix('/{division}')->group(function () {
-            Route::get('/edit', 'edit')->name('edit');
-            Route::put('/update', 'update')->name('update');
-            Route::delete('/delete', 'delete')->name('delete');
-        });
-    });
 });
