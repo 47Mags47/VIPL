@@ -6,6 +6,7 @@ use App\Traits\hasCode;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentLaw extends Model
 {
@@ -20,4 +21,11 @@ class PaymentLaw extends Model
         'name',
         'source_id',
     ];
+
+    ### Связи
+    ##################################################
+    public function source():BelongsTo
+    {
+        return $this->belongsTo(PaymentSource::class, 'source_id');
+    }
 }

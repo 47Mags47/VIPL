@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Payment\StoreRequest;
 use App\Http\Requests\Glossary\Payment\UpdateRequest;
 use App\Models\Glossary\Payment;
+use App\Models\Glossary\PaymentLaw;
+use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,35 +23,31 @@ class PaymentController extends Controller
 
     public function create()
     {
-        return Inertia::render('glossary/payments/create');
+        $laws = PaymentLaw::paginate(50)->toResourceCollection();
+        $peridicity = PaymentPeriodicity::all()->toResourceCollection();
+
+        return Inertia::render('glossary/payments/create', compact('laws', 'peridicity'));
     }
 
     public function store(StoreRequest $request)
     {
-        Payment::create($request->only(['code', 'name']));
+        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно создана');
     }
 
-    public function print()
-    {
-        // DEV Печать справочника
-    }
-
     public function edit(Payment $payment)
     {
-        return Inertia::render('glossary/payments/edit', compact('payment'));
+        $laws = PaymentLaw::paginate(50)->toResourceCollection();
+        $peridicity = PaymentPeriodicity::all()->toResourceCollection();
+
+        return Inertia::render('glossary/payments/edit', compact('payment', 'laws', 'peridicity'));
     }
 
     public function update(UpdateRequest $request, Payment $payment)
     {
-        if ($request->code !== $payment->code)
-            $request->validate(['code'   => 'unique:' . Payment::getTableName() . ',code']);
 
-        if ($request->name !== $payment->name)
-            $request->validate(['name'   => 'unique:' . Payment::getTableName() . ',name']);
-
-        $payment->update($request->only(['code', 'name']));
+        $payment->update($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно обновлена');
     }
