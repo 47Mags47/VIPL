@@ -5,7 +5,7 @@ namespace App\Http\Resources\Glossary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BankExporterResource extends JsonResource
+class ContractResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,13 @@ class BankExporterResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $exporter_string = "App\\Exporters\\" . ucfirst($this->code) . 'BankExporter';
-
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'valid' => class_exists($exporter_string),
+            'number' => $this->number,
+            'signed_at' => $this->number,
+            'sides' => [
+                'bank' => ContractSideResource::make($this->bank),
+                'division' => ContractSideResource::make($this->division),
+            ],
         ];
     }
 }

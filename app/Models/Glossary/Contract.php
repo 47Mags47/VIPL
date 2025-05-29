@@ -6,10 +6,11 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contract extends Model
 {
-    use Named, HasLog;
+    use Named, HasLog, SoftDeletes;
 
     ### Настройки
     ##################################################

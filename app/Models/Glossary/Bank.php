@@ -5,13 +5,13 @@ namespace App\Models\Glossary;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bank extends Model
 {
-    use Named, HasFilter, HasLog;
+    use Named, HasFilter, HasLog, SoftDeletes;
 
     ### Настройки
     ##################################################

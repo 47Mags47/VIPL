@@ -6,6 +6,7 @@ use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
 use App\Models\Glossary\Contract;
 use App\Models\Glossary\ContractSide;
+use App\Models\Glossary\ContractSideType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,7 @@ class BankSeeder extends Seeder
             'INN' => $faker->numerify('##########'),
             'account' => $faker->numerify('####################'),
             'BIK' => $faker->numerify('#########'),
+            'type_id' => ContractSideType::byCode('division')->id,
         ]);
 
         $bank_side = ContractSide::create([
@@ -30,6 +32,7 @@ class BankSeeder extends Seeder
             'INN' => $faker->numerify('##########'),
             'account' => $faker->numerify('####################'),
             'BIK' => $faker->numerify('#########'),
+            'type_id' => ContractSideType::byCode('bank')->id,
         ]);
 
         $contract = Contract::create([

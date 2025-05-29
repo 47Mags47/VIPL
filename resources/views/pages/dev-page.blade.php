@@ -45,7 +45,7 @@
                     <ul>
                         <li><a href="{!! route('glossary.banks.index') !!}">glossary.banks.index</a></li>
                         <li><a href="{!! route('glossary.banks.create') !!}">glossary.banks.create</a></li>
-                        <li><a href="{!! route('glossary.banks.modal') !!}">glossary.banks.modal</a></li>
+                        <li><a href="{!! route('glossary.banks.edit', ['bank' => 1]) !!}">glossary.banks.edit</a></li>
                     </ul>
                 </details>
             </li>

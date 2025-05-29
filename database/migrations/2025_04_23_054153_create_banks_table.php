@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Glossary\BankExporter;
-use App\Models\Glossary\BankImporter;
 use App\Models\Glossary\Contract;
 use App\Models\Glossary\ContractSide;
+use App\Models\Glossary\ContractSideType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +23,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('glossary__contract_side_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('code')->unique();
+            $table->string('name')->unique();
+        });
+
         Schema::create('glossary__contract_sides', function (Blueprint $table) {
             $table->id();
 
@@ -31,6 +37,8 @@ return new class extends Migration
             $table->string('account')->nullable();
             $table->string('BIK')->nullable();
             $table->text('comment')->nullable();
+
+            $table->foreignId('type_id')->constrained(ContractSideType::getTableName());
 
             $table->timestamps();
             $table->softDeletes();
@@ -46,6 +54,7 @@ return new class extends Migration
             $table->foreignId('bank_side_id')->constrained(ContractSide::getTableName());
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('glossary__banks', function (Blueprint $table) {
@@ -58,6 +67,7 @@ return new class extends Migration
             $table->foreignId('contract_id')->nullable()->constrained(Contract::getTableName());
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -67,7 +77,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('glossary__banks');
+        Schema::dropIfExists('glossary__contracts');
         Schema::dropIfExists('glossary__bank_templates');
-        Schema::dropIfExists('glossary__bank_templates');
+        Schema::dropIfExists('glossary__contract_sides');
+        Schema::dropIfExists('glossary__contract_side_type');
+        Schema::dropIfExists('glossary__bank_exporters');
     }
 };
