@@ -117,10 +117,6 @@
                         <h4>Пакет</h4>
                         <li><a href="{!! route('payment.package.edit') !!}">payment.package.edit</a></li>
                     </ul>
-                    <ul>
-                        <h4>Файл</h4>
-                        <li><a href="{!! route('ftp.files.modal') !!}">ftp.files.modal</a></li>
-                    </ul>
                 </details>
             </li>
             <li>
