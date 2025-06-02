@@ -24,7 +24,6 @@ return new class extends Migration
 
             $table->string('account');
             $table->float('summ', 2);
-            $table->string('kbk');
 
             $table->string('p_series');
             $table->string('p_number');

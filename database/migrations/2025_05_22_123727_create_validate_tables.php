@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Importer\ValidateColumnType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('validate__accounts', function (Blueprint $table) {
+        Schema::create('importer__validator_column_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('code');
+        });
+
+        Schema::create('importer__validator_columns', function (Blueprint $table) {
             $table->id();
 
-            $table->string('rule');
+            $table->string('code')->unique();
+            $table->string('name')->unique();
+            $table->integer('file_pos')->unique();
+            $table->boolean('required');
+            $table->json('patterns')->nullable();
+
+            $table->foreignId('type_id')->constrained(ValidateColumnType::getTableName());
 
             $table->timestamps();
         });
@@ -25,6 +37,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('validate__accounts');
+        Schema::dropIfExists('importer__validator_columns');
+        Schema::dropIfExists('importer__validator_column_types');
     }
 };

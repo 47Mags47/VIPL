@@ -28,7 +28,6 @@ class RecipientFactory extends Factory
 
             'account' => $this->faker->numerify('####################'),
             'summ' => $this->faker->randomFloat(2),
-            'kbk' => $this->faker->numerify('####################'),
 
             'p_series' => $this->faker->numerify('####'),
             'p_number' => $this->faker->numerify('######'),

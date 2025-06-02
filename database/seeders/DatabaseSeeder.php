@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(Glossary\BankSeeder::class);
 
-        $this->call(Validate\AccountSeeder::class);
+        $this->call(Importer\ValidatorSeeder::class);
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\AlertSeeder::class);
