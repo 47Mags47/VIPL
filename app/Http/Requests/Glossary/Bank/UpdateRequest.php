@@ -14,7 +14,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return user()->hasPermission('glossary-bank-update');
+        // return user()->hasPermission('glossary-bank-update');
+        return true;
     }
 
     /**
@@ -25,9 +26,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bank.number_code'          => ['required', 'string', 'min:3', 'max:3', 'unique:' . Bank::getTableName() . ',number_code,' . $this->number_code],
-            'bank.code'                 => ['required', 'string', 'min:3', 'max:10', 'unique:' . Bank::getTableName() . ',code,' . $this->code],
-            'bank.name'                 => ['required', 'string', 'min:3', 'max:255', 'unique:' . Bank::getTableName() . ',name,' . $this->name],
+            'bank.number_code'          => ['required', 'string', 'min:3', 'max:3'],
+            'bank.code'                 => ['required', 'string', 'min:3', 'max:10'],
+            'bank.name'                 => ['required', 'string', 'min:3', 'max:255'],
             'bank.exporter_id'          => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
 
             'contract.number'           => ['required', 'string', 'max:255'],
@@ -38,7 +39,7 @@ class UpdateRequest extends FormRequest
             'bank_side.INN'             => ['required', 'string', 'min:10', 'max:10'],
             'bank_side.account'         => ['required', 'string', 'min:20', 'max:20'],
             'bank_side.BIK'             => ['required', 'string', 'min:9',  'max:9'],
-            'bank_side.comment'         => ['required', 'string'],
+            'bank_side.comment'         => ['nullable', 'string'],
         ];
     }
 }

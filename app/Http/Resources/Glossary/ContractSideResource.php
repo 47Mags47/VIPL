@@ -20,6 +20,7 @@ class ContractSideResource extends JsonResource
             'INN' => $this->INN,
             'account' => $this->account,
             'BIK' => $this->BIK,
+            'comment' => $this->comment,
         ];
     }
 }

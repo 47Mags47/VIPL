@@ -1,30 +1,40 @@
-import HandleForm from "./handleForm";
-import Button from "./Button";
-import Error from "../FormError";
-import React from "react";
+import React, { forwardRef, useState } from 'react';
+import BlueButton from "../button/BlueButton";
+import Error from "../Error";
+import { usePage } from '@inertiajs/react';
 
 
-export default function BaseForm({ action, method, header, children, info, type }) {
-    const { values, handleSubmit, handleInputChange, errors } = HandleForm();
+const BaseForm = forwardRef(({ method, header, children, info, type, sbm, params, onSubmit }, ref) => {
+    const { errors } = usePage().props;
 
-    const childrenWithProps = React.Children.map(children, child => {
-        if (!React.isValidElement(child)) return child;
+    let formMethod = 'GET'
+    let startParams = ''
 
-        const { name } = child.props || {};
-        if (!name) return child;
+    if (method == 'get' || method == 'GET') {
+        formMethod = 'GET'
+    } else if (method == 'post' || method == 'POST') {
+        formMethod = 'POST'
 
-        return React.cloneElement(child, {
-            value: values[name] || '',
-            onChange: handleInputChange
-        });
-    });
+        startParams = (
+            <input type="hidden" name="_token" value={token()} />
+        )
+    } else if (method == 'put' || method == 'PUT') {
+        formMethod = 'POST'
+
+        startParams = (
+            <>
+                <input type="hidden" name="_token" value={token()} />
+                <input type="hidden" name="_method" value="PUT" />
+            </>
+        )
+    }
 
     return (
         <div className={"form-container " + (type ?? '')}>
-            <form onSubmit={handleSubmit(action)} method={method}>
+            <form ref={ref} action={ onSubmit }>
                 <h3 className="form-header">{header}</h3>
                 <div className="form-params">
-                    <input type="hidden" name="_token" value={token()} />
+                    {startParams}
                 </div>
                 {errors?.form && (
                     <div className="form-errors">
@@ -32,10 +42,10 @@ export default function BaseForm({ action, method, header, children, info, type 
                     </div>
                 )}
                 <div className="form-content">
-                   {childrenWithProps}
+                    {children}
                 </div>
                 <div className="form-buttons">
-                    <Button type="submit" nameBtn="submit-btn" textBtn="Войти"/>
+                    {sbm && <BlueButton type="submit">{sbm}</BlueButton>}
                 </div>
                 <div className="form-backside">
                     {info ?? ''}
@@ -43,4 +53,6 @@ export default function BaseForm({ action, method, header, children, info, type 
             </form>
         </div>
     );
-}
+});
+
+export default BaseForm;

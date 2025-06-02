@@ -34,30 +34,30 @@ class BankController extends Controller
     public function store(StoreRequest $request)
     {
         $bank_side = ContractSide::create([
-            'name'    => $request->get('bank_side.name'),
-            'INN'     => $request->get('bank_side.INN'),
-            'account' => $request->get('bank_side.account'),
-            'BIK'     => $request->get('bank_side.BIK'),
-            'comment' => $request->get('bank_side.comment'),
+            'name'    => $request->input('bank_side.name'),
+            'INN'     => $request->input('bank_side.INN'),
+            'account' => $request->input('bank_side.account'),
+            'BIK'     => $request->input('bank_side.BIK'),
+            'comment' => $request->input('bank_side.comment'),
             'type_id' => ContractSideType::byCode('bank')->id,
         ]);
 
         $contract = Contract::create([
-            'number'            => $request->get('contract.number'),
-            'signed_at'         => $request->get('contract.signed_at'),
-            'division_side_id'  => $request->get('contract.division_side_id'),
+            'number'            => $request->input('contract.number'),
+            'signed_at'         => $request->input('contract.signed_at'),
+            'division_side_id'  => $request->input('contract.division_side_id'),
             'bank_side_id'      => $bank_side->id,
         ]);
 
         Bank::create([
-            'number_code'   => $request->get('bank.number_code'),
-            'code'          => $request->get('bank.code'),
-            'name'          => $request->get('bank.name'),
-            'exporter_id'   => $request->get('bank.exporter_id'),
+            'number_code'   => $request->input('bank.number_code'),
+            'code'          => $request->input('bank.code'),
+            'name'          => $request->input('bank.name'),
+            'exporter_id'   => $request->input('bank.exporter_id'),
             'contract_id'   => $contract->id,
         ]);
 
-        return redirect()->route('glossary.bank.index')->with('message', 'Запись успешно создана');
+        return to_route('glossary.banks.index');
     }
 
     public function edit(Bank $bank)
@@ -74,36 +74,35 @@ class BankController extends Controller
 
     public function update(UpdateRequest $request, Bank $bank)
     {
-
         $bank->contract->bank->update([
-            'name'    => $request->get('bank_side.name'),
-            'INN'     => $request->get('bank_side.INN'),
-            'account' => $request->get('bank_side.account'),
-            'BIK'     => $request->get('bank_side.BIK'),
-            'comment' => $request->get('bank_side.comment'),
+            'name'    => $request->input('bank_side.name'),
+            'INN'     => $request->input('bank_side.INN'),
+            'account' => $request->input('bank_side.account'),
+            'BIK'     => $request->input('bank_side.BIK'),
+            'comment' => $request->input('bank_side.comment'),
             'type_id' => ContractSideType::byCode('bank')->id,
         ]);
 
         $bank->contract->update([
-            'number'            => $request->get('contract.number'),
-            'signed_at'         => $request->get('contract.signed_at'),
-            'division_side_id'  => $request->get('contract.division_side_id'),
+            'number'            => $request->input('contract.number'),
+            'signed_at'         => $request->input('contract.signed_at'),
+            'division_side_id'  => $request->input('contract.division_side_id'),
         ]);
 
         $bank->update([
-            'number_code'   => $request->get('bank.number_code'),
-            'code'          => $request->get('bank.code'),
-            'name'          => $request->get('bank.name'),
-            'exporter_id'   => $request->get('bank.exporter_id'),
+            'number_code'   => $request->input('bank.number_code'),
+            'code'          => $request->input('bank.code'),
+            'name'          => $request->input('bank.name'),
+            'exporter_id'   => $request->input('bank.exporter_id'),
         ]);
 
-        return redirect()->route('glossary.bank.index')->with('message', 'Запись успешно обновлена');
+        return to_route('glossary.banks.index');
     }
 
     public function delete(Bank $bank)
     {
         $bank->delete();
 
-        return redirect()->route('glossary.bank.index')->with('message', 'Запись удалена');
+        return to_route('glossary.banks.index');
     }
 }

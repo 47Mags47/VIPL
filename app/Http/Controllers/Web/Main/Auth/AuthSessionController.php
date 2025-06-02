@@ -20,8 +20,11 @@ class AuthSessionController extends Controller
     {
         if (Auth::attempt($request->only(['email', 'password']))) {
             $request->session()->regenerate();
-            return redirect()->route('dev.route-list');
+            // return response(['redirect' => route('dev.route-list')], 200);
+            return to_route('dev.route-list');
         }
+
+        // return 
 
         throw ValidationException::withMessages([
             'form' => __('auth.failed'),

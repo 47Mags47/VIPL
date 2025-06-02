@@ -1,9 +1,21 @@
-import BaseForm from "./BaseForm"
+import { forwardRef } from 'react';
+import BaseForm from "./BaseForm";
 
-export default function VerticalForm({action, method, header, children, info}) {
+const VerticalForm = forwardRef(({ method, header, children, info, sbm, params, onSubmit }, ref) => {
     return (
-        <BaseForm action={action} method={method} header={header} type="vertical-form" info={info}>
+        <BaseForm
+            ref={ref}
+            method={method}
+            header={header}
+            type="vertical-form"
+            info={info}
+            sbm={sbm}
+            params={params}
+            onSubmit={onSubmit}
+        >
             {children}
         </BaseForm>
-    )
-}
+    );
+});
+
+export default VerticalForm;
