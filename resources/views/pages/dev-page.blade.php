@@ -52,9 +52,11 @@
             <li>
                 <details>
                     <summary>Подразделения</summary>
+                    <summary>Подразделения</summary>
                     <ul>
                         <li><a href="{!! route('glossary.divisions.index') !!}">glossary.divisions.index</a></li>
                         <li><a href="{!! route('glossary.divisions.create') !!}">glossary.divisions.create</a></li>
+                        <li><a href="{!! route('glossary.divisions.edit', ['division' => 1]) !!}">glossary.divisions.edit</a></li>
                         <li><a href="{!! route('glossary.divisions.edit', ['division' => 1]) !!}">glossary.divisions.edit</a></li>
                     </ul>
                 </details>

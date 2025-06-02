@@ -3,7 +3,7 @@ import VerticalForm from '@/components/form/VerticalForm';
 import Input from "@/components/inputs/Input"
 
 export default function Login() {
-    
+
     return (
         <GuestLayout>
             <VerticalForm action={route('session.store')} header="Войти в систему">
