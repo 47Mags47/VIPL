@@ -15,7 +15,10 @@ class PaymentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'code' => $this->code,
+            'krv' => $this->krv,
+            'kbk' => $this->kbk,
             'name' => $this->name,
             'law' => LawResource::make($this->law),
             'periodicity' => PaymentPeriodicityResource::make($this->periodicity),
