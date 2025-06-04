@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Law\StoreRequest;
 use App\Http\Requests\Glossary\Law\UpdateRequest;
 use App\Models\Glossary\PaymentLaw;
-use App\Models\Glossary\PaymentSource;
 use Inertia\Inertia;
 
 class LawController extends Controller
@@ -18,25 +17,11 @@ class LawController extends Controller
         return Inertia::render('glossary/laws/index', compact('laws'));
     }
 
-    public function create()
-    {
-        $sources = PaymentSource::all()->toResourceCollection();
-
-        return Inertia::render('glossary/laws/create', compact('sources'));
-    }
-
     public function store(StoreRequest $request)
     {
         PaymentLaw::create($request->only(['code', 'name', 'source_id']));
 
         return redirect()->route('glossary.laws.index')->with('message', 'Запись успешно создана');
-    }
-
-    public function edit()
-    {
-        $sources = PaymentSource::all()->toResourceCollection();
-
-        return Inertia::render('glossary/laws/edit', compact('sources'));
     }
 
     public function update(UpdateRequest $request, PaymentLaw $law)
