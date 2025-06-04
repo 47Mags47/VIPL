@@ -20,9 +20,9 @@ class KbbBankExporter extends CsvExporter
             return [
                 (int) $i + 1,
                 (string) implode(' ', [
-                    mb_strtoupper((string) $recipient->last_name),
-                    mb_strtoupper((string) $recipient->first_name),
-                    mb_strtoupper((string) $recipient->middle_name),
+                    (string) $recipient->last_name,
+                    (string) $recipient->first_name,
+                    (string) $recipient->middle_name,
                 ]),
                 (string) $recipient->d_rojd->format('d/m/Y'),
                 (string) 8,

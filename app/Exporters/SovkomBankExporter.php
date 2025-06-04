@@ -30,9 +30,9 @@ class SovkomBankExporter extends ExcelExporter
     {
         $data_array = $this->recipients->map(function ($recipient, $i) {
             return [
-                mb_strtoupper((string) $recipient->last_name),
-                mb_strtoupper((string) $recipient->first_name),
-                mb_strtoupper((string) $recipient->middle_name),
+                (string) $recipient->last_name,
+                (string) $recipient->first_name,
+                (string) $recipient->middle_name,
                 (string) $recipient->account,
                 (string) number_format($recipient->summ, 2, '.', ''),
                 (string) '47'

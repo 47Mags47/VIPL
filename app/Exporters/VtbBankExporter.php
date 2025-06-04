@@ -37,7 +37,7 @@ class VtbBankExporter extends Exporter
             fwrite($this->f, iconv('UTf-8', 'Windows-1251', "\n"));
             $account = (string) $recipient->account;
             $summ = (string) number_format($recipient->summ, 2, ',', '');
-            $fio = mb_strtoupper($recipient->last_name) . ' ' . mb_strtoupper($recipient->first_name) . ' ' . mb_strtoupper($recipient->middle_name);
+            $fio = $recipient->last_name . ' ' . $recipient->first_name . ' ' . $recipient->middle_name;
             $income_type = 2;
             $alert_type = 47;
             $content_line = "$account;$summ;$fio;;$income_type;;$alert_type";

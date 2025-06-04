@@ -26,9 +26,9 @@ class UralSibBankExporter extends Exporter
         foreach ($this->recipients as $i => $recipient) {
             $recipient_line = implode('', [
                 "\n",
-                mb_str_pad(mb_strtoupper($recipient->last_name), 20, ' '),
-                mb_str_pad(mb_strtoupper($recipient->first_name), 20, ' '),
-                mb_str_pad(mb_strtoupper($recipient->middle_name), 20, ' '),
+                mb_str_pad($recipient->last_name, 20, ' '),
+                mb_str_pad($recipient->first_name, 20, ' '),
+                mb_str_pad($recipient->middle_name, 20, ' '),
                 str_pad($recipient->account, 20, ' '),
                 str_pad((string) number_format($recipient->summ, 2, '.', ''), 12, ' ', STR_PAD_LEFT),
                 "10        0.002"

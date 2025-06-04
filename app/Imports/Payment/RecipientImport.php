@@ -34,7 +34,7 @@ class RecipientImport implements ToModel, WithValidation, WithCustomCsvSettings
             'file_id'       => $this->file->id,
 
             'last_name'     => $row[1] !== null ? mb_strtoupper($row[1]) : null,
-            'first_name'    => $row[2] !== null ? mb_strtoupper($row[2]) : null,
+            'first_name'    => mb_strtoupper($row[2]),
             'middle_name'   => $row[3] !== null ? mb_strtoupper($row[3]) : null,
             'd_rojd'        => $row[4] ?? null,
             'snils'         => $row[5] ?? null,
