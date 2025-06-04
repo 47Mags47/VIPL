@@ -5,7 +5,7 @@ import { router } from '@inertiajs/react'
 export default function Delete({ record }) {
     function onDeleteClick(record) {
         if (confirm("Вы уверены, что хотите удалить эту запись?")) {
-            router.delete(route('glossary.banks.delete', { bank: record.id }), {
+            router.delete(route('glossary.laws.delete', { law: record.id }), {
                 onSuccess: function (response) {
                     // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
                 },
@@ -15,7 +15,7 @@ export default function Delete({ record }) {
 
     return (
         <BaseButton type="button" onClick={() => onDeleteClick(record)}>
-            <i class="fa-solid fa-trash"></i>
+            <i className="fa-solid fa-trash"></i>
         </BaseButton>
     )
 }

@@ -1,16 +1,52 @@
+import { usePage } from "@inertiajs/react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-/* DEV
-    Таблица со списком подразделений
+import Table from "@/components/Table";
 
-    Предусмотреть возможность перехода в подразделение route(glossary.divisions.show)
-*/
+import Edit from "./Edit";
+import Create from "./Create";
+import Delete from "./Delete";
 
-export default function index({banks}) {
+
+export default function index() {
+    const banks = usePage().props.divisions.data
+
+    const columns = [
+        {
+            title: ' Код',
+            dataIndex: 'code',
+        },
+        {
+            title: 'Наименование',
+            dataIndex: 'name',
+        },
+        {
+            title: '',
+            key: 'edit',
+            render: (_, record) => (
+                <Edit record={record} />
+            )
+        },
+        {
+            title: '',
+            key: 'delete',
+            render: (_, record) => (
+                <Delete record={record} />
+            )
+        },
+    ];
 
     return (
         <AuthenticatedLayout>
-            <div>test react page</div>
+            <Table
+                rowKey="id"
+                columns={columns}
+                dataSource={banks}
+                actions={
+                    <Create />
+                }
+            />
         </AuthenticatedLayout>
     );
 }

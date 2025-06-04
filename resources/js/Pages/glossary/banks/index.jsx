@@ -1,10 +1,13 @@
+import { usePage } from "@inertiajs/react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
 import Table from "@/components/Table";
+
 import Edit from "./Edit";
 import Create from "./Create";
 import Delete from "./Delete";
 
-import { usePage } from "@inertiajs/react";
 
 export default function index() {
     const banks = usePage().props.banks.data

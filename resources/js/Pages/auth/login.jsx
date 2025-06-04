@@ -8,7 +8,6 @@ export default function Login() {
     function onSubmit(data) {
         router.post(route('session.store'), data, {
             onSuccess: function (response) {
-                console.log(response);
 
             //    if(response.status === 200){
             //     location.assign(response.data.redirect)
