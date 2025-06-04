@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 // HACK Не забыть прикрутить проверку на администратора
 // payment.package.index
 
-Route::middleware('auth')->prefix('/payment')->name('payment.')->group(function () {
+Route::middleware('auth')->prefix('/payments')->name('payments.')->group(function () {
     Route::prefix('/calendar')->name('calendar.')->controller(CalendarController::class)->group(function () {
         Route::get('/index', 'index')->name('index');
     });
