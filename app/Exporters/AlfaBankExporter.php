@@ -15,11 +15,13 @@ class AlfaBankExporter extends ExcelExporter
         parent::__construct(...func_get_args());
 
         $division_inn = $this->bank->contract->division->INN;
-        $division_name = $this->bank->contract->division->name;
         $payment_code = $this->event->payment->code;
 
-        $this->setFileName($division_inn . '_' . str_replace(' ', '', $division_name) . '_' . $payment_code . '_' . substr($this->raport_npp, 2, 3) . '.xls');
-        $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('local')->path('templates/payment_raport_alfabank.xls'));
+        preg_match_all("/[а-яА-Яa-zA-Z]/", $this->bank->contract->division->name, $division_name);
+        $division_name = mb_strtoupper(implode('', (array) $division_name[0]));
+
+        $this->setFileName($division_inn . '_' . $division_name . '_' . $payment_code . '_' . substr($this->raport_npp, 2, 3) . '.xls');
+        $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_alfabank.xls'));
     }
 
     public function save(): AlfaBankExporter

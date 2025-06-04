@@ -52,22 +52,15 @@ return [
             'host' => env('FTP_HOST'),
             'username' => env('FTP_USERNAME'),
             'password' => env('FTP_PASSWORD'),
-
-            // Optional FTP Settings...
-            // 'port' => env('FTP_PORT', 21),
-            // 'root' => env('FTP_ROOT'),
-            // 'passive' => true,
-            // 'ssl' => true,
-            // 'timeout' => 30,
         ],
 
-        // 'tmp' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/private/tmp'),
-        //     'serve' => true,
-        //     'throw' => false,
-        //     'report' => false,
-        // ],
+        'templates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/templates'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
 
         'docs' => [
             'driver' => 'local',
