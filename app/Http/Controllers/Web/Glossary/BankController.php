@@ -19,16 +19,10 @@ class BankController extends Controller
     public function index(Request $request, BankFilter $filter)
     {
         $banks = Bank::filter($filter)->paginate(50)->toResourceCollection();
-
-        return Inertia::render('glossary/banks/index', compact('banks'));
-    }
-
-    public function create()
-    {
         $exporters = BankExporter::paginate(50)->toResourceCollection();
         $division_sides = ContractSide::where('type_id', ContractSideType::byCode('division')->id)->paginate(50)->toResourceCollection();
 
-        return Inertia::render('glossary/banks/create', compact('exporters', 'division_sides'));
+        return Inertia::render('glossary/banks/index', compact('banks', 'exporters', 'division_sides'));
     }
 
     public function store(StoreRequest $request)
@@ -57,19 +51,7 @@ class BankController extends Controller
             'contract_id'   => $contract->id,
         ]);
 
-        return to_route('glossary.banks.index');
-    }
-
-    public function edit(Bank $bank)
-    {
-        $exporters = BankExporter::paginate(50)->toResourceCollection();
-        $division_sides = ContractSide::where('type_id', ContractSideType::byCode('division')->id)->paginate(50)->toResourceCollection();
-
-        return Inertia::render('glossary/banks/edit', [
-            'bank' => $bank->toResource(),
-            'exporters' => $exporters,
-            'division_sides' => $division_sides,
-        ]);
+        return redirect()->route('glossary.banks.index')->with('message', 'Запись успешно добавлена');
     }
 
     public function update(UpdateRequest $request, Bank $bank)
@@ -80,7 +62,6 @@ class BankController extends Controller
             'account' => $request->input('bank_side.account'),
             'BIK'     => $request->input('bank_side.BIK'),
             'comment' => $request->input('bank_side.comment'),
-            'type_id' => ContractSideType::byCode('bank')->id,
         ]);
 
         $bank->contract->update([
@@ -96,13 +77,13 @@ class BankController extends Controller
             'exporter_id'   => $request->input('bank.exporter_id'),
         ]);
 
-        return to_route('glossary.banks.index');
+        return redirect()->route('glossary.banks.index')->with('message', 'Запись успешно обновлена');
     }
 
     public function delete(Bank $bank)
     {
         $bank->delete();
 
-        return to_route('glossary.banks.index');
+        return redirect()->route('glossary.banks.index')->with('message', 'Запись удалена');
     }
 }

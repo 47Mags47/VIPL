@@ -1,6 +1,6 @@
-export default function BaseButton({type, className, children, onClick}) {
+export default function BaseButton({type, className, children, onClick, form}) {
     return (
-        <button type={type} className={'button ' + className} onClick={onClick}>
+        <button type={type} form={form} className={'button ' + className} onClick={onClick}>
             {children}
         </button>
     )

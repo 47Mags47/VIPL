@@ -1,39 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BaseButton from './BaseButton'
 import { Modal } from 'antd'
 
-export default function ModalButton({ children, buttonText, okHandle, closeHandle, openHandler, okText, cancelText }) {
+export default function ModalButton({
+    open,
+    children,
+    buttonText,
+    buttonClickHandler,
+    okHandler,
+    cancelHandler,
+    changeState,
+    footer
+}) {
+    const [modalShow, changeModalShow] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(() => {
+        changeModalShow(open)
+    }, [open])
 
-    function open() {
-        setIsModalOpen(true);
-        if (openHandler !== undefined) openHandler()
-    }
+    buttonClickHandler = buttonClickHandler ?? (() => {
+        changeModalShow(true)
+        changeState(true)
+    })
 
-    function onCancel(handle) {
-        setIsModalOpen(false);
-        if (closeHandle !== undefined) closeHandle()
-    }
+    okHandler = okHandler ?? (() => {
+        changeModalShow(false)
+        changeState(false)
+    })
 
-    function onOk(handle) {
-        if (okHandle !== undefined) okHandle()
-    }
+    cancelHandler = cancelHandler ?? (() => {
+        changeModalShow(false)
+        changeState(false)
+    })
 
     return (
         <>
-            <BaseButton onClick={open}>{buttonText}</BaseButton>
+            <BaseButton onClick={buttonClickHandler}>{buttonText}</BaseButton>
 
             <Modal
-                open={isModalOpen} //bool
-
-                onOk={onOk} // fn
-                onCancel={onCancel} // fn
-
-                okText={okText} // str
-                cancelText={cancelText} //str
-
-                destroyOnHidden={true} //bool
+                open={modalShow}
+                onOk={okHandler}
+                onCancel={cancelHandler}
+                destroyOnHidden={true}
+                footer={footer}
             >
                 {children}
             </Modal>

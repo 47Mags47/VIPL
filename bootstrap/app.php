@@ -19,5 +19,14 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // HACK Починить переадресацию в случае устаревания страницы
+        // $exceptions->respond(function (Response $response) {
+        // if ($response->getStatusCode() === 419) {
+        //     return back()->with([
+        //         'message' => 'Страница устарела. Попробуйте еще раз',
+        //     ]);
+        // }
+
+        // return $response;
+    // });
     })->create();

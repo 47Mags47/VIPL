@@ -1,6 +1,6 @@
 import { usePage } from "@inertiajs/react"
 
-export default function Error({ name, error }) {
+export default function Error({ name }) {
     const { errors } = usePage().props
 
     if(name.includes('['))

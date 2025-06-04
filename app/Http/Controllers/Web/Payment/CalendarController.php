@@ -7,7 +7,7 @@ use App\Http\Requests\Payment\CalendarRequest;
 use App\Jobs\Payment\GenerateEvents;
 use App\Models\Payment\Event;
 use Carbon\CarbonImmutable;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CalendarController extends Controller
 {
@@ -31,7 +31,7 @@ class CalendarController extends Controller
                 return $week->map(function ($date) use ($month) {
                     return collect([$date->format('d.m') => [
                         'current_month' => (int) $month === $date->month,
-                        'events' => Event::byDate($date)
+                        'events' => Event::byDate($date)->toResourceCollection(),
                     ]]);
                 })->collapse();
             });
@@ -46,6 +46,6 @@ class CalendarController extends Controller
             'next_year' => $start_month->addMonth(1)->year,
         ];
 
-        return view('pages.payment.calendar.index', compact('weeks', 'info'));
+        return Inertia::render('payment/calendar/index', compact('weeks', 'info'));
     }
 }
