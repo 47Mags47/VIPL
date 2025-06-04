@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:50',
-                'unique:' . Law::getTableName() . ',code'
+                'unique:' . Law::class . ',code'
             ],
             'name' => [
                 'required',
@@ -37,7 +37,7 @@ class StoreRequest extends FormRequest
             ],
             'source_id' => [
                 'required',
-                'exists:' . Source::getTableName() . ',id'
+                'exists:' . Source::class . ',id'
             ]
         ];
     }
