@@ -37,7 +37,7 @@ class CalendarController extends Controller
             });
 
         $info = [
-            'current_month_string' => $start_month->translatedFormat('M Y'),
+            'current_month_string' => $start_month->translatedFormat('F Y'),
             'current_month' => $month,
             'current_year' => $year,
             'previus_month' => $start_month->addMonth(-1)->month,

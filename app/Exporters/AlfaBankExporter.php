@@ -28,9 +28,9 @@ class AlfaBankExporter extends ExcelExporter
             ->getSheetByName('Реестр')
             ->setCellValue('D6', 'Реестр №' . $this->event->date->format('m/d'))
             ->setCellValue('B11', 'ИНН ' . $this->bank->contract->division->INN . ' БИК ' . $this->bank->contract->division->BIK . ' к/с № ' . $this->bank->contract->division->account)
-            ->setCellValue('B12', 'за ' . $this->event->date->translatedFormat('M Y') . ' г.')
-            ->setCellValue('B13', 'согласно платежному поручению № ' . $this->raport_npp . ' от ' . $this->event->date->translatedFormat('«d» M Y ') . ' года')
-            ->setCellValue('E15', $this->event->date->translatedFormat('«d» M Y год'))
+            ->setCellValue('B12', 'за ' . $this->event->date->translatedFormat('F Y') . ' г.')
+            ->setCellValue('B13', 'согласно платежному поручению № ' . $this->raport_npp . ' от ' . $this->event->date->translatedFormat('«d» F Y ') . ' года')
+            ->setCellValue('E15', $this->event->date->translatedFormat('«d» F Y год'))
             ->setCellValue('B20', 'Итого: ' . $this->recipients->count() . ' количество перечислений ')
             ->setCellValue('B21', $this->recipients->count() . ' количество Работников')
             ->setCellValue('B22', number_format($this->recipients->sum('summ'), 2, '.', '') . ' общая сумма перечислений');
