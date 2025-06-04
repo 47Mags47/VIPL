@@ -20,7 +20,7 @@ abstract class Exporter
 
     public function __construct(public Bank $bank, public Event $event)
     {
-        $raports_last_year = Raport::whereBetween('created_at', [now()->addYear(-1), now()])->get();
+        $raports_last_year = Raport::where('comment', 'Отчет в банк ' . $this->bank->name)->whereBetween('created_at', [now()->addYear(-1), now()])->get();
         $this->raport_npp = str_pad((string) $raports_last_year->count() + 1, 5, '0', STR_PAD_LEFT);
     }
 
@@ -85,7 +85,7 @@ abstract class Exporter
             'path' => $this->save_path,
             'name' => $this->file_name,
             'comment' => 'Отчет в банк ' . $this->bank->name,
-            'start_by' => $this->startBy
+            'start_by' => $this->startBy,
         ]);
 
         return $this;
