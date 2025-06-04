@@ -66,10 +66,8 @@ Route::prefix('/glossary')->name('glossary.')->group(function () {
 
     Route::prefix('/divisions')->controller(DivisionController::class)->name('divisions.')->group(function () {
         Route::get('/index', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::prefix('/{division}')->group(function () {
-            Route::get('/edit', 'edit')->name('edit');
             Route::put('/update', 'update')->name('update');
             Route::delete('/delete', 'delete')->name('delete');
         });

@@ -19,21 +19,11 @@ class DivisionController extends Controller
         return Inertia::render('glossary/divisions/index', compact('divisions'));
     }
 
-    public function create()
-    {
-        return Inertia::render('glossary/divisions/create');
-    }
-
     public function store(StoreRequest $request)
     {
         Division::create($request->only(['code', 'name']));
 
         return redirect()->route('glossary.divisions.index')->with('message', 'Запись успешно создана');
-    }
-
-    public function edit(Division $division)
-    {
-        return Inertia::render('glossary/divisions/index', ['division' => $division->toResource()]);
     }
 
     public function update(UpdateRequest $request, Division $division)

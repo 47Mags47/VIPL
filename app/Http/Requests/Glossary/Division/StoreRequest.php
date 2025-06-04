@@ -23,8 +23,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'min:3', 'max:5', 'unique:' . Division::getTableName() . ',code'],
-            'name' => ['required', 'string', 'min:3', 'max:255', 'unique:' . Division::getTableName() . ',name']
+            'code' => ['required', 'string', 'min:3', 'max:5', 'unique:' . Division::class . ',code'],
+            'name' => ['required', 'string', 'min:3', 'max:255', 'unique:' . Division::class . ',name']
         ];
     }
 }

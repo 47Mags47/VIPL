@@ -23,8 +23,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'min:3', 'max:5', 'unique:' . Division::getTableName() . ',code,' . $this->code],
-            'name' => ['required', 'string', 'min:3', 'max:255', 'unique:' . Division::getTableName() . ',name,' . $this->name]
+            'code' => ['required', 'string', 'min:3', 'max:5', 'unique:' . Division::class . ',code,' . $this->route('division')->id],
+            'name' => ['required', 'string', 'min:3', 'max:255', 'unique:' . Division::class . ',name,' . $this->route('division')->id]
         ];
     }
 }
