@@ -8,6 +8,7 @@ use App\Http\Requests\Glossary\Payment\StoreRequest;
 use App\Http\Requests\Glossary\Payment\UpdateRequest;
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Payment;
+use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,7 +20,7 @@ class PaymentController extends Controller
         $laws = Law::paginate(50)->toResourceCollection();
         $periodicityes = PaymentPeriodicity::paginate(50)->toResourceCollection();
 
-        return Inertia::render('glossary/payments/index', compact('payments'));
+        return Inertia::render('glossary/payments/index', compact('payments', 'laws', 'periodicityes'));
     }
 
     public function store(StoreRequest $request)
