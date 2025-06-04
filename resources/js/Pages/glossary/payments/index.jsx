@@ -1,12 +1,61 @@
+import { usePage } from "@inertiajs/react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-export default function index({banks}) {
-    /* DEV
-    Таблица со списком выплат
-    */
+import Table from "@/components/Table";
+
+import Edit from "./Edit";
+import Create from "./Create";
+import Delete from "./Delete";
+
+
+export default function index() {
+    const payments = usePage().props.payments.data
+
+
+     const columns = [
+        {
+            title: 'Код',
+            dataIndex: 'code',
+        },
+        {
+            title: 'Наименование',
+            dataIndex: 'name',
+        },
+                {
+            title: 'Закон',
+            dataIndex: ['law', 'name'],
+        },
+        {
+            title: 'Периодичность',
+            dataIndex: ['periodicity', 'name'],
+        },
+        {
+            title: '',
+            key: 'edit',
+            render: (_, record) => (
+                <Edit record={record} />
+            )
+        },
+        {
+            title: '',
+            key: 'delete',
+            render: (_, record) => (
+                <Delete record={record} />
+            )
+        },
+    ];
+
     return (
         <AuthenticatedLayout>
-            <div>test react page</div>
+            <Table
+                rowKey="code"
+                columns={columns}
+                dataSource={payments}
+                actions={
+                     <Create />
+                }
+            />
         </AuthenticatedLayout>
     );
 }

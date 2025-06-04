@@ -1,9 +1,13 @@
+import { useState } from 'react';
+import { router } from '@inertiajs/react'
+
 import VerticalForm from '@/components/form/VerticalForm';
+
 import Input from "@/components/inputs/Input"
 import TextArea from "@/components/inputs/TextArea"
 import ModalButton from "@/components/button/ModalButton";
-import { useState, useRef } from 'react';
-import { router } from '@inertiajs/react'
+import BaseButton from '@/components/button/BaseButton';
+import handleChange from '@/handles/input/handleChange';
 
 
 /* DEV форма создания банка
@@ -26,42 +30,40 @@ import { router } from '@inertiajs/react'
     - bank_side[comment]            Комментарий             => string|null, длиной до 255 символов
 */
 
-export default function Create({ record }) {
-    const formRef = useRef();
-    const modalRef = useRef();
+export default function Create() {
+    const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
-        // 'bank[number_code]': record.number_code,
-        // 'bank[code]': record.code,
-        // 'bank[name]': record.name,
-        // 'bank[exporter_id]': record.exporter.id,
-        // 'contract[number]': record.contract.number,
-        // 'contract[signed_at]': record.contract.signed_at,
-        // 'contract[division_side_id]': 1,
-        // 'bank_side[name]': record.name,
-        // 'bank_side[INN]': record.contract.division_side.INN,
-        // 'bank_side[BIK]': record.contract.division_side.BIK,
-        // 'bank_side[account]': record.contract.division_side.account,
-        // 'bank_side[comment]': record.contract.division_side.comment,
+        bank: {
+            number_code: '',
+            code: '',
+            name: '',
+            exporter_id: '',
+        },
+        contract: {
+            number: '',
+            signed_at: '',
+            division_side_id: '',
+        },
+        bank_side: {
+            name: '',
+            INN: '',
+            BIK: '',
+            account: '',
+            comment: '',
+        },
     });
 
-    function handleChange(e) {
-        const key = e.target.name;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
-
+    function changeAddState(state) {
+        changeModalShow(state);
     }
 
-    function onOkEditModal() {
-        formRef.current.requestSubmit()
-    }
+    function onAddSubmit(e) {
+        e.preventDefault()
 
-    function onAdd(data) {
-        router.post(route('glossary.banks.create', { bank: record.id }), data, {
-            onSuccess: function (response) {
-                
+        router.post(route('glossary.banks.store'), values, {
+            onSuccess: function () {
+                changeModalShow(false)
+                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }
@@ -69,97 +71,102 @@ export default function Create({ record }) {
 
     return (
         <ModalButton
+            open={modalShow}
+            changeState={changeAddState}
             buttonText="Добавить"
-            okHandle={onOkEditModal}
-            ref={modalRef}
+            footer={
+                <BaseButton type="submit" form="glossary-bank-add-form">Добавить</BaseButton>
+            }
         >
             <VerticalForm
-                ref={formRef}
                 header={'Добавить'}
-                onSubmit={onAdd}
-                method="GET"
+                handleSubmit={onAddSubmit}
+                id="glossary-bank-add-form"
             >
                 <Input
                     type={"number"}
                     name={"bank[number_code]"}
                     label={"Числовой код"}
+                    value={values.bank.number_code}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="text"
                     name="bank[code]"
                     label="Строковый код"
-                    inputValue={values['bank[code]']}
-                    onChange={handleChange}
+                    value={values.bank.code}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="text"
                     name="bank[name]"
                     label="Наименование"
-                    inputValue={values['bank[name]']}
-                    onChange={handleChange}
+                    value={values.bank.name}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV Изменить на SELECT жду ответа от back`a
+                <Input //[ ] front Изменить на SELECT (exporters)
                     type="text"
                     name="bank[exporter_id]"
                     label="Экспортер"
-                    inputValue={values['bank[exporter_id]']}
-                    onChange={handleChange}
+                    value={values.bank.exporter_id}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="text"
                     name="contract[number]"
                     label="Номер контракта"
-                    inputValue={values['contract[number]']}
-                    onChange={handleChange}
+                    value={values.contract.number}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="date"
                     name="contract[signed_at]"
                     label="Дата заключения"
-                    inputValue={values['contract[signed_at]']}
-                    onChange={handleChange}
+                    value={values.contract.signed_at}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV Изменить на SELECT жду ответа от back`a
+                <Input //[ ] front Изменить на SELECT (division_sides)
                     type="text"
                     name="contract[division_side_id]"
                     label="Сторона организации"
-                    inputValue={1} //record.contract.division_side.name
-                    onChange={handleChange}
+                    value={values.contract.division_side_id}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="text"
                     name="bank_side[name]"
                     label="Наименование"
-                    inputValue={values['bank_side[name]']}
-                    onChange={handleChange}
+                    value={values.bank_side.name}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="text"
                     name="bank_side[INN]"
                     label="ИНН"
-                    inputValue={values['bank_side[INN]']}
-                    onChange={handleChange}
+                    value={values.bank_side.INN}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="number"
                     name="bank_side[account]"
                     label="Счет"
-                    inputValue={values['bank_side[account]']}
-                    onChange={handleChange}
+                    value={values.bank_side.account}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input
                     type="number"
                     name="bank_side[BIK]"
                     label="БИК"
-                    inputValue={values['bank_side[BIK]']}
-                    onChange={handleChange}
+                    value={values.bank_side.BIK}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <TextArea
-                    name="bank_side[comment]"
+                    name="bank_side.comment"
                     label="Комментарий"
                     rows={9}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
                 >
-                    {values['bank_side[comment]']}
+                    {values.bank_side.comment}
                 </TextArea>
             </VerticalForm>
         </ModalButton>

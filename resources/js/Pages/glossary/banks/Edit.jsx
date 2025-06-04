@@ -1,12 +1,14 @@
+import { useState } from 'react';
+import { router } from '@inertiajs/react'
+
 import VerticalForm from '@/components/form/VerticalForm';
+
 import Input from "@/components/inputs/Input"
 import TextArea from "@/components/inputs/TextArea"
 import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
 
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
 
 export default function Edit({ record }) {
     const [modalShow, changeModalShow] = useState(false)

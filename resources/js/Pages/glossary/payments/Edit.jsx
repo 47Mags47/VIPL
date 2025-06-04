@@ -8,15 +8,21 @@ import VerticalForm from '@/components/form/VerticalForm';
 import Input from "@/components/inputs/Input"
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
+import TextArea from 'antd/es/input/TextArea';
 
 
 export default function Edit({ record }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         code: record.code,
+        krv: record.krv,
         name: record.name,
-        source:{
-            id: record.source.id,
+        kbk: record.kbk,
+        periodicity: {
+            id: record.periodicity.id,
+        },
+        law: {
+            id: record.law.id,
         }
     });
 
@@ -27,7 +33,7 @@ export default function Edit({ record }) {
     function onEditSubmit(e) {
         e.preventDefault()
 
-        router.put(route('glossary.laws.update', { law: record.id }), values, {
+        router.put(route('glossary.payments.update', { payment: record.id }), values, {
             onSuccess: function () {
                 changeModalShow(false)
                 // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
@@ -41,13 +47,13 @@ export default function Edit({ record }) {
             changeState={changeEditState}
             buttonText="Редактировать"
             footer={
-                <BaseButton type="submit" form="glossary-laws-edit-form">Отправить</BaseButton>
+                <BaseButton type="submit" form="glossary-payments-edit-form">Отправить</BaseButton>
             }
         >
             <VerticalForm
                 header={'Редактировать'}
                 handleSubmit={onEditSubmit}
-                id="glossary-laws-edit-form"
+                id="glossary-payments-edit-form"
             >
                 <Input
                     type="text"
@@ -65,9 +71,16 @@ export default function Edit({ record }) {
                 />
                 <Input //DEV заменить на SELECT
                     type="number"
-                    name="source_id"
-                    label="Вид финансирования"
-                    value={values.source.id}
+                    name="law_id"
+                    label="Переодичность"
+                    value={values.law.id}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input //DEV заменить на SELECT
+                    type="number"
+                    name="periodicity_id"
+                    label="Переодичность"
+                    value={values.periodicity.id}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
             </VerticalForm>

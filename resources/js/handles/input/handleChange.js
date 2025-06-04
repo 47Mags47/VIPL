@@ -5,4 +5,5 @@ export default function handleChange(e, values, setValues) {
     Object.change(newValues, name.replace('[', '.').replace(']', ''), value)
 
     setValues({ ...newValues })
+        
 }

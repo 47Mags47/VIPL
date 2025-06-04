@@ -16,6 +16,8 @@ export default function Edit({ record }) {
         code: record.code,
         name: record.name,
     });
+    console.log(values.code);
+
 
     function changeEditState(state) {
         changeModalShow(state);
@@ -48,7 +50,7 @@ export default function Edit({ record }) {
                 id="glossary-divisions-edit-form"
             >
                 <Input
-                    type="number"
+                    type="text"
                     name="code"
                     label="Код"
                     value={values.code}

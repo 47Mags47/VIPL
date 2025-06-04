@@ -4,13 +4,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import Table from "@/components/Table";
 
-// import Edit from "./Edit";
-// import Create from "./Create";
-// import Delete from "./Delete";
+import Edit from "./Edit";
+import Create from "./Create";
+import Delete from "./Delete";
 
 
 export default function index() {
-    // const banks = usePage().props.laws.data
+    const laws = usePage().props.laws.data
+
 
      const columns = [
         {
@@ -23,22 +24,22 @@ export default function index() {
         },
              {
             title: 'Вид финансирования',
-            dataIndex: 'source_id',
+            dataIndex: ['source','name'],
         },
-        // {
-        //     title: '',
-        //     key: 'edit',
-        //     render: (_, record) => (
-        //         <Edit record={record} />
-        //     )
-        // },
-        // {
-        //     title: '',
-        //     key: 'delete',
-        //     render: (_, record) => (
-        //         <Delete record={record} />
-        //     )
-        // },
+        {
+            title: '',
+            key: 'edit',
+            render: (_, record) => (
+                <Edit record={record} />
+            )
+        },
+        {
+            title: '',
+            key: 'delete',
+            render: (_, record) => (
+                <Delete record={record} />
+            )
+        },
     ];
 
     return (
@@ -46,10 +47,10 @@ export default function index() {
             <Table
                 rowKey="id"
                 columns={columns}
-                // dataSource={banks}
-                // actions={
-                     // <Create />
-                // }
+                dataSource={laws}
+                actions={
+                     <Create />
+                }
             />
         </AuthenticatedLayout>
     );

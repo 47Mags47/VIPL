@@ -1,18 +1,26 @@
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
+
 import GuestLayout from '@/Layouts/GuestLayout';
+
 import VerticalForm from '@/components/form/VerticalForm';
 import Input from "@/components/inputs/Input"
-import { router } from '@inertiajs/react';
+import handleChange from '@/handles/input/handleChange';
+
 
 export default function Login() {
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+    })
 
-    function onSubmit(data) {
-        router.post(route('session.store'), data, {
+    function onSubmit(e) {
+        e.preventDefault()
+        router.post(route('session.store'), values, {
             onSuccess: function (response) {
-
-            //    if(response.status === 200){
-            //     location.assign(response.data.redirect)
-            //    }
-            }
+                console.log(12312);
+                
+            },
         })
     }
 
@@ -20,12 +28,22 @@ export default function Login() {
         <GuestLayout>
             <VerticalForm
                 header="Войти в систему"
-                onSubmit={onSubmit}
-                method="POST"
+                handleSubmit={onSubmit}
                 sbm="Войти"
             >
-                <Input type="email" name="email" label="Email" />
-                <Input type="password" name="password" label="Пароль" />
+                <Input
+                    type="email"
+                    name="email"
+                    label="Email"
+                    value={values.email}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    label="Пароль" onChange={(e) => { handleChange(e, values, setValues) }}
+                />
             </VerticalForm>
         </GuestLayout>
     )

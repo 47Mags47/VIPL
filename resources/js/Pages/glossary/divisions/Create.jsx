@@ -1,20 +1,71 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { useState } from 'react';
+import { router } from '@inertiajs/react'
 
-/* DEV форма создания подразделения
-    Форма отправляет POST запрос на route('glossary.divisions.store)
+import VerticalForm from '@/components/form/VerticalForm';
 
-    Требуемые данные:
-    - code      Числовой код    => string, формата ###, где # - число
-    - name      Строковый код   => string, длиной до 255 символов
-*/
+import Input from "@/components/inputs/Input"
+import ModalButton from "@/components/button/ModalButton";
+import BaseButton from '@/components/button/BaseButton';
+import handleChange from '@/handles/input/handleChange';
 
-export default function create(
 
-) {
+export default function Create() {
+    const [modalShow, changeModalShow] = useState(false)
+    const [values, setValues] = useState({
+        code: '',
+        name: '',
+    });
+
+    function changeAddState(state) {
+        changeModalShow(state);
+    }
+
+    function onAddSubmit(e) {
+        e.preventDefault()
+
+        router.post(route('glossary.divisions.store'), values, {
+            onSuccess: function () {
+                changeModalShow(false)
+                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
+            },
+        })
+    }
+
+
     return (
-        <AuthenticatedLayout>
-            <div>test react page</div>
-        </AuthenticatedLayout>
+        <ModalButton
+            open={modalShow}
+            changeState={changeAddState}
+            buttonText="Добавить"
+            footer={
+                <BaseButton type="submit" form="glossary-divisions-add-form">Добавить</BaseButton>
+            }
+        >
+            <VerticalForm
+                header={'Добавить'}
+                handleSubmit={onAddSubmit}
+                id="glossary-divisions-add-form"
+            >
+                <Input
+                    type="text"
+                    name="code"
+                    label="Код"
+                    value={values.code}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input
+                    type="text"
+                    name="name"
+                    label="Наименование"
+                    value={values.name}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+            </VerticalForm>
+        </ModalButton>
     );
 
 }
+
+
+
+

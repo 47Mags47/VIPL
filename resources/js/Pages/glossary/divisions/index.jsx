@@ -10,7 +10,7 @@ import Delete from "./Delete";
 
 
 export default function index() {
-    const banks = usePage().props.divisions.data
+    const divisions = usePage().props.divisions.data
 
     const columns = [
         {
@@ -42,7 +42,7 @@ export default function index() {
             <Table
                 rowKey="id"
                 columns={columns}
-                dataSource={banks}
+                dataSource={divisions}
                 actions={
                     <Create />
                 }

@@ -17,9 +17,7 @@ export default function create(
 
 ) {
     return (
-        <AuthenticatedLayout>
-            <div>test react page</div>
-        </AuthenticatedLayout>
+        <div>test react page</div>
     );
 
 }

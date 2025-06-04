@@ -1,6 +1,6 @@
-import Error from "@/components//Error"
+import Error from "@/components/Error"
 
-export default function GroupComponent({ name, children, label, error }) {
+export default function GroupComponent({ name, children, label }) {
     return (
         <div className="form-group">
             <label htmlFor={name}>{label}</label>
