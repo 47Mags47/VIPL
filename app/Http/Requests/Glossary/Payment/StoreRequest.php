@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return user()->hasPermission('glossary-payment-create');
+        return true;
     }
 
     /**
@@ -30,18 +30,18 @@ class StoreRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:10',
-                'unique:' . Payment::getTableName() . ',code'
+                'unique:' . Payment::class . ',code'
             ],
             'name'  => [
                 'required',
                 'string',
-                'unique:' . Payment::getTableName() . ',name'
+                'unique:' . Payment::class . ',name'
             ],
             'krv'   => [
                 'required',
                 'string',
                 'max:255',
-                'unique:' . Payment::getTableName() . ',krv'
+                'unique:' . Payment::class . ',krv'
             ],
             'kbk'   => [
                 'required',
@@ -49,15 +49,15 @@ class StoreRequest extends FormRequest
                 'min:24',
                 'max:24',
                 'regex:[0-9]{3} [0-9]{4} [0-9]{5} [0-9]{5} [0-9]{3}',
-                'unique:' . Payment::getTableName() . ',kbk'
+                'unique:' . Payment::class . ',kbk'
             ],
             'law_id' => [
                 'required',
-                'exists:' . Law::getTableName() . ',id'
+                'exists:' . Law::class . ',id'
             ],
             'periodicity_id' => [
                 'required',
-                'exists:' . PaymentPeriodicity::getTableName() . ',id'
+                'exists:' . PaymentPeriodicity::class . ',id'
             ],
         ];
     }

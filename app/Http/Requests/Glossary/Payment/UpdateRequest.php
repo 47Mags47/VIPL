@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return user()->hasPermission('glossary-payment-update');
+        return true;
     }
 
     /**
@@ -30,18 +30,18 @@ class UpdateRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:10',
-                'unique:' . Payment::getTableName() . ',code,' . $this->code
+                'unique:' . Payment::class . ',code,' . $this->route('payment')->id
             ],
             'name'  => [
                 'required',
                 'string',
-                'unique:' . Payment::getTableName() . ',name,' . $this->name
+                'unique:' . Payment::class . ',name,' . $this->route('payment')->id
             ],
             'krv'   => [
                 'required',
                 'string',
                 'max:255',
-                'unique:' . Payment::getTableName() . ',krv,' . $this->krv
+                'unique:' . Payment::class . ',krv,' . $this->route('payment')->id
             ],
             'kbk'   => [
                 'required',
@@ -49,15 +49,15 @@ class UpdateRequest extends FormRequest
                 'min:24',
                 'max:24',
                 'regex:[0-9]{3} [0-9]{4} [0-9]{5} [0-9]{5} [0-9]{3}',
-                'unique:' . Payment::getTableName() . ',kbk,' . $this->kbk
+                'unique:' . Payment::class . ',kbk,' . $this->route('payment')->id
             ],
             'law_id'   => [
                 'required',
-                'exists:' . Law::getTableName() . ',id'
+                'exists:' . Law::class . ',id'
             ],
             'periodicity_id' => [
                 'required',
-                'exists:' . PaymentPeriodicity::getTableName() . ',id'
+                'exists:' . PaymentPeriodicity::class . ',id'
             ],
         ];
     }
