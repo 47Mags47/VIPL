@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Glossary\Law;
 
-use App\Models\Glossary\PaymentLaw;
-use App\Models\Glossary\PaymentSource;
+use App\Models\Glossary\Law;
+use App\Models\Glossary\Source;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:50',
-                'unique:' . PaymentLaw::getTableName() . ',code'
+                'unique:' . Law::getTableName() . ',code'
             ],
             'name' => [
                 'required',
@@ -37,7 +37,7 @@ class StoreRequest extends FormRequest
             ],
             'source_id' => [
                 'required',
-                'exists:' . PaymentSource::getTableName() . ',id'
+                'exists:' . Source::getTableName() . ',id'
             ]
         ];
     }

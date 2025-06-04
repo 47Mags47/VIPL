@@ -8,13 +8,13 @@ use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PaymentLaw extends Model
+class Law extends Model
 {
     use Named, hasCode, HasLog;
 
     ### Настройки
     ##################################################
-    protected $table = 'glossary__payment_laws';
+    protected $table = 'glossary__laws';
 
     protected $fillable = [
         'code',
@@ -26,6 +26,6 @@ class PaymentLaw extends Model
     ##################################################
     public function source():BelongsTo
     {
-        return $this->belongsTo(PaymentSource::class, 'source_id');
+        return $this->belongsTo(Source::class, 'source_id');
     }
 }

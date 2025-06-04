@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Glossary\Payment;
 
 use App\Models\Glossary\Payment;
-use App\Models\Glossary\PaymentLaw;
+use App\Models\Glossary\Law;
 use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -53,7 +53,7 @@ class UpdateRequest extends FormRequest
             ],
             'law_id'   => [
                 'required',
-                'exists:' . PaymentLaw::getTableName() . ',id'
+                'exists:' . Law::getTableName() . ',id'
             ],
             'periodicity_id' => [
                 'required',

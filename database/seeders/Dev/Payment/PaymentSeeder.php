@@ -3,7 +3,7 @@
 namespace Database\Seeders\Dev\Payment;
 
 use App\Models\Glossary\Payment;
-use App\Models\Glossary\PaymentLaw;
+use App\Models\Glossary\Law;
 use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,7 +23,7 @@ class PaymentSeeder extends Seeder
                 'name' => 'Выплата № '. str_pad("$i", 3, "0", STR_PAD_LEFT),
                 'krv' => 'Выплата № '. str_pad("$i", 3, "0", STR_PAD_LEFT),
                 'kbk' => $faker->numerify('888 1003 0240###### ###'),
-                'law_id' => PaymentLaw::all()->random()->id,
+                'law_id' => Law::all()->random()->id,
                 'periodicity_id' => PaymentPeriodicity::all()->random()->id,
             ]);
         }

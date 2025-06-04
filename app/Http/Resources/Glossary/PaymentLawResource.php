@@ -5,7 +5,7 @@ namespace App\Http\Resources\Glossary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PaymentLawResource extends JsonResource
+class LawResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class PaymentLawResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
-            'source' => PaymentSourceResource::make($this->source),
+            'source' => SourceResource::make($this->source),
         ];
     }
 }

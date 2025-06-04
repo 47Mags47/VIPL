@@ -46,7 +46,7 @@ class Payment extends Model
 
     public function law():BelongsTo
     {
-        return $this->belongsTo(PaymentLaw::class, 'law_id');
+        return $this->belongsTo(Law::class, 'law_id');
     }
 
     public function events() :HasMany{

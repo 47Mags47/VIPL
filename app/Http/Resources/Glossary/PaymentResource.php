@@ -17,7 +17,7 @@ class PaymentResource extends JsonResource
         return [
             'code' => $this->code,
             'name' => $this->name,
-            'law' => PaymentLawResource::make($this->law),
+            'law' => LawResource::make($this->law),
             'periodicity' => PaymentPeriodicityResource::make($this->periodicity),
         ];
     }
