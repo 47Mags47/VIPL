@@ -25,20 +25,23 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bank.number_code'          => ['required', 'string', 'min:3', 'max:3', 'unique:' . Bank::getTableName() . ',number_code'],
-            'bank.code'                 => ['required', 'string', 'min:3', 'max:10', 'unique:' . Bank::getTableName() . ',code'],
-            'bank.name'                 => ['required', 'string', 'min:3', 'max:255', 'unique:' . Bank::getTableName() . ',name'],
-            'bank.exporter_id'          => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
+            'bank'                        => ['array:number_code,code,name,exporter_id'],
+            'bank.number_code'            => ['required', 'string', 'min:3', 'max:3', 'unique:' . Bank::class . ',number_code'],
+            'bank.code'                   => ['required', 'string', 'min:3', 'max:10', 'unique:' . Bank::class . ',name'],
+            'bank.name'                   => ['required', 'string', 'min:3', 'max:255'],
+            'bank.exporter_id'            => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
 
-            'contract.number'           => ['required', 'string', 'max:255'],
-            'contract.signed_at'        => ['required', 'date'],
-            'contract.division_side_id' => ['required', 'exists:' . ContractSide::getTableName() . ',id'],
+            'contract'                    => ['array:number,signed_at,division_side_id'],
+            'contract.number'             => ['required', 'string', 'max:255'],
+            'contract.signed_at'          => ['required', 'date'],
+            'contract.division_side_id'   => ['required', 'exists:' . ContractSide::getTableName() . ',id'],
 
-            'bank_side.name'            => ['required', 'string', 'max:255'],
-            'bank_side.INN'             => ['required', 'string', 'min:10', 'max:10'],
-            'bank_side.account'         => ['required', 'string', 'min:20', 'max:20'],
-            'bank_side.BIK'             => ['required', 'string', 'min:9',  'max:9'],
-            'bank_side.comment'         => ['required', 'string'],
+            'bank_side'                   => ['array:name,INN,account,BIK,comment'],
+            'bank_side.name'              => ['required', 'string', 'max:255'],
+            'bank_side.INN'               => ['required', 'string', 'min:10', 'max:10'],
+            'bank_side.account'           => ['required', 'string', 'min:20', 'max:20'],
+            'bank_side.BIK'               => ['required', 'string', 'min:9',  'max:9'],
+            'bank_side.comment'           => ['nullable', 'string'],
         ];
     }
 }

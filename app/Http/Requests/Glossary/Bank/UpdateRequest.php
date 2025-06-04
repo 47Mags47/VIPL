@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'bank'                        => ['array:number_code,code,name,exporter_id'],
-            'bank.number_code'            => ['required', 'string', 'min:3', 'max:3', 'unique:' . Bank::class . ',number_code,' . $this->route('bank')->id . ',number_code'],
+            'bank.number_code'            => ['required', 'string', 'min:3', 'max:3', 'unique:' . Bank::class . ',number_code,' . $this->route('bank')->id],
             'bank.code'                   => ['required', 'string', 'min:3', 'max:10', 'unique:' . Bank::class . ',name,' . $this->route('bank')->id],
             'bank.name'                   => ['required', 'string', 'min:3', 'max:255'],
             'bank.exporter_id'            => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
