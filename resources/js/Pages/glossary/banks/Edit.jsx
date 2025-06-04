@@ -143,9 +143,9 @@ export default function Edit({ record }) {
                     name="bank_side.comment"
                     label="Комментарий"
                     rows={9}
+                    value={values.bank_side.comment}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 >
-                    {values.bank_side.comment}
                 </TextArea>
             </VerticalForm>
         </ModalButton>

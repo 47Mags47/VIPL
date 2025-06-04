@@ -8,7 +8,10 @@ export default function Input({ type, id, name, value, placeholder, onChange, la
     placeholder = placeholder ?? ''
 
     return (
-        <GroupComponent name={name} label={label}>
+        <GroupComponent
+            name={name}
+            label={label}
+        >
             <input
                 type={type}
                 id={id}

@@ -15,7 +15,7 @@ export default function Delete({ record }) {
 
     return (
         <BaseButton type="button" onClick={() => onDeleteClick(record)}>
-            <i className="fa-solid fa-trash"></i>
+            удалить
         </BaseButton>
     )
 }

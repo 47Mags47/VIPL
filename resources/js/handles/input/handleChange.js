@@ -4,6 +4,6 @@ export default function handleChange(e, values, setValues) {
     let newValues = values
     Object.change(newValues, name.replace('[', '.').replace(']', ''), value)
 
-    setValues({ ...newValues })
+    setValues({ ...newValues })   
         
 }

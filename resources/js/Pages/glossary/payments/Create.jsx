@@ -1,23 +1,109 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { useState } from 'react';
+import { router } from '@inertiajs/react'
 
-/* DEV форма создания выплаты
-    Форма отправляет POST запрос на route('glossary.payments.store)
+import VerticalForm from '@/components/form/VerticalForm';
 
-    Требуемые данные:
-    - code              Числовой код            => string, формата ###, где # - число
-    - name              Наименование            => text
-    - krv               Краткое наименование    => string, длиной до 255 символов
-    - kbk               КБК                     => string, формата ### #### ##### ##### ###
-    - law_id            Закон                   => int, id закона, объект приходит с бэка laws
-    - periodicity_id    Переодичность           => int, id закона, объект приходит с бэка peridicity
-*/
+import Input from "@/components/inputs/Input"
+import ModalButton from "@/components/button/ModalButton";
+import BaseButton from '@/components/button/BaseButton';
+import handleChange from '@/handles/input/handleChange';
+import TextArea from '@/components/inputs/TextArea';
 
 
-export default function create(
 
-) {
+export default function Create() {
+    const [modalShow, changeModalShow] = useState(false)
+    const [values, setValues] = useState({
+        code: '',
+        krv: '',
+        name: '',
+        kbk: '',
+        periodicity: {
+            id: '',
+        },
+        law: {
+            id: '',
+        }
+    });
+
+    function changeAddState(state) {
+        changeModalShow(state);
+    }
+
+    function onAddSubmit(e) {
+        e.preventDefault()
+
+        router.post(route('glossary.payments.store'), values, {
+            onSuccess: function () {
+                changeModalShow(false)
+                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
+            },
+        })
+    }
+
+
     return (
-        <div>test react page</div>
+        <ModalButton
+            open={modalShow}
+            changeState={changeAddState}
+            buttonText="Добавить"
+            footer={
+                <BaseButton type="submit" form="glossary-payments-add-form">Добавить</BaseButton>
+            }
+        >
+            <VerticalForm
+                header={'Добавить'}
+                handleSubmit={onAddSubmit}
+                id="glossary-payments-add-form"
+            >
+                <Input
+                    type="text"
+                    name="code"
+                    label="Код"
+                    value={values.code}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input
+                    type="text"
+                    name="krv"
+                    label="Краткое наименование"
+                    value={values.krv}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <TextArea
+                    name="name"
+                    rows={2}
+                    label="Наименование"
+                    value={values.name}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input
+                    type="text"
+                    name="kbk"
+                    label="КБК"
+                    value={values.kbk}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input //DEV заменить на SELECT
+                    type="number"
+                    name="law[id]"
+                    label="Закон"
+                    value={values.law.id}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <Input //DEV заменить на SELECT
+                    type="number"
+                    name="periodicity[id]"
+                    label="Переодичность"
+                    value={values.periodicity.id}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+            </VerticalForm>
+        </ModalButton>
     );
 
 }
+
+
+
+

@@ -13,16 +13,24 @@ export default function index() {
     const payments = usePage().props.payments.data
 
 
-     const columns = [
+    const columns = [
         {
             title: 'Код',
             dataIndex: 'code',
         },
         {
+            title: 'Краткое наименование',
+            dataIndex: 'krv',
+        },
+        {
             title: 'Наименование',
             dataIndex: 'name',
         },
-                {
+        {
+            title: 'КБК',
+            dataIndex: 'kbk',
+        },
+        {
             title: 'Закон',
             dataIndex: ['law', 'name'],
         },
@@ -53,7 +61,7 @@ export default function index() {
                 columns={columns}
                 dataSource={payments}
                 actions={
-                     <Create />
+                    <Create />
                 }
             />
         </AuthenticatedLayout>

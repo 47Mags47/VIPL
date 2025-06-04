@@ -8,7 +8,7 @@ import VerticalForm from '@/components/form/VerticalForm';
 import Input from "@/components/inputs/Input"
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
-import TextArea from 'antd/es/input/TextArea';
+import TextArea from '@/components/inputs/TextArea';
 
 
 export default function Edit({ record }) {
@@ -64,21 +64,35 @@ export default function Edit({ record }) {
                 />
                 <Input
                     type="text"
+                    name="krv"
+                    label="Краткое наименование"
+                    value={values.krv}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
+                <TextArea
                     name="name"
+                    rows={2}
                     label="Наименование"
                     value={values.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
+                <Input
+                    type="text"
+                    name="kbk"
+                    label="КБК"
+                    value={values.kbk}
+                    onChange={(e) => { handleChange(e, values, setValues) }}
+                />
                 <Input //DEV заменить на SELECT
                     type="number"
-                    name="law_id"
-                    label="Переодичность"
+                    name="law[id]"
+                    label="Закон"
                     value={values.law.id}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <Input //DEV заменить на SELECT
                     type="number"
-                    name="periodicity_id"
+                    name="periodicity[id]"
                     label="Переодичность"
                     value={values.periodicity.id}
                     onChange={(e) => { handleChange(e, values, setValues) }}
