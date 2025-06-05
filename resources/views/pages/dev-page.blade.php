@@ -63,27 +63,8 @@
     <details>
         <summary>Выплаты</summary>
         <ul>
-            <li>
-                <li><a href="{!! route('payments.calendar.index') !!}">Календарь выплат</a></li>
-            </li>
-            <li>
-                <details>
-                    <summary>Страницы пользователей</summary>
-                    <ul>
-                        <h4>Пакет</h4>
-                        <li><a href="{!! route('payments.package.edit') !!}">payment.package.edit</a></li>
-                    </ul>
-                </details>
-            </li>
-            <li>
-                <details>
-                    <summary>Страницы администратора</summary>
-                    <ul>
-                        <h4>Пакет</h4>
-                        <li><a href="{!! route('payments.package.index') !!}">payment.package.index</a></li>
-                    </ul>
-                </details>
-            </li>
+            <li><a href="{!! route('payments.calendar.index') !!}">Календарь выплат</a></li>
+            <li><a href="{!! route('payments.packages.index') !!}">Пакеты</a></li>
         </ul>
     </details>
 

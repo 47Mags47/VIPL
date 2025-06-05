@@ -8,10 +8,7 @@ use App\Http\Controllers\Web\Payment\RaportController;
 use App\Http\Controllers\Web\Payment\RecipientController;
 use Illuminate\Support\Facades\Route;
 
-// HACK Не забыть прикрутить проверку на администратора
-// payment.package.index
-
-Route::middleware('auth')->prefix('/payments')->name('payments.')->group(function () {
+Route::prefix('/payments')->name('payments.')->group(function () {
     Route::prefix('/calendar')->name('calendar.')->controller(CalendarController::class)->group(function () {
         Route::get('/index', 'index')->name('index');
     });
@@ -20,15 +17,8 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         Route::post('/store', 'store')->name('store');
     });
 
-    Route::prefix('/packages')->group(function () {
-        Route::controller(PackageController::class)->name('package.')->group(function () {
-            Route::get('/index', 'index')->name('index');
-            Route::get('/edit', 'edit')->name('edit');
-
-            Route::put('/{package}/update', 'update')->name('update');
-            Route::get('/{package}/show', 'show')->name('show');
-            Route::get('/{package}/mark', 'mark')->name('mark');
-        });
+    Route::prefix('/packages')->controller(PackageController::class)->name('packages.')->group(function () {
+        Route::get('/index', 'index')->name('index');
     });
 
     Route::prefix('/package/{package}/files')->controller(FileController::class)->name('file.')->group(function () {
