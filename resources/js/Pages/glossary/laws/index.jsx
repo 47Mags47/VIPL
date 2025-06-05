@@ -13,22 +13,25 @@ export default function index() {
     const laws = usePage().props.laws.data
 
 
-     const columns = [
+    const columns = [
         {
             title: ' Код',
             dataIndex: 'code',
+            width: 80,
         },
         {
             title: 'Наименование',
             dataIndex: 'name',
         },
-             {
+        {
             title: 'Вид финансирования',
-            dataIndex: ['source','name'],
+            dataIndex: ['source', 'name'],
+            width: 150,
         },
         {
             title: '',
             key: 'edit',
+            width: 80,
             render: (_, record) => (
                 <Edit record={record} />
             )
@@ -36,6 +39,7 @@ export default function index() {
         {
             title: '',
             key: 'delete',
+            width: 80,
             render: (_, record) => (
                 <Delete record={record} />
             )
@@ -49,7 +53,7 @@ export default function index() {
                 columns={columns}
                 dataSource={laws}
                 actions={
-                     <Create />
+                    <Create />
                 }
             />
         </AuthenticatedLayout>

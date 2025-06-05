@@ -57,7 +57,13 @@ export default function Edit({ record }) {
             changeState={changeEditState}
             buttonText={<EditIco />}
             footer={
-                <BaseButton type="submit" form="glossary-bank-edit-form">Отправить</BaseButton>
+                <BaseButton
+                    className={"edit-btn"}
+                    type="submit"
+                    form="glossary-bank-edit-form"
+                >
+                    Отправить
+                </BaseButton>
             }
         >
             <VerticalForm

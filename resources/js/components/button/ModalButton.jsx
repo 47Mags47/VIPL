@@ -36,17 +36,24 @@ export default function ModalButton({
 
     return (
         <>
-            <BaseButton className={className} onClick={buttonClickHandler}>{buttonText}</BaseButton>
-
+            <BaseButton
+                className={className}
+                onClick={buttonClickHandler}
+            >
+                {buttonText}
+            </BaseButton>
             <Modal
+                className='modal'
                 open={modalShow}
                 onOk={okHandler}
                 onCancel={cancelHandler}
                 destroyOnHidden={true}
-                footer={footer}
+                footer={footer}      
+                width ='min-content'
             >
                 {children}
             </Modal>
+
         </>
     )
 }

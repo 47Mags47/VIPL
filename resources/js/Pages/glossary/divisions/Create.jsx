@@ -7,6 +7,7 @@ import Input from "@/components/inputs/Input"
 import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
+import Add from '@/components/icons/Add'
 
 
 export default function Create() {
@@ -34,11 +35,18 @@ export default function Create() {
 
     return (
         <ModalButton
+            className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText="Добавить"
+            buttonText={<Add />}
             footer={
-                <BaseButton type="submit" form="glossary-divisions-add-form">Добавить</BaseButton>
+                <BaseButton
+                    className="add-btn"
+                    type="submit"
+                    form="glossary-divisions-add-form"
+                >
+                    Добавить
+                </BaseButton>
             }
         >
             <VerticalForm

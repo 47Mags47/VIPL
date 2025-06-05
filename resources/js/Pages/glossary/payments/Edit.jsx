@@ -7,6 +7,7 @@ import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
 import BaseButton from '@/components/button/BaseButton';
+import EditIco from '@/components/icons/Edit'
 import handleChange from '@/handles/input/handleChange';
 import TextArea from '@/components/inputs/TextArea';
 
@@ -43,11 +44,18 @@ export default function Edit({ record }) {
 
     return (
         <ModalButton
+            className={"edit"}
             open={modalShow}
             changeState={changeEditState}
-            buttonText="Редактировать"
+            buttonText={<EditIco/>}
             footer={
-                <BaseButton type="submit" form="glossary-payments-edit-form">Отправить</BaseButton>
+                <BaseButton
+                    className={"edit-btn"}
+                    type="submit"
+                    form="glossary-payments-edit-form"
+                >
+                    Отправить
+                </BaseButton>
             }
         >
             <VerticalForm

@@ -17,6 +17,7 @@ export default function index() {
         {
             title: 'Код',
             dataIndex: 'code',
+             width: 75,
         },
         {
             title: 'Краткое наименование',
@@ -29,18 +30,22 @@ export default function index() {
         {
             title: 'КБК',
             dataIndex: 'kbk',
+             width: 210,
         },
         {
             title: 'Закон',
-            dataIndex: ['law', 'name'],
+            dataIndex: ['law', 'code'],
+             width: 150,
         },
         {
             title: 'Периодичность',
             dataIndex: ['periodicity', 'name'],
+             width: 150,
         },
         {
             title: '',
             key: 'edit',
+            width: 80,
             render: (_, record) => (
                 <Edit record={record} />
             )
@@ -48,6 +53,7 @@ export default function index() {
         {
             title: '',
             key: 'delete',
+            width: 80,
             render: (_, record) => (
                 <Delete record={record} />
             )

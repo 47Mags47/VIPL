@@ -75,9 +75,15 @@ export default function Create() {
             open={modalShow}
             className="add"
             changeState={changeAddState}
-            buttonText={<Add/>}
+            buttonText={<Add />}
             footer={
-                <BaseButton type="submit" form="glossary-bank-add-form">Добавить</BaseButton>
+                <BaseButton
+                    className="add-btn"
+                    type="submit"
+                    form="glossary-bank-add-form"
+                >
+                    Добавить
+                </BaseButton>
             }
         >
             <VerticalForm

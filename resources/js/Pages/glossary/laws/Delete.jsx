@@ -1,6 +1,8 @@
-import BaseButton from "@/components/button/BaseButton"
-
 import { router } from '@inertiajs/react'
+
+import BaseButton from "@/components/button/BaseButton"
+import Trash from '@/components/icons/Trash'
+
 
 export default function Delete({ record }) {
     function onDeleteClick(record) {
@@ -14,8 +16,12 @@ export default function Delete({ record }) {
     }
 
     return (
-        <BaseButton type="button" onClick={() => onDeleteClick(record)}>
-            удалить
+        <BaseButton
+            className="trash"
+            type="button"
+            onClick={() => onDeleteClick(record)}
+        >
+            <Trash/>
         </BaseButton>
     )
 }

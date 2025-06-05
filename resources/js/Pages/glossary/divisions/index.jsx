@@ -16,6 +16,7 @@ export default function index() {
         {
             title: ' Код',
             dataIndex: 'code',
+            width: 75,
         },
         {
             title: 'Наименование',
@@ -24,6 +25,7 @@ export default function index() {
         {
             title: '',
             key: 'edit',
+            width: 80,
             render: (_, record) => (
                 <Edit record={record} />
             )
@@ -31,6 +33,7 @@ export default function index() {
         {
             title: '',
             key: 'delete',
+            width: 80,
             render: (_, record) => (
                 <Delete record={record} />
             )
