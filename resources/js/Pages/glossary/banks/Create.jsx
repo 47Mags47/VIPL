@@ -8,6 +8,7 @@ import TextArea from "@/components/inputs/TextArea"
 import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
+import Add from '@/components/icons/Add'
 
 
 /* DEV форма создания банка
@@ -72,8 +73,9 @@ export default function Create() {
     return (
         <ModalButton
             open={modalShow}
+            className="add"
             changeState={changeAddState}
-            buttonText="Добавить"
+            buttonText={<Add/>}
             footer={
                 <BaseButton type="submit" form="glossary-bank-add-form">Добавить</BaseButton>
             }

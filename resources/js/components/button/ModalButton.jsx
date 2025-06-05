@@ -10,7 +10,8 @@ export default function ModalButton({
     okHandler,
     cancelHandler,
     changeState,
-    footer
+    footer,
+    className
 }) {
     const [modalShow, changeModalShow] = useState(false);
 
@@ -35,7 +36,7 @@ export default function ModalButton({
 
     return (
         <>
-            <BaseButton onClick={buttonClickHandler}>{buttonText}</BaseButton>
+            <BaseButton className={className} onClick={buttonClickHandler}>{buttonText}</BaseButton>
 
             <Modal
                 open={modalShow}

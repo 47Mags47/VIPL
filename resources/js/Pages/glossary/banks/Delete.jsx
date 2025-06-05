@@ -2,6 +2,8 @@ import BaseButton from "@/components/button/BaseButton"
 
 import { router } from '@inertiajs/react'
 
+import Trash from '@/components/icons/Trash'
+
 export default function Delete({ record }) {
     function onDeleteClick(record) {
         if (confirm("Вы уверены, что хотите удалить эту запись?")) {
@@ -14,8 +16,12 @@ export default function Delete({ record }) {
     }
 
     return (
-        <BaseButton type="button" onClick={() => onDeleteClick(record)}>
-            удалить
+        <BaseButton
+            className="trash"
+            type="button"
+            onClick={() => onDeleteClick(record)}
+        >
+            <Trash />
         </BaseButton>
     )
 }

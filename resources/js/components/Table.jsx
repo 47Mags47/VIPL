@@ -1,6 +1,10 @@
 import { router } from '@inertiajs/react';
-import { Table as AntdTable } from 'antd';
 import { useState } from 'react';
+
+import { Table as AntdTable } from 'antd';
+import BaseButton from '@/components/button/BaseButton'
+
+import Search from './icons/Search';
 
 
 
@@ -30,7 +34,12 @@ export default function Table({ actions, searUrl, ...props }) {
             <div className="top-side-box">
                 <div className="search-box">
                     <input type="search" name="search" id="search" onChange={serachOnChange} />
-                    <button onClick={searchSubmit}>поиск</button>
+                    <BaseButton
+                        className='search'
+                        onClick={searchSubmit}
+                    >
+                        <Search />
+                    </BaseButton>
                 </div>
                 <div className="actions-box">
                     {actions}
@@ -39,6 +48,6 @@ export default function Table({ actions, searUrl, ...props }) {
             <div className="table-content-box">
                 <AntdTable {...props} pagination={paginate} />
             </div>
-        </div>
+        </div >
     );
 };
