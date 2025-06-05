@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Web\Payment\CalendarController;
+use App\Http\Controllers\Web\Payment\EventController;
 use App\Http\Controllers\Web\Payment\FileController;
 use App\Http\Controllers\Web\Payment\PackageController;
 use App\Http\Controllers\Web\Payment\RaportController;
@@ -9,8 +9,9 @@ use App\Http\Controllers\Web\Payment\RecipientController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/payments')->name('payments.')->group(function () {
-    Route::prefix('/calendar')->name('calendar.')->controller(CalendarController::class)->group(function () {
+    Route::prefix('/events')->name('events.')->controller(EventController::class)->group(function () {
         Route::get('/index', 'index')->name('index');
+        Route::get('/{event}/show', 'show')->name('show');
     });
 
     Route::prefix('/raports')->name('raports.')->controller(RaportController::class)->group(function () {
@@ -19,6 +20,7 @@ Route::prefix('/payments')->name('payments.')->group(function () {
 
     Route::prefix('/packages')->controller(PackageController::class)->name('packages.')->group(function () {
         Route::get('/index', 'index')->name('index');
+        Route::get('/{package}/show', 'show')->name('show');
     });
 
     Route::prefix('/package/{package}/files')->controller(FileController::class)->name('file.')->group(function () {

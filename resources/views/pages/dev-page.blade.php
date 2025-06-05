@@ -63,7 +63,7 @@
     <details>
         <summary>Выплаты</summary>
         <ul>
-            <li><a href="{!! route('payments.calendar.index') !!}">Календарь выплат</a></li>
+            <li><a href="{!! route('payments.events.index') !!}">Календарь выплат</a></li>
             <li><a href="{!! route('payments.packages.index') !!}">Пакеты</a></li>
         </ul>
     </details>

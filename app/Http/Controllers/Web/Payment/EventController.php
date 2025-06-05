@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Web\Payment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CalendarRequest;
 use App\Jobs\Payment\GenerateEvents;
+use App\Models\Glossary\PackageStatus;
 use App\Models\Payment\Event;
+use App\Models\Payment\Package;
 use Carbon\CarbonImmutable;
 use Inertia\Inertia;
 
-class CalendarController extends Controller
+class EventController extends Controller
 {
     public function index(CalendarRequest $request)
     {
@@ -46,6 +48,28 @@ class CalendarController extends Controller
             'next_year' => $start_month->addMonth(1)->year,
         ];
 
-        return Inertia::render('payment/calendar/index', compact('weeks', 'info'));
+        return Inertia::render('payment/events/index', compact('weeks', 'info'));
+    }
+
+    public function show(Event $event)
+    {
+        if (user()->isUser()) {
+            $package = Package::firstOrCreate([
+                'event_id' => $event->id,
+                'division_id' => user()->division->id,
+            ], [
+                'status_id' => PackageStatus::byCode('created')->id
+            ]);
+
+            return redirect()->route('payments.packages.show', compact('package'));
+        }
+
+        if (user()->isAdmin()) {
+            $packages = $event->packages()->paginate(50)->toResourceCollection();
+
+            return redirect()->route('payments.packages.index', compact('packages'));
+        }
+
+        return abort(403);
     }
 }
