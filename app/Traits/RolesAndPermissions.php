@@ -128,7 +128,7 @@ trait RolesAndPermissions
 
     public function ScopeIsUser():bool
     {
-        return $this->hasRole('user');
+        return !$this->isAdmin();
     }
 
     ### Удаление

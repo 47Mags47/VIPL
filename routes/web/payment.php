@@ -19,7 +19,7 @@ Route::prefix('/payments')->name('payments.')->group(function () {
     });
 
     Route::prefix('/packages')->controller(PackageController::class)->name('packages.')->group(function () {
-        Route::get('/index', 'index')->name('index');
+        Route::get('/index', 'index')->name('index')->middleware('isAdmin');
         Route::get('/{package}/show', 'show')->name('show');
     });
 

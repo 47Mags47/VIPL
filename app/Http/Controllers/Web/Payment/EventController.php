@@ -65,9 +65,7 @@ class EventController extends Controller
         }
 
         if (user()->isAdmin()) {
-            $packages = $event->packages()->paginate(50)->toResourceCollection();
-
-            return redirect()->route('payments.packages.index', compact('packages'));
+            return redirect()->route('payments.packages.index');
         }
 
         return abort(403);
