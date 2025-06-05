@@ -17,20 +17,15 @@ class UserSeeder extends Seeder
     {
         // ADMIN
         $admin = User::create([
-            'id' => 1,
             'division_id' => null,
             'name' => 'Администратор',
             'email' => 'admin@test.ru',
             'password' => Hash::make('admin'),
         ]);
-
-        foreach (Role::all() as $role) {
-            $admin->addRole($role->code);
-        }
+        $admin->addRole('admin');
 
         // USER
         $user = User::create([
-            'id' => 2,
             'division_id' => 1,
             'name' => 'Пользователь',
             'email' => 'user@test.ru',

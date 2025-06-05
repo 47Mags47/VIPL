@@ -121,6 +121,16 @@ trait RolesAndPermissions
         return (bool) $this->permissions->where('code', $permission_model->code)->count();
     }
 
+    public function ScopeIsAdmin():bool
+    {
+        return $this->hasRole('admin') or $this->hasRole('root');
+    }
+
+    public function ScopeIsUser():bool
+    {
+        return $this->hasRole('user');
+    }
+
     ### Удаление
     ##################################################
     /**

@@ -15,40 +15,22 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // glossary-worker
-        Role::create(['code' => 'glossary-worker', 'name' => 'Работа со справочниками']);
+        Role::create(['code' => 'user',     'name' => 'Пользователь']);
+        Role::create(['code' => 'admin',    'name' => 'Администратор']);
+        Role::create(['code' => 'root',     'name' => 'root']);
 
-        Permission::create(['code' => 'glossary-payment-create',    'name' => 'Создание записи в справочнике "выплаты"']);
-        Permission::create(['code' => 'glossary-payment-update',      'name' => 'Редактирование записи в справочнике "выплаты"']);
-        Permission::create(['code' => 'glossary-payment-delete',    'name' => 'Удаление записи в справочнике "выплаты"']);
 
-        Permission::create(['code' => 'glossary-bank-create',       'name' => 'Создание записи в справочнике "Банки"']);
-        Permission::create(['code' => 'glossary-bank-update',         'name' => 'Редактирование записи в справочнике "Банки"']);
-        Permission::create(['code' => 'glossary-bank-delete',       'name' => 'Удаление записи в справочнике "Банки"']);
+        Permission::create(['code' => 'edit-glossary-bank',      'name' => 'Изменение справочника "Банки"']);
+        Permission::create(['code' => 'edit-glossary-division',  'name' => 'Изменение справочника "Подразделение"']);
+        Permission::create(['code' => 'edit-glossary-law',       'name' => 'Изменение справочника "Законы"']);
+        Permission::create(['code' => 'edit-glossary-payment',   'name' => 'Изменение справочника "Выплаты"']);
+        Permission::create(['code' => 'edit-main-user',          'name' => 'Изменение списка пользователей']);
 
-        Permission::create(['code' => 'glossary-division-create',   'name' => 'Создание записи в справочнике "Организации"']);
-        Permission::create(['code' => 'glossary-division-update',     'name' => 'Редактирование записи в справочнике "Организации"']);
-        Permission::create(['code' => 'glossary-division-delete',   'name' => 'Удаление записи в справочнике "Организации"']);
 
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-payment-create']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-payment-update']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-payment-delete']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-bank-create']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-bank-update']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-bank-delete']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-division-create']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-division-update']);
-        RolePivotPermission::create(['role_code' => 'glossary-worker',    'permission_code' => 'glossary-division-delete']);
-
-        // division-worker
-        Role::create(['code' => 'division-worker', 'name' => 'Работник организации']);
-
-        Permission::create(['code' => 'payment-file-upload',    'name' => 'Загрузка файлов для выплат']);
-
-        RolePivotPermission::create(['role_code' => 'division-worker',    'permission_code' => 'payment-file-upload']);
-
-        // Raports
-        Permission::create(['code' => 'create-raport-payment-all-divisions',    'name' => 'формирование Отчета по выплате по всем организациям']);
-        Permission::create(['code' => 'create-raport-payment-from-divisions',    'name' => 'формирование Отчета по выплате для организации']);
+        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-bank']);
+        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-division']);
+        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-law']);
+        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-payment']);
+        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-main-user']);
     }
 }
