@@ -12,7 +12,7 @@ class StoreRaportRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // HACK дописать проверку
+        return true;
     }
 
     /**

@@ -13,7 +13,7 @@ class FileRead extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; //HACK Дописать проверку
+        return true;
     }
 
     /**
