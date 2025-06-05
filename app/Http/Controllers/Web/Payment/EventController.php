@@ -61,11 +61,11 @@ class EventController extends Controller
                 'status_id' => PackageStatus::byCode('created')->id
             ]);
 
-            return redirect()->route('payments.packages.show', compact('package'));
+            return redirect()->route('payments.event.packages.show ', compact('event', 'package'));
         }
 
         if (user()->isAdmin()) {
-            return redirect()->route('payments.packages.index');
+            return redirect()->route('payment.event.packages.index', compact('event'));
         }
 
         return abort(403);

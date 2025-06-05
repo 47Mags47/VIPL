@@ -8,17 +8,15 @@ use App\Jobs\File\ReadToDB;
 use App\Models\Glossary\FileStatus;
 use App\Models\Payment\File;
 use App\Models\Payment\Package;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class FileController extends Controller
 {
-    public function table(Package $package){
-        return view('pages.payment.package.file.table', compact('package'));
-    }
+    public function index(Package $package){
+        $files = $package->files()->paginate(50)->toResourceCollection();
 
-    public function create(Package $package){
-        return view('pages.payment.package.file.create', compact('package'));
+        return Inertia::render('payment/files/index', compact('files'));
     }
 
     public function store(StorePackageFileRequest $request, Package $package){
@@ -41,6 +39,11 @@ class FileController extends Controller
         ReadToDB::dispatch($file);
 
         return redirect()->route('payment.package.edit', ['event' => $package->event_id]);
+    }
+
+    public function show(File $file)
+    {
+        return redirect()->route('payments.package.recipients.index', compact('file'));
     }
 
     public function delete(Package $package, File $file){

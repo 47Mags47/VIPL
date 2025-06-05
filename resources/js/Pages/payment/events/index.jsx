@@ -1,4 +1,5 @@
-/* DEV payment.calendar.index
+/*
+ * payments.events.index
  *
  * Календарик на текущий месяц.
  *
@@ -17,8 +18,8 @@
  * |  Выплата 003                 |||
  * |________________________________|
  *
- * Каждая выплата - ссылка на payment.events.show с параметром event (id),
- * возвращает редирект на payment.packages.index для администраторов и payment.packages.show для пользователей
+ * Каждая выплата - ссылка на payments.events.show с параметром event (id),
+ *
  */
 
 export default function Index(){

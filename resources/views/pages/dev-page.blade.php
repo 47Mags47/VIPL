@@ -49,14 +49,7 @@
     <details>
         <summary>Правила проверки</summary>
         <ul>
-            <li>
-                <details>
-                    <summary>Счет получателя</summary>
-                    <ul>
-                        <li><a href="{!! route('validate.accounts.create') !!}">validate.accounts.create</a></li>
-                    </ul>
-                </details>
-            </li>
+            <li><a href="{!! route('validate.accounts.create') !!}">Счет получателя</a></li>
         </ul>
     </details>
 
@@ -64,7 +57,9 @@
         <summary>Выплаты</summary>
         <ul>
             <li><a href="{!! route('payments.events.index') !!}">Календарь выплат</a></li>
-            <li><a href="{!! route('payments.packages.index') !!}">Пакеты</a></li>
+            <li><a href="{!! route('payments.event.packages.index', ['event' => 1]) !!}">Пакеты</a></li>
+            <li><a href="{!! route('payments.package.files.index', ['package' => App\Models\Payment\Package::first()->id]) !!}">Файлы</a></li>
+            <li><a href="{!! route('payments.file.recipients.index', ['file' => 1]) !!}">Получатели</a></li>
         </ul>
     </details>
 
