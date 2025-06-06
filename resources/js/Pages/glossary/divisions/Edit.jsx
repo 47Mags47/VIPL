@@ -17,7 +17,6 @@ export default function Edit({ record }) {
         code: record.code,
         name: record.name,
     });
-    console.log(values.code);
 
 
     function changeEditState(state) {
@@ -26,7 +25,6 @@ export default function Edit({ record }) {
 
     function onEditSubmit(e) {
         e.preventDefault()
-        console.log(values);
 
         router.put(route('glossary.divisions.update', { division: record.id }), values, {
             onSuccess: function () {

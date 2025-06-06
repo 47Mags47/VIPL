@@ -8,22 +8,22 @@ use App\Http\Controllers\Web\Payment\RaportController;
 use App\Http\Controllers\Web\Payment\RecipientController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('/payments')->name('payments.')->group(function () {
-    Route::resource('events', EventController::class)->only([
+Route::middleware('auth')->prefix('/payments')->name('payments.')->group(function () {
+    Route::apiResource('events', EventController::class)->only([
         'index',
         'show'
     ]);
-    Route::resource('event.packages', PackageController::class)->only([
+    Route::apiResource('event.packages', PackageController::class)->only([
         'index',
         'show'
     ]);
-    Route::resource('package.files', FileController::class)->only([
+    Route::apiResource('package.files', FileController::class)->only([
         'index',
         'store',
         'update',
         'destroy'
     ]);
-    Route::resource('file.recipients', RecipientController::class)->only([
+    Route::apiResource('file.recipients', RecipientController::class)->only([
         'index'
     ]);
 

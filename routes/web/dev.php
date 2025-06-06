@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/dev')->name('dev.')->group(function () {
     Route::get('/', function () {
-        return view('pages.dev-page');
+        return inertia('dev/RouteList',[
+            'package' => App\Models\Payment\Package::first()->id,
+        ]);
     })->name('route-list');
 
     Route::get('/generate-raports', function () {

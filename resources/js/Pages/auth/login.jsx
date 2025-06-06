@@ -16,12 +16,7 @@ export default function Login() {
 
     function onSubmit(e) {
         e.preventDefault()
-        router.post(route('session.store'), values, {
-            onSuccess: function (response) {
-                console.log(12312);
-                
-            },
-        })
+        router.post(route('session.store'), values)
     }
 
     return (

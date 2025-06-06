@@ -33,7 +33,7 @@ class DivisionController extends Controller
         return redirect()->route('glossary.divisions.index')->with('message', 'Запись успешно обновлена');
     }
 
-    public function delete(Division $division)
+    public function destroy(Division $division)
     {
         $division->delete();
 

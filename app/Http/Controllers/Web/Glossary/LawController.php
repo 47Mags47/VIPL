@@ -35,7 +35,7 @@ class LawController extends Controller
         return redirect()->route('glossary.laws.index')->with('message', 'Запись успешно обновлена');
     }
 
-    public function delete(Law $law)
+    public function destroy(Law $law)
     {
         $law->delete();
 

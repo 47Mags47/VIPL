@@ -3,12 +3,12 @@
 use App\Http\Controllers\Web\Main\Auth\AuthSessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('/auth')->controller(AuthSessionController::class)->name('session.')->group(function () {
+Route::controller(AuthSessionController::class)->group(function () {
     Route::middleware('guest')->group(function () {
-        Route::get('/login', 'create')->middleware('guest')->name('create');
-        Route::post('/store', 'store')->middleware('guest')->name('store');
+        Route::get('/login', 'create')->name('login');
+        Route::post('session/store', 'store')->name('session.store');
     });
     Route::middleware('auth')->group(function () {
-        Route::post('/delete', 'delete')->middleware('auth')->name('delete');
+        Route::post('/logout', 'delete')->name('logout');
     });
 });

@@ -37,7 +37,7 @@ class PaymentController extends Controller
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно обновлена');
     }
 
-    public function delete(Payment $payment)
+    public function destroy(Payment $payment)
     {
         $payment->delete();
 
