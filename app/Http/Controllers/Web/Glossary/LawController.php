@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Law\StoreRequest;
 use App\Http\Requests\Glossary\Law\UpdateRequest;
 use App\Models\Glossary\Law;
+use App\Models\Glossary\Source;
 use Inertia\Inertia;
 
 class LawController extends Controller
@@ -13,8 +14,9 @@ class LawController extends Controller
     public function index()
     {
         $laws = Law::paginate(50)->toResourceCollection();
+        $sources = Source::all()->toResourceCollection();
 
-        return Inertia::render('glossary/laws/index', compact('laws'));
+        return Inertia::render('glossary/laws/index', compact('laws', 'sources'));
     }
 
     public function store(StoreRequest $request)
