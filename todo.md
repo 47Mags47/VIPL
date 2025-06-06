@@ -9,6 +9,7 @@
 [ ] f_7 - Разработать страницу payments.event.packages.index
 [ ] f_8 - Разработать страницу payments.package.files.index
 [ ] f_9 - Разработать страницу payments.file.recipients.index
+[ ] f_10 - Добавть стилей для input поисковика
 
 ### Back
 [x] b_1 - перелопатить ресурсы и контроллеры справочников
