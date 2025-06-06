@@ -1,7 +1,7 @@
 import GroupComponent from "./GroupComponent";
 
 
-export default function Input({ type, id, name, value, placeholder, onChange, label }) {
+export default function Input({ type, id, name, value, placeholder, onChange, label, ...props }) {
 
     type = type ?? 'text'
     id = id ?? name
@@ -19,6 +19,7 @@ export default function Input({ type, id, name, value, placeholder, onChange, la
                 value={value ?? ''}
                 onChange={onChange}
                 placeholder={placeholder}
+                {...props}
             />
         </GroupComponent>
     )
