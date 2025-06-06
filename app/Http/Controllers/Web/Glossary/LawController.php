@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Web\Glossary;
 
+use App\Filters\Glossary\LawFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Law\StoreRequest;
 use App\Http\Requests\Glossary\Law\UpdateRequest;
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Source;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class LawController extends Controller
 {
-    public function index()
+    public function index(Request $request, LawFilter $filter)
     {
-        $laws = Law::paginate(50)->toResourceCollection();
+        $laws = Law::filter($filter)->paginate(50)->toResourceCollection();
         $sources = Source::all()->toResourceCollection();
 
         return Inertia::render('glossary/laws/index', compact('laws', 'sources'));
