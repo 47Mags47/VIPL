@@ -8,7 +8,10 @@ import TextArea from "@/components/inputs/TextArea"
 import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
+import handleSelectChange from '@/handles/input/handleSelectChange';
 import Add from '@/components/icons/Add'
+import SelectComponent from '@/components/inputs/Select';
+
 
 
 /* DEV форма создания банка
@@ -31,7 +34,7 @@ import Add from '@/components/icons/Add'
     - bank_side[comment]            Комментарий             => string|null, длиной до 255 символов
 */
 
-export default function Create() {
+export default function Create({ exporter, division }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         bank: {
@@ -52,6 +55,14 @@ export default function Create() {
             account: '',
             comment: '',
         },
+        exporterSelect: exporter.map(exporter => ({
+            value: exporter.id,
+            label: exporter.name,
+        })),
+        divisionSelect: division.map(division => ({
+            value: division.id,
+            label: division.name
+        }))
     });
 
     function changeAddState(state) {
@@ -112,12 +123,15 @@ export default function Create() {
                     value={values.bank.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //[ ] front Изменить на SELECT (exporters)
-                    type="text"
+                <SelectComponent
                     name="bank[exporter_id]"
                     label="Экспортер"
+                    options={values.exporterSelect}
                     value={values.bank.exporter_id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('bank.exporter_id', value, values, setValues)
+
+                    }}
                 />
                 <Input
                     type="text"
@@ -133,12 +147,15 @@ export default function Create() {
                     value={values.contract.signed_at}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //[ ] front Изменить на SELECT (division_sides)
-                    type="text"
+                <SelectComponent
                     name="contract[division_side_id]"
                     label="Сторона организации"
+                    options={values.divisionSelect}
                     value={values.contract.division_side_id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('contract.division_side_id', value, values, setValues)
+
+                    }}
                 />
                 <Input
                     type="text"

@@ -1,15 +1,21 @@
 import GroupComponent from "./GroupComponent";
+import { Select } from "antd";
 
 
-export default function Select({ id, name, selectValue, label }) {
+export default function SelectComponent({ id, name, options, label, onChange, value }){
 
     id = id ?? name
 
     return (
         <GroupComponent name={name} label={label}>
-            <select name={name} id={id}>
-                <option value={selectValue}></option>
-            </select>
+            <Select
+                id={id}
+                showSearch
+                optionFilterProp={label}
+                onChange={onChange}
+                value={value}
+                options={options}
+            />
         </GroupComponent>
     )
 }

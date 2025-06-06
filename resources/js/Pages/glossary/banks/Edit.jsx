@@ -9,10 +9,11 @@ import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import EditIco from '@/components/icons/Edit'
 import handleChange from '@/handles/input/handleChange';
+import handleSelectChange from '@/handles/input/handleSelectChange';
+import SelectComponent from '@/components/inputs/Select';
 
 
-
-export default function Edit({ record }) {
+export default function Edit({ division, exporter, record }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         bank: {
@@ -20,6 +21,7 @@ export default function Edit({ record }) {
             code: record.code,
             name: record.name,
             exporter_id: record.exporter.id,
+            exporter_name: record.exporter.name,
         },
         contract: {
             number: record.contract.number,
@@ -33,8 +35,15 @@ export default function Edit({ record }) {
             account: record.contract.bank_side.account,
             comment: record.contract.bank_side.comment,
         },
+        exporterSelect: exporter.map(exporter => ({
+            value: exporter.id,
+            label: exporter.name,
+        })),
+        divisionSelect: division.map(division => ({
+            value: division.id,
+            label: division.name
+        }))
     });
-
     function changeEditState(state) {
         changeModalShow(state);
     }
@@ -92,12 +101,14 @@ export default function Edit({ record }) {
                     value={values.bank.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //[ ] front Изменить на SELECT (exporters)
-                    type="text"
+                <SelectComponent
                     name="bank[exporter_id]"
                     label="Экспортер"
+                    options={values.exporterSelect}
                     value={values.bank.exporter_id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => { handleSelectChange('bank.exporter_id', value, values, setValues)
+                        
+                    }}
                 />
                 <Input
                     type="text"
@@ -113,12 +124,14 @@ export default function Edit({ record }) {
                     value={values.contract.signed_at}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //[ ] front Изменить на SELECT (division_sides)
-                    type="text"
+                <SelectComponent
                     name="contract[division_side_id]"
                     label="Сторона организации"
+                    options={values.divisionSelect} 
                     value={values.contract.division_side_id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => { handleSelectChange('contract.division_side_id', value, values, setValues)
+                        
+                    }}
                 />
                 <Input
                     type="text"

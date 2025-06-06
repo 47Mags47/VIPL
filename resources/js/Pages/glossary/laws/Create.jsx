@@ -8,16 +8,23 @@ import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
 import Add from '@/components/icons/Add'
+import SelectComponent from '@/components/inputs/Select'
+import handleSelectChange from '@/handles/input/handleSelectChange';
 
 
-export default function Create() {
+export default function Create({ sources }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         code: '',
         name: '',
         source: {
             id: '',
-        }
+        },
+        sourcesSelect: sources.map(sources => ({
+            value: sources.id,
+            label: sources.name
+
+        }))
     });
 
     function changeAddState(state) {
@@ -41,7 +48,7 @@ export default function Create() {
             className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText={<Add/>}
+            buttonText={<Add />}
             footer={
                 <BaseButton
                     className={"add-btn"}
@@ -71,12 +78,14 @@ export default function Create() {
                     value={values.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="source_id"
                     label="Вид финансирования"
+                    options={values.sourcesSelect}
                     value={values.source.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('source.id', value, values, setValues)
+                    }}
                 />
             </VerticalForm>
         </ModalButton>

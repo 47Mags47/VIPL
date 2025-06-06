@@ -9,10 +9,11 @@ import BaseButton from '@/components/button/BaseButton';
 import handleChange from '@/handles/input/handleChange';
 import TextArea from '@/components/inputs/TextArea';
 import Add from '@/components/icons/Add'
+import SelectComponent from '@/components/inputs/Select'
+import handleSelectChange from '@/handles/input/handleSelectChange';
 
 
-
-export default function Create() {
+export default function Create({ laws, periodicity }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         code: '',
@@ -24,7 +25,15 @@ export default function Create() {
         },
         law: {
             id: '',
-        }
+        },
+        lawsSelect: laws.map(laws => ({
+            value: laws.id,
+            label: laws.code
+        })),
+        periodicitySelect: periodicity.map(periodicity => ({
+            value: periodicity.id,
+            label: periodicity.name
+        }))
     });
 
     function changeAddState(state) {
@@ -48,7 +57,7 @@ export default function Create() {
             className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText={<Add/>}
+            buttonText={<Add />}
             footer={
                 <BaseButton
                     className={"add-btn"}
@@ -92,19 +101,23 @@ export default function Create() {
                     value={values.kbk}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="law[id]"
                     label="Закон"
+                    options={values.lawsSelect}
                     value={values.law.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('law.id', value, values, setValues)
+                    }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="periodicity[id]"
                     label="Переодичность"
+                    options={values.periodicitySelect}
                     value={values.periodicity.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('periodicity.id', value, values, setValues)
+                    }}
                 />
             </VerticalForm>
         </ModalButton>

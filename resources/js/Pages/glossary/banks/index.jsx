@@ -11,7 +11,9 @@ import Delete from "./Delete";
 
 export default function index() {
     const banks = usePage().props.banks.data
-
+    const exporter = usePage().props.exporters.data
+    const division = usePage().props.division_sides.data    
+    
     const columns = [
         {
             title: 'Числовой код',
@@ -67,7 +69,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit record={record} />
+                <Edit division={division} exporter={exporter} record={record} />
             )
         },
         {
@@ -87,7 +89,7 @@ export default function index() {
                 columns={columns}
                 dataSource={banks}
                 actions={
-                    <Create />
+                    <Create division={division} exporter={exporter} />
                 }
             />
         </AuthenticatedLayout>

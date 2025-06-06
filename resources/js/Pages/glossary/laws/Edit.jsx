@@ -9,16 +9,23 @@ import Input from "@/components/inputs/Input"
 import BaseButton from '@/components/button/BaseButton';
 import EditIco from '@/components/icons/Edit'
 import handleChange from '@/handles/input/handleChange';
+import SelectComponent from '@/components/inputs/Select'
+import handleSelectChange from '@/handles/input/handleSelectChange';
 
 
-export default function Edit({ record }) {
+export default function Edit({ sources, record }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         code: record.code,
         name: record.name,
         source: {
             id: record.source.id,
-        }
+        },
+        sourcesSelect: sources.map(sources => ({
+            value: sources.id,
+            label: sources.name
+
+        }))
     });
 
     function changeEditState(state) {
@@ -44,7 +51,7 @@ export default function Edit({ record }) {
             buttonText={<EditIco />}
             footer={
                 <BaseButton
-                className={"edit-btn"}
+                    className={"edit-btn"}
                     type="submit"
                     form="glossary-laws-edit-form"
                 >
@@ -71,12 +78,14 @@ export default function Edit({ record }) {
                     value={values.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="source_id"
                     label="Вид финансирования"
+                    options={values.sourcesSelect}
                     value={values.source.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('source.id', value, values, setValues)
+                    }}
                 />
             </VerticalForm>
         </ModalButton>

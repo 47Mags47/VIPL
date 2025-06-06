@@ -10,9 +10,11 @@ import BaseButton from '@/components/button/BaseButton';
 import EditIco from '@/components/icons/Edit'
 import handleChange from '@/handles/input/handleChange';
 import TextArea from '@/components/inputs/TextArea';
+import SelectComponent from '@/components/inputs/Select'
+import handleSelectChange from '@/handles/input/handleSelectChange';
 
 
-export default function Edit({ record }) {
+export default function Edit({ laws, periodicity, record }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         code: record.code,
@@ -24,7 +26,15 @@ export default function Edit({ record }) {
         },
         law: {
             id: record.law.id,
-        }
+        },
+        lawsSelect: laws.map(laws => ({
+            value: laws.id,
+            label: laws.code
+        })),
+        periodicitySelect: periodicity.map(periodicity => ({
+            value: periodicity.id,
+            label: periodicity.name
+        }))
     });
 
     function changeEditState(state) {
@@ -47,7 +57,7 @@ export default function Edit({ record }) {
             className={"edit"}
             open={modalShow}
             changeState={changeEditState}
-            buttonText={<EditIco/>}
+            buttonText={<EditIco />}
             footer={
                 <BaseButton
                     className={"edit-btn"}
@@ -91,19 +101,23 @@ export default function Edit({ record }) {
                     value={values.kbk}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="law[id]"
                     label="Закон"
+                    options={values.lawsSelect}
                     value={values.law.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('law.id', value, values, setValues)
+                    }}
                 />
-                <Input //DEV заменить на SELECT
-                    type="number"
+                <SelectComponent
                     name="periodicity[id]"
                     label="Переодичность"
+                    options={values.periodicitySelect}
                     value={values.periodicity.id}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    onChange={(value) => {
+                        handleSelectChange('periodicity.id', value, values, setValues)
+                    }}
                 />
             </VerticalForm>
         </ModalButton>

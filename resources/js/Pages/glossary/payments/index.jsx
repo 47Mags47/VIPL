@@ -11,6 +11,8 @@ import Delete from "./Delete";
 
 export default function index() {
     const payments = usePage().props.payments.data
+    const laws = usePage().props.laws.data
+    const periodicity = usePage().props.periodicityes.data
 
 
     const columns = [
@@ -47,7 +49,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit record={record} />
+                <Edit laws={laws} periodicity={periodicity} record={record} />
             )
         },
         {
@@ -67,7 +69,7 @@ export default function index() {
                 columns={columns}
                 dataSource={payments}
                 actions={
-                    <Create />
+                    <Create laws={laws} periodicity={periodicity}/>
                 }
             />
         </AuthenticatedLayout>

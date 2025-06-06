@@ -11,6 +11,7 @@ import Delete from "./Delete";
 
 export default function index() {
     const laws = usePage().props.laws.data
+    const sources = usePage().props.sources.data
 
 
     const columns = [
@@ -33,7 +34,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit record={record} />
+                <Edit sources={sources} record={record} />
             )
         },
         {
@@ -53,7 +54,7 @@ export default function index() {
                 columns={columns}
                 dataSource={laws}
                 actions={
-                    <Create />
+                    <Create sources={sources} />
                 }
             />
         </AuthenticatedLayout>
