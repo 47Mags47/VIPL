@@ -9,6 +9,13 @@ Route::prefix('/dev')->name('dev.')->group(function () {
         ]);
     })->name('route-list');
 
+    Route::get('/test-flash/message', function(){
+        return back()->with([
+            'message' => 'Действие было успешно выполнено',
+            'error' => 'Действие было завершено с ошибкой'
+        ]);
+    })->name('test-flash');
+
     Route::get('/generate-raports', function () {
         $event = App\Models\Payment\Event::first();
         $job = new App\Jobs\Payment\GenerateFromBanks($event, App\Models\Main\User::whereKey(1)->first());

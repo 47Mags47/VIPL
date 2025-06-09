@@ -1,11 +1,13 @@
 import { usePage } from "@inertiajs/react";
 
+import Flash from '@/includes/Flash'
 
 export default function RouteList() {
     const data = usePage().props
 
     return (
         <>
+            <Flash />
             <details>
                 <summary>Справочники</summary>
                 <ul>
@@ -39,6 +41,13 @@ export default function RouteList() {
                     <li><a href={route('dev.login-to-admin')}>Войти под администратором</a></li>
                     <li><a href={route('dev.login-to-user')}>Войти под пользователем</a></li>
                     <li><a href={route('dev.auth-delete')}>Сбросить сессию</a></li>
+                </ul>
+            </details>
+
+            <details>
+                <summary>Сообщения</summary>
+                <ul>
+                    <li><a href={route('dev.test-flash')}>тестовые flash сообщения</a></li>
                 </ul>
             </details>
         </>

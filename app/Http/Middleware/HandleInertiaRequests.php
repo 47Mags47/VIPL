@@ -37,9 +37,11 @@ class HandleInertiaRequests extends Middleware
     {
         $shared = parent::share($request);
         $shared['flash'] = [];
-
-        if ($request->session()->get('message'))
+        if ($request->session()->has('message'))
             $shared['flash']['message'] = $request->session()->get('message');
+
+        if ($request->session()->has('error'))
+            $shared['flash']['error'] = $request->session()->get('error');
 
         return $shared;
     }
