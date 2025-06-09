@@ -15,10 +15,11 @@ class RecipientResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'middle_name' => $this->middle_name,
-            'd_rojd' => $this->d_rojd->format('d.m.Y'),
+            'd_rojd' => $this->d_rojd->format('Y-m-d'),
             'snils' => $this->snils,
             'account' => $this->account,
             'summ' => number_format($this->summ, 2, '.', ' ') . ' RUB',

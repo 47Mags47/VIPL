@@ -44,6 +44,7 @@ export default function Edit({ division, exporter, record }) {
             label: division.name
         }))
     });
+    
     function changeEditState(state) {
         changeModalShow(state);
     }

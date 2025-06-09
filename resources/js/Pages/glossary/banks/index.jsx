@@ -38,6 +38,12 @@ export default function index() {
         {
             title: 'Дата заключения',
             dataIndex: ['contract', 'signed_at'],
+            render: (value, record, index) => {
+                let string = new Date(value).toLocaleDateString()
+                return (
+                    string
+                )
+            },
         },
 
         {

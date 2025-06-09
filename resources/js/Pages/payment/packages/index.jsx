@@ -37,6 +37,12 @@ export default function Index() {
         {
             title: 'На',
             dataIndex: ['event', 'date'],
+            render: (value, record, index) => {
+                let string = new Date(value).toLocaleDateString()
+                return (
+                    string
+                )
+            },
         },
         {
             title: 'Статус',

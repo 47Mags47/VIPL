@@ -25,7 +25,9 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         'destroy'
     ]);
     Route::apiResource('file.recipients', RecipientController::class)->only([
-        'index'
+        'index',
+        'update',
+        'destroy'
     ]);
 
     Route::prefix('/raports')->name('raports.')->controller(RaportController::class)->group(function () {
