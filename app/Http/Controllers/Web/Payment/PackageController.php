@@ -16,7 +16,7 @@ class PackageController extends Controller
         return Inertia::render('payment/packages/index', compact('packages'));
     }
 
-    public function show(Package $package)
+    public function show(Event $event, Package $package)
     {
         return redirect()->route('payments.package.files.index', compact('package'));
     }

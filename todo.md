@@ -10,6 +10,7 @@
 [ ] f_8 - Разработать страницу payments.package.files.index
 [ ] f_9 - Разработать страницу payments.file.recipients.index
 [ ] f_10 - Добавть стилей для input поисковика
+[ ] f_11 - Переделать LoadIco
 
 ### Back
 [x] b_1 - перелопатить ресурсы и контроллеры справочников

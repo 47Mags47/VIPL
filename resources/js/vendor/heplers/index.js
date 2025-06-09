@@ -1,3 +1,3 @@
 import './token'
 import './ObjectChange'
-import './loadIco'
+// import './loadIco' //DEV перелопапить это

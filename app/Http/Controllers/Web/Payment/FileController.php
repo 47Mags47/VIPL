@@ -16,7 +16,10 @@ class FileController extends Controller
     public function index(Package $package){
         $files = $package->files()->paginate(50)->toResourceCollection();
 
-        return Inertia::render('payment/files/index', compact('files'));
+        return Inertia::render('payment/files/index', [
+            'package' => $package->toResource(),
+            'files' => $files
+        ]);
     }
 
     public function store(StorePackageFileRequest $request, Package $package){
@@ -41,12 +44,12 @@ class FileController extends Controller
         return redirect()->route('payment.package.edit', ['event' => $package->event_id]);
     }
 
-    public function show(File $file)
+    public function show(Package $package, File $file)
     {
-        return redirect()->route('payments.package.recipients.index', compact('file'));
+        return redirect()->route('payments.file.recipients.index', compact('file'));
     }
 
-    public function delete(Package $package, File $file){
+    public function destroy(Package $package, File $file){
         $file->delete();
         return response('Файл удален');
     }

@@ -1,3 +1,12 @@
+import { usePage } from "@inertiajs/react";
+
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+import Table from "@/components/Table";
+import Show from "./Show";
+import Delete from "./Delete";
+import Create from "./Create";
+
 /** payments.package.files.index
  *
  * Выводит список файлов
@@ -10,9 +19,59 @@
  */
 
 export default function Index() {
-    return (
-        <>
+    const files = usePage().props.files.data
+    const packages = usePage().props.package.data
+    const columns = [
+        {
+            title: 'Нименование',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Статус',
+            dataIndex: 'status',
+        },
+        {
+            title: 'Получателей',
+            dataIndex: 'recipients',
+        },
 
-        </>
-    )
+        {
+            title: 'На сумму',
+            dataIndex: 'summ',
+        },
+        {
+            title: 'Контрольная сумма',
+            dataIndex: 'summ',
+        },
+        {
+            title: 'Размер',
+            dataIndex: 'size',
+        },
+        {
+            title: '',
+            key: 'show',
+            render: (_, record) => (
+                <Show packages={packages} record={record} />
+            )
+        },
+        {
+            title: '',
+            key: 'delete',
+            render: (_, record) => (
+                <Delete packages={packages} record={record} />
+            )
+        },
+    ]
+    return (
+        <AuthenticatedLayout>
+            <Table
+                rowKey="id"
+                columns={columns}
+                dataSource={files}
+                actions={
+                    <Create />
+                }
+            />
+        </AuthenticatedLayout>
+    );
 }

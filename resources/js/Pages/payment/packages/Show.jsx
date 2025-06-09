@@ -6,11 +6,7 @@ import GoTo from '@/components/icons/GoTo'
 
 export default function Show({ record }) {
     function show(record) {
-        router.get(route('payments.event.packages.show', { event: record.event.id, package: record.id }), {
-            onSuccess: function (response) {
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
-            },
-        });
+        router.get(route('payments.event.packages.show', { event: record.event.id, package: record.id }));
     }
     return (
         <Link

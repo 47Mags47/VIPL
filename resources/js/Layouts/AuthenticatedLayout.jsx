@@ -1,11 +1,11 @@
 import Header from '@/includes/Header'
-import LoadIco from '@/includes/LoadIco'
+// import LoadIco from '@/includes/LoadIco'
 
 
 export default function AuthenticatedLayout({ children }) {
     return (
         <div className="authenticated-layout">
-            <LoadIco />
+            {/* <LoadIco /> */}
             <Header />
             {children}
         </div>

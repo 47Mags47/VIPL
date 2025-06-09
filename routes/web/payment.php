@@ -20,6 +20,7 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
     Route::apiResource('package.files', FileController::class)->only([
         'index',
         'store',
+        'show',
         'update',
         'destroy'
     ]);
