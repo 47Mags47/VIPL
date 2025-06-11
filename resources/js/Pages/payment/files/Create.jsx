@@ -11,7 +11,6 @@ import ProgressBar from '@/components/ProgressBar';
 import handleSelectChange from '@/handles/input/handleSelectChange';
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import Message from '@/includes/Message';
 
 
 import ModalButton              from "@/components/button/ModalButton";
