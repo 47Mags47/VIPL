@@ -26,9 +26,11 @@ return new class extends Migration
         Schema::create('payment__files', function (Blueprint $table) {
             $table->id();
 
+            $table->string('disk')->default('local');
             $table->text('path');
-            $table->string('hash');
-            $table->bigInteger('size');
+            $table->string('name');
+            $table->string('origin_name');
+
             $table->json('errors');
 
             $table->uuid('package_id')->constrained(Package::getTableName());

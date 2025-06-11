@@ -6,7 +6,7 @@ use App\Models\Glossary\Bank;
 use App\Models\Glossary\FileStatus;
 use App\Models\Payment\Package;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Payment\File>
@@ -24,8 +24,9 @@ class FileFactory extends Factory
 
         return [
             'path' => $path,
-            'hash' => Storage::disk('ftp')->checksum($path),
-            'size' => Storage::disk('ftp')->size($path),
+            'name' => Str::uuid(),
+            'origin_name' => '001_02_sberbank_19032025_191.csv',
+
             'errors' => [],
             'package_id' => Package::all()->random()->id,
             'bank_id' => Bank::all()->random()->id,

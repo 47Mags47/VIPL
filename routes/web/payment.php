@@ -17,13 +17,18 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         'index',
         'show'
     ]);
-    Route::apiResource('package.files', FileController::class)->only([
-        'index',
-        'store',
-        'show',
-        'update',
-        'destroy'
-    ]);
+
+    Route::prefix('/package/{package}/files')->name('package.files.')->controller(FileController::class)->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/check', 'check')->name('check');
+    });
+    Route::prefix('/files/{file}')->name('files.')->controller(FileController::class)->group(function(){
+        Route::get('/show', 'show')->name('show');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/destroy', 'destroy')->name('destroy');
+    });
+
     Route::apiResource('file.recipients', RecipientController::class)->only([
         'index',
         'update',

@@ -35,13 +35,14 @@ class GenerateFromBanks implements ShouldQueue
 
         foreach ($this->files as $bank_id => $files) {
             $bank = Bank::whereKey($bank_id)->first();
+            if ($bank == null)
+                continue;
 
             $recipients = $files->map(function ($file) {
                 return $file->recipients;
             })->collapse()->sortBy(function ($recipient) {
                 return $recipient->last_name . $recipient->first_name . $recipient->middle_name;
             })->values();
-
 
             $job = new GenerateFromBank($this->event, $bank, $this->user, $recipients);
             $job->handle();

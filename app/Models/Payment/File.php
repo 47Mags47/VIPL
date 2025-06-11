@@ -22,9 +22,10 @@ class File extends Model
     protected $table = 'payment__files';
 
     protected $fillable = [
+        'disk',
         'path',
-        'hash',
-        'size',
+        'name',
+        'origin_name',
         'errors',
 
         'package_id',
@@ -56,7 +57,19 @@ class File extends Model
 
     public function checkThisCSV()
     {
-        return Storage::disk('ftp')->mimeType($this->path) === 'text/csv';
+        return Storage::disk($this->disk)->mimeType($this->localPath()) === 'text/csv';
+    }
+
+    public function scopeLocalPath()
+    {
+        return $this->path !== ''
+            ? $this->path . '/' . $this->name
+            : $this->name;
+    }
+
+    public function scopeFullPath()
+    {
+        return Storage::disk($this->disk)->path($this->localPath);
     }
 
     ### Связи

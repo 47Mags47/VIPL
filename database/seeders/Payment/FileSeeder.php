@@ -13,6 +13,7 @@ class FileSeeder extends Seeder
      */
     public function run(): void
     {
+        FileStatus::create(['code' => 'uploaded',   'name' => 'Загружен']);
         FileStatus::create(['code' => 'reading',    'name' => 'Чтение']);
         FileStatus::create(['code' => 'read',       'name' => 'Прочитан']);
         FileStatus::create(['code' => 'loading',    'name' => 'Загружается в БД']);

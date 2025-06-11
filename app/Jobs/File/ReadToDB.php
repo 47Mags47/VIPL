@@ -27,7 +27,7 @@ class ReadToDB implements ShouldQueue
         try {
             $this->file->update(['status_id' => FileStatus::byCode('loading')->id]);
 
-            Excel::import(new RecipientImport($this->file), $this->file->path, 'ftp');
+            Excel::import(new RecipientImport($this->file), $this->file->localPath(), $this->file->disk, \Maatwebsite\Excel\Excel::CSV);
 
             $this->file->update(['status_id' => FileStatus::byCode('load')->id]);
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {

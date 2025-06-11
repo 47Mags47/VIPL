@@ -4,6 +4,7 @@ namespace App\Http\Resources\Payment;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class FileResource extends JsonResource
 {
@@ -16,12 +17,13 @@ class FileResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => basename($this->path),
+            'name' => $this->origin_name,
             'status' => $this->status->name,
             'recipients' => $this->recipients()->count(),
             'summ' => $this->recipients->sum('summ'),
-            'hash' => $this->hash,
-            'size' => formatSizeUnits($this->size),
+
+            'hash' => Storage::disk($this->disk)->checksum($this->localPath()),
+            'size' => formatSizeUnits(Storage::disk($this->disk)->size($this->localPath())),
         ];
     }
 }

@@ -70,6 +70,22 @@ return [
             'report' => false,
         ],
 
+        'chunks' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/chunks'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/uploads'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*
