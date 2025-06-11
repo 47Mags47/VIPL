@@ -1,30 +1,24 @@
-import { useEffect, useState } from 'react';
-import { router, usePage } from '@inertiajs/react';
-import Resumable from 'resumablejs';
+import { useEffect, useState }     from 'react';
+import { router, usePage }         from '@inertiajs/react';
+import Resumable                   from 'resumablejs';
 
-import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
-import VerticalForm from '@/components/form/VerticalForm';
-import Add from '@/components/icons/Add'
-import SelectComponent from '@/components/inputs/Select';
-import ProgressBar from '@/components/ProgressBar';
-import handleSelectChange from '@/handles/input/handleSelectChange';
 import { Upload, Button, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined }          from '@ant-design/icons';
 
+import ModalButton                 from "@/components/button/ModalButton";
+import ProgressBar                 from '@/components/ProgressBar';
+import BaseButton                  from '@/components/button/BaseButton';
+import VerticalForm                from '@/components/form/VerticalForm';
+import Add                         from '@/components/icons/Add'
+import SelectComponent             from '@/components/inputs/Select';
+import Message                     from '@/includes/Messege';
+import handleSelectChange          from '@/handles/input/handleSelectChange';
 
-import ModalButton              from "@/components/button/ModalButton";
-import BaseButton               from '@/components/button/BaseButton';
-import VerticalForm             from '@/components/form/VerticalForm';
-import Add                      from '@/components/icons/Add'
-import Input                    from "@/components/inputs/Input"
-import SelectComponent          from '@/components/inputs/Select';
-import handleSelectChange       from '@/handles/input/handleSelectChange';
 
 export default function Create() {
     const props = usePage().props
 
-
+    const [messageApi, contextHolder] = message.useMessage();
 
     const [progress, setProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(false)
@@ -84,60 +78,61 @@ export default function Create() {
         if (procentage === 1) {
             setIsUploading(false)
             changeModalShow(false)
+            Message('success', 'Файл успешно загружен!', messageApi)
         }
     })
 
     return (
         <>
-        
-        <ModalButton
-            open={modalShow}
-            className="add"
-            changeState={(state) => { changeModalShow(state) }}
-            buttonText={<Add />}
-            footer={
-                <BaseButton
-                    className="add-btn"
-                    type="submit"
-                    form="glossary-bank-add-form"
-                >
-                    Добавить
-                </BaseButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить'}
-                handleSubmit={onSubmit}
-                id="glossary-bank-add-form"
-            >
-                <SelectComponent
-                    name="bank"
-                    label="Банк"
-                    options={values.banks}
-                    value={values.bank}
-                    onChange={(value) => {
-                        handleSelectChange('bank', value, values, setValues)
-                    }}
-                />
-                <Upload
-                    type={"file"}
-                    name={"file"}
-                    maxCount={1}
-                    beforeUpload={(file) => {
-                        setValues({ ...values, file: file })
-                        return false
-                    }}
-                >
-                    <Button
-                        icon={<UploadOutlined />}
+            {contextHolder}
+            <ModalButton
+                open={modalShow}
+                className="add"
+                changeState={(state) => { changeModalShow(state) }}
+                buttonText={<Add />}
+                footer={
+                    <BaseButton
+                        className="add-btn"
+                        type="submit"
+                        form="glossary-bank-add-form"
                     >
-                        Загрузить файл
-                    </Button>
-                </Upload>
-                {isUploading && <ProgressBar progress={progress} />}
-            </VerticalForm>
+                        Добавить
+                    </BaseButton>
+                }
+            >
+                <VerticalForm
+                    header={'Добавить'}
+                    handleSubmit={onSubmit}
+                    id="glossary-bank-add-form"
+                >
+                    <SelectComponent
+                        name="bank"
+                        label="Банк"
+                        options={values.banks}
+                        value={values.bank}
+                        onChange={(value) => {
+                            handleSelectChange('bank', value, values, setValues)
+                        }}
+                    />
+                    <Upload
+                        type={"file"}
+                        name={"file"}
+                        maxCount={1}
+                        beforeUpload={(file) => {
+                            setValues({ ...values, file: file })
+                            return false
+                        }}
+                    >
+                        <Button
+                            icon={<UploadOutlined />}
+                        >
+                            Загрузить файл
+                        </Button>
+                    </Upload>
+                    {isUploading && <ProgressBar progress={progress} />}
+                </VerticalForm>
 
-        </ModalButton >
+            </ModalButton >
         </>
     )
 }
