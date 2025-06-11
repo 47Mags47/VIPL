@@ -5,12 +5,14 @@
 [x] f_3 - Добавить компоненты иконок для основных действий (goto, trash, add, paperclip, send, edit)
 [x] f_4 - Добавить стили на страницы
 [x] f_5 - Добавить компонент SELECT и заменить его везде где необходимо
-[ ] f_6 - Разработать страницу payments.events.index
+[x] f_6 - Разработать страницу payments.events.index
 [x] f_7 - Разработать страницу payments.event.packages.index
 [ ] f_8 - Разработать страницу payments.package.files.index
 [ ] f_9 - Разработать страницу payments.file.recipients.index
 [ ] f_10 - Добавть стилей для input поисковика
 [ ] f_11 - Переделать LoadIco
+[ ] f_12 - Разработать компонент progress
+
 
 ### Back
 [x] b_1 - перелопатить ресурсы и контроллеры справочников
