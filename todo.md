@@ -11,7 +11,7 @@
 [ ] f_9 - Разработать страницу payments.file.recipients.index
 [ ] f_10 - Добавть стилей для input поисковика
 [ ] f_11 - Переделать LoadIco
-[ ] f_12 - Разработать компонент progress
+[x] f_12 - Разработать компонент progress
 
 
 ### Back
