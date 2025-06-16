@@ -1,13 +1,11 @@
 import { usePage } from "@inertiajs/react";
 
-import Flash from '@/includes/Flash'
 
 export default function RouteList() {
     const data = usePage().props
 
     return (
         <>
-            <Flash />
             <details>
                 <summary>Справочники</summary>
                 <ul>

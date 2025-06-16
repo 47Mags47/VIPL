@@ -23,6 +23,7 @@ export default function Create() {
     const [progress, setProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(false)
     const [modalShow, changeModalShow] = useState(false)
+    const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
         if (!modalShow) {
@@ -64,7 +65,7 @@ export default function Create() {
 
         let url = route('payments.package.files.check', { package: props.package.data.id })
         router.post(url, { ...query, 'file-size': values.file.size }, {
-            onSuccess: async () => {
+            onSuccess: () => {
                 resumable.upload();
             }
         })
@@ -73,7 +74,6 @@ export default function Create() {
     resumable.on('progress', () => {
         let procentage = resumable.progress()
         setProgress(procentage)
-        console.log(procentage);
 
         if (procentage === 1) {
             setIsUploading(false)
@@ -117,6 +117,7 @@ export default function Create() {
                     <Upload
                         type={"file"}
                         name={"file"}
+                        disabled={setIsUploading}
                         maxCount={1}
                         beforeUpload={(file) => {
                             setValues({ ...values, file: file })
