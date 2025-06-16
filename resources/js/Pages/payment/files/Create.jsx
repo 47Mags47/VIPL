@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 import { useEffect, useState }     from 'react';
 import { router, usePage }         from '@inertiajs/react';
 import Resumable                   from 'resumablejs';
 
 import { Upload, Button, message } from 'antd';
+
 import { UploadOutlined }          from '@ant-design/icons';
 
 import ModalButton                 from "@/components/button/ModalButton";
@@ -14,23 +14,6 @@ import Add                         from '@/components/icons/Add'
 import SelectComponent             from '@/components/inputs/Select';
 import Message                     from '@/includes/Messege';
 import handleSelectChange          from '@/handles/input/handleSelectChange';
-=======
-import { useEffect, useState } from 'react';
-import { router, usePage } from '@inertiajs/react';
-import Resumable from 'resumablejs';
-
-import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
-import VerticalForm from '@/components/form/VerticalForm';
-import Add from '@/components/icons/Add'
-import SelectComponent from '@/components/inputs/Select';
-import ProgressBar from '@/components/ProgressBar';
-import handleSelectChange from '@/handles/input/handleSelectChange';
-import { Upload, Button, message } from 'antd';
-import { FacebookFilled, UploadOutlined } from '@ant-design/icons';
-// import Message from '@/includes/Message';
-
->>>>>>> 788938ca96a3552c716ac2701ffa9ff80f6041c5
 
 
 export default function Create() {
@@ -39,12 +22,7 @@ export default function Create() {
 
     const [messageApi, contextHolder] = message.useMessage();
 
-    const [progress, setProgress] = useState(0)
-    const [isUploading, setIsUploading] = useState(false)
-    const [modalShow, changeModalShow] = useState(false)
-    const [disabled, setDisabled] = useState(true)
-
-=======
+    const [messageApi, contextHolder] = message.useMessage();
 
     const [progress, setProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(false)
@@ -89,7 +67,6 @@ export default function Create() {
 
     function onSubmit(e) {
         e.preventDefault()
-        setIsUploading(true)
 
         let url = route('payments.package.files.check', { package: props.package.data.id })
         router.post(url, { ...query, 'file-size': values.file.size }, {
@@ -103,21 +80,23 @@ export default function Create() {
     resumable.on('progress', () => {
         let procentage = resumable.progress()
         setProgress(procentage)
-        setDisabled(true)
         setClosable(false)
+        setDisabled(true)
     })
     resumable.on('fileSuccess', () => {
         setClosable(true)
         setDisabled(false)
         setIsUploading(false)
         changeModalShow(false)
+        Message('success', 'Файл успешно загружен!', messageApi)
     })
     resumable.on('fileError', () => {
-        
+        Message('error', 'Ошибка загрузки!', messageApi)
     })
 
     return (
         <>
+            {contextHolder}
             <ModalButton
                 open={modalShow}
                 maskClosable={closable}
@@ -169,7 +148,6 @@ export default function Create() {
                     </Upload>
                     {isUploading && <ProgressBar progress={progress} />}
                 </VerticalForm>
-
             </ModalButton >
         </>
     )
