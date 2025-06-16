@@ -2,7 +2,7 @@ import GroupComponent from "./GroupComponent";
 import { Select } from "antd";
 
 
-export default function SelectComponent({ id, name, options, label, onChange, value }){
+export default function SelectComponent({ id, name, options, label, onChange, value, disabled }) {
 
     id = id ?? name
 
@@ -15,6 +15,7 @@ export default function SelectComponent({ id, name, options, label, onChange, va
                 onChange={onChange}
                 value={value}
                 options={options}
+                disabled={disabled}
             />
         </GroupComponent>
     )

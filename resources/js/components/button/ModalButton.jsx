@@ -11,7 +11,9 @@ export default function ModalButton({
     cancelHandler,
     changeState,
     footer,
-    className
+    className,
+    maskClosable,
+    closable
 }) {
     const [modalShow, changeModalShow] = useState(false);
 
@@ -44,6 +46,8 @@ export default function ModalButton({
             </BaseButton>
             <Modal
                 className='modal'
+                closable={closable}
+                maskClosable={maskClosable}
                 open={modalShow}
                 onOk={okHandler}
                 onCancel={cancelHandler}
