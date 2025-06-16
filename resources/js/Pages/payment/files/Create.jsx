@@ -18,9 +18,6 @@ import handleSelectChange          from '@/handles/input/handleSelectChange';
 
 export default function Create() {
     const props = usePage().props
-<<<<<<< HEAD
-
-    const [messageApi, contextHolder] = message.useMessage();
 
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -30,7 +27,7 @@ export default function Create() {
     const [disabled, setDisabled] = useState(false)
     const [closable, setClosable] = useState(true)
 
->>>>>>> 788938ca96a3552c716ac2701ffa9ff80f6041c5
+
     useEffect(() => {
         if (!modalShow) {
             setProgress(0)
