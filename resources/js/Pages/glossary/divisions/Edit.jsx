@@ -29,7 +29,6 @@ export default function Edit({ record }) {
         router.put(route('glossary.divisions.update', { division: record.id }), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

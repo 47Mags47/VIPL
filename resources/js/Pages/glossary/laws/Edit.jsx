@@ -38,7 +38,6 @@ export default function Edit({ sources, record }) {
         router.put(route('glossary.laws.update', { law: record.id }), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

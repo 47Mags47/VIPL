@@ -27,7 +27,6 @@ export default function Create() {
         router.post(route('glossary.divisions.store'), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

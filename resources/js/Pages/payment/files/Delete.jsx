@@ -9,7 +9,6 @@ export default function Delete({ packages, record }) {
         if (confirm("Вы уверены, что хотите удалить эту запись?")) {
             router.delete(route('payments.package.files.destroy', { package: packages.id, file: record.id }), {
                 onSuccess: function (response) {
-                    // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
                 },
             });
         }

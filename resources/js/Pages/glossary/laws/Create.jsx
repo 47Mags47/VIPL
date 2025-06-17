@@ -37,7 +37,6 @@ export default function Create({ sources }) {
         router.post(route('glossary.laws.store'), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

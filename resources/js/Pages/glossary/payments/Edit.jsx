@@ -47,7 +47,6 @@ export default function Edit({ laws, periodicity, record }) {
         router.put(route('glossary.payments.update', { payment: record.id }), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

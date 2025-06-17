@@ -13,7 +13,6 @@ import Add from '@/components/icons/Add'
 import SelectComponent from '@/components/inputs/Select';
 
 
-
 /* DEV форма создания банка
     Форма отправляет POST запрос на route('glossary.banks.store)
 
@@ -75,126 +74,123 @@ export default function Create({ exporter, division }) {
         router.post(route('glossary.banks.store'), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }
-
-
     return (
-        <ModalButton
-            open={modalShow}
-            className="add"
-            changeState={changeAddState}
-            buttonText={<Add />}
-            footer={
-                <BaseButton
-                    className="add-btn"
-                    type="submit"
-                    form="glossary-bank-add-form"
-                >
-                    Добавить
-                </BaseButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить'}
-                handleSubmit={onAddSubmit}
-                id="glossary-bank-add-form"
+            <ModalButton
+                open={modalShow}
+                className="add"
+                changeState={changeAddState}
+                buttonText={<Add />}
+                footer={
+                    <BaseButton
+                        className="add-btn"
+                        type="submit"
+                        form="glossary-bank-add-form"
+                    >
+                        Добавить
+                    </BaseButton>
+                }
             >
-                <Input
-                    type={"number"}
-                    name={"bank[number_code]"}
-                    label={"Числовой код"}
-                    value={values.bank.number_code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="text"
-                    name="bank[code]"
-                    label="Строковый код"
-                    value={values.bank.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="text"
-                    name="bank[name]"
-                    label="Наименование"
-                    value={values.bank.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <SelectComponent
-                    name="bank[exporter_id]"
-                    label="Экспортер"
-                    options={values.exporterSelect}
-                    value={values.bank.exporter_id}
-                    onChange={(value) => {
-                        handleSelectChange('bank.exporter_id', value, values, setValues)
-
-                    }}
-                />
-                <Input
-                    type="text"
-                    name="contract[number]"
-                    label="Номер контракта"
-                    value={values.contract.number}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="date"
-                    name="contract[signed_at]"
-                    label="Дата заключения"
-                    value={values.contract.signed_at}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <SelectComponent
-                    name="contract[division_side_id]"
-                    label="Сторона организации"
-                    options={values.divisionSelect}
-                    value={values.contract.division_side_id}
-                    onChange={(value) => {
-                        handleSelectChange('contract.division_side_id', value, values, setValues)
-
-                    }}
-                />
-                <Input
-                    type="text"
-                    name="bank_side[name]"
-                    label="Наименование"
-                    value={values.bank_side.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="text"
-                    name="bank_side[INN]"
-                    label="ИНН"
-                    value={values.bank_side.INN}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="number"
-                    name="bank_side[account]"
-                    label="Счет"
-                    value={values.bank_side.account}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <Input
-                    type="number"
-                    name="bank_side[BIK]"
-                    label="БИК"
-                    value={values.bank_side.BIK}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
-                />
-                <TextArea
-                    name="bank_side.comment"
-                    label="Комментарий"
-                    rows={9}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                <VerticalForm
+                    header={'Добавить'}
+                    handleSubmit={onAddSubmit}
+                    id="glossary-bank-add-form"
                 >
-                    {values.bank_side.comment}
-                </TextArea>
-            </VerticalForm>
-        </ModalButton>
+                    <Input
+                        type={"number"}
+                        name={"bank[number_code]"}
+                        label={"Числовой код"}
+                        value={values.bank.number_code}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="text"
+                        name="bank[code]"
+                        label="Строковый код"
+                        value={values.bank.code}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="text"
+                        name="bank[name]"
+                        label="Наименование"
+                        value={values.bank.name}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <SelectComponent
+                        name="bank[exporter_id]"
+                        label="Экспортер"
+                        options={values.exporterSelect}
+                        value={values.bank.exporter_id}
+                        onChange={(value) => {
+                            handleSelectChange('bank.exporter_id', value, values, setValues)
+
+                        }}
+                    />
+                    <Input
+                        type="text"
+                        name="contract[number]"
+                        label="Номер контракта"
+                        value={values.contract.number}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="date"
+                        name="contract[signed_at]"
+                        label="Дата заключения"
+                        value={values.contract.signed_at}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <SelectComponent
+                        name="contract[division_side_id]"
+                        label="Сторона организации"
+                        options={values.divisionSelect}
+                        value={values.contract.division_side_id}
+                        onChange={(value) => {
+                            handleSelectChange('contract.division_side_id', value, values, setValues)
+
+                        }}
+                    />
+                    <Input
+                        type="text"
+                        name="bank_side[name]"
+                        label="Наименование"
+                        value={values.bank_side.name}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="text"
+                        name="bank_side[INN]"
+                        label="ИНН"
+                        value={values.bank_side.INN}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="number"
+                        name="bank_side[account]"
+                        label="Счет"
+                        value={values.bank_side.account}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <Input
+                        type="number"
+                        name="bank_side[BIK]"
+                        label="БИК"
+                        value={values.bank_side.BIK}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    />
+                    <TextArea
+                        name="bank_side.comment"
+                        label="Комментарий"
+                        rows={9}
+                        onChange={(e) => { handleChange(e, values, setValues) }}
+                    >
+                        {values.bank_side.comment}
+                    </TextArea>
+                </VerticalForm>
+            </ModalButton>
     );
 
 }

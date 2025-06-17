@@ -34,7 +34,6 @@ export default function Edit({ files, record }) {
         router.put(route('payments.file.recipients.update', { file: files.id, recipient: record.id }), values, {
             onSuccess: function () {
                 changeModalShow(false)
-                // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
             },
         })
     }

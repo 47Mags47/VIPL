@@ -77,7 +77,6 @@ export default function Index() {
         }
     };
     dayjs.locale('ru-RU');
-    console.log(locale);
     const cellRender = (current, info) => {
         if (info.type === 'date') return dateCellRender(current);
         return info.originNode;

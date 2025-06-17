@@ -8,20 +8,21 @@ export default function Delete({ record }) {
     function onDeleteClick(record) {
         if (confirm("Вы уверены, что хотите удалить эту запись?")) {
             router.delete(route('glossary.banks.destroy', { bank: record.id }), {
-                onSuccess: function (response) {
-                    // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
-                },
+                onFinish: function () {
+                }
             });
         }
     }
 
     return (
-        <BaseButton
-            className="trash"
-            type="button"
-            onClick={() => onDeleteClick(record)}
-        >
-            <Trash />
-        </BaseButton>
+        <>
+            <BaseButton
+                className="trash"
+                type="button"
+                onClick={() => onDeleteClick(record)}
+            >
+                <Trash />
+            </BaseButton>
+        </>
     )
 }

@@ -2,7 +2,7 @@ import { useEffect, useState }     from 'react';
 import { router, usePage }         from '@inertiajs/react';
 import Resumable                   from 'resumablejs';
 
-import { Upload, Button, message } from 'antd';
+import { Upload, Button }          from 'antd';
 
 import { UploadOutlined }          from '@ant-design/icons';
 
@@ -12,21 +12,16 @@ import BaseButton                  from '@/components/button/BaseButton';
 import VerticalForm                from '@/components/form/VerticalForm';
 import Add                         from '@/components/icons/Add'
 import SelectComponent             from '@/components/inputs/Select';
-import Message                     from '@/includes/Messege';
 import handleSelectChange          from '@/handles/input/handleSelectChange';
-
 
 export default function Create() {
     const props = usePage().props
-
-    const [messageApi, contextHolder] = message.useMessage();
 
     const [progress, setProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(false)
     const [modalShow, changeModalShow] = useState(false)
     const [disabled, setDisabled] = useState(false)
     const [closable, setClosable] = useState(true)
-
 
     useEffect(() => {
         if (!modalShow) {
@@ -85,67 +80,59 @@ export default function Create() {
         setDisabled(false)
         setIsUploading(false)
         changeModalShow(false)
-        Message('success', 'Файл успешно загружен!', messageApi)
     })
-    resumable.on('fileError', () => {
-        Message('error', 'Ошибка загрузки!', messageApi)
-    })
-
     return (
-        <>
-            {contextHolder}
-            <ModalButton
-                open={modalShow}
-                maskClosable={closable}
-                closable={closable}
-                className="add"
-                changeState={(state) => { changeModalShow(state) }}
-                buttonText={<Add />}
-                footer={
-                    <BaseButton
-                        className="add-btn"
-                        type="submit"
-                        form="glossary-bank-add-form"
-                        disabled={disabled}
-                    >
-                        Добавить
-                    </BaseButton>
-                }
-            >
-                <VerticalForm
-                    header={'Добавить'}
-                    handleSubmit={onSubmit}
-                    id="glossary-bank-add-form"
+        <ModalButton
+            open={modalShow}
+            maskClosable={closable}
+            closable={closable}
+            className="add"
+            changeState={(state) => { changeModalShow(state) }}
+            buttonText={<Add />}
+            footer={
+                <BaseButton
+                    className="add-btn"
+                    type="submit"
+                    form="glossary-bank-add-form"
+                    disabled={disabled}
                 >
-                    <SelectComponent
-                        name="bank"
-                        label="Банк"
-                        options={values.banks}
-                        disabled={disabled}
-                        value={values.bank}
-                        onChange={(value) => {
-                            handleSelectChange('bank', value, values, setValues)
-                        }}
-                    />
-                    <Upload
-                        type={"file"}
-                        name={"file"}
-                        disabled={disabled}
-                        maxCount={1}
-                        beforeUpload={(file) => {
-                            setValues({ ...values, file: file })
-                            return false
-                        }}
+                    Добавить
+                </BaseButton>
+            }
+        >
+            <VerticalForm
+                header={'Добавить'}
+                handleSubmit={onSubmit}
+                id="glossary-bank-add-form"
+            >
+                <SelectComponent
+                    name="bank"
+                    label="Банк"
+                    options={values.banks}
+                    disabled={disabled}
+                    value={values.bank}
+                    onChange={(value) => {
+                        handleSelectChange('bank', value, values, setValues)
+                    }}
+                />
+                <Upload
+                    type={"file"}
+                    name={"file"}
+                    disabled={disabled}
+                    maxCount={1}
+                    beforeUpload={(file) => {
+                        setValues({ ...values, file: file })
+                        return false
+                    }}
+                >
+                    <Button
+                        icon={<UploadOutlined />}
                     >
-                        <Button
-                            icon={<UploadOutlined />}
-                        >
-                            Загрузить файл
-                        </Button>
-                    </Upload>
-                    {isUploading && <ProgressBar progress={progress} />}
-                </VerticalForm>
-            </ModalButton >
-        </>
+                        Загрузить файл
+                    </Button>
+                </Upload>
+                {isUploading && <ProgressBar progress={progress} />}
+            </VerticalForm>
+        </ModalButton >
     )
 }

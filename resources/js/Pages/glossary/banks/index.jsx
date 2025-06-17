@@ -12,8 +12,8 @@ import Delete from "./Delete";
 export default function index() {
     const banks = usePage().props.banks.data
     const exporter = usePage().props.exporters.data
-    const division = usePage().props.division_sides.data    
-    
+    const division = usePage().props.division_sides.data
+
     const columns = [
         {
             title: 'Числовой код',

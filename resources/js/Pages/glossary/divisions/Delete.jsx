@@ -9,7 +9,6 @@ export default function Delete({ record }) {
         if (confirm("Вы уверены, что хотите удалить эту запись?")) {
             router.delete(route('glossary.divisions.delete', { division: record.id }), {
                 onSuccess: function (response) {
-                    // showFlash() // [ ] front добавить глобальный хелпер для вывода сообщения из Flash хранилища
                 },
             });
         }
