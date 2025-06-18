@@ -5,6 +5,8 @@ import locale from 'antd/locale/ru_RU';
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru';
 
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+
 import { Badge, Calendar } from 'antd';
 import Link from '@/components/Link';
 
@@ -82,11 +84,13 @@ export default function Index() {
         return info.originNode;
     };
     return (
+        <AuthenticatedLayout>
         <Calendar
             defaultValue={value}
             onPanelChange={handlePanelChange}
             cellRender={cellRender}
             locale={locale.Calendar}
         />
+        </AuthenticatedLayout>
     )
 };
