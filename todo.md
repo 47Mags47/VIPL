@@ -10,7 +10,7 @@
 [ ] f_8 - Разработать страницу payments.package.files.index
 [ ] f_9 - Разработать страницу payments.file.recipients.index
 [ ] f_10 - Добавть стилей для input поисковика
-[ ] f_11 - Переделать LoadIco
+[x] f_11 - Переделать LoadIco
 [x] f_12 - Разработать компонент progress
 [x] f_13 - Переделать flash сообщения
 [ ] f_14 - Добавить меню в шапку для админа
