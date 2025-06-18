@@ -36,6 +36,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $shared = parent::share($request);
+        $shared['user'] = user() !== null ? user()->toResource() : null;
+
         $shared['flash'] = [];
         if ($request->session()->has('message'))
             $shared['flash']['message'] = $request->session()->get('message');

@@ -36,6 +36,6 @@ class AuthSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('session.create');
+        return redirect()->route('login');
     }
 }

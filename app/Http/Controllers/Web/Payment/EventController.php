@@ -77,7 +77,7 @@ class EventController extends Controller
         }
 
         if (user()->isAdmin()) {
-            return redirect()->route('payment.event.packages.index', compact('event'));
+            return redirect()->route('payments.event.packages.index', compact('event'));
         }
 
         return abort(403);
