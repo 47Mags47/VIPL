@@ -10,7 +10,6 @@ use App\Models\Payment\Event;
 use App\Models\Payment\Package;
 use Carbon\CarbonImmutable;
 use Inertia\Inertia;
-use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -46,7 +45,7 @@ class EventController extends Controller
                 'status_id' => PackageStatus::byCode('created')->id
             ]);
 
-            return redirect()->route('payments.event.packages.show ', compact('event', 'package'));
+            return redirect()->route('payments.event.packages.show', compact('event', 'package'));
         }
 
         if (user()->isAdmin()) {

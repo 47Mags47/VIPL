@@ -31,7 +31,8 @@ class FileController extends Controller
         ]);
     }
 
-    public function check(CheckFileRequest $request, Package $package){
+    public function check(CheckFileRequest $request, Package $package)
+    {
         return back()->with('message', 'Началась загрузка файла');
     }
 
