@@ -2,9 +2,21 @@ import { Table as AntdTable } from 'antd';
 import TableSearch from '@/components/inputs/TableSearch'
 
 
-export default function Table({ actions, searUrl, ...props }) {
-    const paginate = { pageSize: 50 }
-
+export default function Table({ current_page, last_page, from, actions, searUrl, ...props }) {
+    const itemRender = (_, type, originalElement) => {
+        if (type === 'prev' && current_page === 1) {
+            return null
+        }
+        if (type === 'next'&& current_page === last_page) {
+            return null
+        }
+        return originalElement;
+    };
+    const paginate = {
+        pageSize: 50,
+        hideOnSinglePage: true,
+        itemRender: itemRender,
+    }
     return (
         <div className="table-box">
             <div className="top-side-box">

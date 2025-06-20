@@ -25,6 +25,7 @@ import Table from "@/components/Table";
 export default function Index() {
     const recipients = usePage().props.recipients.data
     // const files = usePage().props.files.data
+    const pagination = usePage().props.recipients.meta
     const columns = [
         {
             title: 'Фамилия',
@@ -86,6 +87,9 @@ export default function Index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={recipients}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
             />
         </AuthenticatedLayout>
     );

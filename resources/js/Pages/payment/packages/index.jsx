@@ -21,6 +21,9 @@ import Show from "./Show";
 
 export default function Index() {
     const packages = usePage().props.packages.data
+    const pagination = usePage().props.packages.meta
+
+
     const columns = [
         {
             title: 'UUID',
@@ -66,6 +69,9 @@ export default function Index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={packages}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
             />
         </AuthenticatedLayout>
     );

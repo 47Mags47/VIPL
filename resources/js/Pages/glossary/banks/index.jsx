@@ -13,6 +13,7 @@ export default function index() {
     const banks = usePage().props.banks.data
     const exporter = usePage().props.exporters.data
     const division = usePage().props.division_sides.data
+    const pagination = usePage().props.banks.meta
 
     const columns = [
         {
@@ -94,6 +95,9 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={banks}
+                current_page={pagination.current_page} 
+                last_page={pagination.last_page} 
+                from={pagination.from}
                 actions={
                     <Create division={division} exporter={exporter} />
                 }
