@@ -15,7 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // ADMIN
         $admin = User::create([
             'division_id' => null,
             'name' => 'Администратор',
@@ -24,7 +23,6 @@ class UserSeeder extends Seeder
         ]);
         $admin->addRole('admin');
 
-        // USER
         $user = User::create([
             'division_id' => 1,
             'name' => 'Пользователь',

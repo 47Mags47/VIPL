@@ -2,8 +2,6 @@
 
 namespace App\Models\Main;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Models\Glossary\Division;
 use App\Traits\Named;
 use App\Traits\RolesAndPermissions;

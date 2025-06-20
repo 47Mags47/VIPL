@@ -4,9 +4,6 @@ namespace App\Exporters;
 
 use App\Classes\ExcelExporter;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Writer\Xls;
-
-// use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 class AlfaBankExporter extends ExcelExporter
 {
