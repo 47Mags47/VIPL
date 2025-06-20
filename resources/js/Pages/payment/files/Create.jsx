@@ -1,18 +1,18 @@
-import { useEffect, useState }     from 'react';
-import { router, usePage }         from '@inertiajs/react';
-import Resumable                   from 'resumablejs';
+import { useEffect, useState } from 'react';
+import { router, usePage } from '@inertiajs/react';
+import Resumable from 'resumablejs';
 
-import { Upload, Button }          from 'antd';
+import { Upload, Button } from 'antd';
 
-import { UploadOutlined }          from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 
-import ModalButton                 from "@/components/button/ModalButton";
-import ProgressBar                 from '@/components/ProgressBar';
-import BaseButton                  from '@/components/button/BaseButton';
-import VerticalForm                from '@/components/form/VerticalForm';
-import Add                         from '@/components/icons/Add'
-import SelectComponent             from '@/components/inputs/Select';
-import handleSelectChange          from '@/handles/input/handleSelectChange';
+import ModalButton from "@/components/button/ModalButton";
+import ProgressBar from '@/components/ProgressBar';
+import BaseButton from '@/components/button/BaseButton';
+import VerticalForm from '@/components/form/VerticalForm';
+import Add from '@/components/icons/Add'
+import SelectComponent from '@/components/inputs/Select';
+import handleSelectChange from '@/handles/input/handleSelectChange';
 
 export default function Create() {
     const props = usePage().props
@@ -39,6 +39,8 @@ export default function Create() {
             label: bank.name
         }))
     });
+
+    const isFormValid = values.bank && values.file instanceof File;
 
     const query = { _token: token(), bank: values.bank }
 
@@ -94,7 +96,7 @@ export default function Create() {
                     className="add-btn"
                     type="submit"
                     form="glossary-bank-add-form"
-                    disabled={disabled}
+                    disabled={!isFormValid || disabled}
                 >
                     Добавить
                 </BaseButton>
