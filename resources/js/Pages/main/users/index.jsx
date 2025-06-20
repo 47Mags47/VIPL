@@ -2,13 +2,11 @@ import { usePage } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
-
 import Table from "@/components/Table";
 
-// import Edit from "./Edit";
-// import Create from "./Create";
-// import Delete from "./Delete";
+import Edit from "./Edit";
+import Create from "./Create";
+import Delete from "./Delete";
 
 
 export default function index() {

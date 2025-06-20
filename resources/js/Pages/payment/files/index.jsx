@@ -36,12 +36,14 @@ export default function Index() {
         },
 
         {
-            title: 'На сумму',
+            title: 'На сумму (руб)',
             dataIndex: 'summ',
         },
+
         {
             title: 'Контрольная сумма',
-            dataIndex: 'summ',
+            dataIndex: 'hash',
+
         },
         {
             title: 'Размер',

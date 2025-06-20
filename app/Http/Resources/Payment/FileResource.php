@@ -15,7 +15,6 @@ class FileResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // dd(formatSizeUnits(Storage::disk($this->disk)->size($this->localPath())));
         return [
             'id' => $this->id,
             'name' => $this->origin_name,
