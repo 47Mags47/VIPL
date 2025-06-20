@@ -14,6 +14,6 @@ class RaportController extends Controller
 
         GenerateFromBanks::dispatch($event, user());
 
-        return response('задача запущена');
+        return back()->with('message', 'Запущено формирование файлов в банк');
     }
 }

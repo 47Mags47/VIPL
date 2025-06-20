@@ -36,6 +36,6 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
     ]);
 
     Route::prefix('/raports')->name('raports.')->controller(RaportController::class)->group(function () {
-        Route::post('/store', 'store')->name('store');
+        Route::get('/store', 'store')->name('store');
     });
 });

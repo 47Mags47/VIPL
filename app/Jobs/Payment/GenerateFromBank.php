@@ -33,7 +33,7 @@ class GenerateFromBank implements ShouldQueue
                 ->addData($this->recipients)
                 ->save()
                 ->createDb()
-                ->moveToDisk('ftp', 'raports/' . $this->event->payment->code . '/' . $this->bank->number_code);
+                ->moveToDisk('bank-files', '' . $this->event->payment->code . '/' . $this->bank->number_code);
         } else {
             SendAlertEvent::dispatch($this->started_by, 'Попытка вызвать несуществующий экспортер', 'error');
 

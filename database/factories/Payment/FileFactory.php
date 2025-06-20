@@ -6,6 +6,7 @@ use App\Models\Glossary\Bank;
 use App\Models\Glossary\FileStatus;
 use App\Models\Payment\Package;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -20,12 +21,15 @@ class FileFactory extends Factory
      */
     public function definition(): array
     {
-        $path = '001/test/001_02_sberbank_19032025_191.csv';
+        $disk = 'uploads';
+        $name = 'example.csv';
+        $path = 'uploads';
 
         return [
+            'disk' => $disk,
             'path' => $path,
-            'name' => Str::uuid(),
-            'origin_name' => '001_02_sberbank_19032025_191.csv',
+            'name' => $name,
+            'origin_name' => 'example.csv',
 
             'errors' => [],
             'package_id' => Package::all()->random()->id,

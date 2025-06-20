@@ -49,7 +49,7 @@ class FileController extends Controller
             $disk = 'uploads';
             $file_name = Str::random(40) . '.' . $save->getFile()->getClientOriginalExtension();
             $file_origin_name = $save->getFile()->getClientOriginalName();
-            $file_path = '';
+            $file_path = 'uploads';
             $full_path = Storage::disk($disk)->path($file_path);
 
             $save->getFile()->move($full_path, $file_name);
