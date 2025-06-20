@@ -2,31 +2,27 @@ import { usePage } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
-
 import Table from "@/components/Table";
 
-// import Edit from "./Edit";
-// import Create from "./Create";
-// import Delete from "./Delete";
+import Edit from "./Edit";
+import Create from "./Create";
+import Delete from "./Delete";
 
 
 export default function index() {
     const user = usePage().props.user.data
     const users = usePage().props.users.data
-    console.log(users);
-
 
     const columns = [
         {
-            title: 'Онлайн',
+            title: '',
             dataIndex: 'online',
-            width: 80,
+            width: 45,
             render: (_, record) =>
                 record.online ? (
-                    <CheckCircleTwoTone twoToneColor="#52c41a" />
+                    <i className="fa-solid fa-circle online"></i>
                 ) : (
-                    <CloseCircleTwoTone twoToneColor="#ff4d4f" />
+                    <i className="fa-solid fa-circle ofline"></i>
                 ),
         },
         {
@@ -40,7 +36,7 @@ export default function index() {
         },
         {
             title: 'Подразделение',
-            dataIndex: ['division', 'name'],
+            dataIndex: ['division', 'id'],
             width: 150,
         },
         {
@@ -56,17 +52,17 @@ export default function index() {
             title: '',
             key: 'edit',
             width: 80,
-            // render: (_, record) => (
-            //     <Edit sources={sources} record={record} />
-            // )
+            render: (_, record) => (
+                <Edit record={record}/>
+            )
         },
         {
             title: '',
             key: 'delete',
             width: 80,
-            // render: (_, record) => (
-            //     <Delete record={record} />
-            // )
+            render: (_, record) => (
+                <Delete record={record }/>
+            )
         },
     ];
 
@@ -76,9 +72,9 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={users}
-            // actions={
-            //     // <Create sources={sources} />
-            // }
+                actions={
+                    <Create record={users}/>
+                }
             />
         </AuthenticatedLayout>
     );

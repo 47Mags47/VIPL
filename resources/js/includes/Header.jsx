@@ -19,6 +19,8 @@ export default function Header() {
                 { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
             ],
         },
+        
+        { key: 'user', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> },
         { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
         { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ];
