@@ -1,6 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function(){
+    return redirect()->route('payments.events.index');
+});
+
 Route::group([], [
     base_path('routes/web/dev.php'),
 

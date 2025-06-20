@@ -21,7 +21,7 @@ class AuthSessionController extends Controller
         if (Auth::attempt($request->only(['email', 'password']))) {
             $request->session()->regenerate();
 
-            return redirect()->route('dev.route-list');
+            return redirect()->route('payments.events.index');
         }
 
         return back()->withErrors([
