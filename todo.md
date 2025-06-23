@@ -7,14 +7,14 @@
 [x] f_5 - Добавить компонент SELECT и заменить его везде где необходимо
 [x] f_6 - Разработать страницу payments.events.index
 [x] f_7 - Разработать страницу payments.event.packages.index
-[ ] f_8 - Разработать страницу payments.package.files.index
-[ ] f_9 - Разработать страницу payments.file.recipients.index
+[x] f_8 - Разработать страницу payments.package.files.index
+[x] f_9 - Разработать страницу payments.file.recipients.index
 [ ] f_10 - Добавть стилей для input поисковика
 [x] f_11 - Переделать LoadIco
 [x] f_12 - Разработать компонент progress
 [x] f_13 - Переделать flash сообщения
 [x] f_14 - Добавить меню в шапку для админа
-[ ] f_15 - Добавить стилей на календарь
+[x] f_15 - Добавить стилей на календарь
 [ ] f_16 - Добавить стилей на форму авторизации
 [ ] f_17 - Разработать страницу index, edit, delete, create для юзера
 [x] f_18 - Пофиксить вывод контрольной суммы в payments.files.index
