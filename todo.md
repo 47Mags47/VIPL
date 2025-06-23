@@ -9,7 +9,7 @@
 [x] f_7 - Разработать страницу payments.event.packages.index
 [x] f_8 - Разработать страницу payments.package.files.index
 [x] f_9 - Разработать страницу payments.file.recipients.index
-[ ] f_10 - Добавть стилей для input поисковика
+[x] f_10 - Добавть стилей для input поисковика
 [x] f_11 - Переделать LoadIco
 [x] f_12 - Разработать компонент progress
 [x] f_13 - Переделать flash сообщения
