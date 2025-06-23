@@ -1,4 +1,4 @@
-import { usePage, router } from '@inertiajs/react';
+import { usePage, router, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 import locale from 'antd/locale/ru_RU';
@@ -8,7 +8,6 @@ import 'dayjs/locale/ru';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
 import { Badge, Calendar } from 'antd';
-import Link from '@/components/Link';
 
 
 export default function Index() {
@@ -40,7 +39,7 @@ export default function Index() {
                 content:
                     <Link
                         className="show-link"
-                        onClick={() => show({ data })}
+                        href={route('payments.events.show', { event: data })}
                     >
                         {element.data.payment.krv}
                     </Link>,
@@ -85,12 +84,12 @@ export default function Index() {
     };
     return (
         <AuthenticatedLayout>
-        <Calendar
-            defaultValue={value}
-            onPanelChange={handlePanelChange}
-            cellRender={cellRender}
-            locale={locale.Calendar}
-        />
+            <Calendar
+                defaultValue={value}
+                onPanelChange={handlePanelChange}
+                cellRender={cellRender}
+                locale={locale.Calendar}
+            />
         </AuthenticatedLayout>
     )
 };

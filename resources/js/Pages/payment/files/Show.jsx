@@ -6,7 +6,7 @@ import GoTo from '@/components/icons/GoTo'
 
 export default function Show({ packages, record }) {
     function show({ packages, record }) {
-        router.get(route('payments.package.files.show', { package: packages.id, file: record.id }), {
+        router.get(route('payments.files.show', { file: record.id }), {
             onSuccess: function (response) {
             },
         });

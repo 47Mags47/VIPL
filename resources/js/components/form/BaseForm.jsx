@@ -17,7 +17,7 @@ export default function BaseForm({
 
     return (
         <div className={"form-container " + (type ?? '')}>
-            <form onSubmit={handleSubmit} id={id} className={className}>
+            <form onSubmit={handleSubmit} id={id} className={className ?? ''}>
                 <h3 className="form-header">{header}</h3>
                 {errors?.form && (
                     <div className="form-errors">
