@@ -3,6 +3,8 @@ import Error from "../Error";
 import { usePage } from '@inertiajs/react';
 
 export default function BaseForm({
+    buttonName,
+    className,
     header,
     children,
     info,
@@ -15,7 +17,7 @@ export default function BaseForm({
 
     return (
         <div className={"form-container " + (type ?? '')}>
-            <form onSubmit={handleSubmit} id={id}>
+            <form onSubmit={handleSubmit} id={id} className={className}>
                 <h3 className="form-header">{header}</h3>
                 {errors?.form && (
                     <div className="form-errors">
@@ -26,7 +28,7 @@ export default function BaseForm({
                     {children}
                 </div>
                 <div className="form-buttons">
-                    {sbm && <BlueButton type="submit">{sbm}</BlueButton>}
+                    {sbm && <BlueButton buttonName={buttonName} type="submit">{sbm}</BlueButton>}
                 </div>
                 <div className="form-backside">
                     {info ?? ''}

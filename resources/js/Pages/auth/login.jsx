@@ -25,6 +25,7 @@ export default function Login() {
                 header="Войти в систему"
                 handleSubmit={onSubmit}
                 sbm="Войти"
+                buttonName={"auth-btn"}
             >
                 <Input
                     type="email"
