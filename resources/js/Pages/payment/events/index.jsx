@@ -23,10 +23,6 @@ export default function Index() {
         );
     }, [events.month, events.year]);
 
-    function show({ data }) {
-        router.get(route('payments.events.show', { event: data }));
-    }
-
     const getListData = value => {
         let listData = [];
         let dateString = value.format('YYYY-MM-DD')
