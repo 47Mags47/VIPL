@@ -20,7 +20,7 @@
 [x] f_18 - Пофиксить вывод контрольной суммы в payments.files.index
 [x] f_19 - Пофиксить кнопки пагинации
 [x] f_20 - Пофиксить баг на payments.files.create: При выборе банка но пустом файле, нажатие кнопки "отправить" говорит об успехе
-[ ] f_21 - Добавить кнопку "выгрузить отчет" на payment.packages.index, кнопка отправляет POST запрос на payments.raports.store
+[x] f_21 - Добавить кнопку "выгрузить отчет" на payment.packages.index, кнопка отправляет POST запрос на payments.raports.store
 [ ] f_22 - Добавить страницы payment.raports (index, download, delete)
 [x] f_23 - поправить иконку goto
 [ ] f_24 - Прочти https://inertiajs.ru/links и поменяй все ссылки на InertiaLink
