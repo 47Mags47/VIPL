@@ -4,6 +4,7 @@ namespace App\Models\Payment;
 
 use App\Models\Glossary\Division;
 use App\Models\Glossary\PackageStatus;
+use App\Models\Payment\Raport;
 use App\Traits\HasLog;
 use App\Traits\hasUUID;
 use App\Traits\Named;
@@ -49,6 +50,14 @@ class Package extends Model
         return $this->hasMany(File::class, 'package_id');
     }
 
+    public function raports(): HasMany
+    {
+        return $this->hasMany(Raport::class, 'package_id', 'id');
+    }
 
+    public function bankFiles(): HasMany
+    {
+        return $this->hasMany(BankFile::class, 'package_id', 'id');
+    }
 
 }

@@ -2,21 +2,17 @@
 
 namespace App\Jobs\Payment;
 
-use App\Events\SendAlertEvent;
 use App\Models\Glossary\Bank;
 use App\Models\Main\User;
 use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Payment\Raport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class GenerateFromBanks implements ShouldQueue
 {
     use Queueable;
-
-    public $packages;
-    public $files;
 
     /**
      * Генерирует выплатные ведомости для банков
@@ -27,13 +23,18 @@ class GenerateFromBanks implements ShouldQueue
 
     public function handle(): void
     {
-        $this->packages = $this->event->packages;
+        $raport = Raport::create([
+            'disk' => 'raports',
+            'path' => '',
+            'name' => Str::random(40) . '.xlsx',
+            'original_name' => 'Отчет по ' . $this->event->payment->code . ' - ' . $this->event->payment->name . '.xlsx',
+            'event_id' => $this->event->id,
+            'start_by' => $this->user->id
+        ]);
 
-        $this->files = $this->packages->map(function ($package) {
-            return $package->files;
-        })->collapse()->groupBy('bank_id');
+        $files = $this->event->files->groupBy('bank_id');
 
-        foreach ($this->files as $bank_id => $files) {
+        foreach ($files as $bank_id => $files) {
             $bank = Bank::whereKey($bank_id)->first();
             if ($bank == null)
                 continue;
@@ -44,10 +45,12 @@ class GenerateFromBanks implements ShouldQueue
                 return $recipient->last_name . $recipient->first_name . $recipient->middle_name;
             })->values();
 
-            $job = new GenerateFromBank($this->event, $bank, $this->user, $recipients);
+            $job = new GenerateFromBank($this->event, $bank, $raport, $recipients);
             $job->handle();
         }
 
-        SendAlertEvent::dispatch($this->user, 'Отчет по выплате ' . $this->event->payment->name . ' на ' . $this->event->date->format('d.m.Y') . ' сформирован');
+        // // DEV b_36 Добавить формирование отчета
+        $job = new GeneratePaymentRaport($raport);
+        $job->handle();
     }
 }

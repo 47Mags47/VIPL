@@ -10,7 +10,7 @@ class PochtaBankExporter extends XMLExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName($this->event->date->format('Y') . '-ELVM-' . substr($this->raport_npp, 0, 5) . '.xml');
+        $this->setFileName($this->event->date->format('Y') . '-ELVM-' . substr($this->npp, 0, 5) . '.xml');
     }
 
     public function save(): PochtaBankExporter

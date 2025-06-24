@@ -9,7 +9,7 @@ class LevoberegBankExporter extends CsvExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('000' . $this->raport_npp . '.csv');
+        $this->setFileName('000' . $this->npp . '.csv');
     }
 
     public function writeHeader()

@@ -17,7 +17,7 @@ class AlfaBankExporter extends ExcelExporter
         preg_match_all("/[а-яА-Яa-zA-Z]/", $this->bank->contract->division->name, $division_name);
         $division_name = mb_strtoupper(implode('', (array) $division_name[0]));
 
-        $this->setFileName($division_inn . '_' . $division_name . '_' . $payment_code . '_' . substr($this->raport_npp, 2, 3) . '.xls');
+        $this->setFileName($division_inn . '_' . $division_name . '_' . $payment_code . '_' . substr($this->npp, 2, 3) . '.xls');
         $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_alfabank.xls'));
     }
 
@@ -28,7 +28,7 @@ class AlfaBankExporter extends ExcelExporter
             ->setCellValue('D6', 'Реестр №' . $this->event->date->format('m/d'))
             ->setCellValue('B11', 'ИНН ' . $this->bank->contract->division->INN . ' БИК ' . $this->bank->contract->division->BIK . ' к/с № ' . $this->bank->contract->division->account)
             ->setCellValue('B12', 'за ' . $this->event->date->translatedFormat('F Y') . ' г.')
-            ->setCellValue('B13', 'согласно платежному поручению № ' . $this->raport_npp . ' от ' . $this->event->date->translatedFormat('«d» F Y ') . ' года')
+            ->setCellValue('B13', 'согласно платежному поручению № ' . $this->npp . ' от ' . $this->event->date->translatedFormat('«d» F Y ') . ' года')
             ->setCellValue('E15', $this->event->date->translatedFormat('«d» F Y год'))
             ->setCellValue('B20', 'Итого: ' . $this->recipients->count() . ' количество перечислений ')
             ->setCellValue('B21', $this->recipients->count() . ' количество Работников')

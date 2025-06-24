@@ -11,7 +11,7 @@ class KbbBankExporter extends CsvExporter
     {
         parent::__construct(...func_get_args());
 
-        $this->setFileName('SZRG_KBB20_' . $this->event->date->format('dmY') . '_' . substr($this->raport_npp, 0, 4) . '.csv');
+        $this->setFileName('SZRG_KBB20_' . $this->event->date->format('dmY') . '_' . substr($this->npp, 0, 4) . '.csv');
     }
 
     public function save(): KbbBankExporter

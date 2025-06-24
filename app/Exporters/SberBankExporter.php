@@ -10,7 +10,7 @@ class SberBankExporter extends XMLExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('f8615' . substr($this->raport_npp, 2, 3) . '.xml');
+        $this->setFileName('f8615' . substr($this->npp, 2, 3) . '.xml');
     }
 
     public function save(): SberBankExporter
@@ -26,8 +26,8 @@ class SberBankExporter extends XMLExporter
         $this->writer->writeAttribute('ИНН',                        $this->bank->contract->division->INN);
         $this->writer->writeAttribute('РасчетныйСчетОрганизации',   $this->bank->contract->division->account);
         $this->writer->writeAttribute('БИК',                        $this->bank->contract->division->BIK);
-        $this->writer->writeAttribute('ИдПервичногоДокумента',      substr($this->raport_npp, 2, 3));
-        $this->writer->writeAttribute('НомерРеестра',               substr($this->raport_npp, 2, 3));
+        $this->writer->writeAttribute('ИдПервичногоДокумента',      substr($this->npp, 2, 3));
+        $this->writer->writeAttribute('НомерРеестра',               substr($this->npp, 2, 3));
         $this->writer->writeAttribute('ДатаРеестра',                now()->format('Y-m-d'));
 
         $this->writer->startElement('ЗачислениеЗарплаты');

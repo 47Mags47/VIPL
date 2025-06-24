@@ -12,7 +12,7 @@ class RosSelhozBankExporter extends XMLExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName(substr($this->raport_npp, 0, 5) . '.xml');
+        $this->setFileName(substr($this->npp, 0, 5) . '.xml');
     }
 
     public function save(): RosSelhozBankExporter
@@ -32,7 +32,7 @@ class RosSelhozBankExporter extends XMLExporter
         $this->writer->writeAttribute('РасчетныйСчетОрганизации',       $this->bank->contract->division->account);
         $this->writer->writeAttribute('БИК',                            $this->bank->contract->division->BIK);
         $this->writer->writeAttribute('ИдПервичногоДокумента',          Str::uuid());
-        $this->writer->writeAttribute('НомерРеестра',                   substr($this->raport_npp, 0, 5));
+        $this->writer->writeAttribute('НомерРеестра',                   substr($this->npp, 0, 5));
         $this->writer->writeAttribute('ДатаРеестра',                    now()->format('Y-m-d'));
 
         $this->writer->startElement('ЗачислениеЗарплаты');

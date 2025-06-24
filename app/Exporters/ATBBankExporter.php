@@ -10,7 +10,7 @@ class ATBBankExporter extends ExcelExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('sp22_' . substr($this->raport_npp, 3, 2) . '.xls');
+        $this->setFileName('sp22_' . substr($this->npp, 3, 2) . '.xls');
         $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_atb.xls'));
     }
 

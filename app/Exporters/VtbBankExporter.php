@@ -12,7 +12,7 @@ class VtbBankExporter extends Exporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('Z_0000281997_' . $this->event->date->format('Ymd') . '_' . substr($this->raport_npp, 3, 2) . '.txt');
+        $this->setFileName('Z_0000281997_' . $this->event->date->format('Ymd') . '_' . substr($this->npp, 3, 2) . '.txt');
 
         $this->f = fopen($this->getFullPath(), 'w');
     }
@@ -21,7 +21,7 @@ class VtbBankExporter extends Exporter
     {
         $tag = 'START';
         $date = $this->event->date->format('Ymd');
-        $npp = substr($this->raport_npp, 3, 2);
+        $npp = substr($this->npp, 3, 2);
         $payment_type = 'CREDIT';
         $division_name = $this->bank->contract->division->name;
 

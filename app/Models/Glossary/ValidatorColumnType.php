@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Importer;
+namespace App\Models\Glossary;
 
 use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
-class ValidateColumnType extends Model
+class ValidatorColumnType extends Model
 {
     use Named, hasCode;
 
     ### Настройки
     ##################################################
-    protected $table = 'importer__validator_column_types';
+    protected $table = 'glossary__validator_column_types';
 
     protected $fillable = ['code'];
 

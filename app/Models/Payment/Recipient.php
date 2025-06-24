@@ -6,6 +6,7 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipient extends Model
 {
@@ -41,5 +42,12 @@ class Recipient extends Model
             'd_rojd' => 'date',
             'p_date' => 'date'
         ];
+    }
+
+    ### Связи
+    ##################################################
+    public function file(): HasOne
+    {
+        return $this->hasOne(File::class, 'id', 'file_id');
     }
 }

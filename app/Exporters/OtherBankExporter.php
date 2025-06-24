@@ -10,7 +10,7 @@ class OtherBankExporter extends ExcelExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('sp' . $this->bank->number_code . '_' . substr($this->raport_npp, 2, 3) . '.xls');
+        $this->setFileName('sp' . $this->bank->number_code . '_' . substr($this->npp, 2, 3) . '.xls');
     }
 
     public function save(): OtherBankExporter

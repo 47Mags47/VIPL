@@ -19,7 +19,7 @@ export default function RouteList() {
             <details>
                 <summary>Правила проверки</summary>
                 <ul>
-                    <li><a href={route('validate.accounts.create')}>Счет получателя</a></li>
+                    <li><a href={route('glossary.importer.validator.columns.index')}>Счет получателя</a></li>
                 </ul>
             </details>
 

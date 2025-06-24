@@ -9,7 +9,7 @@ class SovkomBankExporter extends ExcelExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('Список_' . $this->event->date->format('d_Ym') . '_' . substr($this->raport_npp, 3, 2) . '.xlsx');
+        $this->setFileName('Список_' . $this->event->date->format('d_Ym') . '_' . substr($this->npp, 3, 2) . '.xlsx');
     }
 
     public function writeHeader()

@@ -2,10 +2,9 @@
 
 namespace App\Jobs\Payment;
 
-use App\Events\SendAlertEvent;
 use App\Models\Glossary\Bank;
-use App\Models\Main\User;
 use App\Models\Payment\Event;
+use App\Models\Payment\Raport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Collection;
@@ -18,7 +17,12 @@ class GenerateFromBank implements ShouldQueue
     /**
      * Формирует отчетный документ для конкретного банка
      */
-    public function __construct(public Event $event, public Bank $bank, public User $started_by, public Collection $recipients) {}
+    public function __construct(
+        public Event $event,
+        public Bank $bank,
+        public Raport $raport,
+        public Collection $recipients
+    ) {}
 
     /**
      * Execute the job.
@@ -32,11 +36,9 @@ class GenerateFromBank implements ShouldQueue
             $exporter
                 ->addData($this->recipients)
                 ->save()
-                ->createDb()
+                ->createDb($this->raport)
                 ->moveToDisk('bank-files', '' . $this->event->payment->code . '/' . $this->bank->number_code);
         } else {
-            SendAlertEvent::dispatch($this->started_by, 'Попытка вызвать несуществующий экспортер', 'error');
-
             Log::error('Попытка вызвать несуществующий экспортер', [
                 'bank' => $this->bank->number_code,
                 'exporter' => $this->bank->exporter->id,

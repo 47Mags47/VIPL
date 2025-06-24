@@ -10,7 +10,7 @@ class UralSibBankExporter extends Exporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
-        $this->setFileName('55557460' . substr($this->raport_npp, 0, 3) . '.I' . substr($this->raport_npp, 3, 2));
+        $this->setFileName('55557460' . substr($this->npp, 0, 3) . '.I' . substr($this->npp, 3, 2));
     }
 
     public function save(): UralSibBankExporter

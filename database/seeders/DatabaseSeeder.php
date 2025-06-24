@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(Glossary\BankSeeder::class);
-
-        $this->call(Importer\ValidatorSeeder::class);
+        $this->call(Glossary\ValidatorSeeder::class);
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\UserSeeder::class);
