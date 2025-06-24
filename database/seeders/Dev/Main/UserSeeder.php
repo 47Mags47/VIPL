@@ -4,6 +4,7 @@ namespace Database\Seeders\Dev\Main;
 
 use App\Models\Main\Role;
 use App\Models\Main\User;
+use App\Models\Main\UserPivotRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;

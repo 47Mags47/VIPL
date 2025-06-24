@@ -87,7 +87,7 @@
     читаем, делаем в шапке
 [ ] b_40 - https://inertiajs.ru/csrf-protection
     читаем, делаем
-[ ] b_41 - https://inertiajs.ru/error-handling
+[x] b_41 - https://inertiajs.ru/error-handling
     читаем, убираем модалки с ошибками
 [ ] b_42 - Вынести наименование организации в отдельную таблицу и сделать константой
 [ ] b_43 - Добавить руты для payment.raports и main.useres
