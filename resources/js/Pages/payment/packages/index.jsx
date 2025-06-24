@@ -1,7 +1,8 @@
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
+import BaseButton from '@/components/button/BaseButton';
 import Table from "@/components/Table";
 import Show from "./Show";
 
@@ -23,6 +24,10 @@ export default function Index() {
     const packages = usePage().props.packages.data
     const pagination = usePage().props.packages.meta
 
+    function onSubmit(e) {
+        e.preventDefault()
+        router.post(route('payments.raports.store'))
+    }
 
     const columns = [
         {
@@ -58,7 +63,7 @@ export default function Index() {
         {
             title: '',
             key: 'show',
-        render: (_, record) => (
+            render: (_, record) => (
                 <Show record={record} />
             )
         },
@@ -72,7 +77,18 @@ export default function Index() {
                 current_page={pagination.current_page}
                 last_page={pagination.last_page}
                 from={pagination.from}
+                actions={
+                    <BaseButton
+                        className="report-btn"
+                        type="submit"
+                        form="payments-report"
+                        onClick={onSubmit}
+
+                    >
+                        Выгрузить отчет
+                    </BaseButton>
+                }
             />
-        </AuthenticatedLayout>
+        </AuthenticatedLayout >
     );
 }
