@@ -95,4 +95,4 @@
 [ ] b_45 - Вынести view из js
 [ ] b_46 - Настроить удаление связанных записей при удалении glossary.division
 [ ] b_47 - Доделать back main.users'
-[ ] b_48 - Пофиксить КБК в glossary.payments sider
+[x] b_48 - Пофиксить КБК в glossary.payments sider
