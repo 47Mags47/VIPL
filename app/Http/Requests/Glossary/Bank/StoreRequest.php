@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return user()->hasPermission('glossary-bank-create');
+        return true;
     }
 
     /**
