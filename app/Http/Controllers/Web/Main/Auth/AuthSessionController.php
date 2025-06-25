@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Main\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\StoreSessionRequest;
+use App\Models\Main\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -18,7 +20,7 @@ class AuthSessionController extends Controller
 
     public function store(StoreSessionRequest $request)
     {
-        if (Auth::attempt($request->only(['email', 'password']))) {
+        if (Auth::attempt($request->only(['email', 'password']), $request->remember ?? false)) {
             $request->session()->regenerate();
 
             return redirect()->route('payments.events.index');
@@ -37,5 +39,18 @@ class AuthSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('session.create');
+    }
+
+    public function EmailVerify(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+
+        return redirect()->route('verification.set-password');
+    }
+
+    public function EmailVerifySend(User $user){
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->route('main.users.index')->with('message', 'Пользователю направлено письмо на эл почту');
     }
 }

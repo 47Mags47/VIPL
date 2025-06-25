@@ -18,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn() => route('session.create'));
+        $middleware->redirectUsersTo(fn () => route('payments.events.index'));
+
 
         $middleware->web(append: [
             App\Http\Middleware\HandleInertiaRequests::class,

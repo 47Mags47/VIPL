@@ -23,12 +23,17 @@ return new class extends Migration
 
         Schema::create('main__users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('division_id')->nullable()->constrained(Division::getTableName());
+
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->foreignId('division_id')->nullable()->constrained(Division::getTableName());
+
             $table->rememberToken();
+            $table->boolean('password_active')->default(false);
+
             $table->timestamps();
         });
 

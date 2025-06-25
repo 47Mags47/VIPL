@@ -4,12 +4,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/dev')->name('dev.')->group(function () {
     Route::get('/', function () {
-        return inertia('dev/RouteList',[
+        return inertia('dev/RouteList', [
             'package' => App\Models\Payment\Package::first()->id,
         ]);
     })->name('route-list');
 
-    Route::get('/test-flash/message', function(){
+    Route::get('/test-email', function () {
+        return inertia('dev/TestEmail');
+    })->name('test-email-get');
+
+    Route::post('/test-email', function (Illuminate\Http\Request $request) {
+        $user = new App\Models\Main\User();
+        $user->id = rand(1, 999);
+        $user->email = $request->email;
+
+        $user->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Пользователю направлено письмо на эл почту');
+    })->name('test-email-post');
+
+    Route::get('/test-flash/message', function () {
         return back()->with([
             'message' => 'Действие было успешно выполнено',
             'error' => 'Действие было завершено с ошибкой'
