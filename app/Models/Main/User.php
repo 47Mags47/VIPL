@@ -8,26 +8,30 @@ use App\Traits\RolesAndPermissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Named, HasFactory, Notifiable, RolesAndPermissions;
+    use Named, HasFactory, Notifiable, RolesAndPermissions, SoftDeletes;
 
     ### Настройки
     ##################################################
     protected $table = 'main__users';
 
     protected $fillable = [
-        'division_id',
         'name',
         'email',
         'password',
+        'password_reset',
+        'division_id',
+        'status_id'
     ];
 
     protected $hidden = [
         'password',
+        'password_reset',
         'remember_token',
     ];
 
@@ -36,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'password_reset' => 'boolean',
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders\Dev\Main;
 
+use App\Models\Glossary\Division;
+use App\Models\Glossary\UserStatus;
 use App\Models\Main\Role;
 use App\Models\Main\User;
 use App\Models\Main\UserPivotRole;
@@ -17,18 +19,21 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'division_id' => null,
+            'division_id' => Division::byCode('root')->id,
             'name' => 'Администратор',
             'email' => 'admin@test.ru',
             'password' => Hash::make('admin'),
+            'status_id' => UserStatus::byCode('active')->id,
         ]);
         $admin->addRole('admin');
 
         $user = User::create([
-            'division_id' => 1,
+            'division_id' => Division::byCode('root')->id,
             'name' => 'Пользователь',
             'email' => 'user@test.ru',
             'password' => Hash::make('user'),
+            'status_id' => UserStatus::byCode('active')->id,
         ]);
+        $user->addRole('user');
     }
 }

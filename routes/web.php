@@ -7,6 +7,8 @@ Route::get('/', function () {
 });
 
 Route::group([], [
+    base_path('routes/web/configurate.php'),
+
     base_path('routes/web/main.php'),
     base_path('routes/web/docs.php'),
     base_path('routes/web/auth.php'),

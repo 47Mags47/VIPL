@@ -28,7 +28,6 @@ class StoreRequest extends FormRequest
             'division_id' => ['required', 'exists:' . Division::class . ',id'],
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'email', 'unique:' . User::class . ',email'],
-            'remember' => ['boolean'],
             'roles' => ['array'],
             'roles.*' => ['exists:'. Role::class .',id']
         ];

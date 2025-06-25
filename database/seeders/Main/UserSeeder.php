@@ -2,6 +2,8 @@
 
 namespace Database\Seeders\Main;
 
+use App\Models\Glossary\Division;
+use App\Models\Glossary\UserStatus;
 use App\Models\Main\User;
 use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,13 +16,20 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        UserStatus::create(['code' => 'new',             'name' => 'Создан']);
+        UserStatus::create(['code' => 'send-invitation', 'name' => 'Отправлено приглашение']);
+        UserStatus::create(['code' => 'send-verify',     'name' => 'Отправлено подтвержение']);
+        UserStatus::create(['code' => 'active',          'name' => 'Активен']);
+        UserStatus::create(['code' => 'disabled',        'name' => 'Отключен']);
+
         $root = User::create([
-            'id' => 1,
-            'division_id' => null,
-            'name' => 'Администратор',
-            'email' => 'root',
+            'division_id' => Division::byCode('root')->id,
+            'name' => 'root',
+            'email' => '',
             'password' => Hash::make('root'),
+            'status_id' => UserStatus::byCode('active')->id,
         ]);
-        $root->addRole('root');
+
+        $root->addRole('admin');
     }
 }

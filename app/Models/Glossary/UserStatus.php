@@ -3,18 +3,18 @@
 namespace App\Models\Glossary;
 
 use App\Traits\hasCode;
-use App\Traits\HasFilter;
-use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
-class Division extends Model
+class UserStatus extends Model
 {
-    use Named, HasLog, HasFilter, hasCode;
+    use Named, hasCode;
 
     ### Настройки
     ##################################################
-    protected $table = 'glossary__divisions';
+    protected $table = 'glossary__user_statusses';
 
     protected $fillable = ['code', 'name'];
+
+    public $timestamps = false;
 }

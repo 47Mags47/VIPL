@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Glossary\Division;
+use App\Models\Glossary\UserStatus;
 use App\Models\Main\AlertType;
 use App\Models\Main\User;
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__divisions', function (Blueprint $table) {
+        Schema::create('glossary__user_statusses', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
@@ -27,30 +28,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->boolean('password_reset')->default(false);
 
-            $table->foreignId('division_id')->nullable()->constrained(Division::getTableName());
+            $table->foreignId('division_id')->constrained(Division::getTableName());
+            $table->foreignId('status_id')->constrained(UserStatus::getTableName());
 
             $table->rememberToken();
-            $table->boolean('password_active')->default(false);
 
             $table->timestamps();
-        });
-
-        Schema::create('glossary__alert_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->string('name');
-        });
-
-        Schema::create('main__alerts', function (Blueprint $table) {
-            $table->id();
-            $table->string('message');
-
-            $table->foreignId('to_id')->constrained(User::getTableName());
-            $table->foreignId('type_id')->constrained(AlertType::getTableName());
-
-            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('sys__password_reset_tokens', function (Blueprint $table) {
@@ -78,6 +65,5 @@ return new class extends Migration
         Schema::dropIfExists('sys__password_reset_tokens');
         Schema::dropIfExists('main__alerts');
         Schema::dropIfExists('main__users');
-        Schema::dropIfExists('main__divisions');
     }
 };

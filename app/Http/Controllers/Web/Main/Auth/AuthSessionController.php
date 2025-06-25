@@ -20,7 +20,7 @@ class AuthSessionController extends Controller
 
     public function store(StoreSessionRequest $request)
     {
-        if (Auth::attempt($request->only(['email', 'password']), $request->remember ?? false)) {
+        if (Auth::attempt($request->only(['email', 'password']), $request->remember_me ?? false)) {
             $request->session()->regenerate();
 
             return redirect()->route('payments.events.index');
