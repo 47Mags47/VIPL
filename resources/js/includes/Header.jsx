@@ -26,7 +26,7 @@ export default function Header() {
     ];
 
     const userMenuItems = [
-        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
+        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="session.destroy" text="Выход" method='post' /> },
     ];
 
     const menuItems = user?.roles?.some(role => allowedRoles.includes(role.code))
