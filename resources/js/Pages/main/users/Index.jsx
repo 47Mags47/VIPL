@@ -9,11 +9,19 @@ import Create from "./Create";
 import Delete from "./Delete";
 
 
-export default function index() {
+export default function Index() {
     const users = usePage().props.users.data
     const divisions = usePage().props.divisions.data
     const roles = usePage().props.roles.data
     const pagination = usePage().props.users.meta
+
+    const StatusColor = {
+        'new': '#f3f55c',
+        'send-invitation': '#f3f55c',
+        'send-verify': '#f3f55c',
+        'active': '#5cf561',
+        'disabled': '#f53b3b',
+    }
 
     const columns = [
         {
@@ -21,11 +29,11 @@ export default function index() {
             dataIndex: 'online',
             width: 45,
             render: (_, record) =>
-                record.online ? (
-                    <i className="fa-solid fa-circle online"></i>
-                ) : (
-                    <i className="fa-solid fa-circle ofline"></i>
-                ),
+                <i
+                    className={"fa-solid fa-circle"}
+                    style={{ color: StatusColor[record.status.code] }}
+                    title={record.status.name}
+                ></i>
         },
         {
             title: 'Имя',
@@ -34,12 +42,12 @@ export default function index() {
         {
             title: 'Email',
             dataIndex: 'email',
-            
+
         },
         {
             title: 'Подразделение',
             dataIndex: ['division', 'name'],
-            
+
         },
         {
             title: 'Роли',
@@ -68,7 +76,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit roles={roles} divisions={divisions} record={record}/>
+                <Edit roles={roles} divisions={divisions} record={record} />
             )
         },
         {
@@ -76,7 +84,7 @@ export default function index() {
             key: 'delete',
             width: 80,
             render: (_, record) => (
-                <Delete record={record }/>
+                <Delete record={record} />
             )
         },
     ];

@@ -20,7 +20,7 @@ export default function Edit({ roles, divisions, record }) {
         name: record.name,
         email: record.email,
         division_id: record.division?.id,
-        roles: record.roles.map(roles => roles.id),
+        roles: record.roles.map(roles => roles.code),
     });
     const selectOptions = {
         divisions: divisions.map(divisions => ({
@@ -28,7 +28,7 @@ export default function Edit({ roles, divisions, record }) {
             label: divisions.name,
         })),
         roles: roles.map(roles => ({
-            value: roles.id,
+            value: roles.code,
             label: roles.name
         }))
     }
@@ -73,7 +73,7 @@ export default function Edit({ roles, divisions, record }) {
                         type="submit"
                         form="main-user-edit-form"
                     >
-                        Отправить
+                        Сохранить
                     </BlueButton>
 
                 </>
@@ -109,7 +109,7 @@ export default function Edit({ roles, divisions, record }) {
                     }}
                 />
                 <SelectComponent
-                    name="roles[name]"
+                    name="roles"
                     label="Роли"
                     options={selectOptions.roles}
                     value={values.roles}

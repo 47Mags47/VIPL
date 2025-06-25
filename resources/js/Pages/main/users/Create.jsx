@@ -26,7 +26,7 @@ export default function Create({ roles, divisions }) {
             label: divisions.name,
         })),
         roles: roles.map(roles => ({
-            value: roles.id,
+            value: roles.code,
             label: roles.name
         }))
     }
@@ -64,7 +64,7 @@ export default function Create({ roles, divisions }) {
             }
         >
             <VerticalForm
-                header={'Редактировать'}
+                header={'Добавить пользователя'}
                 handleSubmit={onAddSubmit}
                 id="main-user-add-form"
             >
@@ -93,7 +93,7 @@ export default function Create({ roles, divisions }) {
                     }}
                 />
                 <SelectComponent
-                    name="roles[name]"
+                    name="roles"
                     label="Роли"
                     options={selectOptions.roles}
                     value={values.roles}
@@ -103,9 +103,4 @@ export default function Create({ roles, divisions }) {
             </VerticalForm>
         </ModalButton>
     );
-
 }
-
-
-
-

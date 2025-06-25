@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         UserStatus::create(['code' => 'new',             'name' => 'Создан']);
-        UserStatus::create(['code' => 'send-invitation', 'name' => 'Отправлено приглашение']);
+        UserStatus::create(['code' => 'send-invite', 'name' => 'Отправлено приглашение']);
         UserStatus::create(['code' => 'send-verify',     'name' => 'Отправлено подтвержение']);
         UserStatus::create(['code' => 'active',          'name' => 'Активен']);
         UserStatus::create(['code' => 'disabled',        'name' => 'Отключен']);

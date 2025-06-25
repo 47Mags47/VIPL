@@ -16,7 +16,7 @@ export default function Login() {
 
     function onSubmit(e) {
         e.preventDefault()
-        router.post(route('session.store'), values)
+        router.post(route('login.post'), values)
     }
 
     return (
@@ -26,7 +26,7 @@ export default function Login() {
                 handleSubmit={onSubmit}
                 className="auth-form"
                 sbm="Войти"
-                buttonName={"auth-btn"}
+                buttonName={"auth-btn"} // HACK для чего это? Убрать
             >
                 <Input
                     type="email"

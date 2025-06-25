@@ -21,11 +21,11 @@ export default function Header() {
         },
         { key: 'user', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> },
         { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
-        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="session.destroy" text="Выход" method='post' /> },
+        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ];
 
     const userMenuItems = [
-        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="session.destroy" text="Выход" method='post' /> },
+        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ];
 
     const menuItems = user?.roles?.some(role => allowedRoles.includes(role.code))

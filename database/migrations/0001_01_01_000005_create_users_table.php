@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->boolean('password_reset')->default(false);
+            $table->string('password');
+            $table->boolean('password_expired')->default(false);
 
             $table->foreignId('division_id')->constrained(Division::getTableName());
             $table->foreignId('status_id')->constrained(UserStatus::getTableName());
@@ -63,7 +63,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('sys__sessions');
         Schema::dropIfExists('sys__password_reset_tokens');
-        Schema::dropIfExists('main__alerts');
         Schema::dropIfExists('main__users');
+        Schema::dropIfExists('glossary__user_statusses');
     }
 };

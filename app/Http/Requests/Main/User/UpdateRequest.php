@@ -28,8 +28,8 @@ class UpdateRequest extends FormRequest
             'division_id' => ['required', 'exists:' . Division::class . ',id'],
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'email', 'unique:' . User::class . ',email,' . $this->route('user')->id],
-            'roles' => ['array'],
-            'roles.*' => ['exists:'. Role::class .',id']
+            'roles' => ['array', 'min:1'],
+            'roles.*' => ['exists:' . Role::class . ',code'],
         ];
     }
 }

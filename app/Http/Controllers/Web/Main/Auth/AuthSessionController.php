@@ -3,27 +3,28 @@
 namespace App\Http\Controllers\Web\Main\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\PasswordUpdateRequest;
 use App\Http\Requests\Auth\StoreSessionRequest;
-use App\Models\Main\User;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Illuminate\Validation\ValidationException;
 
 class AuthSessionController extends Controller
 {
-    public function create()
+    public function login()
     {
         return Inertia::render('auth/login');
     }
 
-    public function store(StoreSessionRequest $request)
+    public function loginPost(StoreSessionRequest $request)
     {
         if (Auth::attempt($request->only(['email', 'password']), $request->remember_me ?? false)) {
             $request->session()->regenerate();
 
-            return redirect()->route('payments.events.index');
+            return user()->password_expired
+                ? redirect()->route('password.reset')
+                : redirect()->route('payments.events.index');
         }
 
         return back()->withErrors([
@@ -31,26 +32,30 @@ class AuthSessionController extends Controller
         ]);
     }
 
-    public function delete(Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('session.create');
+        return redirect()->route('login');
     }
 
-    public function EmailVerify(EmailVerificationRequest $request)
+    public function passwordReset()
     {
-        $request->fulfill();
-
-        return redirect()->route('verification.set-password');
+        return Inertia::render('auth/SetPassword');
     }
 
-    public function EmailVerifySend(User $user){
-        $user->sendEmailVerificationNotification();
+    public function passwordUpdate(PasswordUpdateRequest $request)
+    {
+        $user = user();
+        $user->update($request->only('password'));
 
-        return redirect()->route('main.users.index')->with('message', 'Пользователю направлено письмо на эл почту');
+        event(new PasswordReset($user));
+
+        $request->session()->regenerate();
+
+        return redirect()->route('payments.events.index')->with('message', 'Пароль успешно изменен');
     }
 }
