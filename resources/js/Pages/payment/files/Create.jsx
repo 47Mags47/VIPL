@@ -8,9 +8,9 @@ import { UploadOutlined } from '@ant-design/icons';
 
 import ModalButton from "@/components/button/ModalButton";
 import ProgressBar from '@/components/ProgressBar';
-import BaseButton from '@/components/button/BaseButton';
+import BlueButton from '@/components/button/BlueButton';
 import VerticalForm from '@/components/form/VerticalForm';
-import Add from '@/components/icons/Add'
+import AddIco from '@/components/icons/AddIco'
 import SelectComponent from '@/components/inputs/Select';
 import handleSelectChange from '@/handles/input/handleSelectChange';
 
@@ -34,11 +34,14 @@ export default function Create() {
     const [values, setValues] = useState({
         file: {},
         bank: '',
+    });
+
+    const selectOptions = {
         banks: props.banks.data.map(bank => ({
             value: bank.id,
             label: bank.name
         }))
-    });
+    }
 
     const isFormValid = values.bank && values.file instanceof File;
 
@@ -61,9 +64,10 @@ export default function Create() {
 
     function onSubmit(e) {
         e.preventDefault()
-
-        let url = route('payments.package.files.check', { package: props.package.data.id })
-        router.post(url, { ...query, 'file-size': values.file.size }, {
+        
+        let url = route('payments.package.files.check', { packages: props.package.data.id })
+        router.get(url, { ...query, 'file-size': values.file.size }, {
+            preserveState: true,
             onSuccess: async () => {
                 resumable.upload();
                 setIsUploading(true)
@@ -83,34 +87,37 @@ export default function Create() {
         setIsUploading(false)
         changeModalShow(false)
     })
+
+    const ButtonAdd = ({ onClick }) => {
+        return <AddIco onClick={onClick} />
+    };
+
     return (
         <ModalButton
             open={modalShow}
             maskClosable={closable}
             closable={closable}
-            className="add"
             changeState={(state) => { changeModalShow(state) }}
-            buttonText={<Add />}
+            Button={ButtonAdd}
             footer={
-                <BaseButton
-                    className="add-btn"
+                <BlueButton
                     type="submit"
-                    form="glossary-bank-add-form"
+                    form="glossary-files-add-form"
                     disabled={!isFormValid || disabled}
                 >
                     Добавить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
                 header={'Добавить'}
                 handleSubmit={onSubmit}
-                id="glossary-bank-add-form"
+                id="glossary-files-add-form"
             >
                 <SelectComponent
                     name="bank"
                     label="Банк"
-                    options={values.banks}
+                    options={selectOptions.banks}
                     disabled={disabled}
                     value={values.bank}
                     onChange={(value) => {

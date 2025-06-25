@@ -1,26 +1,15 @@
 import { router } from '@inertiajs/react'
 
-import BaseButton from "@/components/button/BaseButton"
-import Trash from '@/components/icons/Trash'
+import TrashIco from '@/components/icons/TrashIco'
 
 
 export default function Delete({ record }) {
     function onDeleteClick(record) {
-        if (confirm("Вы уверены, что хотите удалить эту запись?")) {
-            router.delete(route('glossary.laws.delete', { law: record.id }), {
-                onSuccess: function (response) {
-                },
-            });
-        }
+        if (confirm("Вы уверены, что хотите удалить эту запись?"))
+            router.delete(route('glossary.laws.destroy', { law: record.id }))
     }
 
     return (
-        <BaseButton
-            className="trash"
-            type="button"
-            onClick={() => onDeleteClick(record)}
-        >
-            <Trash/>
-        </BaseButton>
+        <TrashIco onClick={() => onDeleteClick(record)} />
     )
 }

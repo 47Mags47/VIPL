@@ -6,8 +6,8 @@ import ModalButton from "@/components/button/ModalButton";
 import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
-import BaseButton from '@/components/button/BaseButton';
-import EditIco from '@/components/icons/Edit'
+import BlueButton from '@/components/button/BlueButton';
+import EditIco from '@/components/icons/EditIco'
 import handleChange from '@/handles/input/handleChange';
 import TextArea from '@/components/inputs/TextArea';
 import SelectComponent from '@/components/inputs/Select'
@@ -21,21 +21,19 @@ export default function Edit({ laws, periodicity, record }) {
         krv: record.krv,
         name: record.name,
         kbk: record.kbk,
-        periodicity: {
-            id: record.periodicity.id,
-        },
-        law: {
-            id: record.law.id,
-        },
-        lawsSelect: laws.map(laws => ({
+        periodicity_id: record.periodicity.id,
+        law_id: record.law.id,
+    });
+    const selectOptions = {
+        laws: laws.map(laws => ({
             value: laws.id,
             label: laws.code
         })),
-        periodicitySelect: periodicity.map(periodicity => ({
+        periodicity: periodicity.map(periodicity => ({
             value: periodicity.id,
             label: periodicity.name
         }))
-    });
+    }
 
     function changeEditState(state) {
         changeModalShow(state);
@@ -50,21 +48,22 @@ export default function Edit({ laws, periodicity, record }) {
             },
         })
     }
+    const Button = ({ onClick }) => {
+        return <EditIco onClick={onClick} />
+    };
 
     return (
         <ModalButton
-            className={"edit"}
             open={modalShow}
             changeState={changeEditState}
-            buttonText={<EditIco />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"edit-btn"}
+                <BlueButton
                     type="submit"
                     form="glossary-payments-edit-form"
                 >
                     Отправить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
@@ -92,7 +91,8 @@ export default function Edit({ laws, periodicity, record }) {
                     label="Наименование"
                     value={values.name}
                     onChange={(e) => { handleChange(e, values, setValues) }}
-                />
+                >
+                </TextArea>
                 <Input
                     type="text"
                     name="kbk"
@@ -101,21 +101,21 @@ export default function Edit({ laws, periodicity, record }) {
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <SelectComponent
-                    name="law[id]"
+                    name="law_id"
                     label="Закон"
-                    options={values.lawsSelect}
-                    value={values.law.id}
+                    options={selectOptions.laws}
+                    value={values.law_id}
                     onChange={(value) => {
-                        handleSelectChange('law.id', value, values, setValues)
+                        handleSelectChange('law_id', value, values, setValues)
                     }}
                 />
                 <SelectComponent
-                    name="periodicity[id]"
+                    name="periodicity_id"
                     label="Переодичность"
-                    options={values.periodicitySelect}
-                    value={values.periodicity.id}
+                    options={selectOptions.periodicity}
+                    value={values.periodicity_id}
                     onChange={(value) => {
-                        handleSelectChange('periodicity.id', value, values, setValues)
+                        handleSelectChange('periodicity_id', value, values, setValues)
                     }}
                 />
             </VerticalForm>
