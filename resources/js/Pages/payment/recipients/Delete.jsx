@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/react'
 
 import BaseButton from "@/components/button/BaseButton"
-import Trash from '@/components/icons/Trash'
+import TrashIco from '@/components/icons/TrashIco'
 
 
 export default function Delete({ files, record }) {
@@ -20,7 +20,7 @@ export default function Delete({ files, record }) {
             type="button"
             onClick={() => onDeleteClick({files, record })}
         >
-            <Trash />
+            <TrashIco />
         </BaseButton>
     )
 }

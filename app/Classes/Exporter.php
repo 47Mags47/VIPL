@@ -3,9 +3,9 @@
 namespace App\Classes;
 
 use App\Models\Glossary\Bank;
-use App\Models\Main\Raport;
-use App\Models\Main\User;
+use App\Models\Payment\BankFile;
 use App\Models\Payment\Event;
+use App\Models\Payment\Raport;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,14 +14,13 @@ abstract class Exporter
     public Collection $recipients;
     public string $save_path = '';
     public string $file_name = 'tmp';
-    public Raport|null $raport = null;
-    public User|null $startBy = null;
-    public string $raport_npp;
+    public BankFile|null $file = null;
+    public string $npp;
 
     public function __construct(public Bank $bank, public Event $event)
     {
-        $raports_last_year = Raport::where('comment', 'Отчет в банк ' . $this->bank->name)->whereBetween('created_at', [now()->addYear(-1), now()])->get();
-        $this->raport_npp = str_pad((string) $raports_last_year->count() + 1, 5, '0', STR_PAD_LEFT);
+        $npp = BankFile::where('bank_id', $this->bank->id)->whereBetween('created_at', [now()->addYear(-1), now()])->count() + 1;
+        $this->npp = str_pad((string) $npp, 5, '0', STR_PAD_LEFT);
     }
 
     public function setFileName(string $name): Exporter
@@ -60,8 +59,8 @@ abstract class Exporter
 
         Storage::disk('local')->delete($this->save_path . '/' . $this->file_name);
 
-        if ($this->raport !== null)
-            $this->raport->update([
+        if ($this->file !== null)
+            $this->file->update([
                 'disk' => $disk,
                 'path' => $path,
                 'name' => $fileName,
@@ -72,20 +71,23 @@ abstract class Exporter
 
     public function delete(): bool
     {
-        if ($this->raport !== null)
-            $this->raport->delete();
-
+        if ($this->file !== null)
+            $this->file->delete();
+        // DEV вопросики
         return Storage::disk('local')->delete($this->save_path . '/' . $this->file_name);
     }
 
-    public function createDB(): Exporter
+    public function createDB(Raport $raport): Exporter
     {
-        $this->raport = Raport::create([
+        $this->file = BankFile::create([
             'disk' => 'local',
             'path' => $this->save_path,
             'name' => $this->file_name,
-            'comment' => 'Отчет в банк ' . $this->bank->name,
-            'start_by' => $this->startBy,
+            'original_name' => 'Отчет в банк ' . $this->bank->name,
+
+            'raport_id' => $raport->id,
+            'event_id' => $this->event->id,
+            'bank_id' => $this->bank->id,
         ]);
 
         return $this;

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Seeders\Glossary\BankSeeder;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,8 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(Glossary\BankSeeder::class);
-
-        $this->call(Importer\ValidatorSeeder::class);
+        $this->call(Glossary\ValidatorSeeder::class);
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\UserSeeder::class);

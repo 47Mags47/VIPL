@@ -1,9 +1,13 @@
 import BaseButton from "./BaseButton"
 
-export default function BlueButton({type, children, onClick}) {
+export default function BlueButton(props) {
+
     return (
-        <BaseButton type={type} className={'blue-button'} onClick={onClick}>
-            {children}
+        <BaseButton 
+            {...props}
+            className={"blue-button " + props.className}
+        >
+            {props.children}
         </BaseButton>
     )
 }

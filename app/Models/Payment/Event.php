@@ -47,7 +47,17 @@ class Event extends Model
         return $this->belongsTo(Payment::class, 'payment_id');
     }
 
-    public function packages():HasMany{
+    public function packages(): HasMany
+    {
         return $this->hasMany(Package::class, 'event_id');
+    }
+
+    public function files(){
+        return $this->through('packages')->has('files');
+    }
+
+    public function bankFiles(): HasMany
+    {
+        return $this->hasMany(BankFile::class, 'event_id');
     }
 }

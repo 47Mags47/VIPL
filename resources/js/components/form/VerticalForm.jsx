@@ -2,6 +2,8 @@ import BaseForm from "./BaseForm";
 
 
 export default function VerticalForm({
+    className,
+    buttonName,
     method,
     header,
     children,
@@ -16,6 +18,8 @@ export default function VerticalForm({
             method={method}
             header={header}
             type="vertical-form"
+            className={className}
+            buttonName={buttonName}
             info={info}
             sbm={sbm}
             params={params}

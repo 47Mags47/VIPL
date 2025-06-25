@@ -1,13 +1,20 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
-Route::group([], [
-    base_path('routes/web/dev.php'),
+Route::get('/', function () {
+    return redirect()->route('payments.events.index');
+});
 
+Route::group([], [
     base_path('routes/web/main.php'),
     base_path('routes/web/docs.php'),
     base_path('routes/web/auth.php'),
     base_path('routes/web/glossary.php'),
     base_path('routes/web/payment.php'),
-    base_path('routes/web/validate.php'),
 ]);
+
+if (env('APP_ENV') === 'local')
+    Route::group([], [
+        base_path('routes/dev.php'),
+    ]);

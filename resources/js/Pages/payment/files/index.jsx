@@ -21,6 +21,8 @@ import Create from "./Create";
 export default function Index() {
     const files = usePage().props.files.data
     const packages = usePage().props.package.data
+    const pagination = usePage().props.files.meta
+
     const columns = [
         {
             title: 'Нименование',
@@ -36,12 +38,14 @@ export default function Index() {
         },
 
         {
-            title: 'На сумму',
+            title: 'На сумму (руб)',
             dataIndex: 'summ',
         },
+
         {
             title: 'Контрольная сумма',
-            dataIndex: 'summ',
+            dataIndex: 'hash',
+
         },
         {
             title: 'Размер',
@@ -68,6 +72,9 @@ export default function Index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={files}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
                 actions={
                     <Create />
                 }

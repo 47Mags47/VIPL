@@ -1,13 +1,13 @@
-export default function BaseButton({ type, className, children, onClick, form, disabled }) {
+export default function BaseButton({...props}) {
+    // let props2 = {...props, className: 'button ' + props.className}
+    // console.log(props2);
+    
     return (
         <button
-            type={type}
-            form={form}
-            className={'button ' + className}
-            onClick={onClick}
-            disabled={disabled}
+            {...props}
+            className={'button ' + props.className}
         >
-            {children}
-        </button>
+        { props.children }
+        </button >
     )
 }

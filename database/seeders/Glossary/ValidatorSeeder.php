@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Seeders\Importer;
+namespace Database\Seeders\Glossary;
 
-use App\Models\Importer\ValidateColumn;
-use App\Models\Importer\ValidateColumnType;
+use App\Models\Glossary\ValidatorColumn;
+use App\Models\Glossary\ValidatorColumnType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,48 +14,48 @@ class ValidatorSeeder extends Seeder
      */
     public function run(): void
     {
-        ValidateColumnType::create(['code' => 'string']);
-        ValidateColumnType::create(['code' => 'date']);
-        ValidateColumnType::create(['code' => 'integer']);
-        ValidateColumnType::create(['code' => 'float']);
+        ValidatorColumnType::create(['code' => 'string']);
+        ValidatorColumnType::create(['code' => 'date']);
+        ValidatorColumnType::create(['code' => 'integer']);
+        ValidatorColumnType::create(['code' => 'float']);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'np',
             'name' => 'Номер по порядку',
             'file_pos' => 1,
             'required' => false,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('integer')->id,
+            'type_id' => ValidatorColumnType::byCode('integer')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'first_name',
             'name' => 'Фамилия',
             'file_pos' => 2,
             'required' => false,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'last_name',
             'name' => 'Имя',
             'file_pos' => 3,
             'required' => true,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'middle_name',
             'name' => 'Отчество',
             'file_pos' => 4,
             'required' => false,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'd_rojd',
             'name' => 'Дата рождения',
             'file_pos' => 5,
@@ -63,10 +63,10 @@ class ValidatorSeeder extends Seeder
             'patterns' => [
                 '##.##.####'
             ],
-            'type_id' => ValidateColumnType::byCode('date')->id,
+            'type_id' => ValidatorColumnType::byCode('date')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'snils',
             'name' => 'СНИЛС',
             'file_pos' => 6,
@@ -74,10 +74,10 @@ class ValidatorSeeder extends Seeder
             'patterns' => [
                 '###-###-### ##'
             ],
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'account',
             'name' => 'Счет',
             'file_pos' => 7,
@@ -89,19 +89,19 @@ class ValidatorSeeder extends Seeder
                 '40914810############',
                 '423##810############'
             ],
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'summ',
             'name' => 'Сумма',
             'file_pos' => 8,
             'required' => true,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('float')->id,
+            'type_id' => ValidatorColumnType::byCode('float')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'p_series',
             'name' => 'Папорт серия',
             'file_pos' => 9,
@@ -109,10 +109,10 @@ class ValidatorSeeder extends Seeder
             'patterns' => [
                 '####',
             ],
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'p_number',
             'name' => 'Папорт номер',
             'file_pos' => 10,
@@ -120,10 +120,10 @@ class ValidatorSeeder extends Seeder
             'patterns' => [
                 '######',
             ],
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'p_date',
             'name' => 'Папорт дата выдачи',
             'file_pos' => 11,
@@ -131,16 +131,16 @@ class ValidatorSeeder extends Seeder
             'patterns' => [
                 '##.##.####'
             ],
-            'type_id' => ValidateColumnType::byCode('date')->id,
+            'type_id' => ValidatorColumnType::byCode('date')->id,
         ]);
 
-        ValidateColumn::create([
+        ValidatorColumn::create([
             'code' => 'p_div',
             'name' => 'Папорт место выдачи',
             'file_pos' => 12,
             'required' => true,
             'patterns' => null,
-            'type_id' => ValidateColumnType::byCode('string')->id,
+            'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
     }
 }

@@ -1,26 +1,21 @@
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
+import BlueButton from '@/components/button/BlueButton';
 import Table from "@/components/Table";
 import Show from "./Show";
 
 
-/** payments.event.packages.index
- *
- * Выводит список пакетов
- *
- * содержить ссылку на show (payments.event.packages.show).
- * Редактирования и удаления нет.
- *
- * ____________________________________________________________________________________
- * | UUID | Подразделение | Выплата (code - krv) | На (дата) | Статус | Создан (дата) |
- * |______|_______________|______________________|___________|________|_______________|
- *
- */
-
 export default function Index() {
     const packages = usePage().props.packages.data
+    const pagination = usePage().props.packages.meta
+
+    function onSubmit(e) {
+        e.preventDefault()
+        router.post(route('payments.raports.store'))
+    }
+
     const columns = [
         {
             title: 'UUID',
@@ -55,7 +50,8 @@ export default function Index() {
         {
             title: '',
             key: 'show',
-        render: (_, record) => (
+            width: 80,
+            render: (_, record) => (
                 <Show record={record} />
             )
         },
@@ -66,7 +62,20 @@ export default function Index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={packages}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
+                actions={
+                    <BlueButton
+                        type="submit"
+                        form="payments-report"
+                        onClick={onSubmit}
+
+                    >
+                        Выгрузить отчет
+                    </BlueButton>
+                }
             />
-        </AuthenticatedLayout>
+        </AuthenticatedLayout >
     );
 }

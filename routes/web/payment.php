@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Web\Payment\BankFileController;
 use App\Http\Controllers\Web\Payment\EventController;
 use App\Http\Controllers\Web\Payment\FileController;
 use App\Http\Controllers\Web\Payment\PackageController;
@@ -13,21 +13,33 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         'index',
         'show'
     ]);
+
     Route::apiResource('event.packages', PackageController::class)->only([
         'index',
         'show'
     ]);
 
-    Route::prefix('/package/{package}/files')->name('package.files.')->controller(FileController::class)->group(function(){
-        Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store');
-        Route::post('/check', 'check')->name('check');
-    });
-    Route::prefix('/files/{file}')->name('files.')->controller(FileController::class)->group(function(){
-        Route::get('/show', 'show')->name('show');
-        Route::put('/update', 'update')->name('update');
-        Route::delete('/destroy', 'destroy')->name('destroy');
-    });
+    Route::get('/package/{packages}/files/check', [FileController::class, 'check'])->name('package.files.check');
+    Route::apiResource('package.files', FileController::class)->only([
+        'index',
+        'store',
+        'show',
+        'update',
+        'destroy'
+    ]);
+
+    Route::apiResource('package.raports', RaportController::class)->only([
+        'index',
+        'store',
+        'show',
+        'destroy',
+    ]);
+
+    Route::apiResource('package.bank-files', BankFileController::class)->only([
+        'index',
+        'show',
+        'destroy',
+    ]);
 
     Route::apiResource('file.recipients', RecipientController::class)->only([
         'index',
@@ -35,7 +47,4 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         'destroy'
     ]);
 
-    Route::prefix('/raports')->name('raports.')->controller(RaportController::class)->group(function () {
-        Route::post('/store', 'store')->name('store');
-    });
 });

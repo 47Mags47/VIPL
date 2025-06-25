@@ -12,6 +12,7 @@ import Delete from "./Delete";
 export default function index() {
     const laws = usePage().props.laws.data
     const sources = usePage().props.sources.data
+    const pagination = usePage().props.laws.meta
 
 
     const columns = [
@@ -53,6 +54,9 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={laws}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
                 actions={
                     <Create sources={sources} />
                 }

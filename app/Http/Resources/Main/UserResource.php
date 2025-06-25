@@ -23,10 +23,7 @@ class UserResource extends JsonResource
                 'name' => 'Авторизирован',
             ],
             'online' => true,
-            'division' => $this->division !== null ? [
-                'id' => $this->division->id,
-                'name' => $this->division->name,
-            ] : null,
+            'division' => $this->division !== null ? $this->division->toResource() : null,
             'roles' => $this->roles->toResourceCollection(),
         ];
     }

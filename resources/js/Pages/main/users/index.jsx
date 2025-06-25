@@ -12,6 +12,8 @@ import Delete from "./Delete";
 export default function index() {
     const user = usePage().props.user.data
     const users = usePage().props.users.data
+    const pagination = usePage().props.users.meta
+
 
     const columns = [
         {
@@ -72,6 +74,9 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={users}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
                 actions={
                     <Create record={users}/>
                 }

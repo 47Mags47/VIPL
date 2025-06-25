@@ -2,29 +2,11 @@
 
 namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 trait hasUUID
 {
-    // use HasUlids;
-
-    // protected $primaryKey = 'uuid';
-
-    // protected $keyType = 'string';
-
-    // public $incrementing = false;
-
-    // protected static function bootUsesUuid()
-    // {
-    //     static::creating(function ($model) {
-    //         if (! $model->getKey()) {
-    //             $model->{$model->uuid} = (string) Str::uuid();
-    //         }
-    //     });
-    // }
-
     public static function boot()
     {
         parent::boot();

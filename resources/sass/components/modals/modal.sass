@@ -1,7 +1,10 @@
-.ant-modal-root
-    .ant-modal-wrap
-        padding: 50px 0
-        .ant-modal
-            margin: 0 auto
-            .ant-modal-content
-                box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.274)
+@use '../../abstracts' as *
+    
+.ant-modal-wrap
+    .ant-modal
+        margin: 0 auto
+        .ant-modal-content
+            box-shadow: 2px 2px 32px 8px #777
+            .ant-modal-footer
+                .button
+                    @include button-scale

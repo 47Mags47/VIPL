@@ -4,6 +4,10 @@ use App\Http\Middleware\IsAdminMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn() => route('login'));
+        $middleware->redirectGuestsTo(fn() => route('session.create'));
+        $middleware->redirectUsersTo(fn () => route('payments.events.index'));
+
 
         $middleware->web(append: [
             App\Http\Middleware\HandleInertiaRequests::class,
@@ -24,14 +30,17 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // HACK Починить переадресацию в случае устаревания страницы
-        // $exceptions->respond(function (Response $response) {
-        // if ($response->getStatusCode() === 419) {
-        //     return back()->with([
-        //         'message' => 'Страница устарела. Попробуйте еще раз',
-        //     ]);
-        // }
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                return Inertia::render('ErrorPage', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            } elseif ($response->getStatusCode() === 419) {
+                return back()->with([
+                    'message' => 'The page expired, please try again.',
+                ]);
+            }
 
-        // return $response;
-    // });
+            return $response;
+        });
     })->create();

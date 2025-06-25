@@ -4,6 +4,7 @@ namespace Database\Seeders\Dev\Main;
 
 use App\Models\Main\Role;
 use App\Models\Main\User;
+use App\Models\Main\UserPivotRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // ADMIN
         $admin = User::create([
             'division_id' => null,
             'name' => 'Администратор',
@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
         ]);
         $admin->addRole('admin');
 
-        // USER
         $user = User::create([
             'division_id' => 1,
             'name' => 'Пользователь',

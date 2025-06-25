@@ -6,8 +6,8 @@ import ModalButton from "@/components/button/ModalButton";
 import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
-import EditIco from '@/components/icons/Edit'
-import BaseButton from '@/components/button/BaseButton';
+import EditIco from '@/components/icons/EditIco'
+import BlueButton from '@/components/button/BlueButton';
 import handleChange from '@/handles/input/handleChange';
 
 
@@ -33,26 +33,28 @@ export default function Edit({ record }) {
         })
     }
 
+    const Button = ({ onClick }) => {
+        return <EditIco onClick={onClick} />;
+    };
+
     return (
         <ModalButton
-            className={"edit"}
             open={modalShow}
             changeState={changeEditState}
-            buttonText={<EditIco />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"edit-btn"}
+                <BlueButton
                     type="submit"
-                    form="glossary-divisions-edit-form"
+                    form="glossary-division-edit-form"
                 >
                     Отправить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
                 header={'Редактировать'}
                 handleSubmit={onEditSubmit}
-                id="glossary-divisions-edit-form"
+                id="glossary-division-edit-form"
             >
                 <Input
                     type="text"

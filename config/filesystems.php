@@ -47,13 +47,6 @@ return [
             'report' => false,
         ],
 
-        'ftp' => [
-            'driver' => 'ftp',
-            'host' => env('FTP_HOST'),
-            'username' => env('FTP_USERNAME'),
-            'password' => env('FTP_PASSWORD'),
-        ],
-
         'templates' => [
             'driver' => 'local',
             'root' => storage_path('app/private/templates'),
@@ -70,17 +63,25 @@ return [
             'report' => false,
         ],
 
-        'chunks' => [
+        'uploads' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/chunks'),
+            'root' => storage_path('app/private/uploads'),
             'serve' => true,
             'throw' => false,
             'report' => false,
         ],
 
-        'uploads' => [
+        'raports' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/uploads'),
+            'root' => storage_path('app/private/raports'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'bank-files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/bank-files'),
             'serve' => true,
             'throw' => false,
             'report' => false,

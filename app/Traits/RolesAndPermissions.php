@@ -153,10 +153,9 @@ trait RolesAndPermissions
 
     /**
      * Удаляет все роли у пользователя
-     * @param string $role Role code
      * @return bool
      */
-    public function refreshRoles(string $role)
+    public function refreshRoles()
     {
         return $this->roles()->detach();
     }

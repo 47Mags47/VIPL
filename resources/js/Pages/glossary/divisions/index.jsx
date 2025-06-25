@@ -11,6 +11,7 @@ import Delete from "./Delete";
 
 export default function index() {
     const divisions = usePage().props.divisions.data
+    const pagination = usePage().props.divisions.meta
 
     const columns = [
         {
@@ -46,6 +47,9 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={divisions}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
                 actions={
                     <Create />
                 }

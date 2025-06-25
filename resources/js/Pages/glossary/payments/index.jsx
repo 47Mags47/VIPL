@@ -13,13 +13,14 @@ export default function index() {
     const payments = usePage().props.payments.data
     const laws = usePage().props.laws.data
     const periodicity = usePage().props.periodicityes.data
+    const pagination = usePage().props.payments.meta
 
 
     const columns = [
         {
             title: 'Код',
             dataIndex: 'code',
-             width: 75,
+            width: 75,
         },
         {
             title: 'Краткое наименование',
@@ -32,17 +33,17 @@ export default function index() {
         {
             title: 'КБК',
             dataIndex: 'kbk',
-             width: 210,
+            width: 210,
         },
         {
             title: 'Закон',
             dataIndex: ['law', 'code'],
-             width: 150,
+            width: 150,
         },
         {
             title: 'Периодичность',
             dataIndex: ['periodicity', 'name'],
-             width: 150,
+            width: 150,
         },
         {
             title: '',
@@ -68,8 +69,11 @@ export default function index() {
                 rowKey="code"
                 columns={columns}
                 dataSource={payments}
+                current_page={pagination.current_page}
+                last_page={pagination.last_page}
+                from={pagination.from}
                 actions={
-                    <Create laws={laws} periodicity={periodicity}/>
+                    <Create laws={laws} periodicity={periodicity} />
                 }
             />
         </AuthenticatedLayout>

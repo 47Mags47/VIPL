@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
-import BaseButton from './BaseButton'
 import { Modal } from 'antd'
 
 export default function ModalButton({
     open,
     children,
-    buttonText,
+    Button,
     buttonClickHandler,
     okHandler,
     cancelHandler,
     changeState,
     footer,
-    className,
     maskClosable,
     closable
 }) {
@@ -35,15 +33,10 @@ export default function ModalButton({
         changeModalShow(false)
         changeState(false)
     })
-
+    
     return (
         <>
-            <BaseButton
-                className={className}
-                onClick={buttonClickHandler}
-            >
-                {buttonText}
-            </BaseButton>
+            <Button onClick={buttonClickHandler} />
             <Modal
                 className='modal'
                 closable={closable}

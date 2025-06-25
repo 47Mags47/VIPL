@@ -5,9 +5,9 @@ import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
 import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
+import BlueButton from '@/components/button/BlueButton';
 import handleChange from '@/handles/input/handleChange';
-import Add from '@/components/icons/Add'
+import AddIco from '@/components/icons/AddIco'
 import SelectComponent from '@/components/inputs/Select'
 import handleSelectChange from '@/handles/input/handleSelectChange';
 
@@ -17,15 +17,14 @@ export default function Create({ sources }) {
     const [values, setValues] = useState({
         code: '',
         name: '',
-        source: {
-            id: '',
-        },
-        sourcesSelect: sources.map(sources => ({
+        source_id: ''
+    });
+    const selectOptions = {
+        sources: sources.map(sources => ({
             value: sources.id,
             label: sources.name
-
         }))
-    });
+    }
 
     function changeAddState(state) {
         changeModalShow(state);
@@ -41,21 +40,22 @@ export default function Create({ sources }) {
         })
     }
 
+    const Button = ({ onClick }) => {
+        return <AddIco onClick={onClick} />
+    };
 
     return (
         <ModalButton
-            className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText={<Add />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"add-btn"}
+                <BlueButton
                     type="submit"
                     form="glossary-laws-add-form"
                 >
                     Добавить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
@@ -80,10 +80,10 @@ export default function Create({ sources }) {
                 <SelectComponent
                     name="source_id"
                     label="Вид финансирования"
-                    options={values.sourcesSelect}
-                    value={values.source.id}
+                    options={selectOptions.sources}
+                    value={values.source_id}
                     onChange={(value) => {
-                        handleSelectChange('source.id', value, values, setValues)
+                        handleSelectChange('source_id', value, values, setValues)
                     }}
                 />
             </VerticalForm>

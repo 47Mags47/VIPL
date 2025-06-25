@@ -5,10 +5,10 @@ import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
 import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
+import BlueButton from '@/components/button/BlueButton';
 import handleChange from '@/handles/input/handleChange';
 import TextArea from '@/components/inputs/TextArea';
-import Add from '@/components/icons/Add'
+import AddIco from '@/components/icons/AddIco'
 import SelectComponent from '@/components/inputs/Select'
 import handleSelectChange from '@/handles/input/handleSelectChange';
 
@@ -20,21 +20,19 @@ export default function Create({ laws, periodicity }) {
         krv: '',
         name: '',
         kbk: '',
-        periodicity: {
-            id: '',
-        },
-        law: {
-            id: '',
-        },
-        lawsSelect: laws.map(laws => ({
+        periodicity_id:'',
+        law_id: '',
+    });
+    const selectOptions = {
+        laws: laws.map(laws => ({
             value: laws.id,
             label: laws.code
         })),
-        periodicitySelect: periodicity.map(periodicity => ({
+        periodicity: periodicity.map(periodicity => ({
             value: periodicity.id,
             label: periodicity.name
         }))
-    });
+    }
 
     function changeAddState(state) {
         changeModalShow(state);
@@ -50,21 +48,22 @@ export default function Create({ laws, periodicity }) {
         })
     }
 
+    const Button = ({ onClick }) => {
+        return <AddIco onClick={onClick} />
+    };
 
     return (
         <ModalButton
-            className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText={<Add />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"add-btn"}
+                <BlueButton
                     type="submit"
                     form="glossary-payments-add-form"
                 >
                     Добавить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
@@ -101,21 +100,21 @@ export default function Create({ laws, periodicity }) {
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
                 <SelectComponent
-                    name="law[id]"
+                    name="law_id"
                     label="Закон"
-                    options={values.lawsSelect}
-                    value={values.law.id}
+                    options={selectOptions.laws}
+                    value={values.law_id}
                     onChange={(value) => {
-                        handleSelectChange('law.id', value, values, setValues)
+                        handleSelectChange('law_id', value, values, setValues)
                     }}
                 />
                 <SelectComponent
-                    name="periodicity[id]"
+                    name="periodicity_id"
                     label="Переодичность"
-                    options={values.periodicitySelect}
-                    value={values.periodicity.id}
+                    options={selectOptions.periodicity}
+                    value={values.periodicity_id}
                     onChange={(value) => {
-                        handleSelectChange('periodicity.id', value, values, setValues)
+                        handleSelectChange('periodicity_id', value, values, setValues)
                     }}
                 />
             </VerticalForm>

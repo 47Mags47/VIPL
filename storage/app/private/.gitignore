@@ -1,4 +1,5 @@
 *
 !templates/
 !docs/
+!uploads/
 !.gitignore

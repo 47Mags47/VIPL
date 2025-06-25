@@ -24,7 +24,9 @@ export default function Login() {
             <VerticalForm
                 header="Войти в систему"
                 handleSubmit={onSubmit}
+                className="auth-form"
                 sbm="Войти"
+                buttonName={"auth-btn"}
             >
                 <Input
                     type="email"

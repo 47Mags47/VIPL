@@ -13,11 +13,11 @@ export default function TextArea({ id, rows, name, label, value, onChange }) {
             <textarea
                 name={name}
                 id={id}
-                // value={value}
+                value={value}
                 rows={rows}
                 onChange={onChange}
             >
-                {value}
+                {/* {value} */}
             </textarea>
         </GroupComponent>
     )
