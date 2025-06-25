@@ -1,11 +1,12 @@
 import BaseButton from "./BaseButton"
 
-export default function BlueButton(props) {
+
+export default function RedButton(props) {
 
     return (
         <BaseButton 
             {...props}
-            className={"blue-button " + props.className}
+            className={"red-button " + props.className}
         >
             {props.children}
         </BaseButton>
