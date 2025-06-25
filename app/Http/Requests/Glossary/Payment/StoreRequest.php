@@ -46,9 +46,9 @@ class StoreRequest extends FormRequest
             'kbk'   => [
                 'required',
                 'string',
-                'min:24',
-                'max:24',
-                'regex:/[0-9]{3} [0-9]{4} [0-9]{5} [0-9]{5} [0-9]{3}/',
+                'min:20',
+                'max:20',
+                'regex:/[0-9]{3}[0-9]{4}[0-9]{5}[0-9]{5}[0-9]{3}/',
                 'unique:' . Payment::class . ',kbk'
             ],
             'law_id' => [

@@ -21,7 +21,7 @@ class PaymentSeeder extends Seeder
             'code' => '001',
             'name' => 'Выплата № 001',
             'krv' => 'Выплата № 001',
-            'kbk' => $faker->numerify('888 1003 0240###### ###'),
+            'kbk' => $faker->numerify('88810030240#########'),
             'law_id' => Law::all()->random()->id,
             'periodicity_id' => PaymentPeriodicity::all()->random()->id,
         ]);
