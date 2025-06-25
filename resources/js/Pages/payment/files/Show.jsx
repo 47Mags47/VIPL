@@ -1,22 +1,9 @@
-import { router } from '@inertiajs/react'
-
-import Link from "@/components/Link"
-import GoTo from '@/components/icons/GoTo'
+import GoToIco from '@/components/icons/GoToIco'
 
 
 export default function Show({ packages, record }) {
-    function show({ packages, record }) {
-        router.get(route('payments.files.show', { file: record.id }), {
-            onSuccess: function (response) {
-            },
-        });
-    }
+    const href = route('payments.package.files.show', { package:packages.id, file: record.id })
     return (
-        <Link
-            onClick={() => show({ packages, record })}
-            name="goto"
-        >
-            <GoTo />
-        </Link>
+        <GoToIco href={href} />
     )
 }

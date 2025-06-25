@@ -6,16 +6,17 @@ import { message } from 'antd';
 
 
 export default function AuthenticatedLayout({ children }) {
-
     const [messageApi, contextHolder] = message.useMessage();
 
     return (
-        <div className="authenticated-layout">
+        <div className="layout authenticated-layout">
             <LoadIco />
             <Header />
             <Message type='success' messageApi={messageApi} />
             {contextHolder}
-            {children}
+            <main>
+                {children}
+            </main>
         </div>
     );
 }

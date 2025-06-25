@@ -19,7 +19,7 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         'show'
     ]);
 
-    Route::get('/package/{packages}/files/check', [FileController::class, 'check']);
+    Route::get('/package/{packages}/files/check', [FileController::class, 'check'])->name('package.files.check');
     Route::apiResource('package.files', FileController::class)->only([
         'index',
         'store',

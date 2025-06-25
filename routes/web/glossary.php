@@ -12,24 +12,28 @@ Route::middleware('isAdmin')->prefix('/glossary')->name('glossary.')->group(func
         'index',
         'store',
         'update',
+        'destroy',
     ]);
 
     Route::apiResource('/divisions', DivisionController::class)->only([
         'index',
         'store',
         'update',
+        'destroy',
     ]);
 
     Route::apiResource('/laws', LawController::class)->only([
         'index',
         'store',
         'update',
+        'destroy',
     ]);
 
     Route::apiResource('/payments', PaymentController::class)->only([
         'index',
         'store',
         'update',
+        'destroy',
     ]);
 
     Route::prefix('/importer/validator')->name('importer.validator.')->group(function () {

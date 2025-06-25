@@ -5,9 +5,9 @@ import VerticalForm from '@/components/form/VerticalForm';
 
 // import Input from "@/components/inputs/Input"
 import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
+import BlueButton from '@/components/button/BlueButton';
 // import handleChange from '@/handles/input/handleChange';
-import Add from '@/components/icons/Add'
+import AddIco from '@/components/icons/AddIco'
 // import SelectComponent from '@/components/inputs/Select'
 // import handleSelectChange from '@/handles/input/handleSelectChange';
 
@@ -30,24 +30,25 @@ export default function Create({ record }) {
         })
     }
 
+    const Button = ({ onClick }) => {
+        return <AddIco onClick={onClick} />
+    };
 
     return (
         <ModalButton
-            className={"add"}
             open={modalShow}
             changeState={changeAddState}
-            buttonText={<Add />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"add-btn"}
+                <BlueButton
                     type="submit"
                     form="main-user-add-form"
                 >
                     Добавить
-                </BaseButton>
+                </BlueButton>
             }
         >
-            <VerticalForm>   
+            <VerticalForm>
             </VerticalForm>
         </ModalButton>
     );

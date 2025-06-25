@@ -6,7 +6,7 @@ import VerticalForm from '@/components/form/VerticalForm';
 import Input from "@/components/inputs/Input"
 import ModalButton from "@/components/button/ModalButton";
 import BaseButton from '@/components/button/BaseButton';
-import EditIco from '@/components/icons/Edit'
+import EditIco from '@/components/icons/EditIco'
 import handleChange from '@/handles/input/handleChange';
 import handleSelectChange from '@/handles/input/handleSelectChange';
 import SelectComponent from '@/components/inputs/Select';

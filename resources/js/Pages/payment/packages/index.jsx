@@ -2,23 +2,10 @@ import { usePage, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import BaseButton from '@/components/button/BaseButton';
+import BlueButton from '@/components/button/BlueButton';
 import Table from "@/components/Table";
 import Show from "./Show";
 
-
-/** payments.event.packages.index
- *
- * Выводит список пакетов
- *
- * содержить ссылку на show (payments.event.packages.show).
- * Редактирования и удаления нет.
- *
- * ____________________________________________________________________________________
- * | UUID | Подразделение | Выплата (code - krv) | На (дата) | Статус | Создан (дата) |
- * |______|_______________|______________________|___________|________|_______________|
- *
- */
 
 export default function Index() {
     const packages = usePage().props.packages.data
@@ -63,6 +50,7 @@ export default function Index() {
         {
             title: '',
             key: 'show',
+            width: 80,
             render: (_, record) => (
                 <Show record={record} />
             )
@@ -78,15 +66,14 @@ export default function Index() {
                 last_page={pagination.last_page}
                 from={pagination.from}
                 actions={
-                    <BaseButton
-                        className="report-btn"
+                    <BlueButton
                         type="submit"
                         form="payments-report"
                         onClick={onSubmit}
 
                     >
                         Выгрузить отчет
-                    </BaseButton>
+                    </BlueButton>
                 }
             />
         </AuthenticatedLayout >

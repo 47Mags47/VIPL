@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { router } from '@inertiajs/react'
 
 import VerticalForm from '@/components/form/VerticalForm';
-
+import BlueButton from '@/components/button/BlueButton';
+import ModalButton from "@/components/button/ModalButton";
+import EditIco from '@/components/icons/EditIco'
 import Input from "@/components/inputs/Input"
 import TextArea from "@/components/inputs/TextArea"
-import ModalButton from "@/components/button/ModalButton";
-import BaseButton from '@/components/button/BaseButton';
-import EditIco from '@/components/icons/Edit'
+import SelectComponent from '@/components/inputs/Select';
+
 import handleChange from '@/handles/input/handleChange';
 import handleSelectChange from '@/handles/input/handleSelectChange';
-import SelectComponent from '@/components/inputs/Select';
 
 
 export default function Edit({ division, exporter, record }) {
@@ -35,16 +35,18 @@ export default function Edit({ division, exporter, record }) {
             account: record.contract.bank_side.account,
             comment: record.contract.bank_side.comment,
         },
-        exporterSelect: exporter.map(exporter => ({
+    });
+    const selectOptions = {
+        exporter: exporter.map(exporter => ({
             value: exporter.id,
             label: exporter.name,
         })),
-        divisionSelect: division.map(division => ({
+        division: division.map(division => ({
             value: division.id,
             label: division.name
         }))
-    });
-    
+    }
+
     function changeEditState(state) {
         changeModalShow(state);
     }
@@ -59,20 +61,22 @@ export default function Edit({ division, exporter, record }) {
         })
     }
 
+    const Button = ({ onClick }) => {
+        return <EditIco onClick={onClick} />
+    };
+
     return (
         <ModalButton
-            className={"edit"}
             open={modalShow}
             changeState={changeEditState}
-            buttonText={<EditIco />}
+            Button={Button}
             footer={
-                <BaseButton
-                    className={"edit-btn"}
+                <BlueButton
                     type="submit"
                     form="glossary-bank-edit-form"
                 >
                     Отправить
-                </BaseButton>
+                </BlueButton>
             }
         >
             <VerticalForm
@@ -104,10 +108,11 @@ export default function Edit({ division, exporter, record }) {
                 <SelectComponent
                     name="bank[exporter_id]"
                     label="Экспортер"
-                    options={values.exporterSelect}
+                    options={selectOptions.exporter}
                     value={values.bank.exporter_id}
-                    onChange={(value) => { handleSelectChange('bank.exporter_id', value, values, setValues)
-                        
+                    onChange={(value) => {
+                        handleSelectChange('bank.exporter_id', value, values, setValues)
+
                     }}
                 />
                 <Input
@@ -127,10 +132,11 @@ export default function Edit({ division, exporter, record }) {
                 <SelectComponent
                     name="contract[division_side_id]"
                     label="Сторона организации"
-                    options={values.divisionSelect} 
+                    options={selectOptions.division}
                     value={values.contract.division_side_id}
-                    onChange={(value) => { handleSelectChange('contract.division_side_id', value, values, setValues)
-                        
+                    onChange={(value) => {
+                        handleSelectChange('contract.division_side_id', value, values, setValues)
+
                     }}
                 />
                 <Input
