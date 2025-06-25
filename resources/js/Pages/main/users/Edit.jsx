@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { router, Link } from '@inertiajs/react'
 
 import ModalButton from "@/components/button/ModalButton";
 
@@ -7,28 +7,31 @@ import VerticalForm from '@/components/form/VerticalForm';
 
 import Input from "@/components/inputs/Input"
 import BlueButton from '@/components/button/BlueButton';
+import RedButton from '@/components/button/RedButton';
 import EditIco from '@/components/icons/EditIco'
 import handleChange from '@/handles/input/handleChange';
 import SelectComponent from '@/components/inputs/Select'
 import handleSelectChange from '@/handles/input/handleSelectChange';
 
 
-export default function Edit({ record }) {
+export default function Edit({ roles, divisions, record }) {
     const [modalShow, changeModalShow] = useState(false)
     const [values, setValues] = useState({
         name: record.name,
         email: record.email,
-        division: record.division,
-        selectedRoleIds: record.roles.map(role => role.id),
-        rolesSelect: record.roles.map(roles => ({
+        division_id: record.division?.id,
+        roles: record.roles.map(roles => roles.id),
+    });
+    const selectOptions = {
+        divisions: divisions.map(divisions => ({
+            value: divisions.id,
+            label: divisions.name,
+        })),
+        roles: roles.map(roles => ({
             value: roles.id,
             label: roles.name
-        })),
-        // divisionSelect: division.map(division => ({
-        //     value: division.id,
-        //     label: division.name
-        // }))
-    });
+        }))
+    }
 
     function changeEditState(state) {
         changeModalShow(state);
@@ -44,6 +47,11 @@ export default function Edit({ record }) {
         })
     }
 
+    function resetPassword(e) {
+        e.preventDefault()
+        if (confirm(`Вы уверены, что хотите сбросить пароль для ${record.name}`)) {}
+    }
+
     const Button = ({ onClick }) => {
         return <EditIco onClick={onClick} />
     };
@@ -54,18 +62,27 @@ export default function Edit({ record }) {
             changeState={changeEditState}
             Button={Button}
             footer={
-                <BlueButton
-                    type="submit"
-                    form="main-user-edit-form"
-                >
-                    Отправить
-                </BlueButton>
+                <>
+                    <RedButton
+                        onClick={resetPassword}
+                    >
+                        Сбросить пароль
+                    </RedButton>
+
+                    <BlueButton
+                        type="submit"
+                        form="main-user-edit-form"
+                    >
+                        Отправить
+                    </BlueButton>
+
+                </>
             }
         >
             <VerticalForm
                 header={'Редактировать'}
                 handleSubmit={onEditSubmit}
-                id="main-users-edit-form"
+                id="main-user-edit-form"
             >
                 <Input
                     type={"name"}
@@ -81,22 +98,22 @@ export default function Edit({ record }) {
                     value={values.email}
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
-                {/* <SelectComponent
-                    name="division[name]"
+                <SelectComponent
+                    name="division_id"
                     label="Подразделение"
-                    options={values.divisionSelect}
-                    value={values.division.id}
+                    options={selectOptions.divisions}
+                    value={values.division_id}
                     onChange={(value) => {
-                        handleSelectChange('division.id', value, values, setValues)
+                        handleSelectChange('division_id', value, values, setValues)
 
                     }}
-                /> */}
+                />
                 <SelectComponent
                     name="roles[name]"
                     label="Роли"
-                    options={values.rolesSelect}
-                    value={values.selectedRoleIds}
-                    onChange={(value) => handleSelectChange('selectedRoleIds', value, values, setValues)}
+                    options={selectOptions.roles}
+                    value={values.roles}
+                    onChange={(value) => handleSelectChange('roles', value, values, setValues)}
                     mode="multiple"
                 />
             </VerticalForm>

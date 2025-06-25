@@ -10,10 +10,10 @@ import Delete from "./Delete";
 
 
 export default function index() {
-    const user = usePage().props.user.data
     const users = usePage().props.users.data
+    const divisions = usePage().props.divisions.data
+    const roles = usePage().props.roles.data
     const pagination = usePage().props.users.meta
-
 
     const columns = [
         {
@@ -34,7 +34,20 @@ export default function index() {
         {
             title: 'Email',
             dataIndex: 'email',
-            width: 150,
+            
+        },
+        {
+            title: 'Подразделение',
+            dataIndex: ['division', 'name'],
+            
+        },
+        {
+            title: 'Роли',
+            dataIndex: ['roles', 'name'],
+            render: (_, record) => {
+                const roleNames = record.roles?.map(role => role.name).join(', ') || '—';
+                return <span>{roleNames}</span>;
+            }
         },
         {
             title: 'Подразделение',
@@ -55,7 +68,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit record={record}/>
+                <Edit roles={roles} divisions={divisions} record={record}/>
             )
         },
         {
@@ -78,7 +91,7 @@ export default function index() {
                 last_page={pagination.last_page}
                 from={pagination.from}
                 actions={
-                    <Create record={users}/>
+                    <Create roles={roles} divisions={divisions} />
                 }
             />
         </AuthenticatedLayout>
