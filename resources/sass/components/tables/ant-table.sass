@@ -1,3 +1,5 @@
+@use '../../abstracts' as *
+
 .table-box
     padding: 5px 15px
     .top-side-box
@@ -39,6 +41,11 @@
                             background: rgba(170, 170, 170, 0.3)
                             backdrop-filter: blur(4px)
                             transition: .5s
+                        .button
+                            &.ico
+                                width: 45px
+                                height: 30px
+                            @include button-scale
                     &:hover
                         td::after
                             height: 2px

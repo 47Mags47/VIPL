@@ -1,3 +1,5 @@
+@use '../../abstracts' as *
+    
 .form-container.vertical-form
     display: flex
     justify-content: center
@@ -40,6 +42,16 @@
                     display: block
                     font-weight: 500
                     color: var(--text-color)
+        .form-buttons
+            display: flex
+            justify-content: center
+            align-items: center
+            gap: 10px
+            padding: 0 75px
+            .button
+                flex: 1
+                @include button-scale
+                
 
     .auth-form
         padding: 20px 20px
