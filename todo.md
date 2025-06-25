@@ -97,3 +97,4 @@
 [ ] b_46 - Настроить удаление связанных записей при удалении glossary.division
 [x] b_47 - Доделать back main.users'
 [x] b_48 - Пофиксить КБК в glossary.payments sider
+[ ] b_49 - Добавить и разнести роли [root, system_admin, division_admin, user]
