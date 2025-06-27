@@ -7,7 +7,7 @@ use App\Http\Controllers\Web\Glossary\PaymentController;
 use App\Http\Controllers\Web\Glossary\ValidatorColumnController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('isAdmin')->prefix('/glossary')->name('glossary.')->group(function () {
+Route::middleware(['auth', 'permission:edit_glossary'])->prefix('/glossary')->name('glossary.')->group(function () {
     Route::apiResource('/banks', BankController::class)->only([
         'index',
         'store',

@@ -6,17 +6,19 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdminMiddleware
+class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $permission): Response
     {
-        return user()->isAdmin()
-            ? $next($request)
-            : abort(403);
+        if (user()->hasPermission($permission))
+
+            return $next($request);
+
+        return abort(403);
     }
 }

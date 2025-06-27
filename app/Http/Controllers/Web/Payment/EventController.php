@@ -25,10 +25,10 @@ class EventController extends Controller
 
         $events = Event::whereBetween('date', [$start_month, $end_month])
             ->get()
-            ->map(function($event){
+            ->map(function ($event) {
                 return $event->toResource();
             })
-            ->groupBy(function($event){
+            ->groupBy(function ($event) {
                 return $event->date->format('Y-m-d');
             });
 
@@ -37,7 +37,9 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        if (user()->isUser()) {
+        if (user()->hasPermission('upload_payment_raport'))
+            return redirect()->route('payments.event.packages.index', compact('event'));
+        else {
             $package = Package::firstOrCreate([
                 'event_id' => $event->id,
                 'division_id' => user()->division->id,
@@ -47,11 +49,5 @@ class EventController extends Controller
 
             return redirect()->route('payments.event.packages.show', compact('event', 'package'));
         }
-
-        if (user()->isAdmin()) {
-            return redirect()->route('payments.event.packages.index', compact('event'));
-        }
-
-        return abort(403);
     }
 }

@@ -19,16 +19,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'division_id' => Division::byCode('root')->id,
+            'division_id' => Division::first()->id,
             'name' => 'Администратор',
             'email' => 'admin@test.ru',
             'password' => Hash::make('admin'),
             'status_id' => UserStatus::byCode('active')->id,
         ]);
-        $admin->addRole('admin');
+        $admin->addRole('system_admin');
 
         $user = User::create([
-            'division_id' => Division::byCode('root')->id,
+            'division_id' => Division::first()->id,
             'name' => 'Пользователь',
             'email' => 'user@test.ru',
             'password' => Hash::make('user'),

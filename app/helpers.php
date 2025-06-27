@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\InvalidUserException;
 use App\Models\Main\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,14 +28,14 @@ if (! function_exists('getOld')) {
 
 if (! function_exists('user')) {
     /**
-     * Возвращает текущего аунтифицированного пользователя
-     * @return User|null - текущий пользователь
+     * Возвращает текущего пользователя
+     * @return User - текущий пользователь
      */
-    function user(int|null $id = null): User|null
+    function user(): User
     {
-        return $id !== null
-            ? User::whereKey($id)->get()->first()
-            : Auth::user();
+        $user = Auth::user() ?? new User();
+
+        return $user;
     }
 }
 

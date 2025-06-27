@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\IsAdminMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,10 +22,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->web(append: [
             App\Http\Middleware\HandleInertiaRequests::class,
+            App\Http\Middleware\MenyMiddleware::class,
         ]);
 
+
         $middleware->alias([
-            'isAdmin' => IsAdminMiddleware::class,
+            'local-network' => App\Http\Middleware\LocalNetworkMiddleware::class,
+            'role' => App\Http\Middleware\RoleMiddleware::class,
+            'permission' => App\Http\Middleware\PermissionMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

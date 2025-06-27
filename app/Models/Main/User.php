@@ -4,6 +4,7 @@ namespace App\Models\Main;
 
 use App\Models\Glossary\Division;
 use App\Models\Glossary\UserStatus;
+use App\Traits\HasFilter;
 use App\Traits\Named;
 use App\Traits\RolesAndPermissions;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -20,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use
         Named,
         RolesAndPermissions,
+        HasFilter,
         HasFactory,
         Notifiable,
         SoftDeletes,
@@ -53,13 +55,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    protected static function booted()
-    {
-        static::addGlobalScope('not root', function (Builder $builder) {
-            $builder->whereNot('name', 'root');
-        });
-    }
-
     ### Функции
     ##################################################
 
@@ -78,6 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ]);
 
         return $this;
+    }
+
+    public function scopeNotRoot(){
+        $roots = Role::roots()->users;
+        return $this->whereNotIn('id', $roots->pluck('id')->toArray());
     }
 
     ### Связи

@@ -49,7 +49,14 @@ export default function Edit({ roles, divisions, record }) {
 
     function resetPassword(e) {
         e.preventDefault()
-        if (confirm(`Вы уверены, что хотите сбросить пароль для ${record.name}`)) {}
+
+        if (confirm(`Вы уверены, что хотите сбросить пароль для ${record.name}`)) {
+            router.post(route('main.users.reset-password', { user: record.id }), {}, {
+                onSuccess: function () {
+                    changeModalShow(false)
+                },
+            })
+        }
     }
 
     const Button = ({ onClick }) => {

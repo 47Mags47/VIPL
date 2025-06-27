@@ -9,9 +9,8 @@ import Create from "./Create";
 import Delete from "./Delete";
 
 
-export default function Index() {
+export default function DivisionIndex() {
     const users = usePage().props.users.data
-    const divisions = usePage().props.divisions.data
     const roles = usePage().props.roles.data
     const pagination = usePage().props.users.meta
 
@@ -55,11 +54,6 @@ export default function Index() {
 
         },
         {
-            title: 'Подразделение',
-            dataIndex: ['division', 'name'],
-
-        },
-        {
             title: 'Роли',
             dataIndex: ['roles', 'name'],
             render: (_, record) => {
@@ -76,22 +70,22 @@ export default function Index() {
                 return <span>{roleNames}</span>;
             }
         },
-        {
-            title: '',
-            key: 'edit',
-            width: 80,
-            render: (_, record) => (
-                <Edit roles={roles} divisions={divisions} record={record} />
-            )
-        },
-        {
-            title: '',
-            key: 'delete',
-            width: 80,
-            render: (_, record) => (
-                <Delete record={record} />
-            )
-        },
+        // {
+        //     title: '',
+        //     key: 'edit',
+        //     width: 80,
+        //     render: (_, record) => (
+        //         <Edit roles={roles} division={users.division} record={record} />
+        //     )
+        // },
+    //     {
+    //         title: '',
+    //         key: 'delete',
+    //         width: 80,
+    //         render: (_, record) => (
+    //             <Delete record={record} />
+    //         )
+    //     },
     ];
 
     return (
@@ -103,9 +97,9 @@ export default function Index() {
                 current_page={pagination.current_page}
                 last_page={pagination.last_page}
                 from={pagination.from}
-                actions={
-                    <Create roles={roles} divisions={divisions} />
-                }
+                // actions={
+                    // <Create roles={roles} division={users.division} />
+                // }
             />
         </AuthenticatedLayout>
     );

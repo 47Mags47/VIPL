@@ -1,7 +1,8 @@
 import { Link } from '@inertiajs/react';
 
-export default function ItemMenu({ itemKey, routeName, text, method }) {
-    const href = route(routeName);
+export default function ItemMenu({ itemKey, routeName, text, method, routeData }) {
+    const href = route(routeName, routeData);
+
     return (
         <Link
             href={href}

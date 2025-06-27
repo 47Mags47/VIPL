@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'online' => true,
             'division' => $this->division !== null ? $this->division->toResource() : null,
             'roles' => $this->roles->toResourceCollection(),
+            'deleted' => $this->trashed()
         ];
     }
 }

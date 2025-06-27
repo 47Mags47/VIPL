@@ -15,22 +15,35 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['code' => 'user',     'name' => 'Пользователь']);
-        Role::create(['code' => 'admin',    'name' => 'Администратор']);
-        Role::create(['code' => 'root',     'name' => 'root']);
+        Role::create(['code' => 'root',             'name' => 'root']);
+        Role::create(['code' => 'system_admin',     'name' => 'Администратор системы']);
+        Role::create(['code' => 'division_admin',   'name' => 'Администратор подразделения']);
+        Role::create(['code' => 'user',             'name' => 'Пользователь']);
 
+        Permission::create(['code' => 'system_configuration',           'name' => 'Изменение конфигурации системы']);
+        Permission::create(['code' => 'edit_glossary',                  'name' => 'Заполнение справочников']);
+        Permission::create(['code' => 'edit_divisions',                 'name' => 'Изменение данных подразделений']);
+        Permission::create(['code' => 'edit_division',                  'name' => 'Изменение данных подразделения']);
+        Permission::create(['code' => 'edit_payment_files',             'name' => 'Загрузка файлов выплат']);
+        Permission::create(['code' => 'upload_payment_raport',          'name' => 'Формирование отчета по выплате']);
+        Permission::create(['code' => 'upload_division_payment_raport', 'name' => 'Формирование отчета по выплате для подразделения']);
 
-        Permission::create(['code' => 'edit-glossary-bank',      'name' => 'Изменение справочника "Банки"']);
-        Permission::create(['code' => 'edit-glossary-division',  'name' => 'Изменение справочника "Подразделение"']);
-        Permission::create(['code' => 'edit-glossary-law',       'name' => 'Изменение справочника "Законы"']);
-        Permission::create(['code' => 'edit-glossary-payment',   'name' => 'Изменение справочника "Выплаты"']);
-        Permission::create(['code' => 'edit-main-user',          'name' => 'Изменение списка пользователей']);
+        Permission::create(['code' => 'edit_system_admins',             'name' => 'Назначение администраторов системы']);
+        Permission::create(['code' => 'edit_division_admins',           'name' => 'Назначение администраторов подразделения']);
+        Permission::create(['code' => 'edit_users',                     'name' => 'Создание пользователей']);
 
-
-        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-bank']);
-        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-division']);
-        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-law']);
-        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-glossary-payment']);
-        RolePivotPermission::create(['role_code' => 'admin',    'permission_code' => 'edit-main-user']);
+        RolePivotPermission::create(['role_code' => 'root',             'permission_code' => 'system_configuration']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'edit_system_admins']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'edit_division_admins']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'edit_glossary']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'edit_divisions']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'edit_users']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'upload_payment_raport']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'upload_division_payment_raport']);
+        RolePivotPermission::create(['role_code' => 'division_admin',   'permission_code' => 'edit_division']);
+        RolePivotPermission::create(['role_code' => 'division_admin',   'permission_code' => 'edit_users']);
+        RolePivotPermission::create(['role_code' => 'division_admin',   'permission_code' => 'edit_payment_files']);
+        RolePivotPermission::create(['role_code' => 'division_admin',   'permission_code' => 'upload_division_payment_raport']);
+        RolePivotPermission::create(['role_code' => 'user',             'permission_code' => 'edit_payment_files']);
     }
 }

@@ -20,6 +20,6 @@ trait HasLog
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->description = "{$eventName}";
-        $activity->causer_id = user() !== null ? user()->id : null;
+        $activity->causer_id = user()->id;
     }
 }
