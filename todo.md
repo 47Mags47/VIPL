@@ -32,7 +32,7 @@
         Ссылка перейти;
 [ ] f_25 - Добавить справочник валидатора (index, edit)
     В меню пункт "Правила проверки"
-[ ] f_26 - https://inertiajs.ru/partial-reloads
+[x] f_26 - https://inertiajs.ru/partial-reloads
     Читаем, делаем фильтрацию и сортировку таблиц таким способом
 [ ] b_27 - https://inertiajs.ru/authorization
     читаем, делаем в шапке
