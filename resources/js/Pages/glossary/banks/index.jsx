@@ -95,7 +95,6 @@ export default function index() {
                 rowKey="id"
                 columns={columns}
                 dataSource={banks}
-                filterKey={'name'}
                 current_page={pagination.current_page} 
                 last_page={pagination.last_page} 
                 from={pagination.from}
