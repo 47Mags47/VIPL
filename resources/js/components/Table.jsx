@@ -7,7 +7,7 @@ export default function Table({ current_page, last_page, from, actions, searUrl,
         if (type === 'prev' && current_page === 1) {
             return null
         }
-        if (type === 'next'&& current_page === last_page) {
+        if (type === 'next' && current_page === last_page) {
             return null
         }
         return originalElement;
