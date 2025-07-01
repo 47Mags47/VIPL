@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import Input from '@/components/inputs/Input'
 
 
-export default function TableSearch() {
+export default function TableSearch({only}) {
     const { data, setData } = useForm({
         filter: {
             search: ''
@@ -38,7 +38,7 @@ export default function TableSearch() {
         window.history.replaceState(null, '', url.toString())
 
         router.reload({
-            only: ['banks', 'divisions', 'laws', 'payments'],
+            only: only,
             preserveState: true,
             replace: true
         })

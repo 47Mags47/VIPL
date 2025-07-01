@@ -2,7 +2,7 @@ import { Table as AntdTable } from 'antd';
 import TableSearch from '@/components/inputs/TableSearch'
 
 
-export default function Table({ current_page, last_page, from, actions, searUrl, ...props }) {
+export default function Table({ only, current_page, last_page, from, actions, searUrl, ...props }) {
     const itemRender = (_, type, originalElement) => {
         if (type === 'prev' && current_page === 1) {
             return null
@@ -21,7 +21,7 @@ export default function Table({ current_page, last_page, from, actions, searUrl,
         <div className="table-box">
             <div className="top-side-box">
                 <div className="search-box">
-                    <TableSearch />
+                    <TableSearch only={only}/>
                 </div>
                 <div className="actions-box">
                     {actions}

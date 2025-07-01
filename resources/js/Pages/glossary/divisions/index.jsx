@@ -50,6 +50,7 @@ export default function index() {
                 current_page={pagination.current_page}
                 last_page={pagination.last_page}
                 from={pagination.from}
+                only={['divisions']}
                 actions={
                     <Create />
                 }
