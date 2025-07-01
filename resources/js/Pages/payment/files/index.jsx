@@ -7,17 +7,6 @@ import Show from "./Show";
 import Delete from "./Delete";
 import Create from "./Create";
 
-/** payments.package.files.index
- *
- * Выводит список файлов
- *
- * содержить ссылку на show (payments.package.files.show).
- * ______________________________________________________________________________
- * | Нименование | Статус | Получателей | На сумму | контрольная сумма | размер |
- * |_____________|________|_____________|__________|___________________|________|
- *
- */
-
 export default function Index() {
     const files = usePage().props.files.data
     const packages = usePage().props.package.data

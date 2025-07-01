@@ -60,4 +60,9 @@ class Event extends Model
     {
         return $this->hasMany(BankFile::class, 'event_id');
     }
+
+    public function raports():HasMany
+    {
+        return $this->hasMany(Raport::class, 'event_id');
+    }
 }

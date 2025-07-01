@@ -25,8 +25,8 @@ class FileRead extends FormRequest
     {
         return [
             'path' => ['required', 'string'],
-            'bank_id' => ['required', 'exists:'. Bank::getTableName() .',id'],
-            'payment_id' => ['required', 'exists:'. Division::getTableName() .',id'],
+            'bank_id' => ['required', 'exists:'. Bank::class .',id'],
+            'payment_id' => ['required', 'exists:'. Division::class .',id'],
         ];
     }
 }

@@ -6,6 +6,8 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contract extends Model
@@ -32,13 +34,8 @@ class Contract extends Model
 
     ### Связи
     ##################################################
-    public function division(): BelongsTo
+    public function bank(): HasMany
     {
-        return $this->belongsTo(ContractSide::class, 'division_side_id');
-    }
-
-    public function bank(): BelongsTo
-    {
-        return $this->belongsTo(ContractSide::class, 'bank_side_id');
+        return $this->hasMany(Bank::class, 'bank_id');
     }
 }

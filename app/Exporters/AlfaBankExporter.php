@@ -11,13 +11,12 @@ class AlfaBankExporter extends ExcelExporter
     {
         parent::__construct(...func_get_args());
 
-        $division_inn = $this->bank->contract->division->INN;
         $payment_code = $this->event->payment->code;
 
-        preg_match_all("/[а-яА-Яa-zA-Z]/", $this->bank->contract->division->name, $division_name);
+        preg_match_all("/[а-яА-Яa-zA-Z]/", division('name'), $division_name);
         $division_name = mb_strtoupper(implode('', (array) $division_name[0]));
 
-        $this->setFileName($division_inn . '_' . $division_name . '_' . $payment_code . '_' . substr($this->npp, 2, 3) . '.xls');
+        $this->setFileName(division('INN') . '_' . $division_name . '_' . $payment_code . '_' . substr($this->npp, 2, 3) . '.xls');
         $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_alfabank.xls'));
     }
 
@@ -26,7 +25,7 @@ class AlfaBankExporter extends ExcelExporter
         $this->spreadsheet
             ->getSheetByName('Реестр')
             ->setCellValue('D6', 'Реестр №' . $this->event->date->format('m/d'))
-            ->setCellValue('B11', 'ИНН ' . $this->bank->contract->division->INN . ' БИК ' . $this->bank->contract->division->BIK . ' к/с № ' . $this->bank->contract->division->account)
+            ->setCellValue('B11', 'ИНН ' . division('INN') . ' БИК ' . division('BIK') . ' к/с № ' . division('account'))
             ->setCellValue('B12', 'за ' . $this->event->date->translatedFormat('F Y') . ' г.')
             ->setCellValue('B13', 'согласно платежному поручению № ' . $this->npp . ' от ' . $this->event->date->translatedFormat('«d» F Y ') . ' года')
             ->setCellValue('E15', $this->event->date->translatedFormat('«d» F Y год'))
@@ -36,9 +35,9 @@ class AlfaBankExporter extends ExcelExporter
 
         $this->spreadsheet
             ->getSheetByName('Info')
-            ->setCellValue('B1', $this->bank->contract->division->name)
-            ->setCellValue('B2', $this->bank->contract->division->INN)
-            ->setCellValue('B3', $this->bank->contract->division->account)
+            ->setCellValue('B1', division('name'))
+            ->setCellValue('B2', division('INN'))
+            ->setCellValue('B3', division('account'))
             ->setCellValue('B6', $this->event->date->format('d.m.Y'))
             ->setCellValue('B7', '333')
             ->setCellValue('B8', 'RUR');

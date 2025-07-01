@@ -12,10 +12,12 @@ import { Badge, Calendar } from 'antd';
 
 export default function Index() {
     const events = usePage().props.events;
+
     const [value, setValue] = useState(() => {
         dayjs().year(events.year),
             dayjs().month(events.month + 1)
     });
+
     useEffect(() => {
         setValue(
             dayjs().year(events.year),

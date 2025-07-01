@@ -27,10 +27,10 @@ class RosSelhozBankExporter extends XMLExporter
         $this->writer->writeAttribute('ДатаФормирования',               now()->format('Y-m-d'));
         $this->writer->writeAttribute('НомерДоговора',                  $this->bank->contract->number);
         $this->writer->writeAttribute('ДатаДоговора',                   $this->bank->contract->signed_at->format('Y-m-d'));
-        $this->writer->writeAttribute('НаименованиеОрганизации',        $this->bank->contract->division->name);
-        $this->writer->writeAttribute('ИНН',                            $this->bank->contract->division->INN);
-        $this->writer->writeAttribute('РасчетныйСчетОрганизации',       $this->bank->contract->division->account);
-        $this->writer->writeAttribute('БИК',                            $this->bank->contract->division->BIK);
+        $this->writer->writeAttribute('НаименованиеОрганизации',        division('name'));
+        $this->writer->writeAttribute('ИНН',                            division('INN'));
+        $this->writer->writeAttribute('РасчетныйСчетОрганизации',       division('account'));
+        $this->writer->writeAttribute('БИК',                            division('BIK'));
         $this->writer->writeAttribute('ИдПервичногоДокумента',          Str::uuid());
         $this->writer->writeAttribute('НомерРеестра',                   substr($this->npp, 0, 5));
         $this->writer->writeAttribute('ДатаРеестра',                    now()->format('Y-m-d'));

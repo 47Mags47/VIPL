@@ -12,9 +12,6 @@ class BankSeeder extends Seeder
 {
     public function run(): void
     {
-        ContractSideType::create(['code' => 'division', 'name' => 'Организация']);
-        ContractSideType::create(['code' => 'bank',     'name' => 'Банк']);
-
         BankExporter::create(['code' => 'other',        'name' => 'Остальные']);
         BankExporter::create(['code' => 'sber',         'name' => 'Сбер']);
         BankExporter::create(['code' => 'UralSib',      'name' => 'УралСиб']);

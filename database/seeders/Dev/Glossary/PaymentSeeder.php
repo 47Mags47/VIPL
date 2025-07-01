@@ -23,7 +23,7 @@ class PaymentSeeder extends Seeder
             'krv' => 'Выплата № 001',
             'kbk' => $faker->numerify('88810030240#########'),
             'law_id' => Law::all()->random()->id,
-            'periodicity_id' => PaymentPeriodicity::all()->random()->id,
+            'periodicity_id' => PaymentPeriodicity::byCode('everyDay')->id,
         ]);
     }
 }

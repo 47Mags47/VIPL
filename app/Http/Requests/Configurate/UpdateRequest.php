@@ -22,7 +22,6 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'division' => ['required', 'array'],
             'divsion.name'      => ['nullable', 'string', 'min:3', 'max:255'],
             'division.INN'      => ['nullable', 'string', 'min:10', 'max:10'],
             'division.account'  => ['nullable', 'string', 'min:20', 'max:20'],
