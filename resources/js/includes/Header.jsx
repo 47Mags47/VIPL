@@ -1,6 +1,6 @@
 import { Dropdown } from 'antd';
 import ItemMenu from '@/components/menu/ItemMenu';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 
 export default function Header() {
@@ -19,11 +19,12 @@ export default function Header() {
                     { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
                 ],
             },
-            { key: 'user', label: <ItemMenu itemKey="users" routeName="main.users.index"  text="Пользователи" /> }
+            { key: 'user', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> }
         ],
 
         'division_admin': [
             { key: 'user', label: <ItemMenu itemKey="users" routeName="main.division.users.index" routeData={{ division: user.division.id }} text="Пользователи" /> }
+
         ],
 
         'user': []
@@ -31,12 +32,13 @@ export default function Header() {
 
     const defaultMenyItems = [
         { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
+        { key: 'dashboard', label: <ItemMenu itemKey="dashboard" routeName="main.dashboard.index" text="Личный кабинет" /> },
         { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ]
 
     let menuItems = []
-    for (let role in user.roles){
-        if(user.roles[role].code in meny)
+    for (let role in user.roles) {
+        if (user.roles[role].code in meny)
             menuItems = menuItems.concat(meny[user.roles[role].code])
     }
 
@@ -46,10 +48,16 @@ export default function Header() {
         <header>
             <h3 className="logo">{logo}</h3>
 
-            <span className="user">
-                <i className="fa-solid fa-user ico user-ico"></i>
-                {user.name}
-            </span>
+            <Link
+                href={route('main.dashboard.index')}
+                className="user"
+            >
+                <span>
+                    <i className="fa-solid fa-user ico user-ico"></i>
+                    {user.name}
+                </span>
+            </Link>
+
             <Dropdown menu={{ items: menuItems }} trigger={['click']}>
                 <button type="button" className="menu-toggle">
                     <i className="fa-solid fa-bars ico ico-menu"></i>
