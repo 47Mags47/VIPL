@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web\Glossary;
 
 use App\Filters\Glossary\BankFilter;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Bank\StoreRequest;
 use App\Http\Requests\Glossary\Bank\UpdateRequest;

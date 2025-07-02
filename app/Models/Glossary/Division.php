@@ -3,6 +3,7 @@
 namespace App\Models\Glossary;
 
 use App\Models\Main\User;
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Division extends Model
 {
-    use Named, HasLog, HasFilter, hasCode, SoftDeletes;
+    use Named, HasLog, HasFilter, hasCode, hasApi, SoftDeletes;
 
     ### Настройки
     ##################################################

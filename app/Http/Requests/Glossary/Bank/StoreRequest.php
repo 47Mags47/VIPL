@@ -4,7 +4,6 @@ namespace App\Http\Requests\Glossary\Bank;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
-use App\Models\Glossary\ContractSide;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -14,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return user()->hasPermission('edit_glossary');
     }
 
     /**
@@ -31,6 +30,7 @@ class StoreRequest extends FormRequest
             'bank.exporter_id'            => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
 
             'contract.number'             => ['required', 'string', 'max:255'],
-            'contract.signed_at'          => ['required', 'date'],];
+            'contract.signed_at'          => ['required', 'date'],
+        ];
     }
 }

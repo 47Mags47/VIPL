@@ -4,7 +4,6 @@ namespace App\Http\Requests\Glossary\Bank;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
-use App\Models\Glossary\ContractSide;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -14,7 +13,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return user()->hasPermission('edit_glossary');
     }
 
     /**

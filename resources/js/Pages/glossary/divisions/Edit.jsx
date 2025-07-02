@@ -1,76 +1,43 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import ModalButton from "@/components/button/ModalButton";
-
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import EditIco from '@/components/icons/EditIco'
-import BlueButton from '@/components/button/BlueButton';
-import handleChange from '@/handles/input/handleChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 
-export default function Edit({ record }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
-        code: record.code,
-        name: record.name,
+export default function Edit() {
+    const division = usePage().props.division.data
+    const { data, setData, put, processing } = useForm({
+        code: division.code,
+        name: division.name,
     });
 
-
-    function changeEditState(state) {
-        changeModalShow(state);
-    }
-
-    function onEditSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.put(route('glossary.divisions.update', { division: record.id }), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        put(route('glossary.divisions.update', { division: division.id }), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <EditIco onClick={onClick} />;
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeEditState}
-            Button={Button}
-            footer={
-                <BlueButton
-                    type="submit"
-                    form="glossary-division-edit-form"
-                >
-                    Отправить
-                </BlueButton>
-            }
-        >
-            <VerticalForm
-                header={'Редактировать'}
-                handleSubmit={onEditSubmit}
-                id="glossary-division-edit-form"
+        <Layout>
+            <Form
+                header={division.name}
+                sbm="сохранить"
+                handleSubmit={onSubmit}
+                processing={processing}
             >
                 <Input
-                    type="text"
                     name="code"
                     label="Код"
-                    value={values.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="name"
                     label="Наименование"
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
 }

@@ -1,75 +1,43 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import ModalButton from "@/components/button/ModalButton";
-import BlueButton from '@/components/button/BlueButton';
-import handleChange from '@/handles/input/handleChange';
-import AddIco from '@/components/icons/AddIco'
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 
 export default function Create() {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
+    const { data, setData, post, processing } = useForm({
         code: '',
         name: '',
     });
 
-    function changeAddState(state) {
-        changeModalShow(state);
-    }
-
-    function onAddSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.post(route('glossary.divisions.store'), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        post(route('glossary.divisions.store'), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <AddIco onClick={onClick} />
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeAddState}
-            Button={Button}
-            footer={
-                <BlueButton
-                    type="submit"
-                    form="glossary-division-add-form"
-                >
-                    Добавить
-                </BlueButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить'}
-                handleSubmit={onAddSubmit}
-                id="glossary-division-add-form"
+        <Layout>
+            <Form
+                header={'Новое подразделение'}
+                sbm="Отправить"
+                handleSubmit={onSubmit}
+                processing={processing}
             >
                 <Input
-                    type="text"
                     name="code"
                     label="Код"
-                    value={values.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="name"
                     label="Наименование"
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
 
 }

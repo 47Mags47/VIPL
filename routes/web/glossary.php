@@ -9,13 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:edit_glossary'])->prefix('/glossary')->name('glossary.')->group(function () {
     Route::resource('/banks', BankController::class);
-
-    Route::apiResource('/divisions', DivisionController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy',
-    ]);
+    Route::resource('/divisions', DivisionController::class);
 
     Route::apiResource('/laws', LawController::class)->only([
         'index',

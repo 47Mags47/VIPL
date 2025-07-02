@@ -1,17 +1,11 @@
 import { usePage } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
-import Table from "@/components/Table";
-
-import Edit from "./Edit";
-import Create from "./Create";
-import Delete from "./Delete";
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
 
 
-export default function index() {
-    const divisions = usePage().props.divisions.data
-    const pagination = usePage().props.divisions.meta
+export default function Index() {
+    const divisions = usePage().props.divisions
 
     const columns = [
         {
@@ -28,7 +22,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit record={record} />
+                <EditButton href={route('glossary.divisions.edit', { division: record.id })} />
             )
         },
         {
@@ -36,25 +30,21 @@ export default function index() {
             key: 'delete',
             width: 80,
             render: (_, record) => (
-                <Delete record={record} />
+                <DeleteButton href={route('glossary.divisions.destroy', { division: record.id })} />
             )
         },
     ];
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="id"
                 columns={columns}
-                dataSource={divisions}
-                current_page={pagination.current_page}
-                last_page={pagination.last_page}
-                from={pagination.from}
-                only={['divisions']}
+                data={divisions}
                 actions={
-                    <Create />
+                    <AddButton href={route('glossary.divisions.create')} />
                 }
             />
-        </AuthenticatedLayout>
+        </Layout>
     );
 }
