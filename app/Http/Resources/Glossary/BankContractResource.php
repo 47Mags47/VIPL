@@ -18,9 +18,6 @@ class BankContractResource extends JsonResource
         return [
             'number' => $this->number,
             'signed_at' => $this->signed_at->format('Y-m-d'),
-
-            'division_side' => ContractSideResource::make($this->division),
-            'bank_side' => ContractSideResource::make($this->bank),
         ];
     }
 }

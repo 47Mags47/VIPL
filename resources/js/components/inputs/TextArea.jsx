@@ -1,4 +1,4 @@
-import GroupComponent from "./GroupComponent";
+import Label from "../forms/inputs/Label";
 
 
 export default function TextArea({ id, rows, name, label, value, onChange }) {
@@ -6,7 +6,7 @@ export default function TextArea({ id, rows, name, label, value, onChange }) {
     id = id ?? name
 
     return (
-        <GroupComponent
+        <Label
             name={name}
             label={label}
         >
@@ -19,6 +19,6 @@ export default function TextArea({ id, rows, name, label, value, onChange }) {
             >
                 {/* {value} */}
             </textarea>
-        </GroupComponent>
+        </Label>
     )
 }

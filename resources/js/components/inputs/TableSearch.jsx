@@ -1,3 +1,5 @@
+// DELETE Компонент является устаревшим и будет удален
+
 import { router, useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
 import Input from '@/components/inputs/Input'

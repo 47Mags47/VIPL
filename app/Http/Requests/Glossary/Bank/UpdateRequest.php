@@ -32,13 +32,6 @@ class UpdateRequest extends FormRequest
 
             'contract.number'             => ['required', 'string', 'max:255'],
             'contract.signed_at'          => ['required', 'date'],
-            'contract.division_side_id'   => ['required', 'exists:' . ContractSide::getTableName() . ',id'],
-
-            'bank_side.name'              => ['required', 'string', 'max:255'],
-            'bank_side.INN'               => ['required', 'string', 'min:10', 'max:10'],
-            'bank_side.account'           => ['required', 'string', 'min:20', 'max:20'],
-            'bank_side.BIK'               => ['required', 'string', 'min:9',  'max:9'],
-            'bank_side.comment'           => ['nullable', 'string'],
         ];
     }
 }

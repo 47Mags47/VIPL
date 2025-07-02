@@ -1,3 +1,5 @@
+// DELETE Компонент является устаревшим и будет удален, замена на '@/components/table'
+
 import { Table as AntdTable } from 'antd';
 import TableSearch from '@/components/inputs/TableSearch'
 

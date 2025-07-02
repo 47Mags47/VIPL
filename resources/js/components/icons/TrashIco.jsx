@@ -1,10 +1,5 @@
-import RedButton from "../button/RedButton"
-
-
-export default function TrashIco({ onClick }) {
+export default function TrashIco() {
     return (
-        <RedButton className="ico" onClick={onClick}>
-            <i className="fa-solid fa-trash ico ico-trash"></i>
-        </RedButton>
+        <i className="fa-solid fa-trash ico ico-trash"></i>
     )
 }

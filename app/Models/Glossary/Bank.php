@@ -2,6 +2,7 @@
 
 namespace App\Models\Glossary;
 
+use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bank extends Model
 {
-    use Named, HasFilter, HasLog, SoftDeletes;
+    use Named, HasFilter, HasLog, hasApi, SoftDeletes;
 
     ### Настройки
     ##################################################
@@ -22,7 +23,7 @@ class Bank extends Model
         'code',
         'name',
 
-        'template_id',
+        'exporter_id',
         'contract_id'
     ];
 

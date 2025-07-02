@@ -1,3 +1,5 @@
+// DELETE Компонент является устаревшим и будет удален, замена на '@/components/lauouts/AuthenticatedLayout'
+
 import Header from '@/includes/Header'
 import LoadIco from '@/includes/LoadIco'
 import Message from '@/includes/Messege'

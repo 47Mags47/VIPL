@@ -10,37 +10,29 @@ use App\Http\Requests\Glossary\Bank\UpdateRequest;
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
 use App\Models\Glossary\Contract;
-use App\Models\Glossary\ContractSide;
-use App\Models\Glossary\ContractSideType;
 use Inertia\Inertia;
 
 class BankController extends Controller
 {
-    public function index(Request $request, BankFilter $filter)
+    public function index(BankFilter $filter)
     {
-        $banks = Bank::filter($filter)->paginate(50)->toResourceCollection();
-        $exporters = BankExporter::paginate(50)->toResourceCollection();
-        $division_sides = ContractSide::where('type_id', ContractSideType::byCode('division')->id)->paginate(50)->toResourceCollection();
+        return Inertia::render('glossary/banks/Index', [
+            'banks' => fn() => Bank::filter($filter)->api(),
+        ]);
+    }
 
-        return Inertia::render('glossary/banks/index', compact('banks', 'exporters', 'division_sides'));
+    public function create()
+    {
+        return Inertia::render('glossary/banks/Create', [
+            'exporters' => fn() => BankExporter::api(),
+        ]);
     }
 
     public function store(StoreRequest $request)
     {
-        $bank_side = ContractSide::create([
-            'name'    => $request->input('bank_side.name'),
-            'INN'     => $request->input('bank_side.INN'),
-            'account' => $request->input('bank_side.account'),
-            'BIK'     => $request->input('bank_side.BIK'),
-            'comment' => $request->input('bank_side.comment'),
-            'type_id' => ContractSideType::byCode('bank')->id,
-        ]);
-
         $contract = Contract::create([
-            'number'            => $request->input('contract.number'),
-            'signed_at'         => $request->input('contract.signed_at'),
-            'division_side_id'  => $request->input('contract.division_side_id'),
-            'bank_side_id'      => $bank_side->id,
+            'number'        => $request->input('contract.number'),
+            'signed_at'     => $request->input('contract.signed_at'),
         ]);
 
         Bank::create([
@@ -54,20 +46,19 @@ class BankController extends Controller
         return redirect()->route('glossary.banks.index')->with('message', 'Запись успешно добавлена');
     }
 
+    public function edit(Bank $bank)
+    {
+        return Inertia::render('glossary/banks/Edit', [
+            'exporters' => fn() => BankExporter::api(),
+            'bank' => fn() => $bank->toResource()
+        ]);
+    }
+
     public function update(UpdateRequest $request, Bank $bank)
     {
-        $bank->contract->bank->update([
-            'name'    => $request->input('bank_side.name'),
-            'INN'     => $request->input('bank_side.INN'),
-            'account' => $request->input('bank_side.account'),
-            'BIK'     => $request->input('bank_side.BIK'),
-            'comment' => $request->input('bank_side.comment'),
-        ]);
-
         $bank->contract->update([
-            'number'            => $request->input('contract.number'),
-            'signed_at'         => $request->input('contract.signed_at'),
-            'division_side_id'  => $request->input('contract.division_side_id'),
+            'number'        => $request->input('contract.number'),
+            'signed_at'     => $request->input('contract.signed_at'),
         ]);
 
         $bank->update([
@@ -75,6 +66,7 @@ class BankController extends Controller
             'code'          => $request->input('bank.code'),
             'name'          => $request->input('bank.name'),
             'exporter_id'   => $request->input('bank.exporter_id'),
+            'contract_id'   => $bank->contract->id,
         ]);
 
         return redirect()->route('glossary.banks.index')->with('message', 'Запись успешно обновлена');
