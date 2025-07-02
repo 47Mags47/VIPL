@@ -1,59 +1,19 @@
-import { useState } from 'react'
-
-import { usePage } from '@inertiajs/react'
-
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-
-import Input from '@/components/inputs/Input'
-import EditIco from '@/components/icons/EditIco'
-import CheckIco from '@/components/icons/CheckIco'
-
-
+import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Input from '@/components/inputs/Input';
+import EditIco from '@/components/icons/EditIco';
+import CheckIco from '@/components/icons/CheckIco';
 
 export default function Index() {
-    const user = usePage().props.user.data
+    const user = usePage().props.user.data;
 
     const [values, setValues] = useState({
         email: user.email,
         name: user.name,
         last_name: 'Фамилия',
-        mid_name: 'Отчество'
-    })
-    function EditedField(props) {
-        const [editing, setEditing] = useState(null)
-        const handleSave = (e) => {
-            e.preventDefault()
-
-            setEditing(null)
-        }
-
-        return (
-            <div style={styles.section}>
-                <div style={styles.userInfo}>
-                    <span>
-                        {props.ico}
-                    </span>
-                    {editing ?
-                        <Input
-                            type={props.type}
-                            name={props.name}
-                            value={props.value}
-                            onChange={(e) => props.onChange(e.target.value)}
-                            style={styles.input}
-                            autoFocus
-                        />
-                        :
-                        <span>{props.value}</span>
-                    }
-                </div>
-                {editing ?
-                    <CheckIco onClick={e => handleSave(e)} />
-                    :
-                    <EditIco onClick={() => setEditing(true)} />
-                }
-            </div>
-        )
-    }
+        mid_name: 'Отчество',
+    });
 
     const styles = {
         container: {
@@ -73,7 +33,6 @@ export default function Index() {
             justifyContent: 'center',
             borderRight: '2px solid #eee',
             paddingRight: '30px',
-
         },
         rightPanel: {
             flex: '2',
@@ -83,6 +42,12 @@ export default function Index() {
             fontSize: '400px',
             color: '#888',
         },
+        fieldContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px',
+            marginBottom: '15px',
+        },
         section: {
             display: 'flex',
             justifyContent: 'space-between',
@@ -91,7 +56,6 @@ export default function Index() {
             borderBottom: '1px solid #eee',
             backgroundColor: '#f9f9f9',
             borderRadius: '8px',
-            marginBottom: '15px',
         },
         userInfo: {
             display: 'flex',
@@ -104,62 +68,119 @@ export default function Index() {
             border: '1px solid #ccc',
             padding: '5px',
             flex: 1,
-            marginLeft: '10px'
-        }
-    }
+            marginLeft: '10px',
+        },
+        label: {
+            fontWeight: 'bold',
+            fontSize: '14px',
+            color: '#555',
+        },
+    };
 
-    const resetPassword = () => {
-        e.preventDefault()
+    function EditedField(props) {
+        const [editing, setEditing] = useState(false);
 
-        router.post(route('main.users.reset-password', { user: user.id }))
+        const handleSave = (e) => {
+            e.preventDefault();
+            setEditing(false);
+        };
+
+        return (
+            <div style={styles.fieldContainer}>
+
+                <label style={styles.label}>{props.label}</label>
+
+                <div style={styles.section}>
+                    <div style={styles.userInfo}>
+                        <span>{props.ico}</span>
+                        {editing ? (
+                            <Input
+                                type={props.type}
+                                name={props.name}
+                                value={props.value}
+                                onChange={(e) => props.onChange(e.target.value)}
+                                style={styles.input}
+                                autoFocus
+                            />
+                        ) : (
+                            <span>{props.value}</span>
+                        )}
+                    </div>
+                    {editing ? (
+                        <CheckIco onClick={handleSave} />
+                    ) : (
+                        <EditIco onClick={() => setEditing(true)} />
+                    )}
+                </div>
+            </div>
+        );
     }
 
     return (
         <AuthenticatedLayout>
-            <div className='dashboard-container' style={styles.container}>
+            <div className="dashboard-container" style={styles.container}>
                 <div className="left-panel" style={styles.leftPanel}>
                     <span style={styles.avatar}>
                         <i className="fa-solid fa-user-circle"></i>
                     </span>
                 </div>
+
                 <div className="right-panel" style={styles.rightPanel}>
                     <EditedField
-                        ico={(<i className="fa-solid fa-signature"></i>)}
-                        label='213'
+                        label="Фамилия"
+                        ico={<i className="fa-solid fa-signature"></i>}
                         type={'text'}
                         name={'last_name'}
                         value={values.last_name}
-                        onChange={(newValue) => setValues(prev => ({ ...prev, last_name: newValue }))}
+                        onChange={(newValue) =>
+                            setValues((prev) => ({ ...prev, last_name: newValue }))
+                        }
                     />
+
                     <EditedField
+                        label="Имя"
                         ico={<i className="fa-solid fa-signature"></i>}
                         type={'text'}
-                        name={'Имя'}
+                        name={'name'}
                         value={values.name}
-                        onChange={(newValue) => setValues(prev => ({ ...prev, name: newValue }))}
+                        onChange={(newValue) =>
+                            setValues((prev) => ({ ...prev, name: newValue }))
+                        }
                     />
+
                     <EditedField
+                        label="Отчество"
                         ico={<i className="fa-solid fa-signature"></i>}
                         type={'text'}
-                        name={'Отчество'}
+                        name={'mid_name'}
                         value={values.mid_name}
-                        onChange={(newValue) => setValues(prev => ({ ...prev, mid_name: newValue }))}
+                        onChange={(newValue) =>
+                            setValues((prev) => ({ ...prev, mid_name: newValue }))
+                        }
                     />
+
                     <EditedField
+                        label="Email"
                         ico={<i className="fa-solid fa-envelope"></i>}
                         type={'email'}
                         name={'email'}
                         value={values.email}
-                        onChange={(newValue) => setValues(prev => ({ ...prev, email: newValue }))}
+                        onChange={(newValue) =>
+                            setValues((prev) => ({ ...prev, email: newValue }))
+                        }
                     />
-                    <div className='password-container' style={styles.section}>
-                        <div style={styles.userInfo}>
-                            <span>
-                                <i className="fa-solid fa-lock"></i>
-                            </span>
-                            <span>*********</span>
+
+                    <div className="password-container" style={styles.fieldContainer}>
+                        <label style={styles.label}>Пароль</label>
+                        <div style={styles.section}>
+                            <div style={styles.userInfo}>
+                                <span>
+                                    <i className="fa-solid fa-lock"></i>
+                                </span>
+                                <span>*********</span>
+                            </div>
+                            <EditIco onClick={() => { }} />
                         </div>
-                        <EditIco onClick={() => { }} />
                     </div>
                 </div>
             </div>
