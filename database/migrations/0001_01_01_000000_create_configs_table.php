@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__divisions', function (Blueprint $table) {
+        Schema::create('sys__config', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->json('value');
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('glossary__divisions');
+        Schema::dropIfExists('sys__config');
     }
 };

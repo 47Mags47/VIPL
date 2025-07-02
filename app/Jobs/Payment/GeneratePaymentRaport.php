@@ -138,6 +138,6 @@ class GeneratePaymentRaport implements ShouldQueue
 
         // сохраняем файл
         $this->writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($this->spreadsheet);
-        $this->writer->save(Storage::disk('raports')->path('test.xlsx'));
+        $this->writer->save(Storage::disk($this->raport->disk)->path($this->raport->name));
     }
 }

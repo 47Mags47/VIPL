@@ -17,29 +17,9 @@ class BankSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = \Faker\Factory::create();
-
-        $division_side = ContractSide::create([
-            'name' => $faker->company(),
-            'INN' => $faker->numerify('##########'),
-            'account' => $faker->numerify('####################'),
-            'BIK' => $faker->numerify('#########'),
-            'type_id' => ContractSideType::byCode('division')->id,
-        ]);
-
-        $bank_side = ContractSide::create([
-            'name' => $faker->company(),
-            'INN' => $faker->numerify('##########'),
-            'account' => $faker->numerify('####################'),
-            'BIK' => $faker->numerify('#########'),
-            'type_id' => ContractSideType::byCode('bank')->id,
-        ]);
-
         $contract = Contract::create([
             'number' => '666',
             'signed_at' => now(),
-            'division_side_id' => $division_side->id,
-            'bank_side_id' => $bank_side->id
         ]);
 
         foreach (Bank::all() as $bank) {

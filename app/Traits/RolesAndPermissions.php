@@ -17,7 +17,7 @@ trait RolesAndPermissions
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, UserPivotRole::getTableName(), 'user_id', 'role_code', 'id', 'code');
+        return $this->belongsToMany(Role::class, UserPivotRole::getTableName(), 'user_id', 'role_code', 'id', 'code')->withoutGlobalScope('not root');
     }
 
     /**

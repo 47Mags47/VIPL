@@ -20,7 +20,7 @@ class EventController extends Controller
         $month = (int) ($request->month ?? now()->month);
         $year = (int) ($request->year ?? now()->year);
 
-        $start_month = CarbonImmutable::createFromDate($year, $month, 1);
+        $start_month = CarbonImmutable::createFromDate($year, $month, 1)->startOfDay();
         $end_month = $start_month->endOfMonth();
 
         $events = Event::whereBetween('date', [$start_month, $end_month])
@@ -38,7 +38,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         if (user()->hasPermission('upload_payment_raport'))
-            return redirect()->route('payments.event.packages.index', compact('event'));
+            return redirect()->route('payments.packages.index', compact('event'));
         else {
             $package = Package::firstOrCreate([
                 'event_id' => $event->id,
@@ -47,7 +47,7 @@ class EventController extends Controller
                 'status_id' => PackageStatus::byCode('created')->id
             ]);
 
-            return redirect()->route('payments.event.packages.show', compact('event', 'package'));
+            return redirect()->route('payments.packages.show', compact('package'));
         }
     }
 }

@@ -1,13 +1,14 @@
-import { usePage, router } from "@inertiajs/react";
+import { usePage, router, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import BlueButton from '@/components/button/BlueButton';
+import GoToIco from '@/components/icons/GoToIco';
 import Table from "@/components/Table";
 import Show from "./Show";
 
 
 export default function Index() {
+    const event = usePage().props.event.data
     const packages = usePage().props.packages.data
     const pagination = usePage().props.packages.meta
 
@@ -66,14 +67,7 @@ export default function Index() {
                 last_page={pagination.last_page}
                 from={pagination.from}
                 actions={
-                    <BlueButton
-                        type="submit"
-                        form="payments-report"
-                        onClick={onSubmit}
-
-                    >
-                        Выгрузить отчет
-                    </BlueButton>
+                    <GoToIco href={route('payments.raports.index', {event: event.id})} />
                 }
             />
         </AuthenticatedLayout >

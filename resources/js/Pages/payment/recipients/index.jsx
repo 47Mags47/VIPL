@@ -6,26 +6,8 @@ import Edit from "./Edit";
 import Delete from "./Delete";
 import Table from "@/components/Table";
 
-
-// import Show from "./Show";
-// import Delete from "./Delete";
-// import Create from "./Create";
-
-/** payments.file.recipients.index
- *
- * Страница только для администраторов
- *
- * Выводит список получателей
- * _______________________________________________________________________________________
- * | Фамилия | Имя | Отчество | Дата рождения | СНИЛС | Счет | Сумма | Паспортные данные |
- * |_________|_____|__________|_______________|_______|______|_______|___________________|
- *
- */
-
 export default function Index() {
-    const recipients = usePage().props.recipients.data
-    // const files = usePage().props.files.data
-    const pagination = usePage().props.recipients.meta
+    const recipients = usePage().props.recipients
     const columns = [
         {
             title: 'Фамилия',
@@ -69,16 +51,16 @@ export default function Index() {
         {
             title: '',
             key: 'edit',
-            render: (_, record) => (
-                <Edit record={record} />
-            )
+            // render: (_, record) => (
+            //     <Edit record={record} />
+            // )
         },
         {
             title: '',
             key: 'delete',
-            render: (_, record) => (
-                <Delete record={record} />
-            )
+            // render: (_, record) => (
+            //     <Delete record={record} />
+            // )
         },
     ]
     return (
@@ -86,10 +68,10 @@ export default function Index() {
             <Table
                 rowKey="id"
                 columns={columns}
-                dataSource={recipients}
-                current_page={pagination.current_page}
-                last_page={pagination.last_page}
-                from={pagination.from}
+                dataSource={recipients.data}
+                current_page={recipients.meta.current_page}
+                last_page={recipients.meta.last_page}
+                from={recipients.meta.from}
             />
         </AuthenticatedLayout>
     );

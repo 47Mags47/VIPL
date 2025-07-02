@@ -19,6 +19,8 @@ class ExampleSeeder extends Seeder
         $this->call(Dev\Glossary\LawSeeder::class);
         $this->call(Dev\Glossary\PaymentSeeder::class);
 
+        $this->call(Dev\ConfigurateSeeder::class);
+
         $this->call(Dev\Main\UserSeeder::class);
 
         $this->call(Dev\Payment\EventSeeder::class);

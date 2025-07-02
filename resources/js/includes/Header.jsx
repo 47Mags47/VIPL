@@ -19,18 +19,25 @@ export default function Header() {
                     { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
                 ],
             },
+            { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
             { key: 'user', label: <ItemMenu itemKey="users" routeName="main.users.index"  text="Пользователи" /> }
         ],
 
         'division_admin': [
-            { key: 'user', label: <ItemMenu itemKey="users" routeName="main.division.users.index" routeData={{ division: user.division.id }} text="Пользователи" /> }
+            { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
+            { key: 'user', label: <ItemMenu itemKey="users" routeName="main.division.users.index" routeData={{ division: user.division !== null ? user.division.id : null }} text="Пользователи" /> }
         ],
 
-        'user': []
+        'user': [
+            { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
+        ],
+
+        'root' : [
+            { key: 'config', label: <ItemMenu itemKey="config" routeName="configurate.index" text="Конфигурация" /> }
+        ]
     }
 
     const defaultMenyItems = [
-        { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
         { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ]
 

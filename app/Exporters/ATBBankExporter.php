@@ -18,7 +18,7 @@ class ATBBankExporter extends ExcelExporter
     {
         $this->spreadsheet->getActiveSheet()
             ->setCellValue('A1', 'Реестр на перечисление социальных выплат за ' . $this->event->date->translatedFormat('F Y') . 'г.')
-            ->setCellValue('B2', 'на счета физических лиц от ('. $this->bank->contract->division->name .')')
+            ->setCellValue('B2', 'на счета физических лиц от ('. division('name') .')')
             ->setCellValue('A3', $this->event->date->format('d.m.Y'));
 
         $data_array = $this->recipients->map(function ($recipient, $i) {

@@ -52,7 +52,7 @@ class Package extends Model
 
     public function raports(): HasMany
     {
-        return $this->hasMany(Raport::class, 'package_id', 'id');
+        return $this->hasMany(Raport::class, 'id', 'package_id');
     }
 
     public function bankFiles(): HasMany

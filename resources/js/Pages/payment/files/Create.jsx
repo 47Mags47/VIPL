@@ -52,7 +52,7 @@ export default function Create() {
         simultaneousUploads: 3,
         testChunks: false,
         throttleProgressCallbacks: 1,
-        target: route('payments.package.files.store', { package: props.package.data.id }),
+        target: route('payments.files.store', { package: props.package.data.id }),
         query: query,
     });
 
@@ -64,9 +64,9 @@ export default function Create() {
 
     function onSubmit(e) {
         e.preventDefault()
-        
-        let url = route('payments.package.files.check', { packages: props.package.data.id })
-        router.get(url, { ...query, 'file-size': values.file.size }, {
+
+        let url = route('payments.files.check', { packages: props.package.data.id })
+        router.post(url, { ...query, 'file-size': values.file.size }, {
             preserveState: true,
             onSuccess: async () => {
                 resumable.upload();

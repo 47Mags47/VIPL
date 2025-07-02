@@ -59,3 +59,13 @@ if (! function_exists('formatSizeUnits')) {
         return $bytes;
     }
 }
+
+if (! function_exists('division')) {
+    function division(string|null $param = null){
+        $config = App\Models\Sys\Config::byCode('division')->value;
+
+        return $param == null
+            ? $config
+            : $config[$param];
+    }
+}

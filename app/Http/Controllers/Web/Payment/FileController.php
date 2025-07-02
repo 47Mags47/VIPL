@@ -31,7 +31,7 @@ class FileController extends Controller
         ]);
     }
 
-    public function check(CheckFileRequest $request, Package $package)
+    public function check(CheckFileRequest $request)
     {
         return back()->with('message', 'Началась загрузка файла');
     }
@@ -71,7 +71,7 @@ class FileController extends Controller
 
     public function show(Package $package, File $file)
     {
-        return redirect()->route('payments.file.recipients.index', compact('file'));
+        return redirect()->route('payments.recipients.index', compact('file'));
     }
 
     public function destroy(Package $package, File $file)
