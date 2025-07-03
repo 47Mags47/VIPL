@@ -20,7 +20,7 @@
 - [x] f_19 - Пофиксить кнопки пагинации
 - [x] f_20 - Пофиксить баг на payments.files.create: При выборе банка но пустом файле, нажатие кнопки "отправить" говорит об успехе
 - [x] f_21 - Добавить кнопку "выгрузить отчет" на payment.packages.index, кнопка отправляет POST запрос на payments.raports.store
-- [ ] f_22 - Добавить страницы payment.raports (index, store, show, delete)
+- [x] f_22 - Добавить страницы payment.raports (index, store, show, delete)
 - [x] f_23 - поправить иконку goto
 - [x] f_24 - Прочти https://inertiajs.ru/links и поменяй все ссылки на InertiaLink
     Помним, ссылка перенаправляет пользователя, а кнопка выполняет какое-либо действие на текущей странице
