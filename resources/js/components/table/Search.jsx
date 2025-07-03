@@ -26,7 +26,7 @@ export default function Search() {
             })
         }, 700)
 
-        return () => clearTimeout(timer)
+        return () => { clearTimeout(timer) }
     }, [data.search])
 
     return (
