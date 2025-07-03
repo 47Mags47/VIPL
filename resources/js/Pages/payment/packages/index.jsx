@@ -2,7 +2,7 @@ import { usePage, router, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import GoToIco from '@/components/icons/GoToIco';
+import GoToButton from '@/components/table/buttons/GoToButton';
 import Table from "@/components/Table";
 import Show from "./Show";
 
@@ -33,12 +33,7 @@ export default function Index() {
         {
             title: 'На',
             dataIndex: ['event', 'date'],
-            render: (value, record, index) => {
-                let string = new Date(value).toLocaleDateString()
-                return (
-                    string
-                )
-            },
+            render: (value) => new Date(value).toLocaleDateString()
         },
         {
             title: 'Статус',
@@ -48,15 +43,9 @@ export default function Index() {
             title: 'Создан',
             dataIndex: 'created_at',
         },
-        {
-            title: '',
-            key: 'show',
-            width: 80,
-            render: (_, record) => (
-                <Show record={record} />
-            )
-        },
     ]
+ console.log();
+
     return (
         <AuthenticatedLayout>
             <Table
@@ -67,7 +56,7 @@ export default function Index() {
                 last_page={pagination.last_page}
                 from={pagination.from}
                 actions={
-                    <GoToIco href={route('payments.raports.index', {event: event.id})} />
+                     <GoToButton href={route('payments.raports.index', { event: event.id })} />
                 }
             />
         </AuthenticatedLayout >
