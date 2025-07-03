@@ -17,6 +17,7 @@ export default function Header() {
                     { key: 'divisions', label: <ItemMenu itemKey="divisions" routeName="glossary.divisions.index" text="Подразделения" /> },
                     { key: 'laws', label: <ItemMenu itemKey="laws" routeName="glossary.laws.index" text="Законы" /> },
                     { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
+                    { key: 'validate', label: <ItemMenu itemKey="validate" routeName="glossary.validator.index" text="Валидация" /> },
                 ],
             },
             { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },

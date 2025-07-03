@@ -3,7 +3,7 @@ import { usePage } from "@inertiajs/react";
 import { AuthenticatedLayout as Layout } from '@/layouts';
 import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
 
-export default function index() {
+export default function Index() {
     const banks = usePage().props.banks
 
     const columns = [

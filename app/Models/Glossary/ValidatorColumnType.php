@@ -2,13 +2,14 @@
 
 namespace App\Models\Glossary;
 
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
 class ValidatorColumnType extends Model
 {
-    use Named, hasCode;
+    use Named, hasCode, hasApi;
 
     ### Настройки
     ##################################################

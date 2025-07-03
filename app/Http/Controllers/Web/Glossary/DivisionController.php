@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Division\StoreRequest;
 use App\Http\Requests\Glossary\Division\UpdateRequest;
 use App\Models\Glossary\Division;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DivisionController extends Controller
