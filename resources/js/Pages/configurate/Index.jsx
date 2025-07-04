@@ -16,16 +16,16 @@ export default function Index() {
             dataIndex: 'value',
         }
     ]
-
+Ф
     return (
         <AuthenticatedLayout>
-            <Table
+            {/* <Table
                 rowKey="key"
                 columns={columns}
                 dataSource={config}
             >
+            </Table> */}
 
-            </Table>
         </AuthenticatedLayout>
     )
 }
