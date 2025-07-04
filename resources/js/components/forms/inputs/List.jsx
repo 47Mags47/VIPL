@@ -1,10 +1,12 @@
-import { useState }         from 'react'
-
 import { List as AntdList } from 'antd'
-import ListItem             from './ListItem'
+import EditableText from './EditableText'
 
-import BlueButton           from '@/components/buttons/BlueButton'
-import AddIco               from '@/components/icons/AddIco'
+import BlueButton from "@/components/buttons/BlueButton";
+import RedButton from "@/components/buttons/RedButton";
+
+import AddIco from '@/components/icons/AddIco'
+import TrashIco from '@/components/icons/TrashIco'
+import { useEffect, useRef } from 'react';
 
 
 export default function List({
@@ -12,10 +14,10 @@ export default function List({
     setItems,
     name,
     label,
+    hasDelete,
+    hasAdd
 }) {
-
-    const [editing, setEditing] = useState(null)
-
+    const firstUpdate = useRef(true);
     const onDeleteClick = (e, index) => {
         e.preventDefault()
 
@@ -23,17 +25,20 @@ export default function List({
         setItems(updated)
     }
 
-    const handleAdd = () => {
-        const newIndex = items.length
-        setItems([...items, ''])
-        setEditing(newIndex)
-    }
+    const handleAdd = () => {setItems([...items, ''])}
 
     const handleChange = (e, index) => {
         const newItems = [...items]
         newItems[index] = e.target.value
         setItems(newItems)
     }
+
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return
+        }
+    })
 
     return (
         <div className='list'>
@@ -42,26 +47,36 @@ export default function List({
                 dataSource={items}
                 renderItem={(item, index) => (
                     <AntdList.Item key={index}>
-                        <ListItem
+                        <EditableText
                             name={name}
                             value={item}
                             index={index}
-                            editing={editing === index}
-                            setEditing={(isEditing) => setEditing(isEditing ? index : null)}
-                            onDeleteClick={onDeleteClick}
+                            blurHandler={onDeleteClick}
                             handleChange={handleChange}
+                            hasFocus={firstUpdate.current}
                         />
+                        {hasDelete ??
+                            <RedButton onClick={(e) => onDeleteClick(e, index)}>
+                                <TrashIco />
+                            </RedButton>
+                        }
                     </AntdList.Item>
                 )}
+                footer={
+                    <>
+                        {hasAdd ??
+                            <div className='add-button-container'>
+                                <BlueButton
+                                    type={'button'}
+                                    onClick={handleAdd}
+                                >
+                                    <AddIco />
+                                </BlueButton>
+                            </div>
+                        }
+                    </>
+                }
             />
-            <div className='add-button-container'>
-                <BlueButton
-                    type={'button'}
-                    onClick={handleAdd}
-                >
-                    <AddIco />
-                </BlueButton>
-            </div>
         </div>
     )
 }
