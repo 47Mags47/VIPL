@@ -4,6 +4,7 @@ import { AuthenticatedLayout as Layout } from '@/layouts';
 import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 import List from '@/components/forms/inputs/List';
+import { useEffect } from 'react';
 
 export default function Edit() {
     const column = usePage().props.column.data
@@ -61,9 +62,11 @@ export default function Edit() {
                 />
                 <List
                     items={data.patterns}
-                    setItems={(newPatterns) => setData('patterns', newPatterns)}
+                    setItems={(value) => {
+                        setData('patterns', value)}}
                     name="patterns"
                     label="Шаблоны"
+                    // added={false}
                 />
             </Form>
         </Layout>
