@@ -3,23 +3,24 @@ import { useForm, usePage } from '@inertiajs/react'
 import { AuthenticatedLayout as Layout } from '@/layouts';
 import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
+import List from '@/components/forms/inputs/List';
+
 export default function Edit() {
     const column = usePage().props.column.data
 
     const { data, setData, put, processing } = useForm({
-        code:               column.code,
-        name:               column.name,
-        file_pos:           column.position,
-        required:           column.required,
-        patterns:           column.patterns,
-        type_id:            column.type.id
+        code: column.code,
+        name: column.name,
+        file_pos: column.position,
+        required: column.required,
+        patterns: column.patterns,
+        type_id: column.type.id
     });
-
 
     function onSubmit(e) {
         e.preventDefault()
 
-        put(route('glossary.validator.update', {column: column.id}), data)
+        put(route('glossary.validator.update', { column: column.id }), data)
     }
 
     return (
@@ -50,8 +51,6 @@ export default function Edit() {
                     onChange={(e) => setData('file_pos', e.target.value)}
                 />
 
-
-
                 <Select
                     name="type_id"
                     label="Тип"
@@ -59,6 +58,12 @@ export default function Edit() {
                     item_value="name"
                     value={data.type_id}
                     onChange={(value) => setData('type_id', value)}
+                />
+                <List
+                    items={data.patterns}
+                    setItems={(newPatterns) => setData('patterns', newPatterns)}
+                    name="patterns"
+                    label="Шаблоны"
                 />
             </Form>
         </Layout>

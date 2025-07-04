@@ -15,9 +15,6 @@ export default function StringInput({ ...props }) {
 
     const onChange = props.onChange
 
-    console.log(onChange);
-
-
     return (
         <Label
             name={name}
