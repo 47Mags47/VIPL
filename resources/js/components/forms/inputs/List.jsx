@@ -1,12 +1,13 @@
-import { List as AntdList } from 'antd'
-import EditableText from './EditableText'
-
-import BlueButton from "@/components/buttons/BlueButton";
-import RedButton from "@/components/buttons/RedButton";
-
-import AddIco from '@/components/icons/AddIco'
-import TrashIco from '@/components/icons/TrashIco'
 import { useEffect, useRef } from 'react';
+
+import { List as AntdList }  from 'antd'
+import EditableText          from './EditableText'
+
+import BlueButton            from "@/components/buttons/BlueButton";
+import RedButton             from "@/components/buttons/RedButton";
+
+import AddIco                from '@/components/icons/AddIco'
+import TrashIco              from '@/components/icons/TrashIco'
 
 
 export default function List({
@@ -25,7 +26,7 @@ export default function List({
         setItems(updated)
     }
 
-    const handleAdd = () => {setItems([...items, ''])}
+    const handleAdd = () => { setItems([...items, '']) }
 
     const handleChange = (e, index) => {
         const newItems = [...items]

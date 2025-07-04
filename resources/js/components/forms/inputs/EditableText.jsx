@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef }  from 'react'
 
-import Error from '@/components/Error'
-import { StringInput as Input } from '@/components/forms'
+import Error                            from '@/components/Error'
+import { StringInput as Input }         from '@/components/forms'
 
 
 export default function EditableText({ ...props }) {
