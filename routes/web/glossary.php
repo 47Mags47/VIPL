@@ -8,38 +8,14 @@ use App\Http\Controllers\Web\Glossary\ValidatorColumnController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:edit_glossary'])->prefix('/glossary')->name('glossary.')->group(function () {
-    Route::apiResource('/banks', BankController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy',
-    ]);
+    Route::resource('/banks', BankController::class)->except(['show']);
+    Route::resource('/divisions', DivisionController::class)->except(['show']);
+    Route::resource('/laws', LawController::class)->except(['show']);
+    Route::resource('/payments', PaymentController::class)->except(['show']);
 
-    Route::apiResource('/divisions', DivisionController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy',
-    ]);
-
-    Route::apiResource('/laws', LawController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy',
-    ]);
-
-    Route::apiResource('/payments', PaymentController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy',
-    ]);
-
-    Route::prefix('/importer/validator')->name('importer.validator.')->group(function () {
-        Route::apiResource('columns', ValidatorColumnController::class)->only([
-            'index',
-            'update'
-        ]);
+    Route::controller(ValidatorColumnController::class)->prefix('/validator')->name('validator.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{column}/edit', 'edit')->name('edit');
+        Route::put('/{column}', 'update')->name('update');
     });
 });

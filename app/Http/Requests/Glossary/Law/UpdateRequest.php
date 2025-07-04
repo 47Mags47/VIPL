@@ -13,7 +13,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return user()->hasPermission('edit_glossary');
     }
 
     /**

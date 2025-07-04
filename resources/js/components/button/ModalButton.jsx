@@ -1,3 +1,5 @@
+// DELETE Компонент является устаревшим и будет удален, замена на '@/components/buttons/ModalButton'
+
 import { useEffect, useState } from 'react';
 import { Modal } from 'antd'
 
@@ -33,7 +35,7 @@ export default function ModalButton({
         changeModalShow(false)
         changeState(false)
     })
-    
+
     return (
         <>
             <Button onClick={buttonClickHandler} />
@@ -45,7 +47,7 @@ export default function ModalButton({
                 onOk={okHandler}
                 onCancel={cancelHandler}
                 destroyOnHidden={true}
-                footer={footer}      
+                footer={footer}
                 width ='min-content'
             >
                 {children}

@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return user()->hasPermission('edit_glossary');
     }
 
     /**
@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
             'file_pos' => ['required', 'integer'],
             'required' => ['required', 'boolean'],
             'patterns' => ['required', 'array'],
+            'patterns.*' => ['required', 'string', 'min:2', 'max:255']
         ];
     }
 }

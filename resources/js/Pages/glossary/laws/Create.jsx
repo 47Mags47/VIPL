@@ -1,93 +1,52 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import ModalButton from "@/components/button/ModalButton";
-import BlueButton from '@/components/button/BlueButton';
-import handleChange from '@/handles/input/handleChange';
-import AddIco from '@/components/icons/AddIco'
-import SelectComponent from '@/components/inputs/Select'
-import handleSelectChange from '@/handles/input/handleSelectChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 
-export default function Create({ sources }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
+export default function Create() {
+    const { data, setData, post, processing } = useForm({
         code: '',
         name: '',
-        source_id: ''
+        source_id: '',
     });
-    const selectOptions = {
-        sources: sources.map(sources => ({
-            value: sources.id,
-            label: sources.name
-        }))
-    }
 
-    function changeAddState(state) {
-        changeModalShow(state);
-    }
-
-    function onAddSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.post(route('glossary.laws.store'), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        post(route('glossary.laws.store'), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <AddIco onClick={onClick} />
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeAddState}
-            Button={Button}
-            footer={
-                <BlueButton
-                    type="submit"
-                    form="glossary-laws-add-form"
-                >
-                    Добавить
-                </BlueButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить'}
-                handleSubmit={onAddSubmit}
-                id="glossary-laws-add-form"
+        <Layout>
+            <Form
+                header="Новый закон"
+                sbm="Отправить"
+                handleSubmit={onSubmit}
+                processing={processing}
             >
                 <Input
-                    type="text"
                     name="code"
                     label="Код"
-                    value={values.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="name"
                     label="Наименование"
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
-                <SelectComponent
+                <Select
                     name="source_id"
                     label="Вид финансирования"
-                    options={selectOptions.sources}
-                    value={values.source_id}
-                    onChange={(value) => {
-                        handleSelectChange('source_id', value, values, setValues)
-                    }}
+                    list={usePage().props.sources.data}
+                    item_value="name"
+                    value={data.source_id}
+                    onChange={(value) => setData('source_id', value)}
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
 
 }

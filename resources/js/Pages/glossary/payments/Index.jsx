@@ -1,20 +1,11 @@
 import { usePage } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
-import Table from "@/components/Table";
-
-import Edit from "./Edit";
-import Create from "./Create";
-import Delete from "./Delete";
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
 
 
-export default function index() {
-    const payments = usePage().props.payments.data
-    const laws = usePage().props.laws.data
-    const periodicity = usePage().props.periodicityes.data
-    const pagination = usePage().props.payments.meta
-
+export default function Index() {
+    const payments = usePage().props.payments
 
     const columns = [
         {
@@ -50,7 +41,7 @@ export default function index() {
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit laws={laws} periodicity={periodicity} record={record} />
+                <EditButton href={route('glossary.payments.edit', { payment: record.id })} />
             )
         },
         {
@@ -58,25 +49,21 @@ export default function index() {
             key: 'delete',
             width: 80,
             render: (_, record) => (
-                <Delete record={record} />
+                <DeleteButton href={route('glossary.payments.destroy', { payment: record.id })} />
             )
         },
     ];
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="code"
                 columns={columns}
-                dataSource={payments}
-                current_page={pagination.current_page}
-                last_page={pagination.last_page}
-                from={pagination.from}
-                only={['payments']}
+                data={payments}
                 actions={
-                    <Create laws={laws} periodicity={periodicity} />
+                    <AddButton href={route('glossary.payments.create')} />
                 }
             />
-        </AuthenticatedLayout>
+        </Layout>
     );
 }

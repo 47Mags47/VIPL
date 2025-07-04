@@ -1,128 +1,74 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import ModalButton from "@/components/button/ModalButton";
-import BlueButton from '@/components/button/BlueButton';
-import handleChange from '@/handles/input/handleChange';
-import TextArea from '@/components/inputs/TextArea';
-import AddIco from '@/components/icons/AddIco'
-import SelectComponent from '@/components/inputs/Select'
-import handleSelectChange from '@/handles/input/handleSelectChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms';
 
 
-export default function Create({ laws, periodicity }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
+export default function Create() {
+    const { data, setData, post, processing } = useForm({
         code: '',
         krv: '',
         name: '',
         kbk: '',
-        periodicity_id:'',
+        periodicity_id: '',
         law_id: '',
     });
-    const selectOptions = {
-        laws: laws.map(laws => ({
-            value: laws.id,
-            label: laws.code
-        })),
-        periodicity: periodicity.map(periodicity => ({
-            value: periodicity.id,
-            label: periodicity.name
-        }))
-    }
 
-    function changeAddState(state) {
-        changeModalShow(state);
-    }
-
-    function onAddSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.post(route('glossary.payments.store'), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        post(route('glossary.payments.store'), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <AddIco onClick={onClick} />
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeAddState}
-            Button={Button}
-            footer={
-                <BlueButton
-                    type="submit"
-                    form="glossary-payments-add-form"
-                >
-                    Добавить
-                </BlueButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить'}
-                handleSubmit={onAddSubmit}
-                id="glossary-payments-add-form"
+        <Layout>
+            <Form
+                header="Новая выплата"
+                sbm="Отправить"
+                handleSubmit={onSubmit}
+                processing={processing}
             >
                 <Input
-                    type="text"
                     name="code"
                     label="Код"
-                    value={values.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="krv"
                     label="Краткое наименование"
-                    value={values.krv}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.krv}
+                    onChange={(e) => setData('krv', e.target.value)}
                 />
                 <TextArea
                     name="name"
-                    rows={2}
                     label="Наименование"
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="kbk"
                     label="КБК"
-                    value={values.kbk}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.kbk}
+                    onChange={(e) => setData('kbk', e.target.value)}
                 />
-                <SelectComponent
+                <Select
                     name="law_id"
                     label="Закон"
-                    options={selectOptions.laws}
-                    value={values.law_id}
-                    onChange={(value) => {
-                        handleSelectChange('law_id', value, values, setValues)
-                    }}
+                    list={usePage().props.laws.data}
+                    item_value="code"
+                    value={data.law_id}
+                    onChange={(value) => setData('law_id', value)}
                 />
-                <SelectComponent
+                <Select
                     name="periodicity_id"
                     label="Переодичность"
-                    options={selectOptions.periodicity}
-                    value={values.periodicity_id}
-                    onChange={(value) => {
-                        handleSelectChange('periodicity_id', value, values, setValues)
-                    }}
+                    list={usePage().props.periodicities.data}
+                    item_value="name"
+                    value={data.periodicity_id}
+                    onChange={(value) => setData('periodicity_id', value)}
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
-
 }
-
-
-
-

@@ -2,6 +2,7 @@
 
 namespace App\Models\Glossary;
 
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\HasLog;
 use App\Traits\Named;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BankExporter extends Model
 {
-    use Named, hasCode, HasLog;
+    use Named, hasCode, HasLog, hasApi;
 
     ### Настройки
     ##################################################

@@ -1,19 +1,11 @@
 import { usePage } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
-import Table from "@/components/Table";
-
-import Edit from "./Edit";
-import Create from "./Create";
-import Delete from "./Delete";
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
 
 
-export default function index() {
-    const laws = usePage().props.laws.data
-    const sources = usePage().props.sources.data
-    const pagination = usePage().props.laws.meta
-
+export default function Index() {
+    const laws = usePage().props.laws
 
     const columns = [
         {
@@ -28,14 +20,14 @@ export default function index() {
         {
             title: 'Вид финансирования',
             dataIndex: ['source', 'name'],
-            width: 150,
+            width: 250,
         },
         {
             title: '',
             key: 'edit',
             width: 80,
             render: (_, record) => (
-                <Edit sources={sources} record={record} />
+                <EditButton href={route('glossary.laws.edit', { law: record.id })} />
             )
         },
         {
@@ -43,25 +35,21 @@ export default function index() {
             key: 'delete',
             width: 80,
             render: (_, record) => (
-                <Delete record={record} />
+                <DeleteButton href={route('glossary.laws.destroy', { law: record.id })} />
             )
         },
     ];
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="id"
                 columns={columns}
-                dataSource={laws}
-                current_page={pagination.current_page}
-                last_page={pagination.last_page}
-                from={pagination.from}
-                only={['laws']}
+                data={laws}
                 actions={
-                    <Create sources={sources} />
+                    <AddButton href={route('glossary.laws.create')} />
                 }
             />
-        </AuthenticatedLayout>
+        </Layout>
     );
 }

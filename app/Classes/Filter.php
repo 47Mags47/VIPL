@@ -30,6 +30,9 @@ abstract class Filter
     {
         $this->builder = $builder;
 
+        if ($this->request->input('search'))
+            $this->builder = $this->search($this->request->input('search'));
+
         foreach ($this->request->input('filter') ?? [] as $method => $value) {
             if ($value === null) {
                 continue;

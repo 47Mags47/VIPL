@@ -7,16 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Division\StoreRequest;
 use App\Http\Requests\Glossary\Division\UpdateRequest;
 use App\Models\Glossary\Division;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DivisionController extends Controller
 {
-    public function index(Request $request, DivisionFilter $filter)
+    public function index(DivisionFilter $filter)
     {
-        $divisions = Division::filter($filter)->paginate(50)->toResourceCollection();
+        return Inertia::render('glossary/divisions/Index', [
+            'divisions' => fn() => Division::filter($filter)->api(),
+        ]);
+    }
 
-        return Inertia::render('glossary/divisions/index', compact('divisions'));
+    public function create()
+    {
+        return Inertia::render('glossary/divisions/Create');
     }
 
     public function store(StoreRequest $request)
@@ -24,6 +28,13 @@ class DivisionController extends Controller
         Division::create($request->only(['code', 'name']));
 
         return redirect()->route('glossary.divisions.index')->with('message', 'Запись успешно создана');
+    }
+
+    public function edit(Division $division)
+    {
+        return Inertia::render('glossary/divisions/Edit', [
+            'division' => fn() => $division->toResource()
+        ]);
     }
 
     public function update(UpdateRequest $request, Division $division)

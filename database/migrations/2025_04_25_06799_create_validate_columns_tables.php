@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('glossary__validator_column_types', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('name');
         });
 
         Schema::create('glossary__validator_columns', function (Blueprint $table) {
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('file_pos')->unique();
             $table->boolean('required');
-            $table->json('patterns')->nullable();
+            $table->json('patterns');
 
             $table->foreignId('type_id')->constrained(ValidatorColumnType::getTableName());
 

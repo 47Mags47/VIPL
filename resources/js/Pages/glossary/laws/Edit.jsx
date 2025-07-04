@@ -1,95 +1,52 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import ModalButton from "@/components/button/ModalButton";
-
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import BlueButton from '@/components/button/BlueButton';
-import EditIco from '@/components/icons/EditIco'
-import handleChange from '@/handles/input/handleChange';
-import SelectComponent from '@/components/inputs/Select'
-import handleSelectChange from '@/handles/input/handleSelectChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 
-export default function Edit({ sources, record }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
-        code: record.code,
-        name: record.name,
-        source_id: record.source.id,
+export default function Edit() {
+    const law = usePage().props.law.data
+    const { data, setData, put, processing } = useForm({
+        code: law.code,
+        name: law.name,
+        source_id: law.source.id,
     });
-    const selectOptions = {
-        sources: sources.map(sources => ({
-            value: sources.id,
-            label: sources.name
-        }))
-    }
 
-
-
-    function changeEditState(state) {
-        changeModalShow(state);
-    }
-
-    function onEditSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.put(route('glossary.laws.update', { law: record.id }), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        put(route('glossary.laws.update', { law: law.id }), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <EditIco onClick={onClick} />
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeEditState}
-            Button={Button}
-            footer={
-                < BlueButton
-                    type="submit"
-                    form="glossary-laws-edit-form"
-                >
-                    Отправить
-                </BlueButton >
-            }
-        >
-            <VerticalForm
-                header={'Редактировать'}
-                handleSubmit={onEditSubmit}
-                id="glossary-laws-edit-form"
+        <Layout>
+            <Form
+                header={law.code}
+                sbm="сохранить"
+                handleSubmit={onSubmit}
+                processing={processing}
             >
                 <Input
-                    type="text"
                     name="code"
                     label="Код"
-                    value={values.code}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
                 />
                 <Input
-                    type="text"
                     name="name"
                     label="Наименование"
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
-                <SelectComponent
+                <Select
                     name="source_id"
                     label="Вид финансирования"
-                    options={selectOptions.sources}
-                    value={values.source_id}
-                    onChange={(value) => {
-                        handleSelectChange('source_id', value, values, setValues)
-                    }}
+                    list={usePage().props.sources.data}
+                    item_value="name"
+                    value={data.source_id}
+                    onChange={(value) => setData('source_id', value)}
                 />
-            </VerticalForm>
-        </ModalButton >
+            </Form>
+        </Layout>
     );
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Glossary;
 
 use App\Models\Payment\Event;
+use App\Traits\hasApi;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\HasFilter;
@@ -13,13 +14,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Payment extends Model
 {
-    use Named, HasFilter, HasLog;
+    use Named, HasFilter, HasLog, hasApi;
 
     ### Настройки
     ##################################################
     protected $table = 'glossary__payments';
 
-    protected $fillable = ['code', 'name', 'law_id'];
+    protected $fillable = ['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id'];
 
     ### Методы
     ##################################################
