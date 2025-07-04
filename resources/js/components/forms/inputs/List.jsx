@@ -11,9 +11,9 @@ export default function List({
     items = [],
     setItems,
     name,
-    label,
-}) {
+    header,
 
+}) {
     const [editing, setEditing] = useState(null)
 
     const onDeleteClick = (e, index) => {
@@ -38,11 +38,12 @@ export default function List({
     return (
         <div className='list'>
             <AntdList
-                header={label}
+                header={header}
                 dataSource={items}
                 renderItem={(item, index) => (
                     <AntdList.Item key={index}>
                         <ListItem
+                            label={''}
                             name={name}
                             value={item}
                             index={index}

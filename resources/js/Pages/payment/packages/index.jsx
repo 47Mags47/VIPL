@@ -44,7 +44,6 @@ export default function Index() {
             dataIndex: 'created_at',
         },
     ]
- console.log();
 
     return (
         <AuthenticatedLayout>
