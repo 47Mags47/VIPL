@@ -1,27 +1,30 @@
-import Table from '@/components/Table'
+import { useState, useEffect, useRef } from 'react'
+import { usePage, router } from '@inertiajs/react'
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
-import { usePage } from '@inertiajs/react'
-
-import List from '@/components/forms/inputs/List'
-import { useState } from 'react'
-import ListItem from '@/components/forms/inputs/ListItem'
+import BlueButton from "@/components/buttons/BlueButton";
+import EditableText from '@/components/forms/inputs/EditableText'
+import Table from '@/components/Table';
 
 
 export default function Index() {
     const config = usePage().props.config
 
-    const [editing, setEditing] = useState(null)
+    const [items, setItems] = useState([...config])
 
-    const onDeleteClick = (e, index) => {
-        e.preventDefault()
+    const firstUpdate = useRef(true)
 
-        const updated = items.filter((_, i) => i !== index)
-        setItems(updated)
-    }
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return
+        }
+    })
+
     const handleChange = (e, index) => {
         const newItems = [...items]
-        newItems[index] = e.target.value
+        newItems[index].value = e.target.value
         setItems(newItems)
     }
 
@@ -33,19 +36,23 @@ export default function Index() {
         {
             title: 'Значение',
             dataIndex: 'value',
-            render: (_, record) => (
-                <ListItem
+            render: (_, record, index) => (
+                <EditableText
                     name={'value'}
                     value={record.value}
-                    index={record.key}
-                    editing={editing === record.key}
-                    setEditing={(isEditing) => setEditing(isEditing ? record.key : null)}
-                    onDeleteClick={onDeleteClick}
+                    index={index}
                     handleChange={handleChange}
+                    hasFocus={firstUpdate.current}
                 />
             )
         }
     ]
+
+    function onSubmit(e) {
+        e.preventDefault()
+
+        router.put(route('configurate.update'), items)
+    }
 
     return (
         <AuthenticatedLayout>
@@ -53,6 +60,11 @@ export default function Index() {
                 rowKey="key"
                 columns={columns}
                 dataSource={config}
+                actions={
+                    <BlueButton className={"save-config"} onClick={onSubmit}>
+                        Сохранить
+                    </BlueButton>
+                }
             >
             </Table>
         </AuthenticatedLayout>

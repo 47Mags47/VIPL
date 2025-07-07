@@ -19,8 +19,8 @@ export default function Table({ ...props }) {
             return originalElement
         },
     }
-    const Actions = () => props.actions
 
+    const Actions = () => props.actions
 
     return (
         <div className="table-box">
