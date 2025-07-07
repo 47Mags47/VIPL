@@ -13,7 +13,8 @@ export default function List({
     label,
     hasDelete,
     hasAdd,
-    render
+    render,
+    ...props
 }) {
     const firstUpdate = useRef(true);
     const onDeleteClick = (e, index) => {
@@ -52,10 +53,11 @@ export default function List({
     }
 
     return (
-        <div className='list'>
+        <div className={'list'}>
             <AntdList
                 header={label}
                 dataSource={items}
+                {...props}
                 renderItem={(item, index) => (
                     <AntdList.Item key={index}>
                         {render ? render(item, index) : defaultRender(item, index)}

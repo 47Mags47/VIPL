@@ -1,63 +1,122 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useState }                                                 from 'react'
+import { useForm, usePage }                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                            from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms'
+import BlueButton                                                   from '@/components/buttons/BlueButton'
+import PaperclipIco                                                 from '@/components/icons/PaperclipIco'
 
 export default function Edit() {
     const column = usePage().props.column.data
 
+    const [showMemo, setShowMemo] = useState(false)
+
     const { data, setData, put, processing } = useForm({
-        code:               column.code,
-        name:               column.name,
-        file_pos:           column.position,
-        required:           column.required,
-        patterns:           column.patterns,
-        type_id:            column.type.id
-    });
+        code: column.code,
+        name: column.name,
+        file_pos: column.position,
+        required: column.required,
+        patterns: column.patterns,
+        type_id: column.type.id
+    })
+
+    const memoList = [
+        '"#"- число',
+        '"." - любой символ',
+        '"@" - любая буква',
+        '"a" - русская строчная буква',
+        '"А" - русская заглавная буква',
+        '"z" - английская строчная буква',
+        '"Z" - английская заглавная буква',
+        '"*" - любое количество символов',
+    ]
 
 
     function onSubmit(e) {
         e.preventDefault()
-
-        put(route('glossary.validator.update', {column: column.id}), data)
+        put(route('glossary.validator.update', { column: column.id }))
     }
 
     return (
         <Layout>
-            <Form
-                header={column.name}
-                sbm="Отправить"
-                handleSubmit={onSubmit}
-                processing={processing}
-            >
-                <Input
-                    name="code"
-                    label="Код"
-                    value={data.code}
-                    onChange={(e) => setData('code', e.target.value)}
-                />
-                <Input
-                    name="name"
-                    label="Наименование"
-                    value={data.name}
-                    onChange={(e) => setData('name', e.target.value)}
-                    disabled
-                />
-                <Input
-                    name="file_pos"
-                    label="Позиция"
-                    value={data.file_pos}
-                    onChange={(e) => setData('file_pos', e.target.value)}
-                />
-                <Select
-                    name="type_id"
-                    label="Тип"
-                    list={usePage().props.types.data}
-                    item_value="name"
-                    value={data.type_id}
-                    onChange={(value) => setData('type_id', value)}
-                />
-            </Form>
+            <div className='edit-validator-container' style={{ position: 'relative' }}>
+                <Form
+                    header={column.name}
+                    sbm="Отправить"
+                    handleSubmit={onSubmit}
+                    processing={processing}
+                >
+                    <Input
+                        name="code"
+                        label="Код"
+                        value={data.code}
+                        onChange={(e) => setData('code', e.target.value)}
+                    />
+                    <Input
+                        name="name"
+                        label="Наименование"
+                        value={data.name}
+                        onChange={(e) => setData('name', e.target.value)}
+                        disabled
+                    />
+                    <Input
+                        name="file_pos"
+                        label="Позиция"
+                        value={data.file_pos}
+                        onChange={(e) => setData('file_pos', e.target.value)}
+                    />
+                    <Select
+                        name="type_id"
+                        label="Тип"
+                        list={usePage().props.types.data}
+                        item_value="name"
+                        value={data.type_id}
+                        onChange={(value) => setData('type_id', value)}
+                    />
+                    <List
+                        label="Шаблоны"
+                        name="patterns"
+                        items={data.patterns}
+                        setItems={(value) => setData('patterns', value)}
+                    />
+                </Form>
+                <BlueButton
+                    style={{
+                        position: 'fixed',
+                        top: '50%',
+                        right: showMemo ? '300px' : '0px',
+                        transform: 'translateY(-50%)',
+                        border: 'none',
+                        borderRadius: '7px 0 0 7px',
+                        transition: 'right 0.3s ease',
+                    }}
+                    type={'button'}
+                    onClick={() => setShowMemo(prev => !prev)}
+                >
+                    <PaperclipIco />
+                </BlueButton>
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: '70px',
+                        right: showMemo ? '0' : '-320px',
+                        height: '100vh',
+                        width: '300px',
+                        backgroundColor: '#fff',
+                        boxShadow: '-2px 0 5px rgba(0,0,0,0.1)',
+                        padding: '20px',
+                        transition: 'right 0.3s ease',
+                    }}
+                >
+                    <List
+                        name="memo"
+                        items={memoList}
+                        render={(item) => <span>{item}</span>}
+                        hasDelete={false}
+                        hasAdd={false}
+                    />
+                </div>
+            </div>
         </Layout>
     )
 }
