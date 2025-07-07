@@ -60,9 +60,9 @@ export default function Edit() {
                 />
                 <List
                     label="Шаблоны"
+                    name="patterns"
                     items={data.patterns}
                     setItems={(value) => {setData('patterns', value)}}
-                    name="patterns"
                 />
             </Form>
         </Layout>
