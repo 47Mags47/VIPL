@@ -1,13 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
-import { List as AntdList }  from 'antd'
-import EditableText          from './EditableText'
+import { List as AntdList } from 'antd'
+import EditableText from './EditableText'
 
-import BlueButton            from "@/components/buttons/BlueButton";
-import RedButton             from "@/components/buttons/RedButton";
-
-import AddIco                from '@/components/icons/AddIco'
-import TrashIco              from '@/components/icons/TrashIco'
+import { CreateItemButton, DeleteItemButton } from '@/components/forms'
 
 
 export default function List({
@@ -26,7 +22,7 @@ export default function List({
         setItems(updated)
     }
 
-    const handleAdd = () => {setItems([...items, ''])}
+    const handleAdd = () => { setItems([...items, '']) }
 
     const handleChange = (e, index) => {
         const newItems = [...items]
@@ -57,9 +53,7 @@ export default function List({
                             hasFocus={firstUpdate.current}
                         />
                         {hasDelete ??
-                            <RedButton onClick={(e) => onDeleteClick(e, index)}>
-                                <TrashIco />
-                            </RedButton>
+                            <DeleteItemButton onClick={(e) => onDeleteClick(e, index)} />
                         }
                     </AntdList.Item>
                 )}
@@ -67,12 +61,10 @@ export default function List({
                     <>
                         {hasAdd ??
                             <div className='add-button-container'>
-                                <BlueButton
+                                <CreateItemButton
                                     type={'button'}
                                     onClick={handleAdd}
-                                >
-                                    <AddIco />
-                                </BlueButton>
+                                />
                             </div>
                         }
                     </>

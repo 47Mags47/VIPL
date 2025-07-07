@@ -1,20 +1,20 @@
-import RedButton    from "@/components/buttons/RedButton";
-import TrashIco     from '@/components/icons/TrashIco'
+import BlueButton from '@/components/buttons/BlueButton';
+import AddIco from '@/components/icons/AddIco';
 
 
-export default function DeleteItemButton(props) {
+export default function CreateItemButton(props) {
     const className = props.className ?? ''
     const onClick = props.onClick
 
     return (
         <div>
-            <RedButton
+            <BlueButton
                 {...props}
                 className={className}
                 onClick={onClick}
             >
-                <TrashIco />
-            </RedButton>
+                <AddIco />
+            </BlueButton>
         </div>
     );
 }
