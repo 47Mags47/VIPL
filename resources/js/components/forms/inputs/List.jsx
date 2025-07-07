@@ -26,7 +26,7 @@ export default function List({
         setItems(updated)
     }
 
-    const handleAdd = () => { setItems([...items, '']) }
+    const handleAdd = () => {setItems([...items, ''])}
 
     const handleChange = (e, index) => {
         const newItems = [...items]
