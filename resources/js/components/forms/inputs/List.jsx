@@ -15,7 +15,8 @@ export default function List({
     name,
     label,
     hasDelete,
-    hasAdd
+    hasAdd,
+    render
 }) {
     const firstUpdate = useRef(true);
     const onDeleteClick = (e, index) => {
@@ -25,7 +26,7 @@ export default function List({
         setItems(updated)
     }
 
-    const handleAdd = () => {setItems([...items, ''])}
+    const handleAdd = () => { setItems([...items, '']) }
 
     const handleChange = (e, index) => {
         const newItems = [...items]
@@ -40,6 +41,19 @@ export default function List({
         }
     })
 
+    const defaultRender = (item, index) => {
+        return (
+            <EditableText
+                name={name}
+                value={item}
+                index={index}
+                blurHandler={onDeleteClick}
+                handleChange={handleChange}
+                hasFocus={firstUpdate.current}
+            />
+        )
+    }
+
     return (
         <div className='list'>
             <AntdList
@@ -47,14 +61,7 @@ export default function List({
                 dataSource={items}
                 renderItem={(item, index) => (
                     <AntdList.Item key={index}>
-                        <EditableText
-                            name={name}
-                            value={item}
-                            index={index}
-                            blurHandler={onDeleteClick}
-                            handleChange={handleChange}
-                            hasFocus={firstUpdate.current}
-                        />
+                        {render ? render(item, index) : defaultRender(item, index)}
                         {hasDelete ??
                             <RedButton onClick={(e) => onDeleteClick(e, index)}>
                                 <TrashIco />
