@@ -1,10 +1,9 @@
-import { usePage, router, Link } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import GoToButton from '@/components/table/buttons/GoToButton';
 import Table from "@/components/Table";
-import Show from "./Show";
 
 
 export default function Index() {

@@ -1,9 +1,8 @@
 import { useForm, usePage } from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms';
 
-import List from '@/components/forms/inputs/List';
 
 export default function Edit() {
     const column = usePage().props.column.data
@@ -60,10 +59,10 @@ export default function Edit() {
                     onChange={(value) => setData('type_id', value)}
                 />
                 <List
-                    items={data.patterns}
-                    setItems={(newPatterns) => setData('patterns', newPatterns)}
-                    name="patterns"
                     label="Шаблоны"
+                    items={data.patterns}
+                    setItems={(value) => {setData('patterns', value)}}
+                    name="patterns"
                 />
             </Form>
         </Layout>

@@ -12,7 +12,6 @@ export default function ListItem({...props}) {
     const onDeleteClick = props.onDeleteClick
     const handleChange = props.handleChange
     const name = props.name
-    const label = props.label || ''
 
     const onBlur = (e) => {
         if (!e.target.value.trim())
@@ -27,7 +26,6 @@ export default function ListItem({...props}) {
             onDoubleClick={() => setEditing(true)}
         >
             <div className="left">
-                <label>{label}</label>
                 {editing ? (
                     <Input
                         name={`${name}[${index}]`}
