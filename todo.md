@@ -51,7 +51,7 @@
 - [x] f_40 - Переработать стили вертикальных форм
 - [ ] f_41 - Поменять datapicker на кастомный(красивый)
 - [x] f_42 - Поправсить стили List
-- [ ] f_43 - Создать DeleteItemButton, CreateItemButton заменить на них в List
+- [x] f_43 - Создать DeleteItemButton, CreateItemButton заменить на них в List
 
 ### BACK-END
 - [x] b_1 - перелопатить ресурсы и контроллеры справочников
