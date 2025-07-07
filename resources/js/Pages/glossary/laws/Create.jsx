@@ -1,7 +1,7 @@
 import { useForm, usePage } from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms';
 
 
 export default function Create() {
@@ -31,11 +31,12 @@ export default function Create() {
                     value={data.code}
                     onChange={(e) => setData('code', e.target.value)}
                 />
-                <Input
+                <TextArea
                     name="name"
                     label="Наименование"
                     value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
+                    rows={9}
                 />
                 <Select
                     name="source_id"
