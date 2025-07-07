@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Dev\Glossary;
+namespace Database\Seeders\Example\Glossary;
 
 use App\Models\Glossary\Division;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

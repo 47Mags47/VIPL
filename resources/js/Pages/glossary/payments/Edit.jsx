@@ -69,6 +69,7 @@ export default function Edit() {
                     item_value="name"
                     value={data.periodicity_id}
                     onChange={(value) => setData('periodicity_id', value)}
+                    disabled
                 />
             </Form>
         </Layout>

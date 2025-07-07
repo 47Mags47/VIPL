@@ -1,10 +1,7 @@
 import { usePage } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
-import Edit from "./Edit";
-import Delete from "./Delete";
-import Table from "@/components/Table";
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table } from "@/components/table";
 
 export default function Index() {
     const recipients = usePage().props.recipients
@@ -12,16 +9,18 @@ export default function Index() {
         {
             title: 'Фамилия',
             dataIndex: 'last_name',
+            width: 175,
         },
         {
             title: 'Имя',
             dataIndex: 'first_name',
+            width: 175,
         },
         {
             title: 'Отчество',
             dataIndex: 'middle_name',
+            width: 175,
         },
-
         {
             title: 'Дата рождения',
             dataIndex: 'd_rojd',
@@ -31,48 +30,35 @@ export default function Index() {
                     string
                 )
             },
+            width: 110,
         },
         {
             title: 'СНИЛС',
             dataIndex: 'snils',
+            width: 150,
         },
         {
             title: 'Счет',
             dataIndex: 'account',
+            width: 190,
         },
         {
             title: 'Сумма',
             dataIndex: 'summ',
+            width: 175,
         },
         {
             title: 'Паспортные данные',
             dataIndex: 'pasp',
         },
-        {
-            title: '',
-            key: 'edit',
-            // render: (_, record) => (
-            //     <Edit record={record} />
-            // )
-        },
-        {
-            title: '',
-            key: 'delete',
-            // render: (_, record) => (
-            //     <Delete record={record} />
-            // )
-        },
     ]
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="id"
                 columns={columns}
-                dataSource={recipients.data}
-                current_page={recipients.meta.current_page}
-                last_page={recipients.meta.last_page}
-                from={recipients.meta.from}
+                data={recipients}
             />
-        </AuthenticatedLayout>
+        </Layout>
     );
 }

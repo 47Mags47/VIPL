@@ -17,6 +17,13 @@ class StoreRequest extends FormRequest
         return user()->hasPermission('edit_glossary');
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'start_at' => now()
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -59,6 +66,10 @@ class StoreRequest extends FormRequest
                 'required',
                 'exists:' . PaymentPeriodicity::class . ',id'
             ],
+            'start_at' => [
+                'required',
+                'date',
+            ]
         ];
     }
 }

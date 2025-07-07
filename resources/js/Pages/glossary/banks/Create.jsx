@@ -58,8 +58,7 @@ export default function Create() {
                     list={usePage().props.exporters.data}
                     item_value="name"
                     value={data.bank.exporter_id}
-                    onChange={(value) => setData('bank.exporter_id', value)
-                    }
+                    onChange={(value) => setData('bank.exporter_id', value)}
                 />
                 <Input
                     type="text"

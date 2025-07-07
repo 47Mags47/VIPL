@@ -30,7 +30,9 @@ return new class extends Migration
             $table->foreignId('law_id')->constrained(Law::getTableName());
             $table->foreignId('periodicity_id')->constrained(PaymentPeriodicity::getTableName());
 
+            $table->timestamp('start_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

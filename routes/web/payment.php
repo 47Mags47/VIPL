@@ -20,15 +20,14 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
 
     Route::name('files.')->controller(FileController::class)->group(function () {
         Route::get('/packages/{package}/files', 'index')->name('index');
+        Route::get('/packages/{package}/files/create', 'create')->name('create');
         Route::post('/packages/{package}/files', 'store')->name('store');
-        Route::post('/files/check', 'check')->name('check');
+        Route::delete('packages/{package}/files/{file}/destroy', 'destroy')->name('destroy');
         Route::get('/files/{file}/show', 'show')->name('show');
     });
 
     Route::name('recipients.')->controller(RecipientController::class)->group(function () {
         Route::get('/files/{file}/recipients', 'index')->name('index');
-        Route::put('/recipients/{recipient}/update', 'update')->name('update');
-        Route::delete('/recipients/{recipient}/destroy', 'destroy')->name('destroy');
     });
 
     Route::name('raports.')->controller(RaportController::class)->group(function () {

@@ -11,11 +11,9 @@ class PackageController extends Controller
 {
     public function index(Event $event)
     {
-        $packages = Package::where('event_id', $event->id)->orderBy('created_at', 'desc')->paginate(50);
-
-        return Inertia::render('payment/packages/index', [
-            'event' => $event->toResource(),
-            'packages' => $packages->toResourceCollection()
+        return Inertia::render('payment/packages/Index', [
+            'event' => fn() => $event->toResource(),
+            'packages' => fn() => $event->packages()->orderBy('created_at', 'desc')->api()
         ]);
     }
 

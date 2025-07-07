@@ -8,6 +8,7 @@ export default function BaseForm({ ...props }) {
     const boxClassName = props.className !== undefined
         ? props.className + '-box'
         : ''
+    const enctype = props.enctype ?? (props.file === true ? 'multipart/form-data' : 'application/x-www-form-urlencoded')
 
     const Header = () => props?.header && (<h3 className="form-header">{props.header}</h3>)
     const Errors = () => usePage().props.errors?.form && (<Error name="form" />)
@@ -18,7 +19,7 @@ export default function BaseForm({ ...props }) {
 
     return (
         <div className={"form-container " + boxClassName}>
-            <form onSubmit={handleSubmit} className={className}>
+            <form onSubmit={handleSubmit} className={className} encType={enctype}>
                 <Header />
                 <div className="form-errors">
                     <Errors />

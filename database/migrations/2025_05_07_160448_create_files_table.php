@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('origin_name');
 
             $table->json('errors');
+            $table->json('error_context')->nullable();
 
             $table->uuid('package_id')->constrained(Package::getTableName());
             $table->foreignId('bank_id')->constrained(Bank::getTableName());

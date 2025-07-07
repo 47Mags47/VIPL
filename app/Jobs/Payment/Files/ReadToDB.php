@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\File;
+namespace App\Jobs\Payment\Files;
 
 use App\Imports\Payment\RecipientImport;
 use App\Models\Glossary\FileStatus;
@@ -22,14 +22,11 @@ class ReadToDB implements ShouldQueue
             return;
         }
 
-        $this->file->update(['status_id' => FileStatus::byCode('read')->id]);
-
+        $this->file->setStatus('read');
         try {
-            $this->file->update(['status_id' => FileStatus::byCode('loading')->id]);
-
+            $this->file->setStatus('loading');
             Excel::import(new RecipientImport($this->file), $this->file->localPath(), $this->file->disk, \Maatwebsite\Excel\Excel::CSV);
-
-            $this->file->update(['status_id' => FileStatus::byCode('load')->id]);
+            $this->file->setStatus('load');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
 

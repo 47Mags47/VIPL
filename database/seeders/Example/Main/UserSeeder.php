@@ -1,13 +1,10 @@
 <?php
 
-namespace Database\Seeders\Dev\Main;
+namespace Database\Seeders\Example\Main;
 
 use App\Models\Glossary\Division;
 use App\Models\Glossary\UserStatus;
-use App\Models\Main\Role;
 use App\Models\Main\User;
-use App\Models\Main\UserPivotRole;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

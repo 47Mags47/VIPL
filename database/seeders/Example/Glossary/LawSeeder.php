@@ -1,10 +1,9 @@
 <?php
 
-namespace Database\Seeders\Dev\Glossary;
+namespace Database\Seeders\Example\Glossary;
 
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Source;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class LawSeeder extends Seeder

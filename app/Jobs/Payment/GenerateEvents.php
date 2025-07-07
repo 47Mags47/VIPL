@@ -1,5 +1,7 @@
 <?php
 
+// DELETE
+
 namespace App\Jobs\Payment;
 
 use App\Models\Glossary\Payment;

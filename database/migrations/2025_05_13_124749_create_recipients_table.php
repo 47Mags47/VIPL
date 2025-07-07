@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Glossary\ValidatorColumn;
 use App\Models\Payment\File;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,18 +18,18 @@ return new class extends Migration
             $table->foreignId('file_id')->constrained(File::getTableName())->cascadeOnDelete();
 
             $table->string('first_name')->nullable();
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->date('d_rojd');
-            $table->string('snils');
+            $table->date('d_rojd')->nullable();
+            $table->string('snils')->nullable();
 
-            $table->string('account');
-            $table->float('summ', 2);
+            $table->string('account')->nullable();
+            $table->float('summ', 2)->nullable();
 
-            $table->string('p_series');
-            $table->string('p_number');
-            $table->date('p_date');
-            $table->text('p_div');
+            $table->string('p_series')->nullable();
+            $table->string('p_number')->nullable();
+            $table->date('p_date')->nullable();
+            $table->text('p_div')->nullable();
 
             $table->timestamps();
         });

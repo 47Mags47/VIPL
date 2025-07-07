@@ -20,7 +20,6 @@ export default function StringInput({ ...props }) {
                 value={value ?? ''}
                 onChange={onChange}
                 placeholder={placeholder}
-                {...props}
             />
         </Label>
     )

@@ -4,7 +4,6 @@ namespace App\Http\Resources\Glossary;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Glossary\ContractSideResource;
 
 class BankContractResource extends JsonResource
 {

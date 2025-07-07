@@ -2,71 +2,59 @@
 
 namespace App\Http\Controllers\Web\Payment;
 
+use App\Events\Payment\File\UploadEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Payment\CheckFileRequest;
 use App\Http\Requests\Payment\StoreFileRequest;
-use App\Jobs\File\ReadToDB;
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\FileStatus;
 use App\Models\Payment\File;
 use App\Models\Payment\Package;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
-use Pion\Laravel\ChunkUpload\Handler\ResumableJSUploadHandler;
-use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
 class FileController extends Controller
 {
     public function index(Package $package)
     {
-        $files = $package->files()->orderBy('created_at', 'desc')->paginate(50)->toResourceCollection();
-        $banks = Bank::orderBy('number_code')->get()->toResourceCollection();
-
-        return Inertia::render('payment/files/index', [
+        return Inertia::render('payment/files/Index', [
             'package' => $package->toResource(),
-            'files' => $files,
-            'banks' => $banks
+            'files' => fn() => $package->files()->api(),
         ]);
     }
 
-    public function check(CheckFileRequest $request)
+    public function create(Package $package)
     {
-        return back()->with('message', 'Началась загрузка файла');
+        return Inertia::render('payment/files/Create', [
+            'package' => $package->toResource(),
+            'banks' => fn() => Bank::api(),
+        ]);
     }
 
     public function store(StoreFileRequest $request, Package $package)
     {
-        $receiver = new FileReceiver("file", $request, ResumableJSUploadHandler::class);
+        $upload = $request->file('file');
+        $disk = 'uploads';
+        $file_name = Str::random(40) . '.' . $upload ->getClientOriginalExtension();
+        $file_origin_name = $upload ->getClientOriginalName();
+        $file_path = 'uploads';
 
-        if ($receiver->isUploaded() === false) {
-            throw new UploadMissingFileException();
-        }
-        $save = $receiver->receive();
+        Storage::disk($disk)->putFileAs($file_path, $upload, $file_name);
 
-        if ($save->isFinished()) {
-            $disk = 'uploads';
-            $file_name = Str::random(40) . '.' . $save->getFile()->getClientOriginalExtension();
-            $file_origin_name = $save->getFile()->getClientOriginalName();
-            $file_path = 'uploads';
-            $full_path = Storage::disk($disk)->path($file_path);
+        $file = File::create([
+            'disk' => $disk,
+            'name' => $file_name,
+            'path' => $file_path,
+            'origin_name' => $file_origin_name,
+            'errors' => [],
+            'package_id' => $package->id,
+            'bank_id' => $request->bank,
+            'status_id' => FileStatus::byCode('uploaded')->id
+        ]);
 
-            $save->getFile()->move($full_path, $file_name);
+        UploadEvent::dispatch($file);
 
-            $file = File::create([
-                'disk' => $disk,
-                'name' => $file_name,
-                'path' => $file_path,
-                'origin_name' => $file_origin_name,
-                'errors' => [],
-                'package_id' => $package->id,
-                'bank_id' => $request->bank,
-                'status_id' => FileStatus::byCode('uploaded')->id
-            ]);
-
-            ReadToDB::dispatch($file);
-        }
+        return redirect()->route('payments.files.index', compact('package'));
     }
 
     public function show(Package $package, File $file)
@@ -77,6 +65,7 @@ class FileController extends Controller
     public function destroy(Package $package, File $file)
     {
         $file->delete();
-        return response('Файл удален');
+
+        return redirect()->route('payments.files.index', ['package' => $file->package])->with('message', 'Запись удалена');
     }
 }

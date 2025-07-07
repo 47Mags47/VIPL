@@ -12,7 +12,7 @@ export default function DeleteButton({ ...props }) {
     }
 
     return (
-        <RedButton className="ico" onClick={destroy}>
+        <RedButton onClick={destroy}>
             <TrashIco />
         </RedButton>
     )

@@ -31,15 +31,14 @@ export default function Index() {
         let eventList = events[dateString] ?? []
 
         eventList.forEach(element => {
-            let data = element.data.id
             listData.push({
                 type: 'success',
                 content:
                     <Link
                         className="show-link"
-                        href={route('payments.events.show', { event: data })}
+                        href={route('payments.events.show', { event: element.data.id })}
                     >
-                        {element.data.payment.krv}
+                        {element.data.name}
                     </Link>,
                 id: element.data.id
             })

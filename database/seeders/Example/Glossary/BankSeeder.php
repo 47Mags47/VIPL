@@ -1,13 +1,10 @@
 <?php
 
-namespace Database\Seeders\Dev\Glossary;
+namespace Database\Seeders\Example\Glossary;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
 use App\Models\Glossary\Contract;
-use App\Models\Glossary\ContractSide;
-use App\Models\Glossary\ContractSideType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BankSeeder extends Seeder

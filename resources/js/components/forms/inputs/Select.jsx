@@ -7,6 +7,7 @@ export default function SelectComponent({ ...props }) {
     const id = props.id ?? props.name
     const label = props.label
     const value = props.value
+    const disabled = props.disabled
     const options = props.options ?? props.list.map(item => ({
         value: item[props.item_key] ?? item.id,
         label: item[props.item_value] ?? item.value,
@@ -22,7 +23,7 @@ export default function SelectComponent({ ...props }) {
                 id={id}
                 defaultValue={value}
                 onChange={onChange}
-
+                disabled={disabled}
                 options={options}
                 filterOption={filterOption}
             />

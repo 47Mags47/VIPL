@@ -4,7 +4,6 @@ namespace App\Http\Requests\Glossary\Payment;
 
 use App\Models\Glossary\Payment;
 use App\Models\Glossary\Law;
-use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -54,10 +53,6 @@ class UpdateRequest extends FormRequest
             'law_id'   => [
                 'required',
                 'exists:' . Law::class . ',id'
-            ],
-            'periodicity_id' => [
-                'required',
-                'exists:' . PaymentPeriodicity::class . ',id'
             ],
         ];
     }

@@ -1,10 +1,9 @@
 <?php
 
-namespace Database\Seeders\Dev\Payment;
+namespace Database\Seeders\Example\Payment;
 
 use App\Models\Payment\File;
 use App\Models\Payment\Package;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FileSeeder extends Seeder
