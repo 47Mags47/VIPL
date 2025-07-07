@@ -23,7 +23,7 @@ export default function EditableText({ ...props }) {
     }
 
     const spanRender = () => (
-        <div className="label-list span">
+        <div className="label-input span">
             <span>{value || '...'}</span>
             <Error name={`${name}.${index}`} />
         </div>
@@ -52,7 +52,7 @@ export default function EditableText({ ...props }) {
 
     return (
         <div
-            className="list-item"
+            className="editable-item"
             onDoubleClick={() => { setEditing(true) }}
         >
             <div className="left">
