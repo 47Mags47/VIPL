@@ -27,6 +27,10 @@ export default function Index() {
             title: 'Обязательное',
             dataIndex: 'required',
             width: 150,
+            render: (_, record) => {
+                if (record.required === 1) return 'Да'
+                else return 'Нет'
+            }
         },
         {
             title: 'Шаблоны',

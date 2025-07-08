@@ -21,6 +21,7 @@ export default function StringInput({ ...props }) {
                 onChange={onChange}
                 placeholder={placeholder}
                 disabled={disabled}
+                {...props}
             />
         </Label>
     )
