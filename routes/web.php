@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('payments.events.index');
-});
+})->name('home');
 
 Route::group([], [
     base_path('routes/web/configurate.php'),

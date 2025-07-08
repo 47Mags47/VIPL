@@ -1,4 +1,3 @@
-import Resumable from 'resumablejs';
 import { useForm, usePage } from '@inertiajs/react'
 
 import { UploadOutlined } from '@ant-design/icons';
