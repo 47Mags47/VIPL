@@ -38,7 +38,7 @@ export default function Edit() {
 
     return (
         <Layout>
-            <div className='edit-validator-container' style={{ position: 'relative'}}>
+            <div className='edit-validator-container' style={{ position: 'relative' }}>
                 <Form
                     header={column.name}
                     sbm="Отправить" position relative
@@ -83,7 +83,7 @@ export default function Edit() {
                     style={{
                         position: 'fixed',
                         top: '50%',
-                        right: showMemo ? '320px' : '0px',
+                        right: showMemo ? '300px' : '0px',
                         transform: 'translateY(-50%)',
                         zIndex: 50,
                         border: 'none',
@@ -110,6 +110,9 @@ export default function Edit() {
                     }}
                 >
                     <List
+                        style={{
+                            border:'none'
+                        }}
                         name="memo"
                         items={memoList}
                         render={(item) => <span>{item}</span>}
