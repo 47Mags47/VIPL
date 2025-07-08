@@ -1,14 +1,17 @@
 @use '../../abstracts' as *
-    
-.ant-picker-calendar-header
-    .ant-radio-button-wrapper
-        display: none
+
+.ant-picker-calendar
+    padding: 0px 0px
+
+    .ant-picker-calendar-header
+        padding: 5px 0px
+        .ant-radio-button-wrapper
+            display: none
 
 .ant-picker-calendar
     margin: 0
     padding: 0
     width: 100%
-    height: 85vh
     box-sizing: border-box
     .ant-picker-content
         width: 100%
@@ -88,12 +91,24 @@
     width: 100%
     overflow: auto
 
-
-
 .ant-picker-calendar-date-value
     font-size: 12px
     line-height: 16px
     font-weight: bold
     flex: 0 0 auto
-
-
+.calendar-action
+    padding-top: 5px
+    display: flex
+    justify-content: flex-end
+    padding-right: 8px
+    .button
+        background-color: transparent
+        border: 1px solid #3D9AD1
+        color: rgb(34, 34, 34)
+        font-weight: normal
+        padding: 7px 24px
+        border-radius: 7px
+        cursor: pointer
+        transition: all 0.2s ease
+        &:hover
+            border: 1px solid #00a2ff
