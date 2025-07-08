@@ -31,7 +31,6 @@ export default function Edit() {
         '"*" - любое количество символов',
     ]
 
-
     function onSubmit(e) {
         e.preventDefault()
         put(route('glossary.validator.update', { column: column.id }))
