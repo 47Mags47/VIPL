@@ -38,7 +38,7 @@ class Role extends Model
      */
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, RolePivotPermission::getTableName());
+        return $this->belongsToMany(Permission::class, RolePivotPermission::getTableName(), 'role_code', 'permission_code', 'code', 'code');
     }
 
     /**
