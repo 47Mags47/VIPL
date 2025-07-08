@@ -1,10 +1,10 @@
-import { useState }                                                 from 'react'
-import { useForm, usePage }                                         from '@inertiajs/react'
+import { useState } from 'react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout }                            from '@/layouts'
+import { AuthenticatedLayout as Layout } from '@/layouts'
 import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms'
-import BlueButton                                                   from '@/components/buttons/BlueButton'
-import PaperclipIco                                                 from '@/components/icons/PaperclipIco'
+import BlueButton from '@/components/buttons/BlueButton'
+import PaperclipIco from '@/components/icons/PaperclipIco'
 
 export default function Edit() {
     const column = usePage().props.column.data
@@ -38,10 +38,10 @@ export default function Edit() {
 
     return (
         <Layout>
-            <div className='edit-validator-container' style={{ position: 'relative' }}>
+            <div className='edit-validator-container' style={{ position: 'relative'}}>
                 <Form
                     header={column.name}
-                    sbm="Отправить"
+                    sbm="Отправить" position relative
                     handleSubmit={onSubmit}
                     processing={processing}
                 >
@@ -83,8 +83,9 @@ export default function Edit() {
                     style={{
                         position: 'fixed',
                         top: '50%',
-                        right: showMemo ? '300px' : '0px',
+                        right: showMemo ? '320px' : '0px',
                         transform: 'translateY(-50%)',
+                        zIndex: 50,
                         border: 'none',
                         borderRadius: '7px 0 0 7px',
                         transition: 'right 0.3s ease',
@@ -104,6 +105,7 @@ export default function Edit() {
                         backgroundColor: '#fff',
                         boxShadow: '-2px 0 5px rgba(0,0,0,0.1)',
                         padding: '20px',
+                        zIndex: 40,
                         transition: 'right 0.3s ease',
                     }}
                 >
