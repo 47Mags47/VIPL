@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { useForm, usePage } from '@inertiajs/react'
+import { useState }                                                 from 'react'
+import { useForm, usePage }                                         from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts'
 import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms'
-import BlueButton from '@/components/buttons/BlueButton'
-import PaperclipIco from '@/components/icons/PaperclipIco'
+import BlueButton                                                   from '@/components/buttons/BlueButton'
+import PaperclipIco                                                 from '@/components/icons/PaperclipIco'
 
 export default function Edit() {
     const column = usePage().props.column.data
@@ -12,12 +12,12 @@ export default function Edit() {
     const [showMemo, setShowMemo] = useState(false)
 
     const { data, setData, put, processing } = useForm({
-        code: column.code,
-        name: column.name,
-        file_pos: column.position,
-        required: column.required,
-        patterns: column.patterns,
-        type_id: column.type.id
+        code:       column.code,
+        name:       column.name,
+        file_pos:   column.position,
+        required:   column.required,
+        patterns:   column.patterns,
+        type_id:    column.type.id
     })
 
     const memoList = [
@@ -50,6 +50,7 @@ export default function Edit() {
                         label="Код"
                         value={data.code}
                         onChange={(e) => setData('code', e.target.value)}
+                        disabled
                     />
                     <Input
                         name="name"
@@ -111,7 +112,7 @@ export default function Edit() {
                 >
                     <List
                         style={{
-                            border:'none'
+                            border: 'none'
                         }}
                         name="memo"
                         items={memoList}
