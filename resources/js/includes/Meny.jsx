@@ -8,7 +8,7 @@ export default function Meny() {
     const user = usePage().props.user.data;
 
     let meny = []
-    if (user.permissions.includes('edit_system_admins'))
+    if (user.permissions.includes('edit_glossary'))
         meny.push({
             key: 'glossary',
             label: 'Справочники',
