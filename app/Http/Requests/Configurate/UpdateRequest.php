@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return isLocalRequest($this) and user()->hasPermission('system_configuration');
     }
 
     /**
@@ -21,11 +21,28 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'divsion.name'      => ['nullable', 'string', 'min:3', 'max:255'],
-            'division.INN'      => ['nullable', 'string', 'min:10', 'max:10'],
-            'division.account'  => ['nullable', 'string', 'min:20', 'max:20'],
-            'division.BIK'      => ['nullable', 'string', 'min:9',  'max:9'],
-        ];
+        $origin = $this->route('config');
+
+        switch ($origin->type) {
+            case 'string':
+                return [
+                    'value' => ['required', 'string', 'min:1', 'max:255'],
+                ];
+                break;
+
+            case 'text':
+                return [
+                    'value' => ['required', 'string', 'min:1'],
+                ];
+                break;
+
+            case 'int':
+                return [
+                    'value' => ['required', 'integer'],
+                ];
+                break;
+        }
+
+        return [];
     }
 }

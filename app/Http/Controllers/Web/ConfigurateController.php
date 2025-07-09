@@ -6,47 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Configurate\LoginPostRequset;
 use App\Http\Requests\Configurate\UpdateRequest;
 use App\Models\Sys\Config;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ConfigurateController extends Controller
 {
-    public function login()
+    public function index()
     {
-        return Inertia::render('configurate/Login');
-    }
-
-    public function loginPost(LoginPostRequset $request)
-    {
-        if (Auth::attempt([
-            'name' => $request->name,
-            'password' => $request->password,
-        ])) {
-            return redirect()->route('configurate.index');
-        }
-
-        return back()->withErrors([
-            'form' => 'Неверный логин или пароль',
+        return Inertia::render('configurate/Index', [
+            'config' => Config::api(),
         ]);
     }
 
-    public function index()
+    public function edit(Config $config)
     {
-        $config = Config::all()->map(function ($row) {
-            return [$row->code => $row->value];
-        })->collapse()->dot()->map(function($value, $key){
-            return [
-                'key' => $key,
-                'value' => $value,
-            ];
-        })->values();
-
-        return Inertia::render('configurate/Index', compact('config'));
+        return Inertia::render('configurate/Edit', [
+            'config' => $config->toResource(),
+        ]);
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, Config $config)
     {
-        dd($request->all());
+        $config->update([
+            'value'        => $request->input('value'),
+        ]);
+
+        return redirect()->route('config.index')->with('message', 'Запись успешно обновлена');
     }
 }

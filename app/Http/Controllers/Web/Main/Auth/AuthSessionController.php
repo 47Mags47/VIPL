@@ -14,20 +14,29 @@ class AuthSessionController extends Controller
 {
     public function login()
     {
-        return Inertia::render('auth/login');
+        return Inertia::render('auth/Login');
     }
 
     public function loginPost(StoreSessionRequest $request)
     {
-        if (Auth::attempt($request->only(['email', 'password']), $request->remember_me ?? false)) {
-            $request->session()->regenerate();
+        $login = (string) $request->login;
+        $password = (string) $request->password;
+        $remember = (bool) $request->remember_me ?? false;
 
-            return user()->password_expired
-                ? redirect()->route('password.reset')
-                : redirect()->route('payments.events.index');
+        if (
+            Auth::attempt(['email' => $login, 'password' => $password], $remember)
+            or Auth::attempt(['login' => $login, 'password' => $password], $remember)
+        ) {
+            if (user()->password_expired)
+                return redirect()->route('password.reset');
+
+            if (user()->hasPermission('system_configuration'))
+                return redirect()->route('config.index');
+
+            return redirect()->route('payments.events.index');
         }
 
-        return back()->withErrors([
+        return redirect()->route('login')->withErrors([
             'form' => 'Неверный логин или пароль',
         ]);
     }

@@ -1,7 +1,7 @@
 import { usePage } from '@inertiajs/react';
 
 import BlueButton from "@/components/buttons/BlueButton";
-
+import Error from "@/components/Error"
 
 export default function BaseForm({ ...props }) {
     const className = props.className

@@ -14,7 +14,7 @@ export default function BaseForm({
     id
 }) {
     const { errors } = usePage().props;
-    
+
     return (
         <div className={"form-container " + (type ?? '')}>
             <form onSubmit={handleSubmit} id={id} className={className ?? ''}>
