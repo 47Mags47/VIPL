@@ -2,13 +2,14 @@
 
 namespace App\Models\Sys;
 
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\HasLog;
 use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
-    use hasCode, HasLog;
+    use hasCode, HasLog, hasApi;
 
     ### Настройки
     ##################################################

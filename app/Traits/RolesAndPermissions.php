@@ -106,19 +106,11 @@ trait RolesAndPermissions
      */
     public function hasPermission(string|Permission $permission)
     {
-        $permission_model = $permission instanceof Permission
+        $permission = $permission instanceof Permission
             ? $permission
             : Permission::whereCode($permission)->first();
 
-        if ($permission_model === null) return false;
-
-        foreach ($permission_model->roles as $role) {
-            if ($this->roles->contains($role)) {
-                return true;
-            }
-        }
-
-        return (bool) $this->permissions->where('code', $permission_model->code)->count();
+        return user()->rolePermissions()->contains($permission);
     }
 
     public function ScopeIsAdmin():bool
