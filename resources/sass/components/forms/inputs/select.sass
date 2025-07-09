@@ -1,0 +1,10 @@
+@use '../../../abstracts/mixins' as *
+
+.ant-select.ant-select-outlined
+    .ant-select-selector
+        border-color: var(--input-border-color)
+.ant-select.ant-select-focused
+    .ant-select-selector
+        box-shadow: none !important
+        border-color: var(--input-border-color) !important
+@include select-disabled
