@@ -25,10 +25,11 @@ export default function Meny() {
         meny.push({ key: 'users', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> })
 
     if (user.permissions.includes('system_configuration'))
-        meny.push({ key: 'config', label: <ItemMenu itemKey="config" routeName="configurate.index" text="Конфигурация" /> })
+        meny.push({ key: 'config', label: <ItemMenu itemKey="config" routeName="config.index" text="Конфигурация" /> })
 
     const defaultMenyItems = [
         { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
+        { key: 'edit-password', label: <ItemMenu itemKey="edit-password" routeName="password.edit" text="Сменить пароль" /> },
         { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ]
 
