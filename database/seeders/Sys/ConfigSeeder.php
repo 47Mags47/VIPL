@@ -18,6 +18,6 @@ class ConfigSeeder extends Seeder
         Config::create(['code' => 'division.account',   'type' => 'string', 'value' => '', 'name' => 'Счет организации']);
         Config::create(['code' => 'division.BIK',       'type' => 'string', 'value' => '', 'name' => 'БИК организации']);
         Config::create(['code' => 'division.phone',     'type' => 'string', 'value' => '', 'name' => 'Телефон организации']);
-        Config::create(['code' => 'division.FIO',       'type' => 'string', 'value' => '', 'name' => 'ФИО отчетсвенного']);
+        Config::create(['code' => 'division.FIO',       'type' => 'string', 'value' => '', 'name' => 'ФИО ответственного']);
     }
 }
