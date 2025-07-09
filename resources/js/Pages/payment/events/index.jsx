@@ -1,66 +1,54 @@
-import { usePage, router, Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { usePage, router, Link } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 
-import locale from 'antd/locale/ru_RU';
+import { Badge, Calendar } from 'antd'
+import locale from 'antd/locale/ru_RU'
 import dayjs from 'dayjs'
-import 'dayjs/locale/ru';
+import 'dayjs/locale/ru'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-
-import { Badge, Calendar } from 'antd';
+import BlueButton from '@/components/buttons/BlueButton'
 
 
 export default function Index() {
-    const events = usePage().props.events;
+    const events = usePage().props.events
 
-    const [value, setValue] = useState(() => {
-        dayjs().year(events.year),
-            dayjs().month(events.month + 1)
-    });
-
-    useEffect(() => {
-        setValue(
-            dayjs().year(events.year),
-            dayjs().month(events.month + 1)
-        );
-    }, [events.month, events.year]);
+    const [value, setValue] = useState(dayjs())
 
     const getListData = value => {
-        let listData = [];
-        let dateString = value.format('YYYY-MM-DD')
-        let eventList = events[dateString] ?? []
+        let listData = []
+        let eventList = events[value.format('YYYY-MM-DD')] ?? []
 
-        eventList.forEach(element => {
+        eventList.forEach(item => {
             listData.push({
                 type: 'success',
-                content:
+                content: (
                     <Link
                         className="show-link"
-                        href={route('payments.events.show', { event: element.data.id })}
+                        href={route('payments.events.show', { event: item.data.id })}
                     >
-                        {element.data.name}
-                    </Link>,
-                id: element.data.id
+                        {item.data.name}
+                    </Link>
+                ),
+                id: item.data.id
             })
-        });
-        return listData || [];
-    };
+        })
+
+        return listData
+    }
 
     const dateCellRender = value => {
-        const listData = getListData(value);
+        const listData = getListData(value)
         return (
             <ul className="events">
                 {listData.map(item => (
                     <li key={item.id}>
-                        <Badge
-                            status={item.type}
-                            text={item.content}
-                        />
+                        <Badge status={item.type} text={item.content} />
                     </li>
                 ))}
             </ul>
-        );
-    };
+        )
+    }
 
     const handlePanelChange = (date, mode) => {
         if (mode === 'month') {
@@ -71,22 +59,41 @@ export default function Index() {
             }), {}, {
                 preserveState: true,
                 replace: true
-            });
+            })
         }
-    };
-    dayjs.locale('ru-RU');
+    }
+
+    const goToCurrentMonth = () => {
+        setValue(dayjs())
+        router.get(route('payments.events.index', {
+            month: dayjs().month() + 1,
+            year: dayjs().year()
+        }), {}, {
+            preserveState: true,
+            replace: true
+        })
+    }
+
+    dayjs.locale('ru')
+
     const cellRender = (current, info) => {
         if (info.type === 'date') return dateCellRender(current);
         return info.originNode;
-    };
+    }
+
     return (
         <AuthenticatedLayout>
+            <div className='calendar-action'>
+                <BlueButton onClick={goToCurrentMonth}>
+                    Текущий месяц
+                </BlueButton>
+            </div>
             <Calendar
-                defaultValue={value}
+                value={value}
                 onPanelChange={handlePanelChange}
                 cellRender={cellRender}
                 locale={locale.Calendar}
             />
         </AuthenticatedLayout>
     )
-};
+}
