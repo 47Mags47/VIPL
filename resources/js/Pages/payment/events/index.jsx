@@ -8,6 +8,7 @@ import 'dayjs/locale/ru'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import BlueButton from '@/components/buttons/BlueButton'
+import Select from '@/components/forms/inputs/Select'
 
 
 export default function Index() {
@@ -15,7 +16,9 @@ export default function Index() {
 
     const [value, setValue] = useState(dayjs())
 
-    const getListData = value => {
+    dayjs.locale('ru')
+
+    const getListData = (value) => {
         let listData = []
         let eventList = events[value.format('YYYY-MM-DD')] ?? []
 
@@ -37,7 +40,7 @@ export default function Index() {
         return listData
     }
 
-    const dateCellRender = value => {
+    const dateCellRender = (value) => {
         const listData = getListData(value)
         return (
             <ul className="events">
@@ -52,7 +55,8 @@ export default function Index() {
 
     const handlePanelChange = (date, mode) => {
         if (mode === 'month') {
-            setValue(date);
+            setValue(date)
+
             router.get(route('payments.events.index', {
                 month: date.month() + 1,
                 year: date.year()
@@ -74,21 +78,88 @@ export default function Index() {
         })
     }
 
-    dayjs.locale('ru')
 
     const cellRender = (current, info) => {
-        if (info.type === 'date') return dateCellRender(current);
-        return info.originNode;
+        if (info.type === 'date') return dateCellRender(current)
+        return info.originNode
+    }
+
+    const headerRender = ({ value, onChange }) => {
+        const current = value.locale('ru')
+        const month = current.month()
+        const year = current.year()
+        const isToday = current.isSame(dayjs(), 'day')
+        console.log(dayjs(), 'day');
+
+
+        const months = current.localeData().months().map(m =>
+            m.charAt(0).toUpperCase() + m.slice(1)
+        )
+
+        const monthOptions = months.map((label, index) => ({
+            label,
+            value: index,
+        }))
+
+        const yearOptions = Array.from({ length: 11 }, (_, i) => {
+            const years = year - 5 + i
+            return { label: `${years}`, value: years }
+        })
+
+        const changeMonth = (newMonth) => {
+            const newValue = current.month(newMonth)
+            onChange(newValue)
+            router.get(route('payments.events.index', {
+                month: newValue.month() + 1,
+                year: newValue.year()
+            }), {}, {
+                preserveState: true,
+                replace: true
+            })
+        }
+
+        const changeYear = (newYear) => {
+            const newValue = current.year(newYear)
+            onChange(newValue)
+            router.get(route('payments.events.index', {
+                month: newValue.month() + 1,
+                year: newValue.year()
+            }), {}, {
+                preserveState: true,
+                replace: true
+            })
+        }
+
+        return (
+            <div className={'calendar-header'}>
+                <div className={'calendar-select-group'}>
+                    <Select
+                        value={year}
+                        options={yearOptions}
+                        onChange={changeYear}
+                        popupMatchSelectWidth={false}
+                    />
+                    <Select
+                        value={month}
+                        options={monthOptions}
+                        onChange={changeMonth}
+                        popupMatchSelectWidth={false}
+                    />
+                </div>
+                <div className='calendar-action'>
+                    <BlueButton onClick={goToCurrentMonth}>
+                        Текущий месяц
+                    </BlueButton>
+                </div>
+            </div>
+        )
     }
 
     return (
         <AuthenticatedLayout>
-            <div className='calendar-action'>
-                <BlueButton onClick={goToCurrentMonth}>
-                    Текущий месяц
-                </BlueButton>
-            </div>
+
             <Calendar
+                headerRender={headerRender}
                 value={value}
                 onPanelChange={handlePanelChange}
                 cellRender={cellRender}
