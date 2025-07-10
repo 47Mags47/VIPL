@@ -1,5 +1,5 @@
 import { usePage, router, Link } from '@inertiajs/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Badge, Calendar } from 'antd'
 import locale from 'antd/locale/ru_RU'
