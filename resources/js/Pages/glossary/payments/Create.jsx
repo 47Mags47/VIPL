@@ -12,6 +12,7 @@ export default function Create() {
         kbk: '',
         periodicity_id: '',
         law_id: '',
+        start_at: '',
     });
 
     function onSubmit(e) {
@@ -67,6 +68,13 @@ export default function Create() {
                     item_value="name"
                     value={data.periodicity_id}
                     onChange={(value) => setData('periodicity_id', value)}
+                />
+                <Input
+                    name="start_at"
+                    type="date"
+                    label="Дата начала"
+                    value={data.start_at}
+                    onChange={(e) => setData('start_at', e.target.value)}
                 />
             </Form>
         </Layout>
