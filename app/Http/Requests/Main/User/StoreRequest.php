@@ -14,6 +14,9 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if (!user()->hasPermission('create_system_admins') and $this->division_id != user()->division->id)
+            return false;
+
         return true;
     }
 
