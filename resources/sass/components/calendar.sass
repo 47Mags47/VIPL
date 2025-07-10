@@ -1,4 +1,4 @@
-@use '../../abstracts' as *
+@use '../abstracts' as *
 
 .ant-picker-calendar
     padding: 0px 0px
@@ -13,6 +13,33 @@
     padding: 0
     width: 100%
     box-sizing: border-box
+    .calendar-header
+        margin-left: auto
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        gap: 8px
+        flex-wrap: nowrap
+        width: 100%
+        padding: 8px
+        .calendar-select-group
+            display: flex
+            gap: 8px
+            align-items: center
+        .calendar-action
+            display: flex
+            align-items: center
+        .button
+            background-color: transparent
+            border: 1px solid var(--input-border-color)
+            color: rgb(34, 34, 34)
+            font-weight: normal
+            padding: 7px 24px
+            border-radius: 7px
+            cursor: pointer
+            transition: all 0.2s ease
+            white-space: nowrap
+
     .ant-picker-content
         width: 100%
         height: 100%
@@ -96,19 +123,3 @@
     line-height: 16px
     font-weight: bold
     flex: 0 0 auto
-.calendar-action
-    padding-top: 5px
-    display: flex
-    justify-content: flex-end
-    padding-right: 8px
-    .button
-        background-color: transparent
-        border: 1px solid #3D9AD1
-        color: rgb(34, 34, 34)
-        font-weight: normal
-        padding: 7px 24px
-        border-radius: 7px
-        cursor: pointer
-        transition: all 0.2s ease
-        &:hover
-            border: 1px solid #00a2ff
