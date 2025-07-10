@@ -12,12 +12,13 @@ Route::controller(AuthSessionController::class)->group(function () {
         Route::post('/forgot-password', 'passwordEmail')->name('password.email');
         Route::get('/reset-password/{token}', 'passwordReset')->name('password.reset');
         Route::post('/reset-password', 'passwordUpdate')->name('password.update');
-
     });
     Route::middleware('auth')->group(function () {
         Route::post('/logout', 'logout')->name('logout');
 
-        Route::get('/change-edit', 'passwordEdit')->name('password.edit');
-        Route::post('/change-password', 'passwordChangePost')->name('password.change');
+        Route::withoutMiddleware('password-expired')->group(function () {
+            Route::get('/change-edit', 'passwordEdit')->name('password.edit');
+            Route::post('/change-password', 'passwordChangePost')->name('password.change');
+        });
     });
 });

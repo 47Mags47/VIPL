@@ -9,9 +9,9 @@ export default function ResetPassword() {
 
     const { data, setData, post, processing } = useForm({
         email: email,
-        old_password: '',
         password: '',
-        password_confirmation: '',
+        new_password: '',
+        new_password_confirmation: '',
     })
 
     function onSubmit(e) {
@@ -23,30 +23,30 @@ export default function ResetPassword() {
     return (
         <Layout>
             <Form
-                header="Восстановление пароля"
+                header="Смена пароля"
                 sbm="Отправить"
                 handleSubmit={onSubmit}
             >
                 <Input
                     type="password"
-                    name="old_password"
-                    label="Старый пароль"
-                    value={data.old_password}
-                    onChange={(e) => setData('old_password', e.target.value)}
-                />
-                <Input
-                    type="password"
                     name="password"
-                    label="Новый пароль"
+                    label="Старый пароль"
                     value={data.password}
                     onChange={(e) => setData('password', e.target.value)}
                 />
                 <Input
                     type="password"
-                    name="password_confirmation"
+                    name="new_password"
+                    label="Новый пароль"
+                    value={data.new_password}
+                    onChange={(e) => setData('new_password', e.target.value)}
+                />
+                <Input
+                    type="password"
+                    name="new_password_confirmation"
                     label="Повторите пароль"
-                    value={data.password_confirmation}
-                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                    value={data.new_password_confirmation}
+                    onChange={(e) => setData('new_password_confirmation', e.target.value)}
                 />
             </Form>
         </Layout>

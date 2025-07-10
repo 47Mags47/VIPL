@@ -24,8 +24,8 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'exists:'. User::class .',email'],
-            'old_password' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:4', 'max:255', 'confirmed'],
+            'password' => ['required', 'string'],
+            'new_password' => ['required', 'string', 'min:4', 'max:255', 'confirmed'],
         ];
     }
 }

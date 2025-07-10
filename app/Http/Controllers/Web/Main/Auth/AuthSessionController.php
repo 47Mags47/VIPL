@@ -34,7 +34,8 @@ class AuthSessionController extends Controller
             or Auth::attempt(['login' => $login, 'password' => $password], $remember)
         ) {
             if (user()->password_expired)
-                return redirect()->route('password.reset');
+                return redirect()->route('password.edit')
+                    ->with('message', 'Для продолжения необходимо сменить пароль');
 
             if (user()->hasPermission('system_configuration'))
                 return redirect()->route('config.index');
@@ -110,7 +111,7 @@ class AuthSessionController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             user()->forceFill([
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->new_password)
             ])->setRememberToken(Str::random(60));
 
             event(new PasswordReset(user()));

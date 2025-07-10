@@ -5,7 +5,7 @@ import ItemMenu from '@/components/menu/ItemMenu';
 
 
 export default function Meny() {
-    const user = usePage().props.user.data;
+    const user = usePage().props.current_user.data;
 
     let meny = []
     if (user.permissions.includes('edit_glossary'))
@@ -21,7 +21,7 @@ export default function Meny() {
             ],
         })
 
-    if (user.permissions.includes('edit_users'))
+    if (user.permissions.includes('create_users'))
         meny.push({ key: 'users', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> })
 
     if (user.permissions.includes('system_configuration'))
