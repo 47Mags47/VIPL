@@ -73,7 +73,7 @@ export default function Edit() {
                 <DatePicker
                     name="contract[signed_at]"
                     label="Дата заключения"
-                    value={data.contract.signed_at ? dayjs(data.contract.signed_at, 'YYYY-MM-DD') : null}
+                    value={data.contract.signed_at ? dayjs(data.contract.signed_at, 'YYYY-MM-DD') : dayjs()}
                     onChange={(value) => setData('contract.signed_at', value ? value.format('YYYY-MM-DD') : '')}
                 />
             </Form>
