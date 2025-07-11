@@ -1,7 +1,7 @@
 import { useForm, usePage } from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { VerticalForm as Form, StringInput as Input, Select, DatePicker } from '@/components/forms';
 
 
 export default function Create() {
