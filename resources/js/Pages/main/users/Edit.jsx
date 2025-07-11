@@ -2,7 +2,7 @@ import { useForm, usePage } from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
 import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
-import BlueButton from '@/components/buttons/BlueButton';
+import { SendButton } from '@/components/table';
 import { router } from '@inertiajs/react';
 
 
@@ -28,10 +28,9 @@ export default function Edit() {
     const info = () => {
         if (user.status.code !== 'active')
             return (
-                <BlueButton onClick={sendIvation}>Отправить приглашение</BlueButton>
+                <SendButton onClick={sendIvation} />
             )
     }
-
 
     return (
         <Layout>
