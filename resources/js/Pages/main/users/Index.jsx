@@ -1,7 +1,7 @@
 import { usePage } from "@inertiajs/react";
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
+import { Table, AddButton, EditButton, OffButton } from "@/components/table";
 
 
 export default function Index() {
@@ -73,7 +73,7 @@ export default function Index() {
             key: 'delete',
             width: 80,
             render: (_, record) => (
-                <DeleteButton href={route('main.users.destroy', {user: record.id})} />
+                <OffButton href={route('main.users.destroy', {user: record.id})} />
             )
         },
         {
