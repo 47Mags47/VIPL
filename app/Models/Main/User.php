@@ -4,6 +4,7 @@ namespace App\Models\Main;
 
 use App\Models\Glossary\Division;
 use App\Models\Glossary\UserStatus;
+use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\Named;
 use App\Traits\RolesAndPermissions;
@@ -23,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         RolesAndPermissions,
         HasFilter,
         HasFactory,
+        hasApi,
         Notifiable,
         SoftDeletes,
         CanResetPassword;
@@ -55,9 +57,39 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    ### Функции
+    protected $attributes = [
+        'password_expired' => false,
+    ];
+
+    ### Ограничения
     ##################################################
 
+    public static function scopeNotRoot(Builder $builder): Builder
+    {
+        return $builder->whereHas('roles', function ($query) {
+            return $query->whereNot('code', 'root');
+        });
+    }
+
+    public function scopeNotCurrent(Builder $builder): Builder
+    {
+        return $builder->whereNot('id', user()->id);
+    }
+
+    public function scopeHasEditAccessToCurrentUser(Builder $builder): Builder
+    {
+        $builder
+            ->notRoot()
+            ->notCurrent();
+
+        if (!user()->hasPermission('create_system_admins'))
+            $builder->where('division_id', user()->division->id);
+
+        return $builder;
+    }
+
+    ### Функции
+    ##################################################
     /**
      * Меняет статус пользователя
      *
@@ -75,10 +107,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this;
     }
 
-    public function scopeNotRoot(){
-        $roots = Role::roots()->users;
-        return $this->whereNotIn('id', $roots->pluck('id')->toArray());
-    }
+    // public function scopeNotRoot(){
+    //     $roots = Role::roots()->users;
+    //     return $this->whereNotIn('id', $roots->pluck('id')->toArray());
+    // }
 
     ### Связи
     ##################################################

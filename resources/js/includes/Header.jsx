@@ -4,7 +4,7 @@ import Meny from './Meny';
 
 export default function Header() {
     const logo = 'VIPL';
-    const user = usePage().props.user.data;
+    const user = usePage().props.current_user.data;
 
     return (
         <header>
