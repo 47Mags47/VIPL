@@ -1,7 +1,7 @@
 import { usePage } from "@inertiajs/react";
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, GoToButton } from "@/components/table";
+import { Table, GoToButton, DeleteButton } from "@/components/table";
 import StatusCircle from "@/components/StatusCircle";
 
 export default function Index() {
@@ -33,6 +33,13 @@ export default function Index() {
             title: 'На сумму',
             dataIndex: 'totalSumm',
             width: 300,
+        },
+        {
+            key: 'goTo',
+            width: 80,
+            render: (_, record) => (
+                <DeleteButton href={route('payments.packages.destroy', { package: record.id })} />
+            )
         },
         {
             key: 'goTo',

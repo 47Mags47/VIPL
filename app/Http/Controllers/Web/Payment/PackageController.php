@@ -21,4 +21,11 @@ class PackageController extends Controller
     {
         return redirect()->route('payments.files.index', compact('package'));
     }
+
+    public function destroy(Package $package){
+        $event = $package->event;
+        $package->delete();
+
+        return redirect()->route('payments.packages.index', compact('event'))->with('message', 'Запись удалена');
+    }
 }

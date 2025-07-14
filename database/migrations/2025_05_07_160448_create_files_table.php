@@ -28,7 +28,7 @@ return new class extends Migration
             $table->json('errors');
             $table->json('error_context')->nullable();
 
-            $table->uuid('package_id')->constrained(Package::getTableName());
+            $table->uuid('package_id')->constrained(Package::getTableName())->cascadeOnDelete();
             $table->foreignId('bank_id')->constrained(Bank::getTableName());
             $table->foreignId('status_id')->constrained(FileStatus::getTableName());
             $table->timestamps();
