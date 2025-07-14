@@ -2,6 +2,7 @@
 
 namespace App\Models\Payment;
 
+use App\Models\Glossary\Bank;
 use App\Models\Glossary\Payment;
 use App\Traits\hasApi;
 use App\Traits\Named;
@@ -9,6 +10,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -64,6 +66,22 @@ class Event extends Model
     public static function byDate(Carbon|CarbonImmutable $date)
     {
         return self::query()->where('date', $date)->get();
+    }
+
+    /**
+     * @return array Массив типа ['bank' => Bank, 'files' => [File...]]
+     */
+    public function filesGroupByBank()
+    {
+        $files = $this->packages->map(fn($package) => $package->files)->collapse();
+
+        $files_groupBy_bank = [];
+        foreach ($files as $file) {
+            $files_groupBy_bank[$file->bank_id]['bank'] = $file->bank;
+            $files_groupBy_bank[$file->bank_id]['files'][] = $file;
+        }
+
+        return array_values($files_groupBy_bank);
     }
 
     ### Связи

@@ -28,7 +28,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['code' => 'edit_glossary',                  'name' => 'Заполнение справочников']);
         Permission::create(['code' => 'create_users',                   'name' => 'Создание пользователей']);
         Permission::create(['code' => 'create_system_admins',           'name' => 'Создание администраторов системы']);
-        Permission::create(['code' => 'create_division_admins',        'name' => 'Создание администраторов подразделений']);
+        Permission::create(['code' => 'create_division_admins',         'name' => 'Создание администраторов подразделений']);
+        Permission::create(['code' => 'create_payment_raports',         'name' => 'Создание отчетов по выплатам']);
 
         ### RolePivotPermission
         ##################################################
@@ -43,6 +44,7 @@ class PermissionSeeder extends Seeder
         RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'create_users']);
         RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'create_system_admins']);
         RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'create_division_admins']);
+        RolePivotPermission::create(['role_code' => 'system_admin',     'permission_code' => 'create_payment_raports']);
 
         // division_admin
         RolePivotPermission::create(['role_code' => 'division_admin',   'permission_code' => 'create_users']);

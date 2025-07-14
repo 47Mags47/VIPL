@@ -17,12 +17,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__file_status', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->string('name');
-        });
-
         Schema::create('payment__files', function (Blueprint $table) {
             $table->id();
 
@@ -47,6 +41,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('payment__files');
-        Schema::dropIfExists('glossary__file_status');
     }
 };

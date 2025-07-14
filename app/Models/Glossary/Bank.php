@@ -2,12 +2,14 @@
 
 namespace App\Models\Glossary;
 
+use App\Models\Payment\File;
 use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bank extends Model
@@ -29,13 +31,17 @@ class Bank extends Model
 
     ### Связи
     ##################################################
-    public function exporter():BelongsTo
+    public function exporter(): BelongsTo
     {
         return $this->belongsTo(BankExporter::class, 'exporter_id');
     }
 
-    public function contract():BelongsTo
+    public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class, 'contract_id');
+    }
+
+    public function files(): HasMany {
+        return $this->hasMany(File::class, 'bank_id');
     }
 }

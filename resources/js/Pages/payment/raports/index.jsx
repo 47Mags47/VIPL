@@ -2,8 +2,10 @@ import { usePage, router } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import { Table, GoToButton, DeleteButton } from "@/components/table";
+import { Table } from "@/components/table";
 import BlueButton from '@/components/buttons/BlueButton';
+import DownloadButton from '@/components/buttons/DownloadButton';
+import EchoProgress from '@/components/EchoProgress';
 
 
 export default function Index() {
@@ -11,42 +13,67 @@ export default function Index() {
 
     const columns = [
         {
-            title: 'id',
-            dataIndex: 'id',
+            title: 'Статус',
+            dataIndex: 'status',
+            width: 80,
+            render: (_, record) => {
+                return (
+                    <EchoProgress
+                        chanel={`raports.${record.id}`}
+                        event='.update'
+                        type="circle"
+                        status={record.status.type}
+                        size={35}
+                    />
+                )
+            }
         },
         {
             title: ' Наименование',
-            dataIndex: 'original_name',
+            dataIndex: 'name',
+            width: 350,
         },
         {
-            title: 'Кто начал',
-            dataIndex: 'start_by',
+            title: 'Запустил',
+            dataIndex: ['start_by', 'name'],
+            width: 250,
         },
         {
             title: 'Создан',
             dataIndex: 'created_at',
+            width: 100,
             render: (value) => new Date(value).toLocaleDateString()
         },
         {
-            title: '',
-            key: 'show',
-            width: 80,
-            render: (_, record) => (
-                <GoToButton href={route('payments.raports.show', { raport: record.id })} />
-            )
+            title: 'Комментарий',
+            dataIndex: 'comment',
+            render: (_, record) => (<></>)
         },
         {
-            key: 'delete',
+            title: '',
+            key: 'download-bank-files',
             width: 80,
-            render: (_, record) => (
-                <DeleteButton href={route('payments.raports.destroy', { raport: record.id })} />
-            )
+            render: (_, record) => {
+                return record.status.code === 'created'
+                    ? (
+                        <DownloadButton href={route('payments.bank-files.download', { raport: record.id })}>
+                            <i className="fa-solid fa-folder"></i>
+                        </DownloadButton>
+                    )
+                    : ''
+            }
+        },
+        {
+            title: '',
+            key: 'download-raport',
+            width: 80,
+            render: (_, record) => {
+                return record.status.code === 'created'
+                    ? (<DownloadButton href={route('payments.raports.download', { raport: record.id })} />)
+                    : ''
+            }
         },
     ]
-
-    function raportGenerate(){
-        router.post(route('payments.raports.store', { event: event.data.id }))
-    }
 
     return (
         <AuthenticatedLayout>
@@ -55,7 +82,7 @@ export default function Index() {
                 columns={columns}
                 data={raports}
                 actions={
-                    <BlueButton onClick={raportGenerate}>
+                    <BlueButton onClick={() => router.post(route('payments.raports.store', { event: event.data.id }))}>
                         Сформировать отчет
                     </BlueButton>
                 }

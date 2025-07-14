@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Payment\GenerateFromBanks;
+use App\Jobs\Payment\raports\GenerateJob;
 use App\Models\Payment\Raport;
 use App\Models\Payment\Event;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class RaportController extends Controller
@@ -26,21 +24,13 @@ class RaportController extends Controller
 
     public function store(Event $event)
     {
-        GenerateFromBanks::dispatch($event, user());
+        GenerateJob::dispatch($event, user());
 
         return back()->with('message', 'Запущено формирование файлов в банк');
     }
 
-    public function show(Raport $raport)
+    public function download(Raport $raport)
     {
-        Storage::disk($raport->disk)->download($raport->localPath());
-
-        return back();
-    }
-
-    public function destroy(Raport $raport) {
-        $raport->delete();
-
-        return back()->with('message', 'Отчет удален');
+        return $raport->download();
     }
 }

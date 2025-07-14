@@ -1,5 +1,6 @@
 <div>
-    <h1>Вас пригласили {{ config('app.name') }}</h1>
+    <img src="favicon.ico" alt="">
+    <h1>Вас пригласили c.lfnj {{ config('app.name') }}</h1>
     <p>
         Данные для входа:<br>
         Логин: {{ $user->email }}<br>

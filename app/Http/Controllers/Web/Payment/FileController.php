@@ -49,7 +49,7 @@ class FileController extends Controller
             'errors' => [],
             'package_id' => $package->id,
             'bank_id' => $request->bank,
-            'status_id' => FileStatus::byCode('uploaded')->id
+            'status_id' => FileStatus::byCode('loading')->id
         ]);
 
         UploadEvent::dispatch($file);

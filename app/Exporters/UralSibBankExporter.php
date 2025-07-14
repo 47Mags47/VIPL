@@ -20,7 +20,7 @@ class UralSibBankExporter extends Exporter
 
         $f = fopen($this->getFullPath(), 'w');
 
-        $info_line = str_pad($row_count, 5, ' ', STR_PAD_LEFT) . '5555746' . str_pad($total_summ, 15, ' ', STR_PAD_LEFT) . 'z';
+        $info_line = str_pad($row_count, 5, ' ', STR_PAD_LEFT) . '5555746' . str_pad(number_format($total_summ, 2, '.', ''), 15, ' ', STR_PAD_LEFT) . 'z';
         fwrite($f, iconv('UTf-8', 'CP866', $info_line));
 
         foreach ($this->recipients as $i => $recipient) {

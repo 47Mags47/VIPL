@@ -63,11 +63,7 @@ if (! function_exists('formatSizeUnits')) {
 if (! function_exists('sys_config')) {
     function sys_config(string|null $param = null)
     {
-        $config = App\Models\Sys\Config::byCode($param);
-
-        return $param == null
-            ? $config
-            : $config[$param];
+        return App\Models\Sys\Config::byCode($param)?->value;
     }
 }
 

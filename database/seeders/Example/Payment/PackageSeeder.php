@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Example\Payment;
 
+use App\Models\Glossary\PackageStatus;
 use App\Models\Glossary\Payment;
 use App\Models\Payment\Event;
 use App\Models\Payment\Package;
@@ -16,6 +17,9 @@ class PackageSeeder extends Seeder
     {
         Payment::createEventsToPeriod(now()->startOfMonth(), now()->endOfMonth());
 
-        Package::factory(10)->create(['event_id' => Event::first()->id]);
+        Package::factory(2)->create([
+            'event_id' => Event::first()->id,
+            'status_id' => PackageStatus::byCode('ready')->id,
+        ]);
     }
 }

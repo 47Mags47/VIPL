@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Payment\BankFileController;
 use App\Http\Controllers\Web\Payment\EventController;
 use App\Http\Controllers\Web\Payment\FileController;
 use App\Http\Controllers\Web\Payment\PackageController;
@@ -33,8 +34,13 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
     Route::name('raports.')->controller(RaportController::class)->group(function () {
         Route::get('/events/{event}/raports', 'index')->name('index');
         Route::post('/events/{event}/raports', 'store')->name('store');
-        Route::get('/raports/{raport}/show', 'show')->name('show');
-        Route::delete('/raports/{raport}/destroy', 'destroy')->name('destroy');
+
+        Route::get('/raports/{raport}/download', 'download')->name('download');
+        Route::put('/raports/{raport}/update', 'update')->name('update');
+    });
+
+    Route::name('bank-files.')->controller(BankFileController::class)->group(function () {
+        Route::get('/raports/{raport}/bank-files/download', 'download')->name('download');
     });
 
 });

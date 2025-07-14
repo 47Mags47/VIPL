@@ -20,21 +20,17 @@ class FileResource extends JsonResource
             'name' => $this->origin_name,
             'status' => [
                 'name' => $this->status->name,
-                'color' => [
-                    'uploaded' => 'orange',
-                    'reading' => 'orange',
-                    'read' => 'orange',
-                    'loading' => 'orange',
-                    'load' => 'green',
-                    'has-errors' => 'red',
-                ][$this->status->code],
+                'color' =>
+                $this->status->code === 'load'
+                    ? ['job' => 'green',]
+                    : ['job' => 'orange', 'error' => 'red', 'has-error' => 'red'][$this->status->type],
             ],
             'recipients' => $this->recipients()->count(),
             'summ' => number_format($this->getTotalSumm(), 2, '.', ' ') . ' RUB',
             'hash' => Storage::disk($this->disk)->checksum($this->localPath()),
             'size' => formatSizeUnits(Storage::disk($this->disk)->size($this->localPath())),
             'bank' => $this->bank->toResource(),
-            'errors'=> [
+            'errors' => [
                 'list' => $this->errors ?? [],
                 'context' => $this->error_context ?? []
             ],
