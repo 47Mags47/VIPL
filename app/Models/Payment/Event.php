@@ -3,6 +3,7 @@
 namespace App\Models\Payment;
 
 use App\Models\Glossary\Bank;
+use App\Models\Glossary\FileStatus;
 use App\Models\Glossary\Payment;
 use App\Traits\hasApi;
 use App\Traits\Named;
@@ -73,7 +74,9 @@ class Event extends Model
      */
     public function filesGroupByBank()
     {
-        $files = $this->packages->map(fn($package) => $package->files)->collapse();
+        $done_statuses = FileStatus::where('type', 'done')->get('id')->pluck('id')->toArray();
+
+        $files = $this->packages->map(fn($package) => $package->files()->whereIn('status_id', $done_statuses)->get())->collapse();
 
         $files_groupBy_bank = [];
         foreach ($files as $file) {

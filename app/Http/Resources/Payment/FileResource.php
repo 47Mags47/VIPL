@@ -20,10 +20,11 @@ class FileResource extends JsonResource
             'name' => $this->origin_name,
             'status' => [
                 'name' => $this->status->name,
-                'color' =>
-                $this->status->code === 'load'
-                    ? ['job' => 'green',]
-                    : ['job' => 'orange', 'error' => 'red', 'has-error' => 'red'][$this->status->type],
+                'color' => [
+                    'done' => 'green',
+                    'job' => 'orange',
+                    'error' => 'red',
+                ][$this->status->type],
             ],
             'recipients' => $this->recipients()->count(),
             'summ' => number_format($this->getTotalSumm(), 2, '.', ' ') . ' RUB',
