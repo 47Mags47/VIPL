@@ -7,6 +7,10 @@ use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @var string $table glossary__validator_column_types
+ * @var bool $timestamps false
+ */
 class ValidatorColumnType extends Model
 {
     use Named, hasCode, hasApi;

@@ -12,6 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
+/**
+ * @var string $table glossary__banks
+ *
+ * @property \App\Models\Glossary\BankExporter $exporter Модель экспортера для формирования файлов в банк
+ * @property \App\Models\Glossary\Contract $contract Модель договора с банком
+ * @property \lluminate\Support\Collection $files [App\Models\Payment\File] (файлов) на выплату
+ */
 class Bank extends Model
 {
     use Named, HasFilter, HasLog, hasApi, SoftDeletes;
@@ -41,7 +49,8 @@ class Bank extends Model
         return $this->belongsTo(Contract::class, 'contract_id');
     }
 
-    public function files(): HasMany {
+    public function files(): HasMany
+    {
         return $this->hasMany(File::class, 'bank_id');
     }
 }
