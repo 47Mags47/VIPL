@@ -23,9 +23,9 @@ export default function DatePicker({ ...props }) {
                 value={dayjs(value, 'DD-MM-YYYY') ?? ''}
                 onChange={onChange}
                 locale={locale.Calendar}
-                placeholder='__-__-____'
+                placeholder='__.__.____'
                 format={{
-                    format: 'DD-MM-YYYY',
+                    format: 'DD.MM.YYYY',
                     type: 'mask',
                 }}
                 {...props}
