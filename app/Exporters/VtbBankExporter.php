@@ -23,7 +23,7 @@ class VtbBankExporter extends Exporter
         $date = $this->event->date->format('Ymd');
         $npp = substr($this->npp, 3, 2);
         $payment_type = 'CREDIT';
-        $division_name = division('name');
+        $division_name = sys_config('division.name');
 
         $start_line = "$tag;$date;$npp;$payment_type;$division_name";
         fwrite($this->f, iconv('UTf-8', 'Windows-1251', $start_line));

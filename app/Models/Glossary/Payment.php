@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+/**
+ * @var string $table glossary__payments
+ *
+ * @property \App\Models\Glossary\PaymentPeriodicity $periodicity Модель переодичности выплаты
+ * @property \App\Models\Glossary\Law $law Модель закона на основании которого осуществляется выплата
+ * @property \lluminate\Support\Collection $events [\App\Models\payment\Event] (событий) созданных на основе выплаты
+ */
 class Payment extends Model
 {
     use Named, HasFilter, HasLog, hasApi, SoftDeletes;

@@ -18,21 +18,18 @@ class RecipientFactory extends Factory
     public function definition(): array
     {
         return [
-            'file_id' => File::all()->random()->id,
-
-            'first_name'=> $this->faker->firstName('men'),
-            'last_name'=> $this->faker->lastName('men'),
-            'middle_name'=> $this->faker->firstName('men') . 'ич',
-            'd_rojd' => $this->faker->date(),
-            'snils' => $this->faker->numerify('###-###-### ##'),
-
-            'account' => $this->faker->numerify('####################'),
-            'summ' => $this->faker->randomFloat(2),
-
-            'p_series' => $this->faker->numerify('####'),
-            'p_number' => $this->faker->numerify('######'),
-            'p_date' => $this->faker->date(),
-            'p_div' => $this->faker->company(),
+            'file_id'           => File::all()->random()->id,
+            'first_name'        => mb_strtoupper($this->faker->firstName('men')),
+            'last_name'         => mb_strtoupper($this->faker->lastName('men')),
+            'middle_name'       => mb_strtoupper($this->faker->firstName('men') . 'ич'),
+            'd_rojd'            => $this->faker->date(),
+            'snils'             => $this->faker->numerify('###-###-### ##'),
+            'account'           => $this->faker->numerify('####################'),
+            'summ'              => $this->faker->randomFloat(2),
+            'p_series'          => $this->faker->numerify('####'),
+            'p_number'          => $this->faker->numerify('######'),
+            'p_date'            => $this->faker->date(),
+            'p_div'             => $this->faker->company(),
 
         ];
     }

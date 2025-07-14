@@ -13,6 +13,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @var string $table glossary__divisions
+ *
+ * @method Builder notRoot() Исключает root из выборки
+ * @method Builder createAccess() Исключает подразделения, для создания пользователей в которых у текущего пользователя нет прав
+ *
+ * @property \lluminate\Support\Collection $users [App\Models\Main\User] (пользователей) в подразделении
+ */
 class Division extends Model
 {
     use Named, HasLog, HasFilter, hasCode, hasApi, SoftDeletes;

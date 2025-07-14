@@ -14,8 +14,3 @@ Route::group([], [
     base_path('routes/web/glossary.php'),
     base_path('routes/web/payment.php'),
 ]);
-
-if (env('APP_ENV') === 'local')
-    Route::group([], [
-        base_path('routes/dev.php'),
-    ]);

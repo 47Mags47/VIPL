@@ -17,7 +17,7 @@ Route::controller(AuthSessionController::class)->group(function () {
         Route::post('/logout', 'logout')->name('logout');
 
         Route::withoutMiddleware('password-expired')->group(function () {
-            Route::get('/change-edit', 'passwordEdit')->name('password.edit');
+            Route::get('/edit-password', 'passwordEdit')->name('password.edit');
             Route::post('/change-password', 'passwordChangePost')->name('password.change');
         });
     });

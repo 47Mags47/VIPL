@@ -1,5 +1,7 @@
 <?php
 
+// DELETE
+
 namespace App\Jobs\Payment;
 
 use App\Models\Glossary\Bank;
@@ -41,6 +43,7 @@ class GeneratePaymentRaport implements ShouldQueue
         $files_groupBy_bank = $this->raport->packages->map(function ($package) {
             return $package->files;
         })->collapse()->groupBy('bank_id');
+        dd($files_groupBy_bank);
         /* END */
 
         // Заполняем шапку документа

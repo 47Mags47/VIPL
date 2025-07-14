@@ -32,7 +32,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        if (user()->hasPermission('upload_payment_raport'))
+        if (user()->hasPermission('create_payment_raports'))
             return redirect()->route('payments.packages.index', compact('event'));
         else {
             $package = Package::firstOrCreate([
