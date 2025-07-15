@@ -34,7 +34,6 @@ class PermissionSeeder extends Seeder
         ### RolePivotPermission
         ##################################################
         // root
-        RolePivotPermission::create(['role_code' => 'root',             'permission_code' => 'edit_glossary']);
         RolePivotPermission::create(['role_code' => 'root',             'permission_code' => 'system_configuration']);
         RolePivotPermission::create(['role_code' => 'root',             'permission_code' => 'create_users']);
         RolePivotPermission::create(['role_code' => 'root',             'permission_code' => 'create_system_admins']);

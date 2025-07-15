@@ -82,7 +82,6 @@ export default function Index() {
                         ? ''
                         : <EditButton href={route('main.users.edit', { user: record.id })} />
                 )
-
             }
         }
     ];
