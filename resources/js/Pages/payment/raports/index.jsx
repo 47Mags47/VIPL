@@ -42,7 +42,13 @@ export default function Index() {
             title: 'Создан',
             dataIndex: 'created_at',
             width: 100,
-            render: (value) => new Date(value).toLocaleDateString()
+            render: (value) => new Date(value).toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
         },
         {
             title: 'Комментарий',
