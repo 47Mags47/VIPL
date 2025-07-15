@@ -1,7 +1,7 @@
 import { usePage } from "@inertiajs/react";
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, OffButton } from "@/components/table";
+import { Table, AddButton, EditButton, OffButton, OnButton } from "@/components/table";
 
 
 export default function Index() {
@@ -54,14 +54,6 @@ export default function Index() {
         {
             title: 'Роли',
             dataIndex: ['roles', 'name'],
-            render: (_, record) => {
-                const roleNames = record.roles?.map(role => role.name).join(', ') || '—';
-                return <span>{roleNames}</span>;
-            }
-        },
-        {
-            title: 'Роли',
-            dataIndex: ['roles', 'name'],
             width: 150,
             render: (_, record) => {
                 const roleNames = record.roles?.map(role => role.name).join(', ') || '—';
@@ -72,18 +64,27 @@ export default function Index() {
             title: '',
             key: 'delete',
             width: 80,
-            render: (_, record) => (
-                <OffButton href={route('main.users.destroy', {user: record.id})} />
-            )
+            render: (_, record) => {
+                return (
+                    record.deleted
+                        ? <OnButton href={route('main.users.restore', { user: record.id })} />
+                        : <OffButton href={route('main.users.destroy', { user: record.id })} />
+                )
+            }
         },
         {
             title: '',
             key: 'edit',
             width: 80,
-            render: (_, record) => (
-                <EditButton href={route('main.users.edit', {user: record.id})} />
-            )
-        },
+            render: (_, record) => {
+                return (
+                    record.deleted
+                        ? ''
+                        : <EditButton href={route('main.users.edit', { user: record.id })} />
+                )
+
+            }
+        }
     ];
 
     return (

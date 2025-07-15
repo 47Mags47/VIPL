@@ -9,6 +9,7 @@ Route::middleware('auth')->prefix('/main')->name('main.')->group(function () {
         Route::resource('/users', UserController::class)->except(['show'])->withTrashed();
         Route::prefix('/users/{user}')->name('users.')->controller(UserController::class)->group(function () {
             Route::post('/send-invition', 'invitionSend')->name('invition.send');
+            Route::post('/restore', 'restore')->name('restore');
         });
     });
 
