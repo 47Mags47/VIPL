@@ -1,19 +1,29 @@
 import { useState } from 'react';
-import { usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Input from '@/components/inputs/Input';
+import Input from '@/components/forms/inputs/Input';
+
 import EditIco from '@/components/icons/EditIco';
 import CheckIco from '@/components/icons/CheckIco';
+import BlueButton from '@/components/buttons/BlueButton';
 
 export default function Index() {
-    const user = usePage().props.user.data;
+    const user = usePage().props.current_user.data;
 
-    const [values, setValues] = useState({
-        email: user.email,
+    const { data, setData, put, processing } = useForm({
         name: user.name,
-        last_name: 'Фамилия',
-        mid_name: 'Отчество',
-    });
+        email: user.email,
+    })
+
+    const [editing, setEditing] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        put(route('main.users.update', { user: user.id }), data)
+        setEditing(false);
+    };
+console.log(data
+);
 
     const styles = {
         container: {
@@ -77,43 +87,44 @@ export default function Index() {
         },
     };
 
-    function EditedField(props) {
-        const [editing, setEditing] = useState(false);
-
-        const handleSave = (e) => {
-            e.preventDefault();
-            setEditing(false);
-        };
-
+    function EditedField({ label, name, ico, type = 'text' }) {
         return (
             <div style={styles.fieldContainer}>
-
-                <label style={styles.label}>{props.label}</label>
-
+                <label style={styles.label}>{label}</label>
                 <div style={styles.section}>
                     <div style={styles.userInfo}>
-                        <span>{props.ico}</span>
+                        <span>{ico}</span>
                         {editing ? (
                             <Input
-                                type={props.type}
-                                name={props.name}
-                                value={props.value}
-                                onChange={(e) => props.onChange(e.target.value)}
+                                type={type}
+                                name={name}
+                                value={data[name]}
+                                onChange={(e) => setData(name, e.target.value)}
                                 style={styles.input}
                                 autoFocus
                             />
                         ) : (
-                            <span>{props.value}</span>
+                            <span>{data[name]}</span>
                         )}
                     </div>
-                    {editing ? (
-                        <CheckIco onClick={handleSave} />
-                    ) : (
-                        <EditIco onClick={() => setEditing(true)} />
-                    )}
+                    <div style={{ marginTop: '20px' }}>
+                        {editing ?
+                            <BlueButton
+                                onClick={handleSubmit}
+                            >
+                                Сохранить
+                            </BlueButton>
+                            :
+                            <BlueButton
+                                onClick={() => setEditing(true)}
+                            >
+                                Редактировать
+                            </BlueButton>
+                        }
+                    </div>
                 </div>
             </div>
-        );
+        )
     }
 
     return (
@@ -126,62 +137,20 @@ export default function Index() {
                 </div>
 
                 <div className="right-panel" style={styles.rightPanel}>
-                    <EditedField
-                        label="Фамилия"
-                        ico={<i className="fa-solid fa-signature"></i>}
-                        type={'text'}
-                        name={'last_name'}
-                        value={values.last_name}
-                        onChange={(newValue) =>
-                            setValues((prev) => ({ ...prev, last_name: newValue }))
-                        }
-                    />
-
-                    <EditedField
-                        label="Имя"
-                        ico={<i className="fa-solid fa-signature"></i>}
-                        type={'text'}
-                        name={'name'}
-                        value={values.name}
-                        onChange={(newValue) =>
-                            setValues((prev) => ({ ...prev, name: newValue }))
-                        }
-                    />
-
-                    <EditedField
-                        label="Отчество"
-                        ico={<i className="fa-solid fa-signature"></i>}
-                        type={'text'}
-                        name={'mid_name'}
-                        value={values.mid_name}
-                        onChange={(newValue) =>
-                            setValues((prev) => ({ ...prev, mid_name: newValue }))
-                        }
-                    />
-
-                    <EditedField
-                        label="Email"
-                        ico={<i className="fa-solid fa-envelope"></i>}
-                        type={'email'}
-                        name={'email'}
-                        value={values.email}
-                        onChange={(newValue) =>
-                            setValues((prev) => ({ ...prev, email: newValue }))
-                        }
-                    />
-
-                    <div className="password-container" style={styles.fieldContainer}>
-                        <label style={styles.label}>Пароль</label>
-                        <div style={styles.section}>
-                            <div style={styles.userInfo}>
-                                <span>
-                                    <i className="fa-solid fa-lock"></i>
-                                </span>
-                                <span>*********</span>
-                            </div>
-                            <EditIco onClick={() => { }} />
-                        </div>
-                    </div>
+                    <form>
+                        <EditedField
+                            label="Имя"
+                            name="name"
+                            ico={<i className="fa-solid fa-signature"></i>}
+                            type="text"
+                        />
+                        <EditedField
+                            label="Email"
+                            name="email"
+                            ico={<i className="fa-solid fa-envelope"></i>}
+                            type="email"
+                        />
+                    </form>
                 </div>
             </div>
         </AuthenticatedLayout>

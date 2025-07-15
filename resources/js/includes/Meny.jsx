@@ -29,6 +29,7 @@ export default function Meny() {
 
     const defaultMenyItems = [
         { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
+        { key: 'dashboard', label: <ItemMenu itemKey="dashboard" routeName="main.dashboard.index" text="Личный кабинет" /> },
         { key: 'edit-password', label: <ItemMenu itemKey="edit-password" routeName="password.edit" text="Сменить пароль" /> },
         { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
     ]
