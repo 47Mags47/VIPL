@@ -79,6 +79,8 @@
     status=active(Аля анимашка)|exception (Красная иконка и title с ошибкой)|success (Зеленая иконка)
 - [ ] f_62 - На странице payments.raports.index добавить ввод комментария
 - [ ] f_63 - На странице payments.raports.index добавить в выводу время создания
+- [ ] f_64 - На странице glossary.validator.edit перенести справку в левую часть
+- [ ] f_65 - Переписать стили для List и EditableList
 
 ### BACK-END
 - [x] b_1 - перелопатить ресурсы и контроллеры справочников

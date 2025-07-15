@@ -1,22 +1,43 @@
-import {BaseForm} from '@/components/forms'
+import { useForm, usePage } from '@inertiajs/react'
+
+import { EditableText } from '@/components/forms'
 
 
 export default function Index() {
+    const user = usePage().props.current_user.data
+
+    const { data, setData, put, processing } = useForm({
+        name: user.name,
+        email: user.email,
+    })
+
+    function onSubmit(e) {
+        put(route('main.users.update', { user: user.id }), data)
+    }
+
     return (
         <div className="dashboard-container">
-            <BaseForm>
-
-            </BaseForm>
-            {/* <form action="">
-                <div className="left-panel">
-                    <span>
-                        <i className="fa-solid fa-user-circle"></i>
-                    </span>
-                </div>
-                <div className="right-panel">
-
-                </div>
-            </form> */}
+            <div className="left-panel">
+                <span>
+                    <i className="fa-solid fa-user-circle"></i>
+                </span>
+            </div>
+            <div className="right-panel">
+                <EditableText
+                    name="name"
+                    label="ФИО"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    onBlur={onSubmit}
+                />
+                <EditableText
+                    name="email"
+                    label="Email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    onBlur={onSubmit}
+                />
+            </div>
         </div>
     )
 }
