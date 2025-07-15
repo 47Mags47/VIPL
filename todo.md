@@ -78,7 +78,7 @@
     type=circle|?line
     status=active(Аля анимашка)|exception (Красная иконка и title с ошибкой)|success (Зеленая иконка)
 - [ ] f_62 - На странице payments.raports.index добавить ввод комментария
-- [ ] f_63 - На странице payments.raports.index добавить в выводу время создания
+- [x] f_63 - На странице payments.raports.index добавить в выводу время создания
 
 ### BACK-END
 - [x] b_1 - перелопатить ресурсы и контроллеры справочников
