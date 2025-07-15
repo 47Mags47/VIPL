@@ -1,14 +1,16 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                             from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                from '@/layouts'
+import { VerticalForm as Form, StringInput as Input }   from '@/components/forms'
+
 
 export default function Edit() {
     const config = usePage().props.config.data
+
     const { data, setData, put, processing } = useForm({
         code: config.code,
         value: config.value,
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()

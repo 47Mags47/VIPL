@@ -1,12 +1,12 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                      from "@inertiajs/react"
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import {AuthenticatedLayout as Layout}  from "@/layouts"
 
-import Table from "@/components/Table";
+import Table                            from "@/components/table/Table"
 
-import Edit from "./Edit";
-import Create from "./Create";
-import Delete from "./Delete";
+import Edit                             from "./Edit"
+import Create                           from "./Create"
+import Delete                           from "./Delete"
 
 
 export default function DivisionIndex() {
@@ -86,10 +86,10 @@ export default function DivisionIndex() {
     //             <Delete record={record} />
     //         )
     //     },
-    ];
+    ]
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="id"
                 columns={columns}
@@ -101,6 +101,6 @@ export default function DivisionIndex() {
                     // <Create roles={roles} division={users.division} />
                 // }
             />
-        </AuthenticatedLayout>
-    );
+        </Layout>
+    )
 }

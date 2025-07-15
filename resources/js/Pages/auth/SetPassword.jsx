@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useState }             from "react"
+import { router }               from "@inertiajs/react"
 
-import GuestLayout from "@/Layouts/GuestLayout"
-import VerticalForm from "@/components/form/VerticalForm"
-import Input from "@/components/inputs/Input"
+import {GuestLayout as Layout}  from "@/layouts"
 
-import handleChange from '@/handles/input/handleChange';
-import { router } from "@inertiajs/react";
+import { VerticalForm, Input }  from "@/components/forms"
+
+import handleChange             from '@/handles/input/handleChange'
+
 
 export default function SetPassword() {
     const [values, setValues] = useState({
@@ -20,7 +21,7 @@ export default function SetPassword() {
     }
 
     return (
-        <GuestLayout>
+        <Layout>
             <VerticalForm header="Установите пароль" handleSubmit={onSubmit} sbm="Отправить">
                 <Input
                     type="password"
@@ -37,6 +38,6 @@ export default function SetPassword() {
                     onChange={(e) => { handleChange(e, values, setValues) }}
                 />
             </VerticalForm>
-        </GuestLayout>
+        </Layout>
     )
 }

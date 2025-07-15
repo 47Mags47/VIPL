@@ -7,7 +7,7 @@ export default function DeleteButton({ ...props }) {
     const href = props.href
 
     function destroy() {
-        if (confirm('Вы уверены, что хотите удалить щапись?'))
+        if (confirm('Вы уверены, что хотите удалить запись?'))
             router.delete(href)
     }
 

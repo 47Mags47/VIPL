@@ -1,7 +1,7 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                                      from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
+import { AuthenticatedLayout as Layout }                from '@/layouts'
+import { Table, AddButton, EditButton, DeleteButton }   from "@/components/table"
 
 
 export default function Index() {
@@ -37,6 +37,11 @@ export default function Index() {
             width: 150,
         },
         {
+            title: 'Дата начала',
+            dataIndex: ['start_at'],
+            render: (value) => new Date(value).toLocaleDateString()
+        },
+        {
             title: '',
             key: 'edit',
             width: 80,
@@ -52,7 +57,7 @@ export default function Index() {
                 <DeleteButton href={route('glossary.payments.destroy', { payment: record.id })} />
             )
         },
-    ];
+    ]
 
     return (
         <Layout>
@@ -65,5 +70,5 @@ export default function Index() {
                 }
             />
         </Layout>
-    );
+    )
 }

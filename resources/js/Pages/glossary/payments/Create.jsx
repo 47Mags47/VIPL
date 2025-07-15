@@ -1,7 +1,9 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                                            from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, TextArea, DatePicker } from '@/components/forms'
+
+import dayjs                                                                        from 'dayjs'
 
 
 export default function Create() {
@@ -12,7 +14,8 @@ export default function Create() {
         kbk: '',
         periodicity_id: '',
         law_id: '',
-    });
+        start_at: '',
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -68,7 +71,13 @@ export default function Create() {
                     value={data.periodicity_id}
                     onChange={(value) => setData('periodicity_id', value)}
                 />
+                <DatePicker
+                    name="start_at"
+                    label="Дата начала"
+                    value={data.start_at ? dayjs(data.start_at, 'YYYY-MM-DD') : dayjs()}
+                    onChange={(value) => setData('start_at', value ? value.format('YYYY-MM-DD') : '')}
+                />
             </Form>
         </Layout>
-    );
+    )
 }
