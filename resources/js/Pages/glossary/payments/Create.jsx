@@ -1,9 +1,9 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts'
+import { AuthenticatedLayout as Layout }                                            from '@/layouts'
 import { VerticalForm as Form, StringInput as Input, Select, TextArea, DatePicker } from '@/components/forms'
 
-import dayjs from 'dayjs'
+import dayjs                                                                        from 'dayjs'
 
 
 export default function Create() {
@@ -15,7 +15,7 @@ export default function Create() {
         periodicity_id: '',
         law_id: '',
         start_at: '',
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -79,5 +79,5 @@ export default function Create() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }

@@ -1,10 +1,10 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                 from '@inertiajs/react'
 
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Upload } from 'antd';
+import { UploadOutlined }                   from '@ant-design/icons'
+import { Button, Upload }                   from 'antd'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, Select } from '@/components/forms';
+import { AuthenticatedLayout as Layout }    from '@/layouts'
+import { VerticalForm as Form, Select }     from '@/components/forms'
 
 
 export default function Create() {
@@ -14,14 +14,13 @@ export default function Create() {
     const { data, setData, post, processing } = useForm({
         file: '',
         bank: '',
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
 
         post(route('payments.files.store', { package: PaymentPackage.id }), data)
     }
-
 
     return (
         <Layout>
