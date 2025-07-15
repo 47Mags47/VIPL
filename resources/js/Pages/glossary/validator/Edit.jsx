@@ -1,7 +1,7 @@
 import { useState }                                                 from 'react'
 import { useForm, usePage }                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts'
+import { AuthenticatedLayout as Layout }                            from '@/layouts'
 import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms'
 import BlueButton                                                   from '@/components/buttons/BlueButton'
 import PaperclipIco                                                 from '@/components/icons/PaperclipIco'

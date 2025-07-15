@@ -1,9 +1,10 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                                 from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts'
-import { VerticalForm as Form, StringInput as Input, Select, DatePicker } from '@/components/forms'
+import { AuthenticatedLayout as Layout }                                    from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, DatePicker }   from '@/components/forms'
 
-import dayjs from 'dayjs'
+import dayjs                                                                from 'dayjs'
+
 
 export default function Edit() {
     const bank = usePage().props.bank.data
@@ -25,7 +26,6 @@ export default function Edit() {
 
         put(route('glossary.banks.update', { bank: bank.id }), data)
     }
-
 
     return (
         <Layout>
@@ -78,5 +78,5 @@ export default function Edit() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }

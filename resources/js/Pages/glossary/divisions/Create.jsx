@@ -1,14 +1,14 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm }                                              from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                        from '@/layouts';
+import { VerticalForm as Form, StringInput as Input }   from '@/components/forms';
 
 
 export default function Create() {
     const { data, setData, post, processing } = useForm({
         code: '',
         name: '',
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -38,8 +38,7 @@ export default function Create() {
                 />
             </Form>
         </Layout>
-    );
-
+    )
 }
 
 

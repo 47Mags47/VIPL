@@ -1,8 +1,8 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                                      from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, DeleteButton, GoToButton } from "@/components/table";
-import StatusCircle from "@/components/StatusCircle";
+import { AuthenticatedLayout as Layout }                from '@/layouts'
+import { Table, AddButton, DeleteButton, GoToButton }   from "@/components/table"
+import StatusCircle                                     from "@/components/StatusCircle"
 
 export default function Index() {
     const files = usePage().props.files
@@ -85,5 +85,5 @@ export default function Index() {
                 }
             />
         </Layout>
-    );
+    )
 }
