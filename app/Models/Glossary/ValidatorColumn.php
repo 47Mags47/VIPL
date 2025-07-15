@@ -2,14 +2,20 @@
 
 namespace App\Models\Glossary;
 
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @var string $table glossary__validator_columns
+ *
+ * @property \App\Models\Glossary\ValidatorColumnType $type Модель типа валидции
+ */
 class ValidatorColumn extends Model
 {
-    use Named, hasCode;
+    use Named, hasCode, hasApi;
 
     ### Настройки
     ##################################################

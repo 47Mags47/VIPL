@@ -19,8 +19,9 @@ class BankResource extends JsonResource
             'number_code' => $this->number_code,
             'code' => $this->code,
             'name' => $this->name,
-            'contract' => BankContractResource::make($this->contract),
+
             'exporter' => BankExporterResource::make($this->exporter),
+            'contract' => BankContractResource::make($this->contract),
         ];
     }
 }

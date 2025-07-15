@@ -9,30 +9,44 @@ use App\Http\Requests\Glossary\Payment\UpdateRequest;
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Payment;
 use App\Models\Glossary\PaymentPeriodicity;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-    public function index(Request $request, PaymentFilter $filter)
+    public function index(PaymentFilter $filter)
     {
-        $payments = Payment::filter($filter)->paginate(50)->toResourceCollection();
-        $laws = Law::paginate(50)->toResourceCollection();
-        $periodicityes = PaymentPeriodicity::paginate(50)->toResourceCollection();
+        return Inertia::render('glossary/payments/Index', [
+            'payments' => fn() => Payment::filter($filter)->api(),
+        ]);
+    }
 
-        return Inertia::render('glossary/payments/index', compact('payments', 'laws', 'periodicityes'));
+    public function create()
+    {
+        return Inertia::render('glossary/payments/Create', [
+            'periodicities' => PaymentPeriodicity::api(),
+            'laws' => fn() => Law::api(),
+        ]);
     }
 
     public function store(StoreRequest $request)
     {
-        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id']));
+        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id', 'start_at']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно создана');
     }
 
+    public function edit(Payment $payment)
+    {
+        return Inertia::render('glossary/payments/Edit', [
+            'payment' => fn() => $payment->toResource(),
+            'periodicities' => PaymentPeriodicity::api(),
+            'laws' => fn() => Law::api(),
+        ]);
+    }
+
     public function update(UpdateRequest $request, Payment $payment)
     {
-        $payment->update($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id']));
+        $payment->update($request->only(['code', 'name', 'krv', 'kbk', 'law_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно обновлена');
     }

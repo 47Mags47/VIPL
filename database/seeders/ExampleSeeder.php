@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 
 class ExampleSeeder extends Seeder
 {
@@ -13,17 +11,18 @@ class ExampleSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(Dev\Glossary\BankSeeder::class);
-        $this->call(Dev\Glossary\DivisionSeeder::class);
-        $this->call(Dev\Glossary\SourceSeeder::class);
-        $this->call(Dev\Glossary\LawSeeder::class);
-        $this->call(Dev\Glossary\PaymentSeeder::class);
+        $this->call(Example\Glossary\BankSeeder::class);
+        $this->call(Example\Glossary\DivisionSeeder::class);
+        $this->call(Example\Glossary\SourceSeeder::class);
+        $this->call(Example\Glossary\LawSeeder::class);
+        $this->call(Example\Glossary\PaymentSeeder::class);
 
-        $this->call(Dev\Main\UserSeeder::class);
+        $this->call(Example\ConfigurateSeeder::class);
 
-        $this->call(Dev\Payment\EventSeeder::class);
-        $this->call(Dev\Payment\PackageSeeder::class);
-        $this->call(Dev\Payment\FileSeeder::class);
-        $this->call(Dev\Payment\RecipientSeeder::class);
+        $this->call(Example\Main\UserSeeder::class);
+
+        $this->call(Example\Payment\PackageSeeder::class);
+        $this->call(Example\Payment\FileSeeder::class);
+        $this->call(Example\Payment\RecipientSeeder::class);
     }
 }

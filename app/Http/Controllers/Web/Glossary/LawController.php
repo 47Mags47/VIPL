@@ -8,17 +8,22 @@ use App\Http\Requests\Glossary\Law\StoreRequest;
 use App\Http\Requests\Glossary\Law\UpdateRequest;
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Source;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class LawController extends Controller
 {
-    public function index(Request $request, LawFilter $filter)
+    public function index(LawFilter $filter)
     {
-        $laws = Law::filter($filter)->paginate(50)->toResourceCollection();
-        $sources = Source::all()->toResourceCollection();
+        return Inertia::render('glossary/laws/Index', [
+            'laws' => fn() => Law::filter($filter)->api(),
+        ]);
+    }
 
-        return Inertia::render('glossary/laws/index', compact('laws', 'sources'));
+    public function create()
+    {
+        return Inertia::render('glossary/laws/Create', [
+            'sources' => fn() => Source::api(),
+        ]);
     }
 
     public function store(StoreRequest $request)
@@ -26,6 +31,14 @@ class LawController extends Controller
         Law::create($request->only(['code', 'name', 'source_id']));
 
         return redirect()->route('glossary.laws.index')->with('message', 'Запись успешно создана');
+    }
+
+    public function edit(Law $law)
+    {
+        return Inertia::render('glossary/laws/Edit', [
+            'law' => fn() => $law->toResource(),
+            'sources' => fn() => Source::api(),
+        ]);
     }
 
     public function update(UpdateRequest $request, Law $law)

@@ -1,0 +1,61 @@
+@use '../../abstracts' as *
+
+.vertical-form-box
+    display: flex
+    justify-content: center
+    align-items: start
+
+.vertical-form
+    min-width: 500px
+    max-width: 550px
+    padding: 25px
+    margin-top: 40px
+
+    display: flex
+    flex-direction: column
+    gap: 10px
+
+    border-radius: 7px
+    box-shadow: 4px 4px 32px 16px #eee
+
+    .form-header
+        text-align: center
+        padding-bottom: 20px
+        color: var(--text-color)
+        font-weight: bold
+        font-size: 23px
+
+    .form-content
+        display: flex
+        flex-direction: column
+        gap: 5px
+
+        .form-group
+            display: flex
+            flex-direction: column
+            gap: 5px
+            color: var(--text-color)
+            &.inline
+                flex-direction: row
+                align-items: center
+                label
+                    padding: 5px 0
+                    flex: 1
+            label
+                display: block
+                font-weight: 500
+                color: var(--text-color)
+
+    .form-buttons
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 10px
+        padding: 0 75px
+
+        .button
+            flex: 1
+            @include button-scale
+            &.ico
+                width: 45px
+                height: 30px

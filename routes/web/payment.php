@@ -9,42 +9,38 @@ use App\Http\Controllers\Web\Payment\RecipientController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->prefix('/payments')->name('payments.')->group(function () {
-    Route::apiResource('events', EventController::class)->only([
-        'index',
-        'show'
-    ]);
+    Route::prefix('/events')->name('events.')->controller(EventController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{event}', 'show')->name('show');
+    });
 
-    Route::apiResource('event.packages', PackageController::class)->only([
-        'index',
-        'show'
-    ]);
+    Route::name('packages.')->controller(PackageController::class)->group(function () {
+        Route::get('/events/{event}/packages', 'index')->middleware('role:system_admin')->name('index');
+        Route::get('/packages/{package}', 'show')->name('show');
+        Route::delete('/packages/{package}', 'destroy')->middleware('role:system_admin')->name('destroy');
+    });
 
-    Route::get('/package/{packages}/files/check', [FileController::class, 'check'])->name('package.files.check');
-    Route::apiResource('package.files', FileController::class)->only([
-        'index',
-        'store',
-        'show',
-        'update',
-        'destroy'
-    ]);
+    Route::name('files.')->controller(FileController::class)->group(function () {
+        Route::get('/packages/{package}/files', 'index')->name('index');
+        Route::get('/packages/{package}/files/create', 'create')->name('create');
+        Route::post('/packages/{package}/files', 'store')->name('store');
+        Route::delete('packages/{package}/files/{file}', 'destroy')->name('destroy');
+        Route::get('/files/{file}/show', 'show')->name('show');
+    });
 
-    Route::apiResource('package.raports', RaportController::class)->only([
-        'index',
-        'store',
-        'show',
-        'destroy',
-    ]);
+    Route::name('recipients.')->controller(RecipientController::class)->group(function () {
+        Route::get('/files/{file}/recipients', 'index')->name('index');
+    });
 
-    Route::apiResource('package.bank-files', BankFileController::class)->only([
-        'index',
-        'show',
-        'destroy',
-    ]);
+    Route::name('raports.')->controller(RaportController::class)->group(function () {
+        Route::get('/events/{event}/raports', 'index')->name('index');
+        Route::post('/events/{event}/raports', 'store')->name('store');
 
-    Route::apiResource('file.recipients', RecipientController::class)->only([
-        'index',
-        'update',
-        'destroy'
-    ]);
+        Route::get('/raports/{raport}/download', 'download')->name('download');
+        Route::put('/raports/{raport}/update', 'update')->name('update');
+    })->middleware(['permission:create_payment_raports']);
 
+    Route::name('bank-files.')->controller(BankFileController::class)->group(function () {
+        Route::get('/raports/{raport}/bank-files/download', 'download')->name('download');
+    });
 });

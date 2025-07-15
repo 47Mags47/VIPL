@@ -14,17 +14,17 @@ class ValidatorSeeder extends Seeder
      */
     public function run(): void
     {
-        ValidatorColumnType::create(['code' => 'string']);
-        ValidatorColumnType::create(['code' => 'date']);
-        ValidatorColumnType::create(['code' => 'integer']);
-        ValidatorColumnType::create(['code' => 'float']);
+        ValidatorColumnType::create(['code' => 'string',    'name' => 'Строка']);
+        ValidatorColumnType::create(['code' => 'date',      'name' => 'Дата']);
+        ValidatorColumnType::create(['code' => 'integer',   'name' => 'Целое']);
+        ValidatorColumnType::create(['code' => 'float',     'name' => 'Дробное']);
 
         ValidatorColumn::create([
             'code' => 'np',
             'name' => 'Номер по порядку',
             'file_pos' => 1,
             'required' => false,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('integer')->id,
         ]);
 
@@ -33,7 +33,7 @@ class ValidatorSeeder extends Seeder
             'name' => 'Фамилия',
             'file_pos' => 2,
             'required' => false,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
@@ -42,7 +42,7 @@ class ValidatorSeeder extends Seeder
             'name' => 'Имя',
             'file_pos' => 3,
             'required' => true,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
@@ -51,7 +51,7 @@ class ValidatorSeeder extends Seeder
             'name' => 'Отчество',
             'file_pos' => 4,
             'required' => false,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
 
@@ -97,7 +97,7 @@ class ValidatorSeeder extends Seeder
             'name' => 'Сумма',
             'file_pos' => 8,
             'required' => true,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('float')->id,
         ]);
 
@@ -139,7 +139,7 @@ class ValidatorSeeder extends Seeder
             'name' => 'Папорт место выдачи',
             'file_pos' => 12,
             'required' => true,
-            'patterns' => null,
+            'patterns' => [],
             'type_id' => ValidatorColumnType::byCode('string')->id,
         ]);
     }

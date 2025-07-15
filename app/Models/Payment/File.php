@@ -4,6 +4,7 @@ namespace App\Models\Payment;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\FileStatus;
+use App\Traits\hasApi;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class File extends Model
 {
     ### Настройки
     ##################################################
-    use Named, HasLog, HasFactory;
+    use Named, HasLog, HasFactory, hasApi;
 
     protected $table = 'payment__files';
 
@@ -28,6 +29,7 @@ class File extends Model
         'name',
         'origin_name',
         'errors',
+        'error_context',
 
         'package_id',
         'bank_id',
@@ -38,22 +40,32 @@ class File extends Model
     {
         return [
             'errors' => 'array',
+            'error_context' => 'array',
         ];
     }
 
     ### Методы
     ##################################################
+    public function setStatus(string $status)
+    {
+        $this->update([
+            'status_id' => FileStatus::byCode($status)->id,
+        ]);
+    }
+
     public function addError(string $error, array|null $context = null)
     {
         $errors = $this->errors;
+        $errors[] = $error;
 
-        if ($context === null) {
-            $errors[] = $error;
-        } else {
-            $errors[] = [$error => $context];
-        }
+        $this->update([
+            'errors' => $errors,
+            'error_context' => $context,
+        ]);
 
-        $this->update(['errors' => $errors]);
+        $this->setStatus('has-errors');
+
+        return $this;
     }
 
     public function checkThisCSV()
@@ -73,6 +85,11 @@ class File extends Model
         return Storage::disk($this->disk)->path($this->localPath);
     }
 
+    public function scopeGetTotalSumm()
+    {
+        return $this->recipients->sum('summ');
+    }
+
     ### Связи
     ##################################################
     public function status(): BelongsTo
@@ -82,7 +99,7 @@ class File extends Model
 
     public function bank(): BelongsTo
     {
-        return $this->belongsTo(Bank::class, 'bank_id');
+        return $this->belongsTo(Bank::class, 'bank_id')->withTrashed();
     }
 
     public function recipients(): HasMany

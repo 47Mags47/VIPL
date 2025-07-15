@@ -4,7 +4,6 @@ namespace App\Http\Resources\Glossary;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Glossary\ContractSideResource;
 
 class BankContractResource extends JsonResource
 {
@@ -18,9 +17,6 @@ class BankContractResource extends JsonResource
         return [
             'number' => $this->number,
             'signed_at' => $this->signed_at->format('Y-m-d'),
-
-            'division_side' => ContractSideResource::make($this->division),
-            'bank_side' => ContractSideResource::make($this->bank),
         ];
     }
 }

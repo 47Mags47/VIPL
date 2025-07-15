@@ -3,30 +3,32 @@
 namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment\BankFile;
-use App\Models\Payment\Package;
+use App\Models\Payment\Raport;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use ZipArchive;
 
 class BankFileController extends Controller
 {
-    public function index(Package $package)
+    public function download(Raport $raport)
     {
-        $files = $package->bankFiles()->paginate(50)->toResourceCollection();
+        $archive_name = $raport->id . '.zip';
+        $archive_dir = 'archives';
+        $archive_path = Storage::disk('bank-files')->path($archive_dir . '/' . $archive_name);
 
-        return Inertia::render('payment/bankFile/index', compact('files'));
-    }
+        $zip = new ZipArchive();
+        $zip->open($archive_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-    public function show(BankFile $file)
-    {
-        // DEV добавить сборку архива
+        foreach ($raport->bankFiles as $file) {
+            $path = Storage::disk($file->disk)->path($file->localPath());
 
-        return back();
-    }
+            $zip->addFile($path, $file->bank->number_code . '/' . $file->name);
+        }
 
-    public function destroy(BankFile $file)
-    {
-        $file->delete();
+        $zip->close();
 
-        return back()->with('message', 'Файл удален');
+        $name = 'Файлы в банки по ' . $raport->event->code . 'выплате на ' . $raport->event->date->format('d.m.Y') . '.zip';
+
+        return Storage::disk('bank-files')->download($archive_dir . '/' . $archive_name, $name);
     }
 }

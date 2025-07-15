@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CalendarRequest;
-use App\Jobs\Payment\GenerateEvents;
 use App\Models\Glossary\PackageStatus;
+use App\Models\Glossary\Payment;
 use App\Models\Payment\Event;
 use App\Models\Payment\Package;
 use Carbon\CarbonImmutable;
@@ -15,30 +15,25 @@ class EventController extends Controller
 {
     public function index(CalendarRequest $request)
     {
-        GenerateEvents::dispatch();
+        $month = (int) ($request->input('month') ?? now()->month);
+        $year = (int) ($request->input('year') ?? now()->year);
 
-        $month = (int) ($request->month ?? now()->month);
-        $year = (int) ($request->year ?? now()->year);
-
-        $start_month = CarbonImmutable::createFromDate($year, $month, 1);
+        $start_month = CarbonImmutable::createFromDate($year, $month, 1)->startOfDay();
         $end_month = $start_month->endOfMonth();
 
-        $events = Event::whereBetween('date', [$start_month, $end_month])
-            ->get()
-            ->map(function ($event) {
-                return $event->toResource();
-            })
-            ->groupBy(function ($event) {
-                return $event->date->format('Y-m-d');
-            });
+        Payment::createEventsToPeriod($start_month, $end_month);
 
-        return Inertia::render('payment/events/index', compact('events', 'month', 'year'));
+        return Inertia::render('payment/events/index', [
+            'events' => fn() => Event::compactToPeriod($start_month, $end_month),
+            'month' => fn() => $month,
+            'year' => fn() => $year,
+        ]);
     }
 
     public function show(Event $event)
     {
-        if (user()->hasPermission('upload_payment_raport'))
-            return redirect()->route('payments.event.packages.index', compact('event'));
+        if (user()->hasPermission('create_payment_raports'))
+            return redirect()->route('payments.packages.index', compact('event'));
         else {
             $package = Package::firstOrCreate([
                 'event_id' => $event->id,
@@ -47,7 +42,7 @@ class EventController extends Controller
                 'status_id' => PackageStatus::byCode('created')->id
             ]);
 
-            return redirect()->route('payments.event.packages.show', compact('event', 'package'));
+            return redirect()->route('payments.packages.show', compact('package'));
         }
     }
 }

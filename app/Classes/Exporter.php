@@ -83,10 +83,9 @@ abstract class Exporter
             'disk' => 'local',
             'path' => $this->save_path,
             'name' => $this->file_name,
-            'original_name' => 'Отчет в банк ' . $this->bank->name,
+            'original_name' => 'Выгрузка для ' . $this->bank->name,
 
             'raport_id' => $raport->id,
-            'event_id' => $this->event->id,
             'bank_id' => $this->bank->id,
         ]);
 

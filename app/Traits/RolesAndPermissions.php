@@ -17,7 +17,7 @@ trait RolesAndPermissions
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, UserPivotRole::getTableName(), 'user_id', 'role_code', 'id', 'code');
+        return $this->belongsToMany(Role::class, UserPivotRole::getTableName(), 'user_id', 'role_code', 'id', 'code')->withoutGlobalScope('not root');
     }
 
     /**
@@ -106,19 +106,11 @@ trait RolesAndPermissions
      */
     public function hasPermission(string|Permission $permission)
     {
-        $permission_model = $permission instanceof Permission
+        $permission = $permission instanceof Permission
             ? $permission
             : Permission::whereCode($permission)->first();
 
-        if ($permission_model === null) return false;
-
-        foreach ($permission_model->roles as $role) {
-            if ($this->roles->contains($role)) {
-                return true;
-            }
-        }
-
-        return (bool) $this->permissions->where('code', $permission_model->code)->count();
+        return user()->rolePermissions()->contains($permission);
     }
 
     public function ScopeIsAdmin():bool

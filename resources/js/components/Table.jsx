@@ -1,5 +1,6 @@
+// DELETE Компонент является устаревшим и будет удален, замена на '@/components/table'
+
 import { Table as AntdTable } from 'antd';
-import TableSearch from '@/components/inputs/TableSearch'
 
 
 export default function Table({ only, current_page, last_page, from, actions, searUrl, ...props }) {
@@ -21,7 +22,7 @@ export default function Table({ only, current_page, last_page, from, actions, se
         <div className="table-box">
             <div className="top-side-box">
                 <div className="search-box">
-                    <TableSearch only={only}/>
+
                 </div>
                 <div className="actions-box">
                     {actions}

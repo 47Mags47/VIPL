@@ -1,9 +1,5 @@
-import BlueButton from '@/components/button/BlueButton'
-
-export default function AddIco({ onClick }) {
+export default function AddIco() {
     return (
-        <BlueButton className="ico" onClick={onClick}>
-            <i className="fa-solid fa-plus ico ico-add" ></i>
-        </BlueButton>
+        <i className="fa-solid fa-plus ico ico-add" ></i>
     )
 }

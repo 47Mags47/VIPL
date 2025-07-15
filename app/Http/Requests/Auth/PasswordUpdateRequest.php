@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Main\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordUpdateRequest extends FormRequest
@@ -22,7 +23,9 @@ class PasswordUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'string', 'min:4', 'max:255', 'confirmed']
+            'token' => ['required', 'string'],
+            'email' => ['required', 'email', 'exists:'. User::class .',email'],
+            'password' => ['required', 'string', 'min:4', 'max:255', 'confirmed'],
         ];
     }
 }

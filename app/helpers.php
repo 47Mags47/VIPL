@@ -59,3 +59,33 @@ if (! function_exists('formatSizeUnits')) {
         return $bytes;
     }
 }
+
+if (! function_exists('sys_config')) {
+    function sys_config(string|null $param = null)
+    {
+        return App\Models\Sys\Config::byCode($param)?->value;
+    }
+}
+
+if (! function_exists('applyNetMask')) {
+    function applyNetMask($ip, $mask)
+    {
+        if (is_string($ip)) $ip   = ip2long($ip);
+        if (is_string($mask)) $mask = ip2long($mask);
+
+        return long2ip(sprintf('%u', $ip & $mask));
+    }
+}
+
+
+if (! function_exists('isLocalRequest')) {
+    function isLocalRequest(Illuminate\Http\Request $request)
+    {
+        if ('10.0.0.0'    === applyNetMask($request->ip(), '255.0.0.0'))    return true;
+        if ('72.16.0.0'   === applyNetMask($request->ip(), '255.255.0.0'))  return true;
+        if ('127.0.0.0'   === applyNetMask($request->ip(), '255.0.0.0'))    return true;
+        if ('192.168.0.0' === applyNetMask($request->ip(), '255.255.0.0'))  return true;
+
+        return false;
+    }
+}

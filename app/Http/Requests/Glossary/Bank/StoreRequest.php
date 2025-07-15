@@ -4,19 +4,10 @@ namespace App\Http\Requests\Glossary\Bank;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
-use App\Models\Glossary\ContractSide;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,13 +23,6 @@ class StoreRequest extends FormRequest
 
             'contract.number'             => ['required', 'string', 'max:255'],
             'contract.signed_at'          => ['required', 'date'],
-            'contract.division_side_id'   => ['required', 'exists:' . ContractSide::getTableName() . ',id'],
-
-            'bank_side.name'              => ['required', 'string', 'max:255'],
-            'bank_side.INN'               => ['required', 'string', 'min:10', 'max:10'],
-            'bank_side.account'           => ['required', 'string', 'min:20', 'max:20'],
-            'bank_side.BIK'               => ['required', 'string', 'min:9',  'max:9'],
-            'bank_side.comment'           => ['nullable', 'string'],
         ];
     }
 }

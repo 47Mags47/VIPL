@@ -9,12 +9,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    protected function prepareForValidation()
     {
-        return true;
+        $this->merge([
+            'start_at' => now()
+        ]);
     }
 
     /**
@@ -59,6 +58,10 @@ class StoreRequest extends FormRequest
                 'required',
                 'exists:' . PaymentPeriodicity::class . ',id'
             ],
+            'start_at' => [
+                'required',
+                'date',
+            ]
         ];
     }
 }

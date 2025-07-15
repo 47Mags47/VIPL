@@ -9,15 +9,23 @@ use Inertia\Inertia;
 
 class PackageController extends Controller
 {
-    public function index(Event $event, Package $package)
+    public function index(Event $event)
     {
-        $packages = Package::where('event_id', $event->id)->orderBy('created_at', 'desc')->paginate(50)->toResourceCollection();
-
-        return Inertia::render('payment/packages/index', compact('packages'));
+        return Inertia::render('payment/packages/Index', [
+            'event' => fn() => $event->toResource(),
+            'packages' => fn() => $event->packages()->orderBy('created_at', 'desc')->api()
+        ]);
     }
 
-    public function show(Event $event, Package $package)
+    public function show(Package $package)
     {
-        return redirect()->route('payments.package.files.index', compact('package'));
+        return redirect()->route('payments.files.index', compact('package'));
+    }
+
+    public function destroy(Package $package){
+        $event = $package->event;
+        $package->delete();
+
+        return redirect()->route('payments.packages.index', compact('event'))->with('message', 'Запись удалена');
     }
 }

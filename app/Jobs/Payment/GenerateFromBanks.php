@@ -1,5 +1,7 @@
 <?php
 
+// DELETE
+
 namespace App\Jobs\Payment;
 
 use App\Models\Glossary\Bank;
@@ -49,7 +51,6 @@ class GenerateFromBanks implements ShouldQueue
             $job->handle();
         }
 
-        // // DEV b_36 Добавить формирование отчета
         $job = new GeneratePaymentRaport($raport);
         $job->handle();
     }

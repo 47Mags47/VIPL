@@ -1,0 +1,19 @@
+@use '../../../abstracts' as *
+
+.date-picker
+    @include input
+.date-picker:hover
+    @include input
+
+.ant-picker.ant-picker-focused
+    box-shadow: none
+
+.date-picker-popup
+    .ant-picker-cell-today
+        .ant-picker-cell-inner::before
+            border-color: #3D9AD1 !important
+
+    .ant-picker-content
+        .ant-picker-cell-selected
+            .ant-picker-cell-inner
+                background: #3D9AD1 !important

@@ -27,10 +27,10 @@ class RosSelhozBankExporter extends XMLExporter
         $this->writer->writeAttribute('ДатаФормирования',               now()->format('Y-m-d'));
         $this->writer->writeAttribute('НомерДоговора',                  $this->bank->contract->number);
         $this->writer->writeAttribute('ДатаДоговора',                   $this->bank->contract->signed_at->format('Y-m-d'));
-        $this->writer->writeAttribute('НаименованиеОрганизации',        $this->bank->contract->division->name);
-        $this->writer->writeAttribute('ИНН',                            $this->bank->contract->division->INN);
-        $this->writer->writeAttribute('РасчетныйСчетОрганизации',       $this->bank->contract->division->account);
-        $this->writer->writeAttribute('БИК',                            $this->bank->contract->division->BIK);
+        $this->writer->writeAttribute('НаименованиеОрганизации',        sys_config('division.name'));
+        $this->writer->writeAttribute('ИНН',                            sys_config('division.INN'));
+        $this->writer->writeAttribute('РасчетныйСчетОрганизации',       sys_config('division.account'));
+        $this->writer->writeAttribute('БИК',                            sys_config('division.BIK'));
         $this->writer->writeAttribute('ИдПервичногоДокумента',          Str::uuid());
         $this->writer->writeAttribute('НомерРеестра',                   substr($this->npp, 0, 5));
         $this->writer->writeAttribute('ДатаРеестра',                    now()->format('Y-m-d'));
@@ -82,12 +82,12 @@ class RosSelhozBankExporter extends XMLExporter
         $this->writer->text((string) $this->event->payment->name);
         $this->writer->endElement();
 
-        $this->writer->startElement('Ответственный');   // DEV поправить ответственного
-        $this->writer->text((string) 'Набоких Е. В.');
+        $this->writer->startElement('Ответственный');
+        $this->writer->text((string) sys_config('division.FIO'));
         $this->writer->endElement();
 
-        $this->writer->startElement('Телефон');         // DEV поправить телефон
-        $this->writer->text((string) '+7 (3842) 77-32-59');
+        $this->writer->startElement('Телефон');
+        $this->writer->text((string) sys_config('division.phone'));
         $this->writer->endElement();
         $this->writer->endElement();
 
