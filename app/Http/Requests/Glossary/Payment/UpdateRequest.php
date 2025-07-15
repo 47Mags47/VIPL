@@ -42,10 +42,6 @@ class UpdateRequest extends FormRequest
                 'regex:/[0-9]{3}[0-9]{4}[0-9]{5}[0-9]{5}[0-9]{3}/',
                 'unique:' . Payment::class . ',kbk,' . $this->route('payment')->id
             ],
-            'law_id'   => [
-                'required',
-                'exists:' . Law::class . ',id'
-            ],
         ];
     }
 }
