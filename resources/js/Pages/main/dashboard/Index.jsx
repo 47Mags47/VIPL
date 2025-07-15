@@ -1,12 +1,12 @@
-import {BaseForm} from '@/components/forms'
+// import {BaseForm} from '@/components/forms'
 
 
-export default function Index() {
-    return (
-        <div className="dashboard-container">
-            <BaseForm>
+// export default function Index() {
+    // return (
+    //     <div className="dashboard-container">
+    //         <BaseForm>
 
-            </BaseForm>
+    //         </BaseForm>
             {/* <form action="">
                 <div className="left-panel">
                     <span>
@@ -17,9 +17,9 @@ export default function Index() {
 
                 </div>
             </form> */}
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
 // import { useState } from 'react';
 // import { useForm, usePage } from '@inertiajs/react';

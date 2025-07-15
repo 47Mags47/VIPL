@@ -1,6 +1,6 @@
-import { usePage, router } from "@inertiajs/react";
+import { usePage, router, useForm } from "@inertiajs/react";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
@@ -11,18 +11,13 @@ import EchoProgress from '@/components/EchoProgress';
 import EditableText from '@/components/forms/inputs/EditableText';
 
 
-
 export default function Index() {
     const { raports, event } = usePage().props
-    const firstUpdate = useRef(true);
 
-    const [commentValue, setCommentValue] = useState()
-    useEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false;
-            return
-        }
-    })
+   const { data, setData, put } = useForm({
+    comment: raports.id
+   })
+
     const columns = [
         {
             title: 'Статус',
@@ -70,9 +65,9 @@ export default function Index() {
                     <EditableText
                         name={record.name}
                         index={record.id}
-                        value={commentValue}
-                        handleChange={(e)=>{setCommentValue(e.target.value)}}
-                        hasFocus={firstUpdate.current}
+                        value={data.comment}
+                        handleChange={(e) => setData(e.target.value)}
+                        // blurHandler={put(route(''), data)}
                     />
                 </>
             )
