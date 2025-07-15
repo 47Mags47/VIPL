@@ -6,6 +6,10 @@ use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @var string $table glossary__file_status
+ * @var bool $timestamps false
+ */
 class FileStatus extends Model
 {
     use Named, hasCode;
@@ -17,11 +21,4 @@ class FileStatus extends Model
     protected $fillable = ['name'];
 
     public $timestamps = false;
-
-    ### Методы
-    ##################################################
-    public function restore(string $path)
-    {
-        self::staticRestore($path, $this->database, $this->getUserString());
-    }
 }

@@ -8,6 +8,10 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @var string $table glossary__bank_exporters
+ * @var bool $timestamps false
+ */
 class BankExporter extends Model
 {
     use Named, hasCode, HasLog, hasApi;

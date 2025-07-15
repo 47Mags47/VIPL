@@ -1,7 +1,7 @@
 import { useForm, usePage } from '@inertiajs/react'
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { VerticalForm as Form, StringInput as Input, Select, DatePicker } from '@/components/forms';
 
 
 export default function Create() {
@@ -67,12 +67,11 @@ export default function Create() {
                     value={data.contract.number}
                     onChange={(e) => setData('contract.number', e.target.value)}
                 />
-                <Input
-                    type="date"
+                <DatePicker
                     name="contract[signed_at]"
                     label="Дата заключения"
-                    value={data.contract.signed_at}
-                    onChange={(e) => setData('contract.signed_at', e.target.value)}
+                    value={data.contract.signed_at ? dayjs(data.contract.signed_at, 'YYYY-MM-DD') : dayjs()}
+                    onChange={(value) => setData('contract.signed_at', value ? value.format('YYYY-MM-DD') : '')}
                 />
             </Form>
         </Layout>

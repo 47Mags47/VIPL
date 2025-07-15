@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
             'division_id' => Division::withoutGlobalScope('not root')->where('code', 'root')->first()->id,
             'name' => 'root',
             'email' => '',
+            'login' => 'root',
             'password' => Hash::make('root'),
             'status_id' => UserStatus::byCode('active')->id,
         ]);

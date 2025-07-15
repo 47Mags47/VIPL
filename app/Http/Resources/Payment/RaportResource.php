@@ -14,6 +14,12 @@ class RaportResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->original_name,
+            'status' => $this->status->toResource(),
+            'start_by' => $this->startBy->toResource(),
+            'created_at' => $this->created_at->format('Y-m-d H:i'),
+        ];
     }
 }

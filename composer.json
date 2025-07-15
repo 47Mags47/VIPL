@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.10.1",
         "league/flysystem-ftp": "^3.29",
         "maatwebsite/excel": "^3.1",
+        "reedware/laravel-relation-joins": "^8.0",
         "spatie/laravel-activitylog": "^4.10",
         "tightenco/ziggy": "^2.5"
     },

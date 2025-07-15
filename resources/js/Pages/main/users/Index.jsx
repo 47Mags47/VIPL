@@ -1,19 +1,11 @@
 import { usePage } from "@inertiajs/react";
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
-import Table from "@/components/Table";
-
-import Edit from "./Edit";
-import Create from "./Create";
-import Delete from "./Delete";
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table, AddButton, EditButton, OffButton, OnButton } from "@/components/table";
 
 
 export default function Index() {
-    const users = usePage().props.users.data
-    const divisions = usePage().props.divisions.data
-    const roles = usePage().props.roles.data
-    const pagination = usePage().props.users.meta
+    const users = usePage().props.users
 
     const columns = [
         {
@@ -62,14 +54,6 @@ export default function Index() {
         {
             title: 'Роли',
             dataIndex: ['roles', 'name'],
-            render: (_, record) => {
-                const roleNames = record.roles?.map(role => role.name).join(', ') || '—';
-                return <span>{roleNames}</span>;
-            }
-        },
-        {
-            title: 'Роли',
-            dataIndex: ['roles', 'name'],
             width: 150,
             render: (_, record) => {
                 const roleNames = record.roles?.map(role => role.name).join(', ') || '—';
@@ -78,35 +62,40 @@ export default function Index() {
         },
         {
             title: '',
-            key: 'edit',
+            key: 'delete',
             width: 80,
-            render: (_, record) => (
-                <Edit roles={roles} divisions={divisions} record={record} />
-            )
+            render: (_, record) => {
+                return (
+                    record.deleted
+                        ? <OnButton href={route('main.users.restore', { user: record.id })} />
+                        : <OffButton href={route('main.users.destroy', { user: record.id })} />
+                )
+            }
         },
         {
             title: '',
-            key: 'delete',
+            key: 'edit',
             width: 80,
-            render: (_, record) => (
-                <Delete record={record} />
-            )
-        },
+            render: (_, record) => {
+                return (
+                    record.deleted
+                        ? ''
+                        : <EditButton href={route('main.users.edit', { user: record.id })} />
+                )
+
+            }
+        }
     ];
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
-                rowKey="id"
                 columns={columns}
-                dataSource={users}
-                current_page={pagination.current_page}
-                last_page={pagination.last_page}
-                from={pagination.from}
+                data={users}
                 actions={
-                    <Create roles={roles} divisions={divisions} />
+                    <AddButton href={route('main.users.create')} />
                 }
             />
-        </AuthenticatedLayout>
+        </Layout>
     );
 }

@@ -1,0 +1,13 @@
+@use './input-disabled' as *
+
+@mixin input()
+    padding: 5px 10px
+    font-size: 1rem
+    color: var(--text-color)
+
+    background: var(--input-background)
+    border: 1px solid var(--input-border-color)
+    outline: none
+
+    border-radius: 7px
+    @include input-disabled

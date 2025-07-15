@@ -1,106 +1,62 @@
-import { useState } from 'react';
-import { router } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import ModalButton from "@/components/button/ModalButton";
-import BlueButton from '@/components/button/BlueButton';
-import handleChange from '@/handles/input/handleChange';
-import AddIco from '@/components/icons/AddIco'
-import SelectComponent from '@/components/inputs/Select'
-import handleSelectChange from '@/handles/input/handleSelectChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
 
 
-export default function Create({ roles, divisions }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
+export default function Edit() {
+    const { data, setData, post, processing } = useForm({
         name: '',
         email: '',
         division_id: '',
         roles: [],
     });
-    const selectOptions = {
-        divisions: divisions.map(divisions => ({
-            value: divisions.id,
-            label: divisions.name,
-        })),
-        roles: roles.map(roles => ({
-            value: roles.code,
-            label: roles.name
-        }))
-    }
 
-    function changeAddState(state) {
-        changeModalShow(state);
-    }
-
-    function onAddSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.post(route('main.users.store'), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        post(route('main.users.store'), data)
     }
 
-    const Button = ({ onClick }) => {
-        return <AddIco onClick={onClick} />
-    };
-
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeAddState}
-            Button={Button}
-            footer={
-                <BlueButton
-                    type="submit"
-                    form="main-user-add-form"
-                >
-                    Отправить
-                </BlueButton>
-            }
-        >
-            <VerticalForm
-                header={'Добавить пользователя'}
-                handleSubmit={onAddSubmit}
-                id="main-user-add-form"
+        <Layout>
+            <Form
+                header='Создание пользователя'
+                handleSubmit={onSubmit}
+                sbm="Сохранить"
+                processing={processing}
             >
                 <Input
-                    type={"name"}
-                    name={"name"}
-                    label={"Имя"}
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    name="name"
+                    label="ФИО"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
                 <Input
-                    type={"email"}
-                    name={"email"}
-                    label={"Email"}
-                    value={values.email}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    name="email"
+                    label="Email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
                 />
-                <SelectComponent
+                <Select
                     name="division_id"
                     label="Подразделение"
-                    options={selectOptions.divisions}
-                    value={values.division_id}
-                    onChange={(value) => {
-                        handleSelectChange('division_id', value, values, setValues)
-
-                    }}
+                    list={usePage().props.divisions.data}
+                    item_value="name"
+                    value={data.division_id}
+                    onChange={(value) => setData('division_id', value)}
                 />
-                <SelectComponent
+                <Select
                     name="roles"
-                    label="Роли"
-                    options={selectOptions.roles}
-                    value={values.roles}
-                    onChange={(value) => handleSelectChange('roles', value, values, setValues)}
-                    mode="multiple"
+                    label="Роль"
+                    list={usePage().props.roles.data}
+                    item_key="code"
+                    item_value="name"
+                    value={data.roles}
+                    onChange={(value) => setData('roles', value)}
+                    tags
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
 }

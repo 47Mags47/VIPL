@@ -4,7 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -22,13 +21,15 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->web(append: [
             App\Http\Middleware\HandleInertiaRequests::class,
+            App\Http\Middleware\PasswordExpiredMiddleware::class,
+            App\Http\Middleware\UserIsActiveMiddleware::class,
         ]);
-
 
         $middleware->alias([
             'local-network' => App\Http\Middleware\LocalNetworkMiddleware::class,
             'role' => App\Http\Middleware\RoleMiddleware::class,
             'permission' => App\Http\Middleware\PermissionMiddleware::class,
+            'password-expired' => App\Http\Middleware\PasswordExpiredMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

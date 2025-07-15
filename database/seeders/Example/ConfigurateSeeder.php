@@ -14,11 +14,11 @@ class ConfigurateSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        Config::create(['code' => 'division', 'value' => [
-            'name' => $faker->company(),
-            'INN' => $faker->numerify('##########'),
-            'account' => $faker->numerify('####################'),
-            'BIK' => $faker->numerify('#########'),
-        ]]);
+        Config::byCode('division.name')->update(['value' => $faker->company()]);
+        Config::byCode('division.INN')->update(['value' => $faker->numerify('##########')]);
+        Config::byCode('division.account')->update(['value' => $faker->numerify('####################')]);
+        Config::byCode('division.BIK')->update(['value' => $faker->numerify('#########')]);
+        Config::byCode('division.phone')->update(['value' => $faker->phoneNumber()]);
+        Config::byCode('division.FIO')->update(['value' => 'Петров П.П.']);
     }
 }

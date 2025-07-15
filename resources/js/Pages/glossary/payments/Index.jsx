@@ -37,6 +37,11 @@ export default function Index() {
             width: 150,
         },
         {
+            title: 'Дата начала',
+            dataIndex: ['start_at'],
+            render: (value) => new Date(value).toLocaleDateString()
+        },
+        {
             title: '',
             key: 'edit',
             width: 80,

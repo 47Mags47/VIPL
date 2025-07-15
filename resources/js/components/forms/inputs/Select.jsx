@@ -3,7 +3,7 @@ import { Select } from "antd";
 
 
 export default function SelectComponent({ ...props }) {
-    const name = props.name
+    const name = props.name ?? ''
     const id = props.id ?? props.name
     const label = props.label
     const value = props.value
@@ -14,6 +14,9 @@ export default function SelectComponent({ ...props }) {
     }))
     const onChange = props.onChange
     const filterOption = (input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+    const multiple = props.multiple ?? false
+    const tags = props.tags ?? false
+    const mode = props.mode ?? (multiple ? 'multiple' : (tags ? 'tags' : undefined))
 
 
     return (
@@ -21,11 +24,12 @@ export default function SelectComponent({ ...props }) {
             <Select
                 showSearch
                 id={id}
-                defaultValue={value}
+                value={value}
                 onChange={onChange}
                 disabled={disabled}
                 options={options}
                 filterOption={filterOption}
+                mode={mode}
             />
         </Label>
     )

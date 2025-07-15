@@ -14,7 +14,16 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if ($this->route('user')->roles->pluck('code')->contains('root'))
+            return false;
+
+        if ($this->route('user')->id === user()->id)
+            return false;
+
+        if (!user()->hasPermission('create_system_admins') and $this->division_id != user()->division->id)
+            return false;
+
+        return  true;
     }
 
     /**

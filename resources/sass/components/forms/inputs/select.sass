@@ -1,0 +1,22 @@
+@use '../../../abstracts/mixins' as *
+
+.ant-select.ant-select-outlined
+    .ant-select-selector
+        @include input
+
+.ant-select.ant-select-outlined.ant-select-focused
+    .ant-select-selector
+        @include input
+        box-shadow: none !important
+        border-color: var(--input-border-color) !important
+
+.ant-select.ant-select-outlined:hover
+    .ant-select-selector
+        border-color: var(--input-border-color) !important
+
+.ant-select.ant-select-disabled.ant-select-outlined
+    .ant-select-selector
+        @include select-disabled
+
+.ant-select.ant-select-multiple
+    max-width: 450px

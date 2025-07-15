@@ -11,9 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(Sys\ConfigSeeder::class);
+
         $this->call(Glossary\BankSeeder::class);
         $this->call(Glossary\DivisionSeeder::class);
         $this->call(Glossary\ValidatorSeeder::class);
+        $this->call(Glossary\FileStatusSeeder::class);
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\UserSeeder::class);
@@ -21,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(Payment\PaymentSeeder::class);
         $this->call(Payment\PackageSeeder::class);
-        $this->call(Payment\FileSeeder::class);
+
 
         if(env('APP_ENV') === 'local')
             $this->call(ExampleSeeder::class);

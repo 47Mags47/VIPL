@@ -14,7 +14,10 @@ class RecipientSeeder extends Seeder
     public function run(): void
     {
         foreach (File::all() as $file) {
-            Recipient::factory(25)->create(['file_id' => $file->id]);
+            Recipient::factory(5)->create([
+                'summ' => 10,
+                'file_id' => $file->id
+            ]);
         }
     }
 }

@@ -23,15 +23,13 @@ class BankSeeder extends Seeder
             $bank->update(['contract_id' => $contract->id]);
         }
 
-        foreach (range(900, 910) as $i) {
-            Bank::firstOrCreate([
-                'number_code' => str_pad("$i", 3, "0", STR_PAD_LEFT),
-            ], [
-                'code' => 'БАНК' . str_pad("$i", 3, "0", STR_PAD_LEFT),
-                'name' => 'ПАО ' . str_pad("$i", 3, "0", STR_PAD_LEFT) . ' Банк',
-                'exporter_id' => BankExporter::byCode('other')->id,
-                'contract_id' => $contract->id,
-            ]);
-        }
+
+        Bank::create([
+            'number_code' => "900",
+            'code' => 'БАНК' . "900",
+            'name' => 'ПАО ' . "900" . ' Банк',
+            'exporter_id' => BankExporter::byCode('other')->id,
+            'contract_id' => $contract->id,
+        ]);
     }
 }

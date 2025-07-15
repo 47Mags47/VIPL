@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('sys__config', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->json('value');
+            $table->string('type');
+            $table->string('value');
+            $table->string('name');
         });
     }
 
