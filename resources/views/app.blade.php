@@ -8,7 +8,6 @@
 
     <title>{{ config('app.name') }}</title>
 
-    @routes
     @viteReactRefresh
     @inertiaHead
 
@@ -19,6 +18,7 @@
 <body>
 
     @inertia
+    @routes
 
 </body>
 

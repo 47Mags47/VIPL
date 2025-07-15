@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('original_name');
 
-            $table->foreignId('raport_id')->constrained(Raport::getTableName());
-            $table->foreignId('event_id')->constrained(Event::getTableName());
-            $table->foreignId('bank_id')->constrained(Bank::getTableName());
+            $table->foreignId('raport_id')->constrained(Raport::getTableName())->cascadeOnDelete();
+            $table->foreignId('bank_id')->constrained(Bank::getTableName())->cascadeOnDelete();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

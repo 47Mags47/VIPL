@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Glossary\FileStatus;
+use App\Models\Main\User;
 use App\Models\Payment\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,10 +21,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('original_name');
 
-            $table->uuid('event_id')->constrained(Event::getTableName());
-            $table->integer('start_by')->nullable();
+            $table->foreignId('status_id')->constrained(FileStatus::getTableName());
+            $table->foreignId('event_id')->constrained(Event::getTableName())->cascadeOnDelete();
+            $table->foreignId('start_by')->constrained(User::getTableName());
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

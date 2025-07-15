@@ -22,8 +22,8 @@ class StoreFileRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
-            'resumableType'             => ['required', 'string', 'in:text/csv'],
             'bank'                      => ['required', 'exists:' . Bank::class . ',id'],
         ];
     }

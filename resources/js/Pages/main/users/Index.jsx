@@ -1,7 +1,7 @@
 import { usePage } from "@inertiajs/react";
 
 import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
+import { Table, AddButton, EditButton, OffButton } from "@/components/table";
 
 
 export default function Index() {
@@ -62,18 +62,18 @@ export default function Index() {
         },
         {
             title: '',
-            key: 'edit',
+            key: 'delete',
             width: 80,
             render: (_, record) => (
-                <EditButton href={route('main.users.update', { user: record.id })} />
+                <OffButton href={route('main.users.destroy', {user: record.id})} />
             )
         },
         {
             title: '',
-            key: 'delete',
+            key: 'edit',
             width: 80,
             render: (_, record) => (
-                <DeleteButton href={route('main.users.destroy', { user: record.id })} />
+                <EditButton href={route('main.users.edit', {user: record.id})} />
             )
         },
     ];
@@ -81,11 +81,10 @@ export default function Index() {
     return (
         <Layout>
             <Table
-                rowKey="id"
                 columns={columns}
                 data={users}
                 actions={
-                    <AddButton href={route('glossary.banks.create')} />
+                    <AddButton href={route('main.users.create')} />
                 }
             />
         </Layout>

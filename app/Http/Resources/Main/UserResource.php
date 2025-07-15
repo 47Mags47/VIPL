@@ -15,6 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($this->rolePermissions()->map(fn($permission) => $permission->code));
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -23,6 +24,7 @@ class UserResource extends JsonResource
             'online' => true,
             'division' => $this->division !== null ? $this->division->toResource() : null,
             'roles' => $this->roles->toResourceCollection(),
+            'permissions' => $this->rolePermissions()->map(fn($permission) => $permission->code)->toArray(),
             'deleted' => $this->trashed()
         ];
     }

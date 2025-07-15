@@ -4,7 +4,7 @@ import BaseButton from "./BaseButton"
 export default function RedButton(props) {
 
     return (
-        <BaseButton 
+        <BaseButton
             {...props}
             className={"red-button " + props.className}
         >

@@ -1,7 +1,7 @@
-import Table from '@/components/Table'
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { usePage } from "@inertiajs/react";
 
-import { usePage } from '@inertiajs/react'
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { Table, EditButton } from "@/components/table";
 
 export default function Index() {
     const config = usePage().props.config
@@ -9,23 +9,28 @@ export default function Index() {
     const columns = [
         {
             title: 'Параметр',
-            dataIndex: 'key',
+            dataIndex: 'code',
         },
         {
             title: 'Значение',
             dataIndex: 'value',
-        }
+        },
+        {
+            key: 'edit',
+            width: 80,
+            render: (_, record) => (
+                <EditButton href={route('config.edit', { config: record.id })} />
+            )
+        },
     ]
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
-                rowKey="key"
                 columns={columns}
-                dataSource={config}
+                data={config}
             >
-
             </Table>
-        </AuthenticatedLayout>
+        </Layout>
     )
 }

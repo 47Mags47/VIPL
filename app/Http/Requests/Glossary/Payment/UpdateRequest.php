@@ -4,19 +4,10 @@ namespace App\Http\Requests\Glossary\Payment;
 
 use App\Models\Glossary\Payment;
 use App\Models\Glossary\Law;
-use App\Models\Glossary\PaymentPeriodicity;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return user()->hasPermission('edit_glossary');
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -54,10 +45,6 @@ class UpdateRequest extends FormRequest
             'law_id'   => [
                 'required',
                 'exists:' . Law::class . ',id'
-            ],
-            'periodicity_id' => [
-                'required',
-                'exists:' . PaymentPeriodicity::class . ',id'
             ],
         ];
     }

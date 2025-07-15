@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef }                    from 'react'
 
-import { List as AntdList } from 'antd'
-import EditableText from './EditableText'
+import { List as AntdList }                     from 'antd'
+import EditableText                             from './EditableText'
 
-import { CreateItemButton, DeleteItemButton } from '@/components/forms'
+import { CreateItemButton, DeleteItemButton }   from '@/components/forms'
 
 
 export default function List({
@@ -12,7 +12,9 @@ export default function List({
     name,
     label,
     hasDelete,
-    hasAdd
+    hasAdd,
+    render,
+    ...props
 }) {
     const firstUpdate = useRef(true);
     const onDeleteClick = (e, index) => {
@@ -37,21 +39,28 @@ export default function List({
         }
     })
 
+    const defaultRender = (item, index) => {
+        return (
+            <EditableText
+                name={name}
+                value={item}
+                index={index}
+                blurHandler={onDeleteClick}
+                handleChange={handleChange}
+                hasFocus={firstUpdate.current}
+            />
+        )
+    }
+
     return (
-        <div className='list'>
+        <div className={'list'}>
             <AntdList
                 header={label}
                 dataSource={items}
+                {...props}
                 renderItem={(item, index) => (
                     <AntdList.Item key={index}>
-                        <EditableText
-                            name={name}
-                            value={item}
-                            index={index}
-                            blurHandler={onDeleteClick}
-                            handleChange={handleChange}
-                            hasFocus={firstUpdate.current}
-                        />
+                        {render ? render(item, index) : defaultRender(item, index)}
                         {hasDelete ??
                             <DeleteItemButton onClick={(e) => onDeleteClick(e, index)} />
                         }
@@ -65,11 +74,11 @@ export default function List({
                                     type={'button'}
                                     onClick={handleAdd}
                                 />
-                            </div>
+                            </div >
                         }
                     </>
                 }
             />
-        </div>
+        </div >
     )
 }

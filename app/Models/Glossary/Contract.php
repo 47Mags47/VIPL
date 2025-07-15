@@ -5,11 +5,12 @@ namespace App\Models\Glossary;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @var string $table glossary__contracts
+ */
 class Contract extends Model
 {
     use Named, HasLog, SoftDeletes;
@@ -30,12 +31,5 @@ class Contract extends Model
         return [
             'signed_at' => 'date',
         ];
-    }
-
-    ### Связи
-    ##################################################
-    public function bank(): HasMany
-    {
-        return $this->hasMany(Bank::class, 'bank_id');
     }
 }

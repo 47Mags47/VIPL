@@ -13,6 +13,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @var string $table glossary__divisions
+ *
+ * @method Builder notRoot() Исключает root из выборки
+ * @method Builder createAccess() Исключает подразделения, для создания пользователей в которых у текущего пользователя нет прав
+ *
+ * @property \lluminate\Support\Collection $users [App\Models\Main\User] (пользователей) в подразделении
+ */
 class Division extends Model
 {
     use Named, HasLog, HasFilter, hasCode, hasApi, SoftDeletes;
@@ -23,16 +31,24 @@ class Division extends Model
 
     protected $fillable = ['code', 'name'];
 
-    protected static function booted(): void
+    ### Ограничения
+    ##################################################
+    public function scopeNotRoot(Builder $builder): Builder
     {
-        static::addGlobalScope('not root', function (Builder $builder) {
-            $builder->whereNot('code', 'root');
+        return $builder->whereNot('code', 'root');
+    }
+
+    public function scopeCreateAccess(Builder $builder): Builder
+    {
+        return $builder->where(function ($query) {
+            if (!user()->hasPermission('create_system_admins'))
+                $query->where('id', user()->division->id);
         });
     }
 
     ### Связи
     ##################################################
-    public function users():HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'division_id');
     }

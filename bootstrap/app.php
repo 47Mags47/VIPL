@@ -4,7 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -17,32 +16,35 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn() => route('login'));
-        $middleware->redirectUsersTo(fn () => route('payments.events.index'));
+        $middleware->redirectUsersTo(fn() => route('payments.events.index'));
 
 
         $middleware->web(append: [
             App\Http\Middleware\HandleInertiaRequests::class,
+            App\Http\Middleware\PasswordExpiredMiddleware::class,
+            App\Http\Middleware\UserIsActiveMiddleware::class,
         ]);
-
 
         $middleware->alias([
             'local-network' => App\Http\Middleware\LocalNetworkMiddleware::class,
             'role' => App\Http\Middleware\RoleMiddleware::class,
             'permission' => App\Http\Middleware\PermissionMiddleware::class,
+            'password-expired' => App\Http\Middleware\PasswordExpiredMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
-        //     if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
-        //         return Inertia::render('ErrorPage', ['status' => $response->getStatusCode()])
-        //             ->toResponse($request)
-        //             ->setStatusCode($response->getStatusCode());
-        //     } elseif ($response->getStatusCode() === 419) {
-        //         return back()->with([
-        //             'message' => 'The page expired, please try again.',
-        //         ]);
-        //     }
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            // if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+            //     return Inertia::render('ErrorPage', ['status' => $response->getStatusCode()])
+            //         ->toResponse($request)
+            //         ->setStatusCode($response->getStatusCode());
+            // } else
 
-        //     return $response;
-        // });
+            if ($response->getStatusCode() === 419)
+                return back()->with([
+                    'message' => 'Страница устарела, попробуйте еще раз или перезагрузите страницу',
+                ]);
+
+            return $response;
+        });
     })->create();

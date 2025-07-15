@@ -2,6 +2,7 @@
 
 namespace App\Models\Payment;
 
+use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipient extends Model
 {
-    use Named, HasFactory;
+    use Named, HasFactory, HasFilter;
 
     ### Настройки
     ##################################################

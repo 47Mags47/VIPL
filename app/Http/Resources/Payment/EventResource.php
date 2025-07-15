@@ -15,13 +15,16 @@ class EventResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // if($this->payment == null)
+        //     dd();
         return [
             'id' => $this->id,
             'date' => $this->date->format('Y-m-d'),
-            'payment' => [
-                'code' => $this->payment->code,
-                'krv' => $this->payment->krv,
-            ],
+            'name' => $this->payment()->withTrashed()->first()->code . ' - ' . $this->payment()->withTrashed()->first()->krv
+            // 'payment' => [
+            //     'code' => $this->payment->code,
+            //     'krv' => $this->payment->krv,
+            // ],
         ];
     }
 }

@@ -1,93 +1,170 @@
-import { usePage, router, Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { usePage, router, Link } from '@inertiajs/react'
+import { useState } from 'react'
 
-import locale from 'antd/locale/ru_RU';
+import { Badge, Calendar } from 'antd'
+import locale from 'antd/locale/ru_RU'
 import dayjs from 'dayjs'
-import 'dayjs/locale/ru';
+import 'dayjs/locale/ru'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-
-import { Badge, Calendar } from 'antd';
+import BlueButton from '@/components/buttons/BlueButton'
+import Select from '@/components/forms/inputs/Select'
 
 
 export default function Index() {
-    const events = usePage().props.events;
+    const events = usePage().props.events
 
-    const [value, setValue] = useState(() => {
-        dayjs().year(events.year),
-            dayjs().month(events.month + 1)
-    });
+    const [value, setValue] = useState(dayjs())
 
-    useEffect(() => {
-        setValue(
-            dayjs().year(events.year),
-            dayjs().month(events.month + 1)
-        );
-    }, [events.month, events.year]);
+    dayjs.locale('ru')
 
-    const getListData = value => {
-        let listData = [];
-        let dateString = value.format('YYYY-MM-DD')
-        let eventList = events[dateString] ?? []
+    const getListData = (value) => {
+        let listData = []
+        let eventList = events[value.format('YYYY-MM-DD')] ?? []
 
-        eventList.forEach(element => {
-            let data = element.data.id
+        eventList.forEach(item => {
             listData.push({
                 type: 'success',
-                content:
+                content: (
                     <Link
                         className="show-link"
-                        href={route('payments.events.show', { event: data })}
+                        href={route('payments.events.show', { event: item.data.id })}
                     >
-                        {element.data.payment.krv}
-                    </Link>,
-                id: element.data.id
+                        {item.data.name}
+                    </Link>
+                ),
+                id: item.data.id
             })
-        });
-        return listData || [];
-    };
+        })
 
-    const dateCellRender = value => {
-        const listData = getListData(value);
+        return listData
+    }
+
+    const dateCellRender = (value) => {
+        const listData = getListData(value)
         return (
             <ul className="events">
                 {listData.map(item => (
                     <li key={item.id}>
-                        <Badge
-                            status={item.type}
-                            text={item.content}
-                        />
+                        <Badge status={item.type} text={item.content} />
                     </li>
                 ))}
             </ul>
-        );
-    };
+        )
+    }
 
     const handlePanelChange = (date, mode) => {
         if (mode === 'month') {
-            setValue(date);
+            setValue(date)
+
             router.get(route('payments.events.index', {
                 month: date.month() + 1,
                 year: date.year()
             }), {}, {
                 preserveState: true,
                 replace: true
-            });
+            })
         }
-    };
-    dayjs.locale('ru-RU');
+    }
+
+    const goToCurrentMonth = () => {
+        setValue(dayjs())
+        router.get(route('payments.events.index', {
+            month: dayjs().month() + 1,
+            year: dayjs().year()
+        }), {}, {
+            preserveState: true,
+            replace: true
+        })
+    }
+
+
     const cellRender = (current, info) => {
-        if (info.type === 'date') return dateCellRender(current);
-        return info.originNode;
-    };
+        if (info.type === 'date') return dateCellRender(current)
+        return info.originNode
+    }
+
+    const headerRender = ({ value, onChange }) => {
+        const current = value.locale('ru')
+        const month = current.month()
+        const year = current.year()
+        const isToday = current.isSame(dayjs(), 'day')
+        console.log(dayjs(), 'day');
+
+
+        const months = current.localeData().months().map(m =>
+            m.charAt(0).toUpperCase() + m.slice(1)
+        )
+
+        const monthOptions = months.map((label, index) => ({
+            label,
+            value: index,
+        }))
+
+        const yearOptions = Array.from({ length: 11 }, (_, i) => {
+            const years = year - 5 + i
+            return { label: `${years}`, value: years }
+        })
+
+        const changeMonth = (newMonth) => {
+            const newValue = current.month(newMonth)
+            onChange(newValue)
+            router.get(route('payments.events.index', {
+                month: newValue.month() + 1,
+                year: newValue.year()
+            }), {}, {
+                preserveState: true,
+                replace: true
+            })
+        }
+
+        const changeYear = (newYear) => {
+            const newValue = current.year(newYear)
+            onChange(newValue)
+            router.get(route('payments.events.index', {
+                month: newValue.month() + 1,
+                year: newValue.year()
+            }), {}, {
+                preserveState: true,
+                replace: true
+            })
+        }
+
+        return (
+            <div className={'calendar-header'}>
+                <div className={'calendar-select-group'}>
+                    <Select
+                        value={year}
+                        options={yearOptions}
+                        onChange={changeYear}
+                        popupMatchSelectWidth={false}
+                    />
+                    <Select
+                        value={month}
+                        options={monthOptions}
+                        onChange={changeMonth}
+                        popupMatchSelectWidth={false}
+                    />
+                </div>
+                <div className='calendar-action'>
+                    <BlueButton onClick={goToCurrentMonth}>
+                        Текущий месяц
+                    </BlueButton>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <AuthenticatedLayout>
+
             <Calendar
-                defaultValue={value}
+                headerRender={headerRender}
+                value={value}
                 onPanelChange={handlePanelChange}
                 cellRender={cellRender}
                 locale={locale.Calendar}
             />
         </AuthenticatedLayout>
     )
-};
+}

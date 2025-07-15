@@ -1,14 +1,20 @@
 import { Table as AntdTable } from 'antd';
 
 import Search from './Search';
+import { router } from '@inertiajs/react';
 
 export default function Table({ ...props }) {
     const rowKey = props.rowKey ?? 'id'
     const columns = props.columns
     const dataSource = props.data.data ?? []
     const pagination = {
+        position: ['bottomRight'],
+        current: props.data.meta.current_page,
+        total: props.data.meta.total,
         pageSize: props.data.meta.per_page,
         hideOnSinglePage: true,
+        showSizeChanger: false,
+        onChange: (current) => router.get(location.href, { 'page': current }, { preserveState: true, reset: true }),
         itemRender: (_, type, originalElement) => {
             if (type === 'prev' && props.data.links.prev === null)
                 return null

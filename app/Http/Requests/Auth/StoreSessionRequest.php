@@ -26,7 +26,7 @@ class StoreSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            'login' => ['required'],
             'password' => ['string'],
             'remember_me' => ['nullable', 'boolean'],
         ];

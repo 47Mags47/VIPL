@@ -5,6 +5,7 @@ namespace App\Models\Payment;
 use App\Models\Glossary\Division;
 use App\Models\Glossary\PackageStatus;
 use App\Models\Payment\Raport;
+use App\Traits\hasApi;
 use App\Traits\HasLog;
 use App\Traits\hasUUID;
 use App\Traits\Named;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Package extends Model
 {
-    use Named, HasLog, hasUUID, HasFactory;
+    use Named, HasLog, hasUUID, HasFactory, hasApi;
 
     ### Настройки
     ##################################################
@@ -27,6 +28,12 @@ class Package extends Model
         'division_id',
         'status_id'
     ];
+
+    ### Методы
+    ##################################################
+    public function scopeGetTotalSumm(){
+        return $this->files->sum(fn($file) => $file->getTotalSumm());
+    }
 
     ### Связи
     ##################################################

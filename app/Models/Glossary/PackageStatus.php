@@ -6,6 +6,10 @@ use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @var string $table glossary__package_status
+ * @var bool $timestamps false
+ */
 class PackageStatus extends Model
 {
     use Named, hasCode;

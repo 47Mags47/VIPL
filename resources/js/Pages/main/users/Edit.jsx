@@ -1,129 +1,77 @@
-import { useState } from 'react';
-import { router, Link } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 
-import ModalButton from "@/components/button/ModalButton";
-
-import VerticalForm from '@/components/form/VerticalForm';
-
-import Input from "@/components/inputs/Input"
-import BlueButton from '@/components/button/BlueButton';
-import RedButton from '@/components/button/RedButton';
-import EditIco from '@/components/icons/EditIco'
-import handleChange from '@/handles/input/handleChange';
-import SelectComponent from '@/components/inputs/Select'
-import handleSelectChange from '@/handles/input/handleSelectChange';
+import { AuthenticatedLayout as Layout } from '@/layouts';
+import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { SendButton } from '@/components/table';
+import { router } from '@inertiajs/react';
 
 
-export default function Edit({ roles, divisions, record }) {
-    const [modalShow, changeModalShow] = useState(false)
-    const [values, setValues] = useState({
-        name: record.name,
-        email: record.email,
-        division_id: record.division?.id,
-        roles: record.roles.map(roles => roles.code),
+export default function Edit() {
+    const user = usePage().props.user.data
+    const { data, setData, put, processing } = useForm({
+        name: user.name,
+        email: user.email,
+        division_id: user.division.id,
+        roles: user.roles.map((role) => role.code),
     });
-    const selectOptions = {
-        divisions: divisions.map(divisions => ({
-            value: divisions.id,
-            label: divisions.name,
-        })),
-        roles: roles.map(roles => ({
-            value: roles.code,
-            label: roles.name
-        }))
-    }
 
-    function changeEditState(state) {
-        changeModalShow(state);
-    }
-
-    function onEditSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
 
-        router.put(route('main.users.update', { user: record.id }), values, {
-            onSuccess: function () {
-                changeModalShow(false)
-            },
-        })
+        put(route('main.users.update', { user: user.id }), data)
     }
 
-    function resetPassword(e) {
-        e.preventDefault()
-
-        if (confirm(`Вы уверены, что хотите сбросить пароль для ${record.name}`)) {
-            router.post(route('main.users.reset-password', { user: record.id }), {}, {
-                onSuccess: function () {
-                    changeModalShow(false)
-                },
-            })
-        }
+    function sendIvation() {
+        router.post(route('main.users.invition.send', { user: user.id }))
     }
 
-    const Button = ({ onClick }) => {
-        return <EditIco onClick={onClick} />
-    };
+    const info = () => {
+        if (user.status.code !== 'active')
+            return (
+                <SendButton onClick={sendIvation} />
+            )
+    }
 
     return (
-        <ModalButton
-            open={modalShow}
-            changeState={changeEditState}
-            Button={Button}
-            footer={
-                <>
-                    <RedButton
-                        onClick={resetPassword}
-                    >
-                        Сбросить пароль
-                    </RedButton>
-
-                    <BlueButton
-                        type="submit"
-                        form="main-user-edit-form"
-                    >
-                        Сохранить
-                    </BlueButton>
-
-                </>
-            }
-        >
-            <VerticalForm
-                header={'Редактировать'}
-                handleSubmit={onEditSubmit}
-                id="main-user-edit-form"
+        <Layout>
+            <Form
+                header='Редактирование пользователя'
+                handleSubmit={onSubmit}
+                sbm="сохранить"
+                processing={processing}
+                info={info()}
             >
                 <Input
-                    type={"name"}
-                    name={"name"}
-                    label={"Имя"}
-                    value={values.name}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    name="name"
+                    label="ФИО"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
                 />
                 <Input
-                    type={"email"}
-                    name={"email"}
-                    label={"Email"}
-                    value={values.email}
-                    onChange={(e) => { handleChange(e, values, setValues) }}
+                    name="email"
+                    label="Email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
                 />
-                <SelectComponent
+                <Select
                     name="division_id"
                     label="Подразделение"
-                    options={selectOptions.divisions}
-                    value={values.division_id}
-                    onChange={(value) => {
-                        handleSelectChange('division_id', value, values, setValues)
-
-                    }}
+                    list={usePage().props.divisions.data}
+                    item_value="name"
+                    value={data.division_id}
+                    onChange={(value) => setData('division_id', value)}
                 />
-                <SelectComponent
+                <Select
                     name="roles"
-                    label="Роли"
-                    options={selectOptions.roles}
-                    value={values.roles}
-                    onChange={(value) => handleSelectChange('roles', value, values, setValues)}
-                    mode="multiple"
+                    label="Роль"
+                    list={usePage().props.roles.data}
+                    item_key="code"
+                    item_value="name"
+                    value={data.roles}
+                    onChange={(value) => setData('roles', value)}
+                    multiple
                 />
-            </VerticalForm>
-        </ModalButton>
+            </Form>
+        </Layout>
     );
 }

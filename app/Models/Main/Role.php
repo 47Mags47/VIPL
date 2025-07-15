@@ -2,6 +2,7 @@
 
 namespace App\Models\Main;
 
+use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\HasLog;
 use App\Traits\Named;
@@ -11,24 +12,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
-    use Named, HasLog, hasCode;
+    use Named, HasLog, hasCode, hasApi;
 
     ### Настройки
     ##################################################
     protected
         $table = 'main__roles';
 
-    protected static function booted(): void
+    ### Ограничения
+    ##################################################
+    public function scopeNotRoot(): Builder
     {
-        static::addGlobalScope('not root', function (Builder $builder) {
-            $builder->whereNot('code', 'root');
-        });
+        return $this->whereNot('code', 'root');
     }
 
-    ### функции
-    ##################################################
-    public static function roots(){
-        return self::withoutGlobalScope('not root')->where('code', 'root')->first();
+    public function scopeCreateAccess(): Builder
+    {
+        return $this->where(function ($query) {
+            $query->where('code', 'user');
+
+            if (user()->hasPermission('create_system_admins'))
+                $query->orWhere('code', 'system_admin');
+
+            if (user()->hasPermission('create_division_admins'))
+                $query->orWhere('code', 'division_admin');
+        });;
     }
 
     ### Связи
@@ -38,7 +46,7 @@ class Role extends Model
      */
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, RolePivotPermission::getTableName());
+        return $this->belongsToMany(Permission::class, RolePivotPermission::getTableName(), 'role_code', 'permission_code', 'code', 'code');
     }
 
     /**
