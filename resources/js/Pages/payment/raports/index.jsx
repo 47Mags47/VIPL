@@ -1,16 +1,28 @@
 import { usePage, router } from "@inertiajs/react";
 
+import { useEffect, useRef, useState } from "react";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import { Table } from "@/components/table";
 import BlueButton from '@/components/buttons/BlueButton';
 import DownloadButton from '@/components/buttons/DownloadButton';
 import EchoProgress from '@/components/EchoProgress';
+import EditableText from '@/components/forms/inputs/EditableText';
+
 
 
 export default function Index() {
     const { raports, event } = usePage().props
+    const firstUpdate = useRef(true);
 
+    const [commentValue, setCommentValue] = useState()
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return
+        }
+    })
     const columns = [
         {
             title: 'Статус',
@@ -53,7 +65,17 @@ export default function Index() {
         {
             title: 'Комментарий',
             dataIndex: 'comment',
-            render: (_, record) => (<></>)
+            render: (_, record) => (
+                <>
+                    <EditableText
+                        name={record.name}
+                        index={record.id}
+                        value={commentValue}
+                        handleChange={(e)=>{setCommentValue(e.target.value)}}
+                        hasFocus={firstUpdate.current}
+                    />
+                </>
+            )
         },
         {
             title: '',
