@@ -1,7 +1,7 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                                      from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, DeleteButton } from "@/components/table";
+import { AuthenticatedLayout as Layout }                from '@/layouts'
+import { Table, AddButton, EditButton, DeleteButton }   from "@/components/table"
 
 
 export default function Index() {
@@ -33,7 +33,7 @@ export default function Index() {
                 <DeleteButton href={route('glossary.divisions.destroy', { division: record.id })} />
             )
         },
-    ];
+    ]
 
     return (
         <Layout>
@@ -46,5 +46,5 @@ export default function Index() {
                 }
             />
         </Layout>
-    );
+    )
 }

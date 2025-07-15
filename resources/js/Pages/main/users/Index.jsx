@@ -1,7 +1,7 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                                              from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, AddButton, EditButton, OffButton, OnButton } from "@/components/table";
+import { AuthenticatedLayout as Layout }                        from '@/layouts'
+import { Table, AddButton, EditButton, OffButton, OnButton }    from "@/components/table"
 
 
 export default function Index() {
@@ -85,7 +85,7 @@ export default function Index() {
 
             }
         }
-    ];
+    ]
 
     return (
         <Layout>
@@ -97,5 +97,5 @@ export default function Index() {
                 }
             />
         </Layout>
-    );
+    )
 }

@@ -1,7 +1,7 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                             from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                                from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms'
 
 
 export default function Edit() {
@@ -10,7 +10,7 @@ export default function Edit() {
         code: law.code,
         name: law.name,
         source_id: law.source.id,
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -49,5 +49,5 @@ export default function Edit() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }

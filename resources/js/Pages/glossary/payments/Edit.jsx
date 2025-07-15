@@ -1,7 +1,9 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select, TextArea, DatePicker } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                                            from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, TextArea, DatePicker } from '@/components/forms'
+
+import dayjs                                                                        from 'dayjs'
 
 import dayjs from 'dayjs'
 
@@ -15,8 +17,7 @@ export default function Edit() {
         periodicity_id: payment.periodicity.id,
         law_id:         payment.law.id,
         start_at:       payment.start_at,
-    });
-
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -82,5 +83,5 @@ export default function Edit() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }
