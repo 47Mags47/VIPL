@@ -8,10 +8,16 @@ import { DatePicker as Date } from 'antd'
 export default function DatePicker({ ...props }) {
     const name = props.name
     const label = props.label
-    const value = props.value
-    const onChange = props.onChange
+    const value = props.value !== ''
+        ? dayjs(props.value, 'YYYY-MM-DD HH:mm:ss')
+        : ''
 
-    dayjs.locale('ru')
+    const onChange = props.onChange
+    const format = props.format ?? 'DD.MM.YYYY'
+
+    function changeHandler(date, str) {
+        onChange(date.format('YYYY-MM-DD HH:mm:ss'))
+    }
 
     return (
         <Label name={name} label={label} >
@@ -20,15 +26,14 @@ export default function DatePicker({ ...props }) {
                     root: 'date-picker',
                     popup: { root: 'date-picker-popup' }
                 }}
-                value={dayjs(value, 'DD-MM-YYYY') ?? ''}
-                onChange={onChange}
+                value={value}
+                onChange={changeHandler}
                 locale={locale.Calendar}
-                placeholder='__.__.____'
+                placeholder={format.replace(/[a-zA-Z]/g, '_')}
                 format={{
-                    format: 'DD.MM.YYYY',
+                    format: format,
                     type: 'mask',
                 }}
-                {...props}
             />
         </Label>
     )
