@@ -22,11 +22,11 @@ export default function DatePicker({ ...props }) {
     function toDate(date) {
         return Array.isArray(props.value)
             ? date.map((day) => dayjs(day, 'YYYY-MM-DD HH:mm:ss'))
-            : dayjs(date, 'YYYY-MM-DD HH:mm:ss')
+            : (date !== '' ? dayjs(date, 'YYYY-MM-DD HH:mm:ss') : '')
     }
 
     function changeHandler(date) {
-        onChange(toString(date ?? []))
+        onChange(date !== null ? toString(date) : (multiple ? [] : ''))
     }
 
 
