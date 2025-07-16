@@ -1,10 +1,10 @@
-import { useState }                 from 'react'
-import { router }                   from '@inertiajs/react'
+import { useState }                                 from 'react'
+import { router }                                   from '@inertiajs/react'
 
-import { VerticalForm, Input }      from '@/components/forms'
-import BlueButton                   from '@/components/buttons/BlueButton'
+import { VerticalForm, StringInput as Input }       from '@/components/forms'
+import BlueButton                                   from '@/components/buttons/BlueButton'
 
-import handleChange                 from '@/handles/input/handleChange'
+import handleChange                                 from '@/handles/input/handleChange'
 
 
 export default function TestEmail() {
