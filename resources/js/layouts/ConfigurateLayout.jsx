@@ -1,14 +1,16 @@
+import BaseLayout from './BaseLayout'
+
 import Header from '@/includes/Header'
 import LoadIco from '@/includes/LoadIco'
 import Message from '@/includes/Messege'
 
 import { message } from 'antd';
 
-export default function ConfigurateLayout() {
-    const [messageApi, contextHolder] = message.useMessage();
+export default function ConfigurateLayout({ children }) {
+    const [messageApi, contextHolder] = message.useMessage()
 
     return (
-        <div className="layout configurate-layout">
+        <BaseLayout name="configurate-layout">
             <LoadIco />
             <Header />
             <Message type='success' messageApi={messageApi} />
@@ -16,6 +18,6 @@ export default function ConfigurateLayout() {
             <main>
                 {children}
             </main>
-        </div>
+        </BaseLayout>
     )
 }
