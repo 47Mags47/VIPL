@@ -5,6 +5,7 @@ import { VerticalForm as Form, StringInput as Input, Select, DatePicker }   from
 
 import dayjs                                                                from 'dayjs'
 
+
 export default function Edit() {
     const bank = usePage().props.bank.data
     const { data, setData, put, processing } = useForm({
