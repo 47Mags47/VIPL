@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 import { AuthenticatedLayout as Layout } from '@/layouts'
 import { Table, AddButton, EditButton, OffButton, OnButton } from "@/components/table"
+import StatusCircle from '@/components/StatusCircle'
 
 export default function Index() {
     const { users } = usePage().props
