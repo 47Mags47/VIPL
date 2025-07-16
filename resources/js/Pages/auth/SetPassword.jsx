@@ -1,11 +1,11 @@
-import { useState }             from "react"
-import { router }               from "@inertiajs/react"
+import { useState }                             from "react"
+import { router }                               from "@inertiajs/react"
 
-import {GuestLayout as Layout}  from "@/layouts"
+import {GuestLayout as Layout}                  from "@/layouts"
 
-import { VerticalForm, Input }  from "@/components/forms"
+import { VerticalForm, StringInput as Input }   from "@/components/forms"
 
-import handleChange             from '@/handles/input/handleChange'
+import handleChange                             from '@/handles/input/handleChange'
 
 
 export default function SetPassword() {

@@ -1,5 +1,7 @@
-import Label from "./Label";
-import { Select } from "antd";
+import FormGroup    from "./FormGroup"
+import Label        from "./Label"
+
+import { Select }   from "antd"
 
 
 export default function SelectComponent({ ...props }) {
@@ -20,7 +22,8 @@ export default function SelectComponent({ ...props }) {
 
 
     return (
-        <Label name={name} label={label}>
+        <FormGroup name={name}>
+            <Label label={label} />
             <Select
                 showSearch
                 id={id}
@@ -31,6 +34,6 @@ export default function SelectComponent({ ...props }) {
                 filterOption={filterOption}
                 mode={mode}
             />
-        </Label>
+        </FormGroup>
     )
 }

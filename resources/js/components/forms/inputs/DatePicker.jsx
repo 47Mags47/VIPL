@@ -1,9 +1,10 @@
-import locale from 'antd/locale/ru_RU'
-import dayjs from 'dayjs'
-import 'dayjs/locale/ru'
+import locale                   from 'antd/locale/ru_RU'
+import dayjs                    from 'dayjs'
+import                          'dayjs/locale/ru'
 
-import Label from "./Label"
-import { DatePicker as Date } from 'antd'
+import Label                    from "./Label"
+import { DatePicker as Date }   from 'antd'
+import FormGroup                from './FormGroup'
 
 export default function DatePicker({ ...props }) {
     const name = props.name
@@ -14,7 +15,8 @@ export default function DatePicker({ ...props }) {
     dayjs.locale('ru')
 
     return (
-        <Label name={name} label={label} >
+        <FormGroup name={name} >
+            <Label label={label} />
             <Date
                 classNames={{
                     root: 'date-picker',
@@ -30,6 +32,6 @@ export default function DatePicker({ ...props }) {
                 }}
                 {...props}
             />
-        </Label>
+        </FormGroup>
     )
 }
