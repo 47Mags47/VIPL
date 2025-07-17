@@ -1,11 +1,17 @@
 .form-errors
     list-style: none
-    padding: 0
+    padding: 0px 10px
+    background-color: #fef2f2
+    border: 1px solid #fcd5d5
+    border-radius: 7px
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
+
+    &:empty
+        display: none
+
     li
         font-size: 0.85rem
         color: #dc2626
-        background-color: #fef2f2
-        border: 1px solid #fcd5d5
-        padding: 7px 10px
-        border-radius: 7px
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
+
+        &:not(:last-child)
+            margin-bottom: 0.25rem
