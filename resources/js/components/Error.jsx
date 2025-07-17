@@ -12,7 +12,7 @@ export default function Error({ name }) {
 
 
     return (
-        <ul className="form-errors">
+        <ul className="error-list">
             {keys.map((key, i) => (
                 <li key={i}>{errors[key]}</li>
             ))}
