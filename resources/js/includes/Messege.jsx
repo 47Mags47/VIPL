@@ -1,26 +1,31 @@
 import { usePage } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
 
+const MESSAGE_TYPES = ['success', 'error', 'info', 'warning', 'loading']
 
 export default function Message({ messageApi }) {
     const { flash } = usePage().props
-
     const [currentMessage, setCurrentMessage] = useState(null)
     const [currentType, setCurrentType] = useState('success')
 
     useEffect(() => {
-        if (flash && flash.message) {
-            const uniqueMessage = {
-                text: flash.message,
-                timestamp: Date.now()
+        if (flash) {
+            const messageType = MESSAGE_TYPES.find(type => flash[type] !== undefined)
+
+            if (messageType && flash[messageType]) {
+                const uniqueMessage = {
+                    text: flash[messageType],
+                    timestamp: Date.now(),
+                }
+
+                setCurrentMessage(uniqueMessage)
+                setCurrentType(messageType)
             }
-            setCurrentMessage(uniqueMessage)
-            setCurrentType(flash.type || 'success')
         }
     }, [flash])
 
     useEffect(() => {
-        if (currentMessage) {
+        if (currentMessage && messageApi[currentType]) {
             messageApi[currentType]({
                 content: currentMessage.text,
             })
