@@ -55,7 +55,7 @@ export default function Index() {
         },
         {
             title: '',
-            key: 'delete',
+            key: 'edit',
             width: 80,
             render: (_, record) => {
                 return record.deleted ? null : (
