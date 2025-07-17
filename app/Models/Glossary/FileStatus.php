@@ -18,7 +18,7 @@ class FileStatus extends Model
     ##################################################
     protected $table = 'glossary__file_status';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['code', 'name', 'type'];
 
     public $timestamps = false;
 }

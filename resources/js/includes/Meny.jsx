@@ -19,6 +19,7 @@ export default function Meny() {
                 { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
                 { key: 'validate', label: <ItemMenu itemKey="validate" routeName="glossary.validator.index" text="Валидация" /> },
                 { key: 'sources', label: <ItemMenu itemKey="sources" routeName="glossary.sources.index" text="Финансирование" /> },
+                { key: 'event-list', label: <ItemMenu itemKey="event-list" routeName="glossary.events.index" text="График выплат" /> },
             ],
         })
 

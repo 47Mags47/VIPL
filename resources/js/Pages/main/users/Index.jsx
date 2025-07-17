@@ -20,7 +20,7 @@ export default function Index() {
             title: '',
             dataIndex: 'online',
             width: 45,
-            render: (_, record) => { <StatusCircle title={record.title} color={record.color} /> }
+            render: (_, record) => (<StatusCircle title={record.status.name} color={record.status.color} />)
         },
         {
             title: 'Имя',
