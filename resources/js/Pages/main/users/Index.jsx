@@ -1,8 +1,8 @@
-import { usePage }                                              from "@inertiajs/react"
+import { usePage } from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout }                        from '@/layouts'
-import { Table, AddButton, EditButton, OffButton, OnButton }    from "@/components/table"
-
+import { AuthenticatedLayout as Layout } from '@/layouts'
+import { Table, AddButton, EditButton, OffButton, OnButton } from "@/components/table"
+import StatusCircle                         from "@/components/StatusCircle"
 
 export default function Index() {
     const users = usePage().props.users
@@ -12,30 +12,7 @@ export default function Index() {
             title: '',
             dataIndex: 'online',
             width: 45,
-            render: (_, record) => {
-                let StatusColor = {
-                    'new': '#f3f55c',
-                    'send-invitation': '#f3f55c',
-                    'send-verify': '#f3f55c',
-                    'active': '#5cf561',
-                    'disabled': '#f53b3b',
-                }
-
-                let status = 'disabled'
-                if (record.deleted)
-                    status = 'disabled'
-                else
-                    status = record.status.code
-
-
-                return (
-                    <i
-                        className={"fa-solid fa-circle"}
-                        style={{ color: StatusColor[status] }}
-                        title={record.status.name}
-                    ></i>
-                )
-            }
+            render: (_, record) => (<StatusCircle title={record.status.name} color={record.status.color} />)
         },
         {
             title: 'Имя',

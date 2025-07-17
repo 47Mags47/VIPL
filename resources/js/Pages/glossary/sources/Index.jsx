@@ -17,17 +17,17 @@ export default function Index() {
             dataIndex: 'name',
         },
         {
-            key: 'edit',
-            width: 80,
-            render: (_, record) => (
-                <EditButton href={route('glossary.sources.edit', { source: record.id })} />
-            )
-        },
-        {
             key: 'delete',
             width: 80,
             render: (_, record) => (
                 <DeleteButton href={route('glossary.sources.destroy', { source: record.id })} />
+            )
+        },
+        {
+            key: 'edit',
+            width: 80,
+            render: (_, record) => (
+                <EditButton href={route('glossary.sources.edit', { source: record.id })} />
             )
         },
     ];
