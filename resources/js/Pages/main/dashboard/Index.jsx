@@ -1,6 +1,7 @@
 import { useForm, usePage } from '@inertiajs/react'
 
 import { EditableText } from '@/components/forms'
+import { AuthenticatedLayout as Layout } from '@/layouts'
 
 
 export default function Index() {
@@ -16,29 +17,31 @@ export default function Index() {
     }
 
     return (
-        <div className="dashboard-container">
-            <div className="left-panel">
-                <span>
-                    <i className="fa-solid fa-user-circle"></i>
-                </span>
+        <Layout>
+            <div className="dashboard-container">
+                <div className="left-panel">
+                    <span>
+                        <i className="fa-solid fa-user-circle"></i>
+                    </span>
+                </div>
+                <div className="right-panel">
+                    <EditableText
+                        name="name"
+                        label="ФИО"
+                        value={data.name}
+                        onChange={(e) => setData('name', e.target.value)}
+                        onBlur={onSubmit}
+                    />
+                    <EditableText
+                        name="email"
+                        label="Email"
+                        value={data.email}
+                        onChange={(e) => setData('email', e.target.value)}
+                        onBlur={onSubmit}
+                    />
+                </div>
             </div>
-            <div className="right-panel">
-                <EditableText
-                    name="name"
-                    label="ФИО"
-                    value={data.name}
-                    onChange={(e) => setData('name', e.target.value)}
-                    onBlur={onSubmit}
-                />
-                <EditableText
-                    name="email"
-                    label="Email"
-                    value={data.email}
-                    onChange={(e) => setData('email', e.target.value)}
-                    onBlur={onSubmit}
-                />
-            </div>
-        </div>
+        </Layout>
     )
 }
 
