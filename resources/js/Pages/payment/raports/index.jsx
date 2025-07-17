@@ -1,11 +1,13 @@
-import { usePage, router } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react"
 
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { AuthenticatedLayout as Layout } from "@/layouts"
 
-import { Table } from "@/components/table";
-import BlueButton from '@/components/buttons/BlueButton';
-import DownloadButton from '@/components/buttons/DownloadButton';
-import EchoProgress from '@/components/EchoProgress';
+import { Table } from "@/components/table"
+import BlueButton from '@/components/buttons/BlueButton'
+import DownloadButton from '@/components/buttons/DownloadButton'
+import EchoProgress from '@/components/EchoProgress'
+import FileZipperIco from "@/components/icons/FileZipperIco"
+import FileIco from "@/components/icons/FileIco"
 
 
 export default function Index() {
@@ -42,7 +44,13 @@ export default function Index() {
             title: 'Создан',
             dataIndex: 'created_at',
             width: 100,
-            render: (value) => new Date(value).toLocaleDateString()
+            render: (value) => new Date(value).toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
         },
         {
             title: 'Комментарий',
@@ -57,7 +65,7 @@ export default function Index() {
                 return record.status.code === 'created'
                     ? (
                         <DownloadButton href={route('payments.bank-files.download', { raport: record.id })}>
-                            <i className="fa-solid fa-folder"></i>
+                            <FileZipperIco />
                         </DownloadButton>
                     )
                     : ''
@@ -69,14 +77,18 @@ export default function Index() {
             width: 80,
             render: (_, record) => {
                 return record.status.code === 'created'
-                    ? (<DownloadButton href={route('payments.raports.download', { raport: record.id })} />)
+                    ? (
+                        <DownloadButton href={route('payments.raports.download', { raport: record.id })} >
+                            <FileIco />
+                        </DownloadButton>
+                    )
                     : ''
             }
         },
     ]
 
     return (
-        <AuthenticatedLayout>
+        <Layout>
             <Table
                 rowKey="id"
                 columns={columns}
@@ -87,6 +99,6 @@ export default function Index() {
                     </BlueButton>
                 }
             />
-        </AuthenticatedLayout >
+        </Layout >
     )
 }

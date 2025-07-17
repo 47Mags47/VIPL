@@ -1,4 +1,5 @@
-import Label from "./Label";
+import FormGroup    from "./FormGroup"
+import Label        from "./Label"
 
 
 export default function StringInput({ ...props }) {
@@ -10,10 +11,8 @@ export default function StringInput({ ...props }) {
     const onChange = props.onChange
 
     return (
-        <Label
-            name={name}
-            label={label}
-        >
+        <FormGroup name={name}>
+            <Label label={label} />
             <textarea
                 id={id}
                 name={name}
@@ -22,6 +21,6 @@ export default function StringInput({ ...props }) {
                 placeholder={placeholder}
                 {...props}
             />
-        </Label>
+        </FormGroup >
     )
 }

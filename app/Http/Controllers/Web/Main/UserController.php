@@ -21,7 +21,7 @@ class UserController extends Controller
 {
     public function index(UserFilter $filter)
     {
-        $users = User::hasEditAccessToCurrentUser()
+        $users = User::withTrashed()->hasEditAccessToCurrentUser()
             ->filter($filter)
             ->orderBy('name')
             ->api();

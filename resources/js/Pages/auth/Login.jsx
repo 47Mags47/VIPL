@@ -1,7 +1,7 @@
-import { useForm } from '@inertiajs/react';
-import { Link } from '@inertiajs/react'
+import { useForm }                                              from '@inertiajs/react';
+import { Link }                                                 from '@inertiajs/react'
 
-import { GuestLayout as Layout } from '@/layouts';
+import { GuestLayout as Layout }                                from '@/layouts';
 import { VerticalForm as Form, StringInput as Input, CheckBox } from '@/components/forms';
 
 

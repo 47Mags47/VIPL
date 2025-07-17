@@ -1,10 +1,12 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                          from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table } from "@/components/table";
+import { AuthenticatedLayout as Layout }    from '@/layouts'
+import { Table }                            from "@/components/table"
+
 
 export default function Index() {
     const recipients = usePage().props.recipients
+
     const columns = [
         {
             title: 'Фамилия',
@@ -60,5 +62,5 @@ export default function Index() {
                 data={recipients}
             />
         </Layout>
-    );
+    )
 }

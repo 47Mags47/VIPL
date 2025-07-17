@@ -24,10 +24,19 @@ class HandleInertiaRequests extends Middleware
 
         $shared['flash'] = [];
         if ($request->session()->has('message'))
-            $shared['flash']['message'] = $request->session()->get('message');
+            $shared['flash']['success'] = $request->session()->get('message');
 
         if ($request->session()->has('error'))
             $shared['flash']['error'] = $request->session()->get('error');
+
+        if ($request->session()->has('info'))
+            $shared['flash']['info'] = $request->session()->get('info');
+
+        if ($request->session()->has('warning'))
+            $shared['flash']['warning'] = $request->session()->get('warning');
+
+        if ($request->session()->has('loading'))
+            $shared['flash']['loading'] = $request->session()->get('loading');
 
         return $shared;
     }

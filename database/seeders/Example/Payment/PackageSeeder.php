@@ -15,10 +15,8 @@ class PackageSeeder extends Seeder
      */
     public function run(): void
     {
-        Payment::createEventsToPeriod(now()->startOfMonth(), now()->endOfMonth());
-
         Package::factory(2)->create([
-            'event_id' => Event::first()->id,
+            'event_id' => Event::orderBy('date')->get()->first()->id,
             'status_id' => PackageStatus::byCode('ready')->id,
         ]);
     }

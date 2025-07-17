@@ -22,7 +22,6 @@ class PaymentResource extends JsonResource
             'name' => $this->name,
             'start_at' => $this->start_at->format('Y-m-d'),
             'law' => LawResource::make($this->law),
-            'periodicity' => PaymentPeriodicityResource::make($this->periodicity),
         ];
     }
 }

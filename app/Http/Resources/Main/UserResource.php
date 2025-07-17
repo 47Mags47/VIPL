@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Main;
 
-use App\Http\Resources\Glossary\UserStatusResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +19,18 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'status' => UserStatusResource::make($this->status),
+            'status' => [
+                'name' => $this->status->name,
+                'color' => [
+                    'new' => 'orange',
+                    'send-invite' => 'orange',
+                    'send-verify' => 'orange',
+                    'active' => 'green',
+                    'disabled' => 'red',
+
+                ][$this->status->code],
+            ],
+
             'online' => true,
             'division' => $this->division !== null ? $this->division->toResource() : null,
             'roles' => $this->roles->toResourceCollection(),

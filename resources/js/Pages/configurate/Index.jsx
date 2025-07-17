@@ -1,7 +1,7 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                          from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, EditButton } from "@/components/table";
+import { AuthenticatedLayout as Layout }    from '@/layouts'
+import { Table, EditButton }                from "@/components/table"
 
 export default function Index() {
     const config = usePage().props.config

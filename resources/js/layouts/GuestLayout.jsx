@@ -1,7 +1,9 @@
+import BaseLayout from './BaseLayout'
+
 export default function GuestLayout({ children }) {
     return (
-        <div className="layout guest-layout">
+        <BaseLayout name="guest-layout">
             {children}
-        </div>
-    );
+        </BaseLayout>
+    )
 }

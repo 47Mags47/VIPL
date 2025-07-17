@@ -1,5 +1,5 @@
-import Label from "./Label";
-
+import Label        from "./Label"
+import FormGroup    from './FormGroup'
 
 export default function StringInput({ ...props }) {
     const type = props.type ?? 'text'
@@ -8,26 +8,21 @@ export default function StringInput({ ...props }) {
     const label = props.label
     const value = props.value
     const placeholder = props.placeholder ?? ''
-    const disabled = props.disabled
-    const autoFocus = props.autoFocus ?? false
-
     const onChange = props.onChange
-    const onBlur = props.onBlur
+    const disabled = props.disabled
 
     return (
-        <Label name={name} label={label} >
+        <FormGroup name={name}>
+            <Label label={label} />
             <input
                 type={type}
                 id={id}
                 name={name}
                 value={value ?? ''}
+                onChange={onChange}
                 placeholder={placeholder}
                 disabled={disabled}
-                autoFocus={autoFocus}
-
-                onChange={onChange}
-                onBlur={onBlur}
             />
-        </Label>
+        </FormGroup>
     )
 }

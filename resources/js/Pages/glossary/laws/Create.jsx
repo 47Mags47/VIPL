@@ -1,7 +1,7 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                             from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                                from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, TextArea } from '@/components/forms'
 
 
 export default function Create() {
@@ -9,7 +9,7 @@ export default function Create() {
         code: '',
         name: '',
         source_id: '',
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -48,8 +48,7 @@ export default function Create() {
                 />
             </Form>
         </Layout>
-    );
-
+    )
 }
 
 

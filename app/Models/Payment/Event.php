@@ -3,11 +3,15 @@
 namespace App\Models\Payment;
 
 use App\Models\Glossary\Bank;
+use App\Models\Glossary\EventStatus;
 use App\Models\Glossary\FileStatus;
 use App\Models\Glossary\Payment;
 use App\Traits\hasApi;
+use App\Traits\HasFilter;
 use App\Traits\Named;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +23,7 @@ class Event extends Model
 {
     ### Настройки
     ##################################################
-    use Named, hasApi;
+    use Named, hasApi, HasFilter, HasFactory;
 
     protected $table = 'payment__events';
 
@@ -36,6 +40,13 @@ class Event extends Model
     }
 
     public $timestamps = false;
+
+    ### Ограничения
+    ##################################################
+    public function scopeActive(Builder $builder): Builder
+    {
+        return $builder->whereNot('status_id', EventStatus::byCode('disabled')?->id);
+    }
 
     ### Методы
     ##################################################
@@ -92,6 +103,11 @@ class Event extends Model
     public function payment(): BelongsTo
     {
         return $this->belongsTo(Payment::class, 'payment_id');
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(EventStatus::class, 'status_id');
     }
 
     public function packages(): HasMany

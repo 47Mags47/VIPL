@@ -8,7 +8,6 @@ use App\Http\Requests\Glossary\Payment\StoreRequest;
 use App\Http\Requests\Glossary\Payment\UpdateRequest;
 use App\Models\Glossary\Law;
 use App\Models\Glossary\Payment;
-use App\Models\Glossary\PaymentPeriodicity;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
@@ -23,14 +22,13 @@ class PaymentController extends Controller
     public function create()
     {
         return Inertia::render('glossary/payments/Create', [
-            'periodicities' => PaymentPeriodicity::api(),
             'laws' => fn() => Law::api(),
         ]);
     }
 
     public function store(StoreRequest $request)
     {
-        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id', 'periodicity_id', 'start_at']));
+        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно создана');
     }
@@ -39,7 +37,6 @@ class PaymentController extends Controller
     {
         return Inertia::render('glossary/payments/Edit', [
             'payment' => fn() => $payment->toResource(),
-            'periodicities' => PaymentPeriodicity::api(),
             'laws' => fn() => Law::api(),
         ]);
     }

@@ -1,7 +1,7 @@
-import { useForm } from '@inertiajs/react';
+import { useForm }                                      from '@inertiajs/react';
 
-import { GuestLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input } from '@/components/forms';
+import { GuestLayout as Layout }                        from '@/layouts';
+import { VerticalForm as Form, StringInput as Input }   from '@/components/forms';
 
 
 export default function ForgotPassword() {

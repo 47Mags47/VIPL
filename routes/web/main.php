@@ -10,15 +10,11 @@ Route::middleware('auth')->prefix('/main')->name('main.')->group(function () {
         Route::resource('/users', UserController::class)->except(['show'])->withTrashed();
         Route::prefix('/users/{user}')->name('users.')->controller(UserController::class)->group(function () {
             Route::post('/send-invition', 'invitionSend')->name('invition.send');
+            Route::post('/restore', 'restore')->withTrashed()->name('restore');
         });
     });
 
     Route::prefix('/users/{user}')->name('users.')->controller(UserController::class)->group(function () {
         Route::get('/accept-invition', 'invitionAccept')->name('invition.accept');
-    });
-
-    Route::prefix('/dashboard')->name('dashboard.')->controller(DashboardController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store');
     });
 });

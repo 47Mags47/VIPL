@@ -1,3 +1,7 @@
+import FormGroup    from "./FormGroup"
+import Label        from "./Label"
+
+
 export default function CheckBox({ ...props }) {
     const name = props.name
     const id = props.id ?? props.name
@@ -7,7 +11,7 @@ export default function CheckBox({ ...props }) {
     const disabled = props.disabled
 
     return (
-        <div className="form-group inline">
+        <FormGroup name={"inline"}>
             <input
                 type="checkbox"
                 id={id}
@@ -16,7 +20,7 @@ export default function CheckBox({ ...props }) {
                 onChange={onChange}
                 disabled={disabled}
             />
-            <label htmlFor={name}>{label}</label>
-        </div>
+            <Label label={label} />
+        </FormGroup>
     )
 }

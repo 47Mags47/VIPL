@@ -1,11 +1,7 @@
-import Error from "@/components/Error"
-
-export default function Label({ name, children, label }) {
+export default function Label({ name, label }) {
     return (
-        <div className="form-group">
-            <label htmlFor={name}>{label}</label>
-            {children}
-            <Error name={name} />
-        </div>
+        <label htmlFor={name}>
+            {label}
+        </label>
     )
 }

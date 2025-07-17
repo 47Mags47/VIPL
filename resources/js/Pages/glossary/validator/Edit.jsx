@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { useForm, usePage } from '@inertiajs/react'
+import { useState }                                                 from 'react'
+import { useForm, usePage }                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts'
-import List from '@/components/List'
-import { VerticalForm as Form, StringInput as Input, Select, EditableList } from '@/components/forms'
-import BlueButton from '@/components/buttons/BlueButton'
-import PaperclipIco from '@/components/icons/PaperclipIco'
+import { AuthenticatedLayout as Layout }                            from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, List } from '@/components/forms'
+import BlueButton                                                   from '@/components/buttons/BlueButton'
+import PaperclipIco                                                 from '@/components/icons/PaperclipIco'
 
 export default function Edit() {
     const column = usePage().props.column.data
@@ -13,24 +12,24 @@ export default function Edit() {
     const [showMemo, setShowMemo] = useState(false)
 
     const { data, setData, put, processing } = useForm({
-        code: column.code,
-        name: column.name,
-        file_pos: column.position,
-        required: column.required,
-        patterns: column.patterns,
-        type_id: column.type.id
+        code:       column.code,
+        name:       column.name,
+        file_pos:   column.position,
+        required:   column.required,
+        patterns:   column.patterns,
+        type_id:    column.type.id
     })
 
-    // const memoList = [
-    //     '"#"- число',
-    //     '"." - любой символ',
-    //     '"@" - любая буква',
-    //     '"a" - русская строчная буква',
-    //     '"А" - русская заглавная буква',
-    //     '"z" - английская строчная буква',
-    //     '"Z" - английская заглавная буква',
-    //     '"*" - любое количество символов',
-    // ]
+    const memoList = [
+        '"#"- число',
+        '"." - любой символ',
+        '"@" - любая буква',
+        '"a" - русская строчная буква',
+        '"А" - русская заглавная буква',
+        '"z" - английская строчная буква',
+        '"Z" - английская заглавная буква',
+        '"*" - любое количество символов',
+    ]
 
     function onSubmit(e) {
         e.preventDefault()
@@ -74,11 +73,11 @@ export default function Edit() {
                         value={data.type_id}
                         onChange={(value) => setData('type_id', value)}
                     />
-                    <EditableList
+                    <List
                         label="Шаблоны"
                         name="patterns"
-                        value={data.patterns}
-                        onChange={(value) => setData('patterns', value)}
+                        items={data.patterns}
+                        setItems={(value) => setData('patterns', value)}
                     />
                 </Form>
                 <BlueButton
@@ -112,26 +111,14 @@ export default function Edit() {
                     }}
                 >
                     <List
-                        // style={{
-                        //     border: 'none'
-                        // }}
-                        // name="memo"
-                        value={[
-                            '"#"- число',
-                            '"." - любой символ',
-                            '"@" - любая буква',
-                            '"a" - русская строчная буква',
-                            '"А" - русская заглавная буква',
-                            '"z" - английская строчная буква',
-                            '"Z" - английская заглавная буква',
-                            '"*" - любое количество символов',
-                        ]}
-                    // itemrender={(item, index) => (
-                    //     <span>{item}</span>
-                    // )}
-                    // render={(item) => <span>{item}</span>}
-                    // hasDelete={false}
-                    // hasAdd={false}
+                        style={{
+                            border: 'none'
+                        }}
+                        name="memo"
+                        items={memoList}
+                        render={(item) => <span>{item}</span>}
+                        hasDelete={false}
+                        hasAdd={false}
                     />
                 </div>
             </div>

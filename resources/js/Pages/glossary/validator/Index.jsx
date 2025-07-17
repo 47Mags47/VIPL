@@ -1,8 +1,8 @@
-import { usePage } from "@inertiajs/react";
+import { usePage }                          from "@inertiajs/react"
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { Table, EditButton } from "@/components/table";
-import { Tooltip } from "antd";
+import { AuthenticatedLayout as Layout }    from '@/layouts'
+import { Table, EditButton }                from "@/components/table"
+import { Tooltip }                          from "antd"
 
 
 export default function Index() {
@@ -56,7 +56,7 @@ export default function Index() {
                 <EditButton href={route('glossary.validator.edit', { column: record.id })} />
             )
         },
-    ];
+    ]
 
     return (
         <Layout>
@@ -66,5 +66,5 @@ export default function Index() {
                 data={columns}
             />
         </Layout>
-    );
+    )
 }

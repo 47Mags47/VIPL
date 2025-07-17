@@ -1,22 +1,15 @@
-import Header from '@/includes/Header'
-import LoadIco from '@/includes/LoadIco'
-import Message from '@/includes/Messege'
+import BaseLayout from './BaseLayout'
 
-import { message } from 'antd';
+import Header from '@/includes/Header'
 
 
 export default function AuthenticatedLayout({ children }) {
-    const [messageApi, contextHolder] = message.useMessage();
-
     return (
-        <div className="layout authenticated-layout">
-            <LoadIco />
+        <BaseLayout name="authenticated-layout">
             <Header />
-            <Message type='success' messageApi={messageApi} />
-            {contextHolder}
             <main>
                 {children}
             </main>
-        </div>
+        </BaseLayout>
     );
 }

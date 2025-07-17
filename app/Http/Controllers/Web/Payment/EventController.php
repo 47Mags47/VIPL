@@ -21,8 +21,6 @@ class EventController extends Controller
         $start_month = CarbonImmutable::createFromDate($year, $month, 1)->startOfDay();
         $end_month = $start_month->endOfMonth();
 
-        Payment::createEventsToPeriod($start_month, $end_month);
-
         return Inertia::render('payment/events/index', [
             'events' => fn() => Event::compactToPeriod($start_month, $end_month),
             'month' => fn() => $month,
