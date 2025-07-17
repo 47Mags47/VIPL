@@ -1,36 +1,24 @@
 import { usePage } from '@inertiajs/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { message } from 'antd';
 
-const MESSAGE_TYPES = ['success', 'error', 'info', 'warning', 'loading']
-
-export default function Message({ messageApi }) {
-    const { flash } = usePage().props
-    const [currentMessage, setCurrentMessage] = useState(null)
-    const [currentType, setCurrentType] = useState('success')
+export default function Message() {
+    const flash_prop = usePage().props.flash
+    const flash = Array.isArray(flash_prop) ? {} : flash_prop
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
-        if (flash) {
-            const messageType = MESSAGE_TYPES.find(type => flash[type] !== undefined)
-
-            if (messageType && flash[messageType]) {
-                const uniqueMessage = {
-                    text: flash[messageType],
-                    timestamp: Date.now(),
-                }
-
-                setCurrentMessage(uniqueMessage)
-                setCurrentType(messageType)
-            }
-        }
+        Object.keys(flash).forEach((key) =>
+            messageApi.open({
+                type: key,
+                content: flash[key],
+            })
+        )
     }, [flash])
 
-    useEffect(() => {
-        if (currentMessage && messageApi[currentType]) {
-            messageApi[currentType]({
-                content: currentMessage.text,
-            })
-        }
-    }, [currentMessage, currentType, messageApi])
-
-    return null
+    return (
+        <>
+            {contextHolder}
+        </>
+    )
 }
