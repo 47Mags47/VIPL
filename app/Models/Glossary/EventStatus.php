@@ -6,19 +6,15 @@ use App\Traits\hasCode;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @var string $table glossary__file_status
- * @var bool $timestamps false
- */
-class FileStatus extends Model
+class EventStatus extends Model
 {
     use Named, hasCode;
 
     ### Настройки
     ##################################################
-    protected $table = 'glossary__file_status';
+    protected $table = 'glossary__event_statuses';
 
-    protected $fillable = ['code', 'name', 'type'];
+    protected $fillable = ['code', 'name'];
 
     public $timestamps = false;
 }

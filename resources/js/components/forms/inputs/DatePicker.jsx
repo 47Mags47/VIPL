@@ -9,20 +9,21 @@ export default function DatePicker({ ...props }) {
     const name = props.name
     const label = props.label
     const multiple = props.multiple ?? false
-    const value = toDate(props.value)
     const onChange = props.onChange
     const format = props.format ?? 'DD.MM.YYYY'
+    const serverFormat = props.serverFormat ?? 'YYYY-MM-DD'
+    const value = toDate(props.value)
 
     function toString(date) {
         return Array.isArray(props.value)
-            ? date.map((day) => day.format('YYYY-MM-DD HH:mm:ss'))
-            : date.format('YYYY-MM-DD HH:mm:ss')
+            ? date.map((day) => day.format(serverFormat))
+            : date.format(serverFormat)
     }
 
     function toDate(date) {
         return Array.isArray(props.value)
-            ? date.map((day) => dayjs(day, 'YYYY-MM-DD HH:mm:ss'))
-            : (date !== '' ? dayjs(date, 'YYYY-MM-DD HH:mm:ss') : '')
+            ? date.map((day) => dayjs(day, serverFormat))
+            : (date !== '' ? dayjs(date, serverFormat) : '')
     }
 
     function changeHandler(date) {

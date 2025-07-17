@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Glossary\DivisionSeeder::class);
         $this->call(Glossary\ValidatorSeeder::class);
         $this->call(Glossary\FileStatusSeeder::class);
+        $this->call(Glossary\EventSeeder::class);
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\UserSeeder::class);

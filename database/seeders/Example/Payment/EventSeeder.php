@@ -2,9 +2,7 @@
 
 namespace Database\Seeders\Example\Payment;
 
-use App\Models\Glossary\Payment;
 use App\Models\Payment\Event;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
@@ -14,6 +12,6 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        Event::create(['date' => now(), 'payment_id' => Payment::all()->random()->id]);
+        Event::factory(15)->create();
     }
 }
