@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { LoadIco } from '@/components/icons'
 
 
-export default function LoadIco() {
+export default function LoadingPage() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function LoadIco() {
     if (!isLoading) return null
     return (
         <div className="load-ico-box open">
-            <i className="fa-solid fa-spinner fa-spin"></i>
+            <LoadIco />
             <span>Загрузка ...</span>
         </div>
     )

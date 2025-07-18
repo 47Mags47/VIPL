@@ -1,4 +1,4 @@
-import LoadIco from '@/includes/LoadIco'
+import LoadingPage from '@/includes/LoadingPage'
 import Message from '@/includes/Messege'
 
 export default function Baselayout({ ...props }) {
@@ -6,7 +6,7 @@ export default function Baselayout({ ...props }) {
 
     return (
         <div className={"layout " + name}>
-            <LoadIco />
+            <LoadingPage />
             <Message />
             {props.children}
         </div>

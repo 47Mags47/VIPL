@@ -1,47 +1,92 @@
 import { usePage } from '@inertiajs/react';
 import { Dropdown } from 'antd';
+import { Link } from '@inertiajs/react';
 
-import ItemMenu from '@/components/menu/ItemMenu';
+import { BarsIco } from '@/components/icons';
+import { RedButton } from '@/components/buttons';
+import { router } from '@inertiajs/react';
 
 
 export default function Meny() {
-    const user = usePage().props.current_user.data;
+    const user = usePage().props.current_user.data
 
-    let meny = []
-    if (user.permissions.includes('edit_glossary'))
-        meny.push({
+    const items = [
+        {
             key: 'glossary',
             label: 'Справочники',
+            permission: ['edit_glossary'],
             children: [
-                { key: 'banks', label: <ItemMenu itemKey="banks" routeName="glossary.banks.index" text="Банки" /> },
-                { key: 'divisions', label: <ItemMenu itemKey="divisions" routeName="glossary.divisions.index" text="Подразделения" /> },
-                { key: 'laws', label: <ItemMenu itemKey="laws" routeName="glossary.laws.index" text="Законы" /> },
-                { key: 'payments', label: <ItemMenu itemKey="payments" routeName="glossary.payments.index" text="Выплаты" /> },
-                { key: 'validate', label: <ItemMenu itemKey="validate" routeName="glossary.validator.index" text="Валидация" /> },
-                { key: 'sources', label: <ItemMenu itemKey="sources" routeName="glossary.sources.index" text="Финансирование" /> },
-                { key: 'event-list', label: <ItemMenu itemKey="event-list" routeName="glossary.events.index" text="График выплат" /> },
-            ],
-        })
-
-    if (user.permissions.includes('create_users'))
-        meny.push({ key: 'users', label: <ItemMenu itemKey="users" routeName="main.users.index" text="Пользователи" /> })
-
-    if (user.permissions.includes('system_configuration'))
-        meny.push({ key: 'config', label: <ItemMenu itemKey="config" routeName="config.index" text="Конфигурация" /> })
-
-    const defaultMenyItems = [
-        { key: 'events', label: <ItemMenu itemKey="events" routeName="payments.events.index" text="Календарь" /> },
-        { key: 'edit-password', label: <ItemMenu itemKey="edit-password" routeName="password.edit" text="Сменить пароль" /> },
-        { key: 'logout', label: <ItemMenu itemKey="logout" routeName="logout" text="Выход" method='post' /> },
+                { key: 'banks', label: 'Банки', route: 'glossary.banks.index' },
+                { key: 'divisions', label: 'Подразделения', route: 'glossary.divisions.index' },
+                { key: 'laws', label: 'Законы', route: 'glossary.laws.index' },
+                { key: 'payments', label: 'Выплаты', route: 'glossary.payments.index' },
+                { key: 'validator', label: 'Валидация', route: 'glossary.validator.index' },
+                { key: 'sources', label: 'Финансирование', route: 'glossary.sources.index' },
+                { key: 'glossary_events', label: 'График выплат', route: 'glossary.events.index' },
+            ]
+        },
+        {
+            key: 'users',
+            label: 'Пользователи',
+            route: 'main.users.index',
+            permission: ['create_users'],
+        },
+        {
+            key: 'config',
+            label: 'Конфигурация',
+            route: 'config.index',
+            permission: ['system_configuration'],
+        },
+        {
+            key: 'events',
+            label: 'Календарь',
+            route: 'payments.events.index',
+        },
+        {
+            key: 'edit-password',
+            label: 'Сменить пароль',
+            route: 'password.edit',
+        },
+        {
+            key: 'logout',
+            label: 'Выход',
+            route: 'logout',
+            render: () => (<RedButton onClick={() => router.post(route('logout'))} confirm="Вы уверены, что хотите выйти?">Выход</RedButton>)
+        },
     ]
 
-    let menuItems = meny.concat(defaultMenyItems)
+    function generateDropDownItem(item) {
+        if (item.permission !== undefined) {
+            let hasPermission = item.permission.map((needlePermission) => user.permissions.includes('create_users')).includes(true)
+            if (!hasPermission)
+                return
+        }
+
+        return {
+            key: item.key,
+            label: item.children !== undefined
+                ? item.label
+                : (
+                    item.render !== undefined
+                        ? item.render()
+                        : <Link href={route(item.route)} method={item.method ?? 'get'}>{item.label}</Link>
+                ),
+            children: item.children !== undefined
+                ? item.children.map((child, i) => generateDropDownItem({ ...child, key: item.key + '_' + i }))
+                : undefined
+        }
+    }
 
     return (
-        <Dropdown menu={{ items: menuItems }} trigger={['click']}>
-            <button type="button" className="menu-toggle">
-                <i className="fa-solid fa-bars ico ico-menu"></i>
-            </button>
-        </Dropdown>
+        <>
+            <Dropdown
+                menu={{ items: items.map(generateDropDownItem).filter((item) => item !== undefined) }}
+                trigger={['click']}
+            >
+                <button type="button" className="menu-toggle">
+                    <BarsIco />
+                </button>
+            </Dropdown>
+        </>
     );
 }
