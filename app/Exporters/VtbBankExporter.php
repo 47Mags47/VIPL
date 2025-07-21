@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\Exporter;
-use Illuminate\Support\Facades\Storage;
 
 class VtbBankExporter extends Exporter
 {
@@ -14,7 +13,7 @@ class VtbBankExporter extends Exporter
         parent::__construct(...func_get_args());
         $this->setFileName('Z_0000281997_' . $this->event->date->format('Ymd') . '_' . substr($this->npp, 3, 2) . '.txt');
 
-        $this->f = fopen($this->getFullPath(), 'w');
+        $this->f = $this->getFile();
     }
 
     private function writeStart(): VtbBankExporter
@@ -69,7 +68,7 @@ class VtbBankExporter extends Exporter
         return $this;
     }
 
-    public function save(): VtbBankExporter
+    public function generate(): VtbBankExporter
     {
         $this
             ->writeStart()

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Glossary\Bank;
-use App\Models\Payment\Event;
+use App\Models\Glossary\FileStatus;
 use App\Models\Payment\Raport;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('original_name');
 
+            $table->foreignId('status_id')->constrained(FileStatus::getTableName());
             $table->foreignId('raport_id')->constrained(Raport::getTableName())->cascadeOnDelete();
             $table->foreignId('bank_id')->constrained(Bank::getTableName())->cascadeOnDelete();
 

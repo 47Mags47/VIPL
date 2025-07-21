@@ -3,7 +3,7 @@
 namespace App\Jobs\Payment\raports;
 
 use App\Events\Payment\Raport\ChangePercentBroadcastEvent;
-use App\Jobs\Payment\BankFile\GenerateJob as BankFileGenerateJob;
+use App\Jobs\Payment\BankFiles\GenerateJob as BankFileGenerateJob;
 use App\Models\Glossary\FileStatus;
 use App\Models\Main\User;
 use App\Models\Payment\Event;
@@ -11,7 +11,6 @@ use App\Models\Payment\Raport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -36,19 +35,17 @@ class GenerateJob implements ShouldQueue
 
     public function __construct(public Event $event, private User $user)
     {
-        $this->file_name = Str::random(40) . '.xlsx';
-        $npp = Raport::where('event_id', $this->event->id)->count() + 1;
-        $this->file_origin_name = 'Отчет по ' . $this->event->payment->code . ' выплате на ' . $this->event->date->format('d.m.Y') . " № $npp.xls";
-        $this->file_full_path = Storage::disk(self::FILE_DISK)->path(self::FILE_PATH . '/' . $this->file_name);
-
-        $this->event_name = $this->event->payment->code . ' - ' . $this->event->payment->name;
-
-        // Создаем запись в БД
-        $this->raport = Raport::create([
+        $this->raport = $this->event->raports()->create([
             'disk' => self::FILE_DISK,
             'path' => self::FILE_PATH,
-            'name' => $this->file_name,
-            'original_name' => $this->file_origin_name,
+            'name' => Str::random(40) . '.xlsx',
+            'original_name' => 'Отчет по '
+                . $this->event->payment->code
+                . ' выплате на '
+                . $this->event->date->format('d.m.Y')
+                . ' № '
+                . Raport::where('event_id', $this->event->id)->count() + 1
+                . '.xls',
             'event_id' => $this->event->id,
             'start_by' => $this->user->id,
             'status_id' => FileStatus::byCode('create')->id,
@@ -67,7 +64,7 @@ class GenerateJob implements ShouldQueue
             $this->spreadsheet->getActiveSheet()
                 ->setCellValue('A1', 'Выплатная информация ' . sys_config('division.name') . ' за ' . $this->event->date->translatedFormat('d F Y г.')) // DEV вынести наименование организации
                 ->setCellValue('A2', 'Отчет 1: Вид выплаты, кредит. орг.')
-                ->setCellValue('A3', $this->event_name);
+                ->setCellValue('A3', $this->event->payment->code . ' - ' . $this->event->payment->name);
 
             $this->spreadsheet->getActiveSheet()->mergeCells('A1:D1');
             $this->spreadsheet->getActiveSheet()->mergeCells('A2:D2');
@@ -136,7 +133,7 @@ class GenerateJob implements ShouldQueue
             // Заполняем сводную информацию по выплате
             $current_row++;
             $this->spreadsheet->getActiveSheet()
-                ->setCellValue('A' . $current_row, 'Итого по ' . $this->event_name)
+                ->setCellValue('A' . $current_row, 'Итого по ' . $this->event->payment->code . ' - ' . $this->event->payment->name)
                 ->setCellValue('C' . $current_row, $total_count)
                 ->setCellValue('D' . $current_row, $total_summ);
 
@@ -158,13 +155,14 @@ class GenerateJob implements ShouldQueue
                 ->setColor(new Color('000000'));
 
             // сохраняем файл
-            $this->writer->save($this->file_full_path);
+            $this->writer->save($this->raport->getFullPath());
 
             // Обновляем статус
             $this->raport->setStatus('created');
 
-            $test = new BankFileGenerateJob($this->raport);
-            $test->handle();
+            // Запускаем создание фалойв в банк
+            $generator = new BankFileGenerateJob($this->raport);
+            $generator->handle();
 
             ChangePercentBroadcastEvent::dispatch($this->raport, 100);
         } catch (\Throwable $th) {

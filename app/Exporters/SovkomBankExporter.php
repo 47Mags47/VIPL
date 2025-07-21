@@ -41,7 +41,7 @@ class SovkomBankExporter extends ExcelExporter
         $this->spreadsheet->getActiveSheet()->fromArray($data_array->toArray(), NULL, 'A2');
     }
 
-    public function save(): SovkomBankExporter
+    public function generate(): SovkomBankExporter
     {
         $this->writeHeader();
         $this->writeBody();
@@ -52,7 +52,7 @@ class SovkomBankExporter extends ExcelExporter
                 ->setAutoSize(true);
         }
 
-        $this->writer->save($this->getFullPath());
+        $this->save();
 
         return $this;
     }

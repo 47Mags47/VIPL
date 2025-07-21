@@ -81,7 +81,7 @@ return [
 
         'bank-files' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/bank-files'),
+            'root' => storage_path('app/public/bank-files'),
             'serve' => true,
             'throw' => false,
             'report' => false,
