@@ -3,22 +3,22 @@
 namespace App\Exporters;
 
 use App\Classes\ExcelExporter;
-use Illuminate\Support\Facades\Storage;
 
 class ATBBankExporter extends ExcelExporter
 {
     public function __construct()
     {
         parent::__construct(...func_get_args());
+
+        $this->setTemplate('payment_raport_atb.xls');
         $this->setFileName('sp22_' . substr($this->npp, 3, 2) . '.xls');
-        $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_atb.xls'));
     }
 
-    public function save(): ATBBankExporter
+    public function generate(): ATBBankExporter
     {
         $this->spreadsheet->getActiveSheet()
             ->setCellValue('A1', 'Реестр на перечисление социальных выплат за ' . $this->event->date->translatedFormat('F Y') . 'г.')
-            ->setCellValue('B2', 'на счета физических лиц от ('. sys_config('division.name') .')')
+            ->setCellValue('B2', 'на счета физических лиц от (' . sys_config('division.name') . ')')
             ->setCellValue('A3', $this->event->date->format('d.m.Y'));
 
         $data_array = $this->recipients->map(function ($recipient, $i) {
@@ -41,8 +41,7 @@ class ATBBankExporter extends ExcelExporter
                 ->setAutoSize(true);
         }
 
-        $this->writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($this->spreadsheet);
-        $this->writer->save($this->getFullPath());
+        $this->save();
 
         return $this;
     }

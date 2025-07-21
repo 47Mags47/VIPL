@@ -1,7 +1,7 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                     from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                        from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select }   from '@/components/forms'
 
 
 export default function Edit() {
@@ -10,7 +10,7 @@ export default function Edit() {
         email: '',
         division_id: '',
         roles: [],
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -58,5 +58,5 @@ export default function Edit() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }

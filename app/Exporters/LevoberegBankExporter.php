@@ -9,6 +9,7 @@ class LevoberegBankExporter extends CsvExporter
     public function __construct()
     {
         parent::__construct(...func_get_args());
+
         $this->setFileName('000' . $this->npp . '.csv');
     }
 
@@ -42,15 +43,16 @@ class LevoberegBankExporter extends CsvExporter
         $this->spreadsheet->getActiveSheet()->fromArray($data_array->toArray(), null, 'A2');
     }
 
-    public function save(): LevoberegBankExporter
+    public function generate(): LevoberegBankExporter
     {
         $this->writeHeader();
         $this->writeBody();
 
         $this->writer
             ->setEnclosure('')
-            ->setOutputEncoding('CP866')
-            ->save($this->getFullPath());
+            ->setOutputEncoding('CP866');
+
+        $this->save();
 
         return $this;
     }

@@ -1,9 +1,7 @@
 <?php
 
 use App\Models\Glossary\Division;
-use App\Models\Glossary\UserStatus;
-use App\Models\Main\AlertType;
-use App\Models\Main\User;
+use App\Models\Sys\UserStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__user_statusses', function (Blueprint $table) {
+        Schema::create('sys__user_statusses', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
@@ -41,13 +39,13 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('sys__password_reset_tokens', function (Blueprint $table) {
+        Schema::create('laravel__password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('sys__sessions', function (Blueprint $table) {
+        Schema::create('laravel__sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
@@ -62,9 +60,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sys__sessions');
-        Schema::dropIfExists('sys__password_reset_tokens');
+        Schema::dropIfExists('laravel__sessions');
+        Schema::dropIfExists('laravel__password_reset_tokens');
         Schema::dropIfExists('main__users');
-        Schema::dropIfExists('glossary__user_statusses');
+        Schema::dropIfExists('sys__user_statusses');
     }
 };

@@ -1,5 +1,5 @@
-import Label from "./Label";
-
+import Label        from "./Label"
+import FormGroup    from './FormGroup'
 
 export default function StringInput({ ...props }) {
     const type = props.type ?? 'text'
@@ -12,7 +12,8 @@ export default function StringInput({ ...props }) {
     const disabled = props.disabled
 
     return (
-        <Label name={name} label={label} >
+        <FormGroup name={name}>
+            <Label label={label} />
             <input
                 type={type}
                 id={id}
@@ -22,6 +23,6 @@ export default function StringInput({ ...props }) {
                 placeholder={placeholder}
                 disabled={disabled}
             />
-        </Label>
+        </FormGroup>
     )
 }

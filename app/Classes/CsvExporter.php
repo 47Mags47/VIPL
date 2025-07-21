@@ -17,4 +17,9 @@ abstract class CsvExporter extends Exporter
         $this->spreadsheet = new Spreadsheet();
         $this->writer = new Csv($this->spreadsheet);
     }
+
+    public function save()
+    {
+        $this->writer->save($this->db->getFullPath());
+    }
 }

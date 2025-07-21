@@ -4,8 +4,6 @@ namespace Database\Seeders\Glossary;
 
 use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
-use App\Models\Glossary\ContractSideType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BankSeeder extends Seeder

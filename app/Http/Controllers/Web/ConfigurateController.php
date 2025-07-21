@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Configurate\LoginPostRequset;
 use App\Http\Requests\Configurate\UpdateRequest;
 use App\Models\Sys\Config;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ConfigurateController extends Controller

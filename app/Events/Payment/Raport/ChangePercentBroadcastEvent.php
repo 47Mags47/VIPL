@@ -2,11 +2,9 @@
 
 namespace App\Events\Payment\Raport;
 
-use App\Models\Payment\Raport;
+use App\Models\Main\Raports\Payment\Total;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -19,7 +17,7 @@ class ChangePercentBroadcastEvent implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public Raport $raport,
+        public Total $raport,
         public int|float $percent
     ) {}
 

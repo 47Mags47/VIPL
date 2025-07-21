@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BankExporter extends Model
 {
-    use Named, hasCode, HasLog, hasApi;
+    use hasApi, hasCode, HasLog, Named;
 
     ### Настройки
     ##################################################

@@ -20,9 +20,7 @@ class PaymentResource extends JsonResource
             'krv' => $this->krv,
             'kbk' => $this->kbk,
             'name' => $this->name,
-            'start_at' => $this->start_at->format('Y-m-d'),
             'law' => LawResource::make($this->law),
-            'periodicity' => PaymentPeriodicityResource::make($this->periodicity),
         ];
     }
 }

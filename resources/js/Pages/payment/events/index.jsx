@@ -1,14 +1,14 @@
-import { usePage, router, Link } from '@inertiajs/react'
-import { useState } from 'react'
+import { usePage, router, Link }        from '@inertiajs/react'
+import { useState }                     from 'react'
 
-import { Badge, Calendar } from 'antd'
-import locale from 'antd/locale/ru_RU'
-import dayjs from 'dayjs'
-import 'dayjs/locale/ru'
+import { Badge, Calendar }              from 'antd'
+import locale                           from 'antd/locale/ru_RU'
+import dayjs                            from 'dayjs'
+import                                  'dayjs/locale/ru'
 
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import BlueButton from '@/components/buttons/BlueButton'
-import Select from '@/components/forms/inputs/Select'
+import{ AuthenticatedLayout as Layout}  from '@/layouts'
+import BlueButton                       from '@/components/buttons/BlueButton'
+import Select                           from '@/components/forms/inputs/Select'
 
 
 export default function Index() {
@@ -30,7 +30,7 @@ export default function Index() {
                         className="show-link"
                         href={route('payments.events.show', { event: item.data.id })}
                     >
-                        {item.data.name}
+                        {item.data.payment.code + ' - ' + item.data.payment.krv}
                     </Link>
                 ),
                 id: item.data.id
@@ -78,7 +78,6 @@ export default function Index() {
         })
     }
 
-
     const cellRender = (current, info) => {
         if (info.type === 'date') return dateCellRender(current)
         return info.originNode
@@ -89,8 +88,6 @@ export default function Index() {
         const month = current.month()
         const year = current.year()
         const isToday = current.isSame(dayjs(), 'day')
-        console.log(dayjs(), 'day');
-
 
         const months = current.localeData().months().map(m =>
             m.charAt(0).toUpperCase() + m.slice(1)
@@ -156,8 +153,7 @@ export default function Index() {
     }
 
     return (
-        <AuthenticatedLayout>
-
+        <Layout>
             <Calendar
                 headerRender={headerRender}
                 value={value}
@@ -165,6 +161,6 @@ export default function Index() {
                 cellRender={cellRender}
                 locale={locale.Calendar}
             />
-        </AuthenticatedLayout>
+        </Layout>
     )
 }

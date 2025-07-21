@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Glossary\ValidatorColumn;
-use App\Models\Payment\File;
+use App\Models\Main\Payment\File;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment__recipients', function (Blueprint $table) {
+        Schema::create('main__payment__recipients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('file_id')->constrained(File::getTableName())->cascadeOnDelete();
 
@@ -40,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment__recipients');
+        Schema::dropIfExists('main__payment__recipients');
     }
 };

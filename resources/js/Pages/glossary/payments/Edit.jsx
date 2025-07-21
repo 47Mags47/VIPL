@@ -1,9 +1,10 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                                         from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select, TextArea, DatePicker } from '@/components/forms';
+import { AuthenticatedLayout as Layout }                                            from '@/layouts'
+import { VerticalForm as Form, StringInput as Input, Select, TextArea }             from '@/components/forms'
 
-import dayjs from 'dayjs'
+import dayjs                                                                        from 'dayjs'
+
 
 export default function Edit() {
     const payment = usePage().props.payment.data
@@ -12,11 +13,9 @@ export default function Edit() {
         krv:            payment.krv,
         name:           payment.name,
         kbk:            payment.kbk,
-        periodicity_id: payment.periodicity.id,
         law_id:         payment.law.id,
         start_at:       payment.start_at,
-    });
-
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -64,23 +63,7 @@ export default function Edit() {
                     value={data.law_id}
                     onChange={(value) => setData('law_id', value)}
                 />
-                <Select
-                    name="periodicity_id"
-                    label="Переодичность"
-                    list={usePage().props.periodicities.data}
-                    item_value="name"
-                    value={data.periodicity_id}
-                    onChange={(value) => setData('periodicity_id', value)}
-                    disabled
-                />
-                <DatePicker
-                    name="start_at"
-                    label="Дата начала"
-                    value={data.start_at ? dayjs(data.start_at, 'YYYY-MM-DD') : dayjs()}
-                    onChange={(value) => setData('start_at', value ? value.format('YYYY-MM-DD') : '')}
-                    disabled
-                />
             </Form>
         </Layout>
-    );
+    )
 }

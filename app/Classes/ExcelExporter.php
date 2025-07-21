@@ -2,13 +2,17 @@
 
 namespace App\Classes;
 
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 abstract class ExcelExporter extends Exporter
 {
-    public $spreadsheet;
-    public $writer;
+    public Spreadsheet $spreadsheet;
+    public Xls $writer;
+
+    protected string|null $templatePath;
 
     public function __construct()
     {
@@ -16,5 +20,16 @@ abstract class ExcelExporter extends Exporter
 
         $this->spreadsheet = new Spreadsheet();
         $this->writer = new Xls($this->spreadsheet);
+    }
+
+    public function setTemplate(string $path)
+    {
+        $this->templatePath = $path;
+        $this->spreadsheet = IOFactory::load(Storage::disk('templates')->path($path));
+    }
+
+    public function save()
+    {
+        $this->writer->save($this->db->getFullPath());
     }
 }

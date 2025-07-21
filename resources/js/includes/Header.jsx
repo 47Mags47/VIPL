@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/react';
-
+import { UserIco } from '@/components/icons'
 import Meny from './Meny';
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
         <header>
             <h3 className="logo">{logo}</h3>
             <span className="user">
-                <i className="fa-solid fa-user ico user-ico"></i>
+                <UserIco />
                 {user.name}
             </span>
             <Meny />

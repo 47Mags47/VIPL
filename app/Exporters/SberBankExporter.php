@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\XMLExporter;
-use Illuminate\Support\Facades\Storage;
 
 class SberBankExporter extends XMLExporter
 {
@@ -13,7 +12,7 @@ class SberBankExporter extends XMLExporter
         $this->setFileName('f8615' . substr($this->npp, 2, 3) . '.xml');
     }
 
-    public function save(): SberBankExporter
+    public function generate(): SberBankExporter
     {
         $this->writer->openMemory();
         $this->writer->startDocument('1.0', 'windows-1251');
@@ -87,7 +86,7 @@ class SberBankExporter extends XMLExporter
 
         $this->writer->endElement();
 
-        Storage::disk('local')->put($this->save_path . $this->file_name, $this->writer->outputMemory());
+        $this->save();
 
         return $this;
     }

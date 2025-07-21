@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
-    use hasCode, HasLog, hasApi;
+    use hasApi, hasCode, HasLog;
 
     ### Настройки
     ##################################################

@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CalendarRequest;
-use App\Models\Glossary\PackageStatus;
-use App\Models\Glossary\Payment;
-use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Glossary\Event;
+use App\Models\Main\Payment\Package;
+use App\Models\Sys\Payment\PackageStatus;
 use Carbon\CarbonImmutable;
 use Inertia\Inertia;
 
@@ -20,8 +19,6 @@ class EventController extends Controller
 
         $start_month = CarbonImmutable::createFromDate($year, $month, 1)->startOfDay();
         $end_month = $start_month->endOfMonth();
-
-        Payment::createEventsToPeriod($start_month, $end_month);
 
         return Inertia::render('payment/events/index', [
             'events' => fn() => Event::compactToPeriod($start_month, $end_month),

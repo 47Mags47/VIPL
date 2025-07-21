@@ -3,8 +3,7 @@
 namespace Database\Seeders\Glossary;
 
 use App\Models\Glossary\ValidatorColumn;
-use App\Models\Glossary\ValidatorColumnType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\Glossary\ValidatorColumnType;
 use Illuminate\Database\Seeder;
 
 class ValidatorSeeder extends Seeder

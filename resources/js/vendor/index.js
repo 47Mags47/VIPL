@@ -1,4 +1,2 @@
-import './fortawesome'
-import './jquery'
-import './echo.jsx'
-import './heplers'
+import './fontAwesome'
+import './echo'

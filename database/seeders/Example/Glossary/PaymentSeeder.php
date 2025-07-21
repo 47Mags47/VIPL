@@ -2,9 +2,8 @@
 
 namespace Database\Seeders\Example\Glossary;
 
-use App\Models\Glossary\Payment;
 use App\Models\Glossary\Law;
-use App\Models\Glossary\PaymentPeriodicity;
+use App\Models\Glossary\Payment;
 use Illuminate\Database\Seeder;
 
 class PaymentSeeder extends Seeder
@@ -22,8 +21,6 @@ class PaymentSeeder extends Seeder
             'krv' => 'Выплата № 001',
             'kbk' => $faker->numerify('88810030240#########'),
             'law_id' => Law::all()->random()->id,
-            'periodicity_id' => PaymentPeriodicity::byCode('everyDay')->id,
-            'start_at' => now(),
         ]);
     }
 }

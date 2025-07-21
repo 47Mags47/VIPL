@@ -1,19 +1,22 @@
-import { useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage }                                     from '@inertiajs/react'
+import { router }                                               from '@inertiajs/react'
 
-import { AuthenticatedLayout as Layout } from '@/layouts';
-import { VerticalForm as Form, StringInput as Input, Select } from '@/components/forms';
-import { SendButton } from '@/components/table';
-import { router } from '@inertiajs/react';
+import { AuthenticatedLayout as Layout }                        from '@/layouts'
+
+import { VerticalForm as Form, StringInput as Input, Select }   from '@/components/forms'
+import { SendButton }                                           from '@/components/table'
+
 
 
 export default function Edit() {
     const user = usePage().props.user.data
+
     const { data, setData, put, processing } = useForm({
         name: user.name,
         email: user.email,
         division_id: user.division.id,
         roles: user.roles.map((role) => role.code),
-    });
+    })
 
     function onSubmit(e) {
         e.preventDefault()
@@ -73,5 +76,5 @@ export default function Edit() {
                 />
             </Form>
         </Layout>
-    );
+    )
 }
