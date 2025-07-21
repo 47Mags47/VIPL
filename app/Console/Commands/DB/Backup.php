@@ -15,7 +15,7 @@ class Backup extends Command
     {
         // FULL
         new Dumper()
-            ->setPath(storage_path('app/backups/' . (($this->option('data') ?? false) ? 'data' : 'full')))
+            ->setPath($this->option('data') ? 'data' : 'full')
             ->setName(now()->format('dmYHis_') . "backup.sql")
             ->onlyData($this->option('data') ?? false)
             ->start();
