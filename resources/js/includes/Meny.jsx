@@ -57,7 +57,7 @@ export default function Meny() {
 
     function generateDropDownItem(item) {
         if (item.permission !== undefined) {
-            let hasPermission = item.permission.map((needlePermission) => user.permissions.includes('create_users')).includes(true)
+            let hasPermission = item.permission.map((needlePermission) => user.permissions.includes(needlePermission)).includes(true)
             if (!hasPermission)
                 return
         }
