@@ -10,7 +10,7 @@ class Dumper
 {
     private string $path;
     private string $name;
-    private Collection $ignored;
+    private array $ignored;
 
     private string $database;
     private string $db_user;
@@ -23,7 +23,7 @@ class Dumper
 
     public function __construct()
     {
-        $this->ignored = collect([]);
+        $this->ignored = [];
         $this->database = env('DB_DATABASE', 'Laravel');
         $this->db_user = env('DB_USERNAME', 'root');
         $this->db_password = env('DB_PASSWORD', null);
@@ -44,7 +44,7 @@ class Dumper
     public function ignore(Collection|array $tables)
     {
         foreach ($tables as $table) {
-            $this->ignored->push($table);
+            $this->ignored[] = $table;
         }
 
         return $this;
@@ -57,10 +57,12 @@ class Dumper
 
     private function getIgnoredString()
     {
-        return $this->ignored->implode(function ($table) {
+        foreach ($this->ignored as $key => $table) {
             $database = $this->database;
-            return " --ignore-table=$database.$table";
-        });
+            $this->ignored[$key] = " --ignore-table=$database.$table";
+        }
+
+        return implode(' ', $this->ignored);
     }
 
     private function getUserString()
