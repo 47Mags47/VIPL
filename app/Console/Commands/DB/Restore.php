@@ -10,30 +10,27 @@ use Illuminate\Support\Facades\Storage;
 
 class Restore extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'db:restore {--path=}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    protected $signature = 'db:restore {--last} {--data} {--path=}';
     protected $description = 'Восстанавление БД из бэкапа';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
-        if ($this->option('path') !== null)
-            $path = $this->option('path');
-        else {
-            $backups = array_slice(Storage::disk('backups')->allFiles(), -20);
-            $path = Storage::disk('backups')->path($this->choice('Выбор дампа', array_reverse($backups), 0));
+        $backups = collect(Storage::disk('backups')->allFiles($this->option('data') ? 'data' : 'full'))
+            ->sortBy(
+                fn($backup) => Storage::disk('backups')->lastModified($backup)
+            )
+            ->slice(0, 10)
+            ->toArray();
+
+        $path = $this->option('path');
+
+        if ($this->option('last')) {
+            $path = Storage::disk('backups')->path($backups[0]);
+        }
+
+        if ($path === null) {
+            $backup = $this->choice('Выбор дампа', array_reverse($backups), 0);
+            $path = Storage::disk('backups')->path($backup);
         }
 
         if (!file_exists($path)) {
