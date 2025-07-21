@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Example\Payment;
 
-use App\Models\Payment\Event;
+use App\Models\Glossary\Event;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder

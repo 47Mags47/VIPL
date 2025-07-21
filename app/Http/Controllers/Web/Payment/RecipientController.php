@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web\Payment;
 
 use App\Filters\Payment\RecipientFilter;
 use App\Http\Controllers\Controller;
-use App\Models\Payment\File;
+use App\Models\Main\Payment\File;
 use Inertia\Inertia;
 
 class RecipientController extends Controller

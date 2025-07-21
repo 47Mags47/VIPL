@@ -3,7 +3,6 @@
 namespace Database\Seeders\Glossary;
 
 use App\Models\Glossary\Division;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DivisionSeeder extends Seeder

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Glossary\ValidatorColumnType;
+use App\Models\Sys\Glossary\ValidatorColumnType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__validator_column_types', function (Blueprint $table) {
+        Schema::create('sys__validator_column_types', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
@@ -39,6 +39,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('glossary__validator_columns');
-        Schema::dropIfExists('glossary__validator_column_types');
+        Schema::dropIfExists('sys__validator_column_types');
     }
 };

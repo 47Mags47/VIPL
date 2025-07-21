@@ -3,7 +3,7 @@
 namespace App\Models\Main;
 
 use App\Models\Glossary\Division;
-use App\Models\Glossary\UserStatus;
+use App\Models\Sys\UserStatus;
 use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\Named;
@@ -20,14 +20,14 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use
+        hasApi,
+        HasFilter,
         Named,
         RolesAndPermissions,
-        HasFilter,
+        CanResetPassword,
         HasFactory,
-        hasApi,
-        Notifiable,
         SoftDeletes,
-        CanResetPassword;
+        Notifiable;
 
     ### Настройки
     ##################################################

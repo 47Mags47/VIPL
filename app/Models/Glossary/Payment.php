@@ -2,13 +2,12 @@
 
 namespace App\Models\Glossary;
 
-use App\Models\Payment\Event;
+use App\Models\Glossary\Event;
 use App\Traits\hasApi;
-use Illuminate\Database\Eloquent\Model;
-
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Payment extends Model
 {
-    use Named, HasFilter, HasLog, hasApi, SoftDeletes;
+    use hasApi, HasFilter, HasLog, Named, SoftDeletes;
 
     ### Настройки
     ##################################################

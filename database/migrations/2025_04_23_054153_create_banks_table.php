@@ -1,10 +1,7 @@
 <?php
 
-use App\Models\Glossary\Bank;
 use App\Models\Glossary\BankExporter;
 use App\Models\Glossary\Contract;
-use App\Models\Glossary\ContractSide;
-use App\Models\Glossary\ContractSideType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -55,9 +52,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('glossary__banks');
         Schema::dropIfExists('glossary__contracts');
-        Schema::dropIfExists('glossary__bank_templates');
-        Schema::dropIfExists('glossary__contract_sides');
-        Schema::dropIfExists('glossary__contract_side_type');
         Schema::dropIfExists('glossary__bank_exporters');
     }
 };

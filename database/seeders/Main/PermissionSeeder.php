@@ -2,10 +2,9 @@
 
 namespace Database\Seeders\Main;
 
-use App\Models\Main\Permission;
-use App\Models\Main\Role;
-use App\Models\Main\RolePivotPermission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\Permission;
+use App\Models\Sys\Role;
+use App\Models\Sys\RolePivotPermission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder

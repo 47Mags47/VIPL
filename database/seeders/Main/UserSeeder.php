@@ -3,12 +3,11 @@
 namespace Database\Seeders\Main;
 
 use App\Models\Glossary\Division;
-use App\Models\Glossary\UserStatus;
 use App\Models\Main\User;
 use App\Models\Main\UserPivotRole;
-use Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\UserStatus;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {

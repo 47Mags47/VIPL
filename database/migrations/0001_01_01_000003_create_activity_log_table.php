@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Main\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -9,7 +8,7 @@ class CreateActivityLogTable extends Migration
 {
     public function up()
     {
-        Schema::create('sys__activity_log', function (Blueprint $table) {
+        Schema::create('laravel__activity_log', function (Blueprint $table) {
             $table->id('id');
             $table->string('log_name')->nullable();
             $table->text('description');
@@ -27,6 +26,6 @@ class CreateActivityLogTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('sys__activity_log');
+        Schema::dropIfExists('laravel__activity_log');
     }
 }

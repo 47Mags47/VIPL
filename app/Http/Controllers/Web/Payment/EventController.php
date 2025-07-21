@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CalendarRequest;
-use App\Models\Glossary\PackageStatus;
-use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Glossary\Event;
+use App\Models\Main\Payment\Package;
+use App\Models\Sys\Payment\PackageStatus;
 use Carbon\CarbonImmutable;
 use Inertia\Inertia;
 

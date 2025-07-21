@@ -5,7 +5,6 @@ namespace App\Models\Glossary;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -13,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Contract extends Model
 {
-    use Named, HasLog, SoftDeletes;
+    use HasLog, Named, SoftDeletes;
 
     ### Настройки
     ##################################################
@@ -22,8 +21,6 @@ class Contract extends Model
     protected $fillable = [
         'number',
         'signed_at',
-        'division_side_id',
-        'bank_side_id',
     ];
 
     public function casts(): array

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders\Example\Payment;
 
-use App\Models\Glossary\PackageStatus;
-use App\Models\Glossary\Payment;
-use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Glossary\Event;
+use App\Models\Main\Payment\Package;
+use App\Models\Sys\Payment\PackageStatus;
 use Illuminate\Database\Seeder;
 
 class PackageSeeder extends Seeder

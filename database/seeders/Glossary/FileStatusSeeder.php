@@ -2,8 +2,7 @@
 
 namespace Database\Seeders\Glossary;
 
-use App\Models\Glossary\FileStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\FileStatus;
 use Illuminate\Database\Seeder;
 
 class FileStatusSeeder extends Seeder

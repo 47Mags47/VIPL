@@ -2,6 +2,7 @@
 
 namespace App\Models\Glossary;
 
+use App\Models\Sys\Glossary\ValidatorColumnType;
 use App\Traits\hasApi;
 use App\Traits\hasCode;
 use App\Traits\Named;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ValidatorColumn extends Model
 {
-    use Named, hasCode, hasApi;
+    use hasApi, hasCode, Named;
 
     ### Настройки
     ##################################################

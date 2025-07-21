@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Web\Payment\BankFileController;
 use App\Http\Controllers\Web\Payment\EventController;
 use App\Http\Controllers\Web\Payment\FileController;
 use App\Http\Controllers\Web\Payment\PackageController;
-use App\Http\Controllers\Web\Payment\RaportController;
 use App\Http\Controllers\Web\Payment\RecipientController;
+use App\Http\Controllers\Web\Raports\Payment\BankFileController;
+use App\Http\Controllers\Web\Raports\Payment\TotalController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->prefix('/payments')->name('payments.')->group(function () {
@@ -32,7 +32,7 @@ Route::middleware('auth')->prefix('/payments')->name('payments.')->group(functio
         Route::get('/files/{file}/recipients', 'index')->name('index');
     });
 
-    Route::name('raports.')->controller(RaportController::class)->group(function () {
+    Route::name('raports.')->controller(TotalController::class)->group(function () {
         Route::get('/events/{event}/raports', 'index')->name('index');
         Route::post('/events/{event}/raports', 'store')->name('store');
 

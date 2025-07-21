@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Web\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Glossary\Division;
-use App\Models\Main\Role;
-use Illuminate\Http\Request;
+use App\Models\Sys\Role;
 use Inertia\Inertia;
 
 class DivisionUserController extends Controller

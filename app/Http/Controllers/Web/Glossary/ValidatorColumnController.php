@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Glossary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Validator\UpdateRequest;
 use App\Models\Glossary\ValidatorColumn;
-use App\Models\Glossary\ValidatorColumnType;
+use App\Models\Sys\Glossary\ValidatorColumnType;
 use Inertia\Inertia;
 
 class ValidatorColumnController extends Controller

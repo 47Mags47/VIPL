@@ -11,9 +11,9 @@ use App\Http\Requests\Main\User\StoreRequest;
 use App\Http\Requests\Main\User\UpdateRequest;
 use App\Jobs\Main\User\SendInvitionJob;
 use App\Models\Glossary\Division;
-use App\Models\Glossary\UserStatus;
-use App\Models\Main\Role;
 use App\Models\Main\User;
+use App\Models\Sys\Role;
+use App\Models\Sys\UserStatus;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 

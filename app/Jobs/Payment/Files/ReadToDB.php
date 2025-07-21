@@ -3,8 +3,7 @@
 namespace App\Jobs\Payment\Files;
 
 use App\Imports\Payment\RecipientImport;
-use App\Models\Glossary\FileStatus;
-use App\Models\Payment\File;
+use App\Models\Main\Payment\File;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Maatwebsite\Excel\Facades\Excel;

@@ -1,11 +1,8 @@
 <?php
 
 use App\Models\Glossary\Bank;
-use App\Models\Glossary\Division;
-use App\Models\Glossary\FileStatus;
-use App\Models\Glossary\Payment;
-use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Main\Payment\Package;
+use App\Models\Sys\FileStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment__files', function (Blueprint $table) {
+        Schema::create('main__payment__files', function (Blueprint $table) {
             $table->id();
 
             $table->string('disk')->default('local');
@@ -40,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment__files');
+        Schema::dropIfExists('main__payment__files');
     }
 };

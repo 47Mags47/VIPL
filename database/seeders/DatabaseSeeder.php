@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(Main\PermissionSeeder::class);
         $this->call(Main\UserSeeder::class);
-        $this->call(Main\AlertSeeder::class);
 
         $this->call(Payment\PackageSeeder::class);
 

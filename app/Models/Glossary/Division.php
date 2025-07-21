@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Division extends Model
 {
-    use Named, HasLog, HasFilter, hasCode, hasApi, SoftDeletes;
+    use hasApi, hasCode, HasFilter, HasLog, Named, SoftDeletes;
 
     ### Настройки
     ##################################################

@@ -17,10 +17,6 @@ class ContractResource extends JsonResource
         return [
             'number' => $this->number,
             'signed_at' => $this->number,
-            'sides' => [
-                'bank' => ContractSideResource::make($this->bank),
-                'division' => ContractSideResource::make($this->division),
-            ],
         ];
     }
 }

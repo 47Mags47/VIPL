@@ -5,12 +5,13 @@ namespace App\Classes;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class Dumper
 {
     private string $path;
     private string $name;
-    private Collection $ignored;
+    private array $ignored;
 
     private string $database;
     private string $db_user;
@@ -23,44 +24,48 @@ class Dumper
 
     public function __construct()
     {
-        $this->ignored = collect([]);
+        $this->ignored = [];
         $this->database = env('DB_DATABASE', 'Laravel');
         $this->db_user = env('DB_USERNAME', 'root');
         $this->db_password = env('DB_PASSWORD', null);
     }
 
-    public function setPath(string $path)
+    public function setPath(string $path): Dumper
     {
+        // $this->path = Storage::disk('backups')->path($path);
         $this->path = $path;
         return $this;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): Dumper
     {
         $this->name = $name;
         return $this;
     }
 
-    public function ignore(Collection|array $tables)
+    public function ignore(Collection|array $tables): Dumper
     {
         foreach ($tables as $table) {
-            $this->ignored->push($table);
+            $this->ignored[] = $table;
         }
 
         return $this;
     }
 
-    public function onlyData(bool $bool){
+    public function onlyData(bool $bool): Dumper
+    {
         $this->only_data = $bool;
         return $this;
     }
 
     private function getIgnoredString()
     {
-        return $this->ignored->implode(function ($table) {
+        foreach ($this->ignored as $key => $table) {
             $database = $this->database;
-            return " --ignore-table=$database.$table";
-        });
+            $this->ignored[$key] = " --ignore-table=$database.$table";
+        }
+
+        return implode(' ', $this->ignored);
     }
 
     private function getUserString()
@@ -71,16 +76,16 @@ class Dumper
     private function attrs()
     {
         $attrs = [
-            "$this->database"                       => true,
-            "--no-tablespaces"                      => !$this->tablespaces,
-            "--complete-insert"                     => $this->insert,
-            "--order-by-primary"                    => true,
-            "--skip-comments"                       => true,
-            "--replace"                             => true,
-            $this->getUserString()                  => true,
-            "--no-create-info"                      => $this->only_data,
-            $this->getIgnoredString()               => true,
-            "--result-file=$this->path/$this->name" => true,
+            "$this->database"           => true,
+            "--no-tablespaces"          => !$this->tablespaces,
+            "--complete-insert"         => $this->insert,
+            "--order-by-primary"        => true,
+            "--skip-comments"           => true,
+            "--replace"                 => true,
+            $this->getUserString()      => true,
+            "--no-create-info"          => $this->only_data,
+            $this->getIgnoredString()   => true,
+            "--result-file=" . Storage::disk('backups')->path($this->path . '/' .$this->name)  => true,
         ];
 
         return collect($attrs)
@@ -94,9 +99,8 @@ class Dumper
     {
         Log::info('Создание дампа БД', ['call' => __CLASS__, 'attrs' => get_object_vars($this)]);
 
-        if (!file_exists($this->path)) {
-            Log::error("Дирректория $this->path не существует");
-            throw new Exception("Дирректория $this->path не существует");
+        if (!Storage::disk('backups')->has($this->path)) {
+            Storage::disk('backups')->makeDirectory($this->path);
         }
 
         exec("mysqldump " . $this->attrs() . " 2>&1", $output, $code);
