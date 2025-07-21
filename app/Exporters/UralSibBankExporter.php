@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\Exporter;
-use Illuminate\Support\Facades\Storage;
 
 class UralSibBankExporter extends Exporter
 {
@@ -13,12 +12,12 @@ class UralSibBankExporter extends Exporter
         $this->setFileName('55557460' . substr($this->npp, 0, 3) . '.I' . substr($this->npp, 3, 2));
     }
 
-    public function save(): UralSibBankExporter
+    public function generate(): UralSibBankExporter
     {
         $row_count = $this->recipients->count();
         $total_summ = $this->recipients->sum('summ');
 
-        $f = fopen($this->getFullPath(), 'w');
+        $f = $this->getFile();
 
         $info_line = str_pad($row_count, 5, ' ', STR_PAD_LEFT) . '5555746' . str_pad(number_format($total_summ, 2, '.', ''), 15, ' ', STR_PAD_LEFT) . 'z';
         fwrite($f, iconv('UTf-8', 'CP866', $info_line));

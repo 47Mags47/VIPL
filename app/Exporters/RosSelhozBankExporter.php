@@ -3,8 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\XMLExporter;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RosSelhozBankExporter extends XMLExporter
@@ -15,7 +13,7 @@ class RosSelhozBankExporter extends XMLExporter
         $this->setFileName(substr($this->npp, 0, 5) . '.xml');
     }
 
-    public function save(): RosSelhozBankExporter
+    public function generate(): RosSelhozBankExporter
     {
         $this->writer->openMemory();
         $this->writer->startDocument('1.0', 'windows-1251');
@@ -103,7 +101,7 @@ class RosSelhozBankExporter extends XMLExporter
 
         $this->writer->endElement();
 
-        Storage::disk('local')->put($this->save_path . $this->file_name, $this->writer->outputMemory());
+        $this->save();
 
         return $this;
     }

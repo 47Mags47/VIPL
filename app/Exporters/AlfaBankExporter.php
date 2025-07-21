@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\ExcelExporter;
-use Illuminate\Support\Facades\Storage;
 
 class AlfaBankExporter extends ExcelExporter
 {
@@ -11,16 +10,20 @@ class AlfaBankExporter extends ExcelExporter
     {
         parent::__construct(...func_get_args());
 
-        $payment_code = $this->event->payment->code;
-
-        preg_match_all("/[а-яА-Яa-zA-Z]/", sys_config('division.name'), $division_name);
-        $division_name = mb_strtoupper(implode('', (array) $division_name[0]));
-
-        $this->setFileName(sys_config('division.INN') . '_' . $division_name . '_' . $payment_code . '_' . substr($this->npp, 2, 3) . '.xls');
-        $this->spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(Storage::disk('templates')->path('payment_raport_alfabank.xls'));
+        $this->setTemplate('payment_raport_alfabank.xls');
+        $this->setFileName(
+            sys_config('division.INN')
+                . '_'
+                . mb_strtoupper(mb_ereg_replace("/(?![а-яА-Яa-zA-Z])./", '', sys_config('division.name')))
+                . '_'
+                . $this->event->payment->code
+                . '_'
+                . substr($this->npp, 2, 3)
+                . '.xls'
+        );
     }
 
-    public function save(): AlfaBankExporter
+    public function generate()
     {
         $this->spreadsheet
             ->getSheetByName('Реестр')
@@ -53,9 +56,6 @@ class AlfaBankExporter extends ExcelExporter
         });
         $this->spreadsheet->getSheetByName('Payments')->fromArray($data_array->toArray(), NULL, 'A2');
 
-        $this->writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($this->spreadsheet);
-        $this->writer->save($this->getFullPath());
-
-        return $this;
+        $this->save();
     }
 }

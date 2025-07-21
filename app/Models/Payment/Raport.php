@@ -6,6 +6,7 @@ use App\Models\Glossary\FileStatus;
 use App\Models\Main\User;
 use App\Traits\HasLog;
 use App\Traits\Named;
+use App\Traits\ThisIsFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Raport extends Model
 {
-    use Named, HasLog, SoftDeletes;
+    use Named, HasLog, SoftDeletes, ThisIsFile;
 
     ### Настройки
     ##################################################
@@ -32,20 +33,15 @@ class Raport extends Model
         'status_id'
     ];
 
-    public function scopeLocalPath()
-    {
-        return $this->path !== ''
-            ? $this->path . '/' . $this->name
-            : $this->name;
-    }
-
     ### Методы
     ##################################################
-    public function download(){
-        return Storage::disk($this->disk)->download($this->localPath(), $this->original_name);
+    public function download()
+    {
+        return Storage::disk($this->disk)->download($this->getLocalPath(), $this->original_name);
     }
 
-    public function setStatus(string $status){
+    public function setStatus(string $status)
+    {
         $this->update(['status_id' => FileStatus::byCode($status)?->id]);
     }
 

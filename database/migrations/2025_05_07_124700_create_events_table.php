@@ -22,6 +22,7 @@ return new class extends Migration
         Schema::create('payment__events', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->integer('npp');
 
             $table->foreignId('payment_id')->constrained(Payment::getTableName());
             $table->foreignId('status_id')->constrained(EventStatus::getTableName());
