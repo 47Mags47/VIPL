@@ -126,7 +126,7 @@ return [
     */
 
     'migrations' => [
-        'table' => 'sys__migrations',
+        'table' => 'laravel__migrations',
         'update_date_on_publish' => true,
     ],
 

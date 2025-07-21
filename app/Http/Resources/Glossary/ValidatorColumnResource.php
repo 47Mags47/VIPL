@@ -21,7 +21,7 @@ class ValidatorColumnResource extends JsonResource
             'position' => $this->file_pos,
             'required' => $this->required,
             'patterns' => $this->patterns ?? [],
-            'type' => ValidatorColumnTypeResource::make($this->type),
+            'type' => $this->type->toResource(),
         ];
     }
 }

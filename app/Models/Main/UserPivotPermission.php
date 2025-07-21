@@ -2,6 +2,7 @@
 
 namespace App\Models\Main;
 
+use App\Models\Sys\Permission;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserPivotPermission extends Model
 {
-    use Named, HasLog;
+    use HasLog, Named;
 
     ### Настройки
     ##################################################

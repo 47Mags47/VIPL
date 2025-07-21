@@ -2,7 +2,7 @@
 
 namespace App\Models\Glossary;
 
-use App\Models\Payment\File;
+use App\Models\Main\Payment\File;
 use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Bank extends Model
 {
-    use Named, HasFilter, HasLog, hasApi, SoftDeletes;
+    use hasApi, HasFilter, HasLog, Named, SoftDeletes;
 
     ### Настройки
     ##################################################

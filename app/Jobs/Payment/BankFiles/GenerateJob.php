@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Payment\BankFiles;
 
-use App\Models\Payment\Raport;
+use App\Models\Main\Raports\Payment\Total;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +11,7 @@ class GenerateJob implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Raport $raport) {}
+    public function __construct(public Total $raport) {}
 
     public function handle(): void
     {

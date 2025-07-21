@@ -3,8 +3,8 @@
 namespace Database\Seeders\Example\Payment;
 
 use App\Models\Glossary\Bank;
-use App\Models\Payment\File;
-use App\Models\Payment\Package;
+use App\Models\Main\Payment\File;
+use App\Models\Main\Payment\Package;
 use Illuminate\Database\Seeder;
 
 class FileSeeder extends Seeder

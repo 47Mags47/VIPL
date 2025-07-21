@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Sources\StoreRequest;
 use App\Http\Requests\Glossary\Sources\UpdateRequest;
 use App\Models\Glossary\Source;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SourceController extends Controller

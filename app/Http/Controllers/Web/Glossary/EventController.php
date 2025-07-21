@@ -6,9 +6,9 @@ use App\Filters\Glossary\EventFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Glossary\Event\StoreRequest;
 use App\Http\Requests\Glossary\Event\UpdateRequest;
-use App\Models\Glossary\EventStatus;
 use App\Models\Glossary\Payment;
-use App\Models\Payment\Event;
+use App\Models\Glossary\Event;
+use App\Models\Sys\Payment\EventStatus;
 use Inertia\Inertia;
 
 class EventController extends Controller

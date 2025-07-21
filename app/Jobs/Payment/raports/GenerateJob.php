@@ -4,10 +4,10 @@ namespace App\Jobs\Payment\raports;
 
 use App\Events\Payment\Raport\ChangePercentBroadcastEvent;
 use App\Jobs\Payment\BankFiles\GenerateJob as BankFileGenerateJob;
-use App\Models\Glossary\FileStatus;
+use App\Models\Glossary\Event;
+use App\Models\Main\Raports\Payment\Total;
 use App\Models\Main\User;
-use App\Models\Payment\Event;
-use App\Models\Payment\Raport;
+use App\Models\Sys\FileStatus;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +31,7 @@ class GenerateJob implements ShouldQueue
     private string $event_name;
     private Spreadsheet $spreadsheet;
     private Xlsx $writer;
-    private Raport $raport;
+    private Total $raport;
 
     public function __construct(public Event $event, private User $user)
     {
@@ -44,7 +44,7 @@ class GenerateJob implements ShouldQueue
                 . ' выплате на '
                 . $this->event->date->format('d.m.Y')
                 . ' № '
-                . Raport::where('event_id', $this->event->id)->count() + 1
+                . Total::where('event_id', $this->event->id)->count() + 1
                 . '.xls',
             'event_id' => $this->event->id,
             'start_by' => $this->user->id,

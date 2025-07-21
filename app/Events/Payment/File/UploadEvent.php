@@ -2,7 +2,7 @@
 
 namespace App\Events\Payment\File;
 
-use App\Models\Payment\File;
+use App\Models\Main\Payment\File;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

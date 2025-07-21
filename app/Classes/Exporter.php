@@ -3,17 +3,17 @@
 namespace App\Classes;
 
 use App\Models\Glossary\Bank;
-use App\Models\Glossary\FileStatus;
-use App\Models\Payment\BankFile;
-use App\Models\Payment\Event;
-use App\Models\Payment\Raport;
+use App\Models\Glossary\Event;
+use App\Models\Main\Raports\Payment\BankFile;
+use App\Models\Main\Raports\Payment\Total;
+use App\Models\Sys\FileStatus;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 abstract class Exporter
 {
     public Bank $bank;
-    public Raport $raport;
+    public Total $raport;
     public Collection $recipients;
     public Event $event;
     public string $npp;
@@ -22,7 +22,7 @@ abstract class Exporter
     protected string $fileName;
     protected string $fileUUID;
 
-    public function __construct(Bank $bank, Raport $raport, Collection $recipients)
+    public function __construct(Bank $bank, Total $raport, Collection $recipients)
     {
         $this->bank = $bank;
         $this->raport = $raport;

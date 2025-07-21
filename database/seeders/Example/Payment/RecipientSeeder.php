@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\Example\Payment;
 
-use App\Models\Payment\File;
-use App\Models\Payment\Recipient;
+use App\Models\Main\Payment\File;
+use App\Models\Main\Payment\Recipient;
 use Illuminate\Database\Seeder;
 
 class RecipientSeeder extends Seeder

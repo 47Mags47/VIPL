@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Glossary\EventStatus;
 use App\Models\Glossary\Payment;
+use App\Models\Sys\Payment\EventStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glossary__event_statuses', function (Blueprint $table) {
+        Schema::create('sys__payment__event_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
         });
 
-        Schema::create('payment__events', function (Blueprint $table) {
+        Schema::create('main__payment__events', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->integer('npp');
@@ -34,7 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment__events');
-        Schema::dropIfExists('glossary__event_statuses');
+        Schema::dropIfExists('main__payment_events');
+        Schema::dropIfExists('sys__payment__event_statuses');
     }
 };

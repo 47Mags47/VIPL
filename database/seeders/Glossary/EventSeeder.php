@@ -2,8 +2,7 @@
 
 namespace Database\Seeders\Glossary;
 
-use App\Models\Glossary\EventStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\Payment\EventStatus;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder

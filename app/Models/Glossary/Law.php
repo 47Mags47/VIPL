@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Law extends Model
 {
-    use Named, hasCode, HasLog, HasFilter, hasApi;
+    use hasApi, hasCode, HasFilter, HasLog, Named;
 
     ### Настройки
     ##################################################

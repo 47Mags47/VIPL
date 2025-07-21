@@ -2,8 +2,7 @@
 
 namespace Database\Seeders\Payment;
 
-use App\Models\Glossary\PackageStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\Payment\PackageStatus;
 use Illuminate\Database\Seeder;
 
 class PackageSeeder extends Seeder

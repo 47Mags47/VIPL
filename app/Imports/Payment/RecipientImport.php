@@ -3,9 +3,8 @@
 namespace App\Imports\Payment;
 
 use App\Models\Glossary\ValidatorColumn;
-use App\Models\Payment\File;
-use App\Models\Payment\Recipient;
-use Illuminate\Support\Facades\Log;
+use App\Models\Main\Payment\File;
+use App\Models\Main\Payment\Recipient;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithValidation;

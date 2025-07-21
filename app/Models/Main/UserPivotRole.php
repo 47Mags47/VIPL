@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserPivotRole extends Model
 {
-    use Named, HasLog;
+    use HasLog, Named;
 
     ### Настройки
     ##################################################

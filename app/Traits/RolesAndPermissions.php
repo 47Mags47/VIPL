@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Models\Main\Permission;
-use App\Models\Main\Role;
+use App\Models\Sys\Permission;
+use App\Models\Sys\Role;
 use App\Models\Main\UserPivotPermission;
 use App\Models\Main\UserPivotRole;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

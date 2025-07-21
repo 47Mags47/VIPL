@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Payment\Event;
-use App\Models\Payment\Package;
+use App\Models\Glossary\Event;
+use App\Models\Main\Payment\Package;
 use Inertia\Inertia;
 
 class PackageController extends Controller

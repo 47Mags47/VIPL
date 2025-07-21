@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\Example\Glossary;
 
-use App\Models\Glossary\Payment;
 use App\Models\Glossary\Law;
+use App\Models\Glossary\Payment;
 use Illuminate\Database\Seeder;
 
 class PaymentSeeder extends Seeder

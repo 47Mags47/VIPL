@@ -3,8 +3,8 @@
 namespace Database\Seeders\Example\Main;
 
 use App\Models\Glossary\Division;
-use App\Models\Glossary\UserStatus;
 use App\Models\Main\User;
+use App\Models\Sys\UserStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

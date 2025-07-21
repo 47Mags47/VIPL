@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Source extends Model
 {
-    use Named, hasCode, HasLog, hasApi, HasFilter;
+    use hasApi, hasCode, HasFilter, HasLog, Named;
 
     ### Настройки
     ##################################################
