@@ -12,7 +12,7 @@ class {{ class }} extends Exporter
         $this->setFileName('Exporter.new');
     }
 
-    public function save(): {{ class }}
+    public function generate(): {{ class }}
     {
         // code
 

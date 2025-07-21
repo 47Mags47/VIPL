@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\CsvExporter;
-use Illuminate\Support\Facades\Storage;
 
 class KbbBankExporter extends CsvExporter
 {
@@ -14,7 +13,7 @@ class KbbBankExporter extends CsvExporter
         $this->setFileName('SZRG_KBB20_' . $this->event->date->format('dmY') . '_' . substr($this->npp, 0, 4) . '.csv');
     }
 
-    public function save(): KbbBankExporter
+    public function generate(): KbbBankExporter
     {
         $data_array = $this->recipients->map(function ($recipient, $i) {
             return [
@@ -43,8 +42,9 @@ class KbbBankExporter extends CsvExporter
         $this->writer
             ->setEnclosure('')
             ->setDelimiter(';')
-            ->setOutputEncoding('windows-1251')
-            ->save($this->getFullPath());
+            ->setOutputEncoding('windows-1251');
+
+        $this->save();
 
         return $this;
     }

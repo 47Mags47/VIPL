@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\ExcelExporter;
-use Illuminate\Support\Facades\Storage;
 
 class OtherBankExporter extends ExcelExporter
 {
@@ -13,7 +12,7 @@ class OtherBankExporter extends ExcelExporter
         $this->setFileName('sp' . $this->bank->number_code . '_' . substr($this->npp, 2, 3) . '.xls');
     }
 
-    public function save(): OtherBankExporter
+    public function generate(): OtherBankExporter
     {
         $headers = [
             'NPP',
@@ -54,7 +53,7 @@ class OtherBankExporter extends ExcelExporter
                 ->setAutoSize(true);
         }
 
-        $this->writer->save($this->getFullPath());
+        $this->save();
 
         return $this;
     }

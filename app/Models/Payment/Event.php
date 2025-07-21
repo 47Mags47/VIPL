@@ -40,6 +40,17 @@ class Event extends Model
 
     public $timestamps = false;
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            if (empty($model->user)) {
+                $model->npp = self::generateNPP();
+            }
+        });
+    }
+
     ### Ограничения
     ##################################################
     public function scopeActive(Builder $builder): Builder
@@ -95,6 +106,11 @@ class Event extends Model
         }
 
         return array_values($files_groupBy_bank);
+    }
+
+    public static function generateNPP()
+    {
+        return (Event::whereBetween('date', [now()->startOfYear(), now()->endOfYear()])->max('npp') ?? 0) + 1;
     }
 
     ### Связи

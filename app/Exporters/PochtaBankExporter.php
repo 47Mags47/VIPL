@@ -3,7 +3,6 @@
 namespace App\Exporters;
 
 use App\Classes\XMLExporter;
-use Illuminate\Support\Facades\Storage;
 
 class PochtaBankExporter extends XMLExporter
 {
@@ -13,7 +12,7 @@ class PochtaBankExporter extends XMLExporter
         $this->setFileName($this->event->date->format('Y') . '-ELVM-' . substr($this->npp, 0, 5) . '.xml');
     }
 
-    public function save(): PochtaBankExporter
+    public function generate(): PochtaBankExporter
     {
         $this->writer->openMemory();
         $this->writer->startDocument('1.0', 'windows-1251');
@@ -105,7 +104,7 @@ class PochtaBankExporter extends XMLExporter
 
         $this->writer->endElement();
 
-        Storage::disk('local')->put($this->save_path . $this->file_name, $this->writer->outputMemory());
+        $this->save();
 
         return $this;
     }
