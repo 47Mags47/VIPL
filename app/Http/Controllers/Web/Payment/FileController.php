@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web\Payment;
 
-use App\Events\Payment\File\UploadEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\StoreFileRequest;
+use App\Jobs\Payment\Files\ReadToDB;
 use App\Models\Glossary\Bank;
 use App\Models\Main\Payment\File;
 use App\Models\Main\Payment\Package;
@@ -52,8 +52,6 @@ class FileController extends Controller
             'status_id' => FileStatus::byCode('loading')->id
         ]);
 
-        UploadEvent::dispatch($file);
-
         return redirect()->route('payments.files.index', compact('package'));
     }
 
@@ -66,6 +64,6 @@ class FileController extends Controller
     {
         $file->delete();
 
-        return redirect()->route('payments.files.index', ['package' => $file->package])->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }

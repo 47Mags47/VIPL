@@ -2,25 +2,67 @@
 
 namespace App\Imports\Payment;
 
+use App\Events\Payment\File\ChunkUploadEvent;
 use App\Models\Glossary\ValidatorColumn;
 use App\Models\Main\Payment\File;
 use App\Models\Main\Payment\Recipient;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\RemembersRowNumber;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Events\AfterChunk;
+use Maatwebsite\Excel\Events\BeforeImport;
 
-class RecipientImport implements ToModel, WithValidation, WithCustomCsvSettings
+class RecipientImport implements
+    ToModel,
+    WithValidation,
+    WithCustomCsvSettings,
+    WithBatchInserts,
+    WithChunkReading,
+    WithEvents
 {
+    use RegistersEventListeners, RemembersRowNumber;
+
+    private int $total_row_count;
 
     public function __construct(public File $file) {}
 
-    /**
-     * @param array $row
-     *
-     * @return \App\Models\Payment\Recipient|null
-     */
+    public function getCsvSettings(): array
+    {
+        return [
+            'input_encoding' => 'CP866',
+            'delimiter' => ";"
+        ];
+    }
+
+    public function batchSize(): int
+    {
+        return 100;
+    }
+
+    public function chunkSize(): int
+    {
+        return 100;
+    }
+
+    public function beforeImport(BeforeImport $event)
+    {
+        $this->total_row_count = $event->getReader()->getTotalRows()['Worksheet'];
+    }
+
+    public function afterChunk(AfterChunk $event)
+    {
+        ChunkUploadEvent::dispatch($this->file, $this->getRowNumber(), $this->total_row_count);
+    }
+
     public function model(array $row)
     {
+
         $recipient = Recipient::firstOrNew(
             [
                 'file_id' => $this->file->id,
@@ -34,14 +76,13 @@ class RecipientImport implements ToModel, WithValidation, WithCustomCsvSettings
         $recipient->first_name    = mb_strtoupper($row[2]);
         $recipient->middle_name   = $row[3] !== null ? mb_strtoupper($row[3]) : null;
         $recipient->d_rojd        = $row[4] ?? null;
-        $recipient->summ          = $recipient->summ + ($row[7] ?? 0);
+        $recipient->summ          = ($recipient->summ ?? 0) + ($row[7] ?? 0);
         $recipient->p_series      = $row[8] ?? null;
         $recipient->p_number      = $row[9] ?? null;
         $recipient->p_date        = $row[10] ?? null;
         $recipient->p_div         = $row[11] ?? null;
 
         $recipient->save();
-        return $recipient;
     }
 
     public function rules(): array
@@ -68,13 +109,5 @@ class RecipientImport implements ToModel, WithValidation, WithCustomCsvSettings
                 }
             ];
         })->toArray();
-    }
-
-    public function getCsvSettings(): array
-    {
-        return [
-            'input_encoding' => 'CP866',
-            'delimiter' => ";"
-        ];
     }
 }

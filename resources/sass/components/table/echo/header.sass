@@ -1,0 +1,18 @@
+.table-box .table-header
+    display: grid
+    grid-template-areas: 'A A A' 'B C D'
+    gap: 10px
+    .filters-box
+        grid-area: A
+        display: flex
+        gap: 5px
+    .search-box
+        grid-area: B
+    .paginate-box
+        grid-area: C
+    .actions-box
+        grid-area: D
+
+        display: flex
+        justify-content: flex-end
+        gap: 5px
