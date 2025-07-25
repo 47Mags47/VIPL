@@ -10,7 +10,6 @@ export default function Edit() {
     const payment = usePage().props.payment.data
     const { data, setData, put, processing } = useForm({
         code:           payment.code,
-        krv:            payment.krv,
         name:           payment.name,
         kbk:            payment.kbk,
         law_id:         payment.law.id,
@@ -36,12 +35,6 @@ export default function Edit() {
                     label="Код"
                     value={data.code}
                     onChange={(e) => setData('code', e.target.value)}
-                />
-                <Input
-                    name="krv"
-                    label="Краткое наименование"
-                    value={data.krv}
-                    onChange={(e) => setData('krv', e.target.value)}
                 />
                 <TextArea
                     name="name"

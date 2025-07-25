@@ -28,12 +28,6 @@ class UpdateRequest extends FormRequest
                 'string',
                 'unique:' . Payment::class . ',name,' . $this->route('payment')->id
             ],
-            'krv'   => [
-                'required',
-                'string',
-                'max:255',
-                'unique:' . Payment::class . ',krv,' . $this->route('payment')->id
-            ],
             'kbk'   => [
                 'required',
                 'string',
