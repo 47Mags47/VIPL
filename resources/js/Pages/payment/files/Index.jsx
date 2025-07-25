@@ -13,7 +13,8 @@ export default function Index() {
             title: '',
             width: 80,
             center: true,
-            render: (_, record) => <EchoProgress chanel={'files.' + record.id} status={record.status.type} />
+            render: (_, record, changeState) => <EchoProgress chanel={'files.' + record.id} status={record.status.type} />
+
         },
         {
             title: 'Нименование',
@@ -80,7 +81,10 @@ export default function Index() {
             <Table
                 columns={columns}
                 dataKey="files"
-                listChannel={'package.' + paymentPackage.id + '.files'}
+                channels={{
+                    listChannel: 'package.' + paymentPackage.id + '.files',
+                    itemChannel: "files.{id}"
+                }}
                 actions={() => (
                     <AddButton href={route('payments.files.create', { package: paymentPackage.id })} />
                 )}

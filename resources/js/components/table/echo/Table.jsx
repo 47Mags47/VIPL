@@ -10,8 +10,8 @@ import '@/../sass/components/table/echo/table.sass'
 
 export default function Table({ ...props }) {
     // Data
-    const datakey = props.dataKey
-    const data = props.data ?? usePage().props[datakey]
+    const dataKey = props.dataKey
+    const data = props.data ?? usePage().props[dataKey]
     const rows = data.data
     const columns = props.columns
     const paginate = {
@@ -35,10 +35,9 @@ export default function Table({ ...props }) {
             listChannel,
             '.update-list',
             () => realtime
-                ? router.reload({ only: ['files'] })
+                ? router.reload({ only: [dataKey] })
                 : setActuality(false)
         );
-
 
     // Render
     function Header() {
@@ -55,7 +54,7 @@ export default function Table({ ...props }) {
                 realtime={realtime}
                 setActuality={setActuality}
                 paginate={paginate}
-                datakey={datakey}
+                datakey={dataKey}
             />
     }
 
@@ -67,6 +66,10 @@ export default function Table({ ...props }) {
             : <DefaultContent
                 rows={rows}
                 columns={columns}
+                itemChannel={itemChannel}
+                realtime={realtime}
+                setActuality={setActuality}
+                datakey={dataKey}
             />
     }
 
@@ -77,7 +80,7 @@ export default function Table({ ...props }) {
             ? <CustomFooter />
             : <DefaultFooter
                 paginate={paginate}
-                datakey={datakey}
+                datakey={dataKey}
             />
     }
 
