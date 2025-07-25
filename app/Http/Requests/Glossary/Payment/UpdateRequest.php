@@ -39,7 +39,7 @@ class UpdateRequest extends FormRequest
                 'string',
                 'min:20',
                 'max:20',
-                'regex:/[0-9]{3}[0-9]{4}[0-9]{5}[0-9]{5}[0-9]{3}/',
+                'regex:/[0-9A-ZА-Я]{20}/',
                 'unique:' . Payment::class . ',kbk,' . $this->route('payment')->id
             ],
         ];
