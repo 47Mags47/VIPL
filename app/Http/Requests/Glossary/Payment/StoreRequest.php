@@ -35,12 +35,6 @@ class StoreRequest extends FormRequest
                 'string',
                 'unique:' . Payment::class . ',name'
             ],
-            'krv'   => [
-                'required',
-                'string',
-                'max:255',
-                'unique:' . Payment::class . ',krv'
-            ],
             'kbk'   => [
                 'required',
                 'string',

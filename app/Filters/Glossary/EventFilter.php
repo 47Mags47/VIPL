@@ -17,7 +17,6 @@ class EventFilter extends Filter
                 fn($payment_query) => $payment_query
                     ->whereLike('code', $like)
                     ->orWhereLike('name', $like)
-                    ->orWhereLike('krv', $like)
             ))
             ->orWhere(fn($query) => $query->whereHas(
                 'payment.law',

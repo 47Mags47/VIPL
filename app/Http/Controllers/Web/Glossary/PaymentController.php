@@ -28,7 +28,7 @@ class PaymentController extends Controller
 
     public function store(StoreRequest $request)
     {
-        Payment::create($request->only(['code', 'name', 'krv', 'kbk', 'law_id']));
+        Payment::create($request->only(['code', 'name', 'kbk', 'law_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно создана');
     }
@@ -43,7 +43,7 @@ class PaymentController extends Controller
 
     public function update(UpdateRequest $request, Payment $payment)
     {
-        $payment->update($request->only(['code', 'name', 'krv', 'kbk', 'law_id']));
+        $payment->update($request->only(['code', 'name', 'kbk', 'law_id']));
 
         return redirect()->route('glossary.payments.index')->with('message', 'Запись успешно обновлена');
     }

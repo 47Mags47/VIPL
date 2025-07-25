@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('name')->unique();
-            $table->string('krv');
             $table->string('kbk');
 
             $table->foreignId('law_id')->constrained(Law::getTableName());

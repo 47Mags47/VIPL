@@ -30,7 +30,7 @@ export default function Index() {
                         className="show-link"
                         href={route('payments.events.show', { event: item.data.id })}
                     >
-                        {item.data.payment.code + ' - ' + item.data.payment.krv}
+                        {item.data.payment.code + ' - ' + item.data.payment.name}
                     </Link>
                 ),
                 id: item.data.id

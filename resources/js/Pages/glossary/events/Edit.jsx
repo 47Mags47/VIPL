@@ -38,7 +38,7 @@ export default function Create() {
                     label="Выплата"
                     list={usePage().props.payments.data}
                     value={data.payment_id}
-                    item_value="krv"
+                    item_value="name"
                     onChange={(value) => setData('payment_id', value)}
                 />
             </Form>

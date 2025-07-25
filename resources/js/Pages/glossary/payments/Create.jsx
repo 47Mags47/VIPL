@@ -9,7 +9,6 @@ import dayjs                                                                    
 export default function Create() {
     const { data, setData, post, processing } = useForm({
         code: '',
-        krv: '',
         name: '',
         kbk: '',
         law_id: '',
@@ -35,12 +34,6 @@ export default function Create() {
                     label="Код"
                     value={data.code}
                     onChange={(e) => setData('code', e.target.value)}
-                />
-                <Input
-                    name="krv"
-                    label="Краткое наименование"
-                    value={data.krv}
-                    onChange={(e) => setData('krv', e.target.value)}
                 />
                 <TextArea
                     name="name"

@@ -14,10 +14,6 @@ export default function Index() {
             width: 75,
         },
         {
-            title: 'Краткое наименование',
-            dataIndex: 'krv',
-        },
-        {
             title: 'Наименование',
             dataIndex: 'name',
         },
