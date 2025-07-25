@@ -2,6 +2,10 @@
 
 namespace App\Models\Main\Payment;
 
+use App\Events\Main\Payment\File\CreateEvent;
+use App\Events\Main\Payment\Package\DeleteFileEvent;
+use App\Events\Main\Payment\Package\UpdateFileListEvent;
+use App\Jobs\Payment\Files\ReadToDB;
 use App\Models\Glossary\Bank;
 use App\Models\Sys\FileStatus;
 use App\Traits\hasApi;
@@ -44,6 +48,22 @@ class File extends Model
         ];
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($model) {
+            ReadToDB::dispatch($model);
+            broadcast(new CreateEvent($model))->toOthers();
+            broadcast(new UpdateFileListEvent($model->package))->toOthers();
+        });
+
+        self::deleting(function ($model) {
+            broadcast(new DeleteFileEvent($model))->toOthers();
+            broadcast(new UpdateFileListEvent($model->package))->toOthers();
+        });
+    }
+
     ### Методы
     ##################################################
     public function setStatus(string $status)
@@ -78,11 +98,13 @@ class File extends Model
         return $this->recipients->sum('summ');
     }
 
-    public function getHash(): string{
+    public function getHash(): string
+    {
         return Storage::disk($this->disk)->checksum($this->getLocalPath());
     }
 
-    public function getSize(): string{
+    public function getSize(): string
+    {
         return formatSizeUnits(Storage::disk($this->disk)->size($this->getLocalPath()));
     }
 

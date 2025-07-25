@@ -20,6 +20,7 @@ class FileResource extends JsonResource
             'name' => $this->origin_name,
             'status' => [
                 'name' => $this->status->name,
+                'type' => $this->status->type,
                 'color' => [
                     'done' => 'green',
                     'job' => 'orange',

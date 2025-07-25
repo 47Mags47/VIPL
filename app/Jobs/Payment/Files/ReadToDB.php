@@ -21,11 +21,12 @@ class ReadToDB implements ShouldQueue
             return;
         }
 
-        $this->file->setStatus('read');
+        $this->file->setStatus('reading');
+
         try {
-            $this->file->setStatus('loading');
-            Excel::import(new RecipientImport($this->file), $this->file->localPath(), $this->file->disk, \Maatwebsite\Excel\Excel::CSV);
-            $this->file->setStatus('load');
+            Excel::import(new RecipientImport($this->file), $this->file->getLocalPath(), $this->file->disk);
+
+            $this->file->setStatus('read');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
 
