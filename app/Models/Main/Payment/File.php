@@ -5,6 +5,8 @@ namespace App\Models\Main\Payment;
 use App\Events\Main\Payment\File\CreateEvent;
 use App\Events\Main\Payment\Package\DeleteFileEvent;
 use App\Events\Main\Payment\Package\UpdateFileListEvent;
+use App\Events\Payment\File\ChangeStatusEvent;
+use App\Events\Payment\File\UpdateEvent;
 use App\Jobs\Payment\Files\ReadToDB;
 use App\Models\Glossary\Bank;
 use App\Models\Sys\FileStatus;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class File extends Model
@@ -62,6 +65,10 @@ class File extends Model
             broadcast(new DeleteFileEvent($model))->toOthers();
             broadcast(new UpdateFileListEvent($model->package))->toOthers();
         });
+
+        self::updated(function ($model) {
+            broadcast(new UpdateEvent($model))->toOthers();
+        });
     }
 
     ### Методы
@@ -71,6 +78,8 @@ class File extends Model
         $this->update([
             'status_id' => FileStatus::byCode($status)->id,
         ]);
+
+        ChangeStatusEvent::dispatch($this);
     }
 
     public function addError(string $error, array|null $context = null)

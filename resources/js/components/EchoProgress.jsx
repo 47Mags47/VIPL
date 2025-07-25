@@ -1,7 +1,8 @@
+import { useEcho } from '@laravel/echo-react';
 import { Progress } from 'antd';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
-export default function EchoProgress({ ...props }) {
+export default memo(function EchoProgress({ ...props }) {
     const statuses = {
         'job': 'active',
         'done': 'success',
@@ -15,11 +16,11 @@ export default function EchoProgress({ ...props }) {
     const type = props.type ?? 'circle'
     const size = props.size ?? 35
 
-    // Echo.channel(chanel)
-    //     .listen('.change-percent', (data) => setPercent(data.percent))
-    //     .listen('.change-status', (data) => setStatus(statuses[data.file.status.type]))
+    useEcho(chanel, '.change-percent', (data) => setPercent(data.percent))
+    useEcho(chanel, '.change-status', (data) => setStatus(statuses[data.status.type]))
+
 
     return (
         <Progress type={type} status={status} size={size} percent={percent} />
     )
-}
+})

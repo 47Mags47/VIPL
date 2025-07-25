@@ -4,8 +4,8 @@ export default function Cell({ ...props }) {
     const column = props.column
 
     const render = Array.isArray(column.dataIndex)
-        ? () => column.dataIndex.reduce((value, current) => value[current], row)
-        : () => row[column.dataIndex]
+        ? column.dataIndex.reduce((value, current) => value[current], row)
+        : row[column.dataIndex]
 
     const classes = {
         'center': column.center,
@@ -35,7 +35,7 @@ export default function Cell({ ...props }) {
             {
                 typeof column.render === 'function'
                     ? column.render(column, row)
-                    : render()
+                    : render
             }
         </td>
     )

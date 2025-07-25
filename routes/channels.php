@@ -5,7 +5,7 @@ use App\Models\Main\Payment\Package;
 use App\Models\Main\User;
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('files', function (User $user, File $file) {
+Broadcast::channel('files.{file}', function (User $user, File $file) {
     if(user()->hasRole('system_admin'))
         return true;
 

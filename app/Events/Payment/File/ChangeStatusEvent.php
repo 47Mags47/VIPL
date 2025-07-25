@@ -9,16 +9,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChunkUploadEvent implements ShouldBroadcast
+class ChangeStatusEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private int $percent;
 
-    public function __construct(public File $file, public int $currentRow, public int $totalRow)
-    {
-        $this->percent = (int) ($currentRow * 100) / $totalRow;
-    }
+    public function __construct(public File $file) {}
 
     public function broadcastOn(): array
     {
@@ -29,13 +25,13 @@ class ChunkUploadEvent implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'change-percent';
+        return 'change-status';
     }
 
     public function broadcastWith(): array
     {
         return [
-            'percent' => $this->percent,
+            'status' => $this->file->toResource()['status'],
         ];
     }
 }

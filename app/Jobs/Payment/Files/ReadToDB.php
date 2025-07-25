@@ -2,10 +2,12 @@
 
 namespace App\Jobs\Payment\Files;
 
+use App\Events\Payment\File\UpdateEvent;
 use App\Imports\Payment\RecipientImport;
 use App\Models\Main\Payment\File;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReadToDB implements ShouldQueue
@@ -36,5 +38,8 @@ class ReadToDB implements ShouldQueue
                 }
             }
         }
+
+        // broadcast(new UpdateEvent($this->file))->toOthers();
+        // UpdateEvent::dispatch($this->file);
     }
 }
