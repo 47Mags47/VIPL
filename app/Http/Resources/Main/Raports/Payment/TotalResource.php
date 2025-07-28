@@ -16,11 +16,6 @@ class TotalResource extends JsonResource
                 'code' => $this->status->code,
                 'name' => $this->status->name,
                 'type' => $this->status->type,
-                'color' => [
-                    'done' => 'green',
-                    'job' => 'orange',
-                    'error' => 'red',
-                ][$this->status->type],
             ],
             'start_by' => $this->startBy->toResource(),
             'created_at' => $this->created_at->format('Y-m-d H:i'),

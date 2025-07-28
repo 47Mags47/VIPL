@@ -26,7 +26,7 @@ class Payment extends Model
     ##################################################
     protected $table = 'glossary__payments';
 
-    protected $fillable = ['code', 'name', 'krv', 'kbk', 'law_id'];
+    protected $fillable = ['code', 'name', 'kbk', 'law_id'];
 
     ### Связи
     ##################################################

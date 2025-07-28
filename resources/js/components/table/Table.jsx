@@ -1,3 +1,5 @@
+// DELETE Компонент устарел и будет заменен на новый
+
 import { Table as AntdTable } from 'antd';
 
 import Search from './Search';

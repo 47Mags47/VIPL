@@ -2,6 +2,12 @@
 
 namespace App\Models\Main\Payment;
 
+use App\Events\Main\Payment\File\CreateEvent;
+use App\Events\Main\Payment\Package\DeleteFileEvent;
+use App\Events\Main\Payment\Package\UpdateFileListEvent;
+use App\Events\Payment\File\ChangeStatusEvent;
+use App\Events\Payment\File\UpdateEvent;
+use App\Jobs\Payment\Files\ReadToDB;
 use App\Models\Glossary\Bank;
 use App\Models\Sys\FileStatus;
 use App\Traits\hasApi;
@@ -13,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class File extends Model
@@ -44,6 +51,26 @@ class File extends Model
         ];
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($model) {
+            ReadToDB::dispatch($model);
+            broadcast(new CreateEvent($model))->toOthers();
+            broadcast(new UpdateFileListEvent($model->package))->toOthers();
+        });
+
+        self::deleting(function ($model) {
+            broadcast(new DeleteFileEvent($model))->toOthers();
+            broadcast(new UpdateFileListEvent($model->package))->toOthers();
+        });
+
+        self::updated(function ($model) {
+            broadcast(new UpdateEvent($model))->toOthers();
+        });
+    }
+
     ### Методы
     ##################################################
     public function setStatus(string $status)
@@ -51,6 +78,8 @@ class File extends Model
         $this->update([
             'status_id' => FileStatus::byCode($status)->id,
         ]);
+
+        ChangeStatusEvent::dispatch($this);
     }
 
     public function addError(string $error, array|null $context = null)
@@ -78,11 +107,13 @@ class File extends Model
         return $this->recipients->sum('summ');
     }
 
-    public function getHash(): string{
+    public function getHash(): string
+    {
         return Storage::disk($this->disk)->checksum($this->getLocalPath());
     }
 
-    public function getSize(): string{
+    public function getSize(): string
+    {
         return formatSizeUnits(Storage::disk($this->disk)->size($this->getLocalPath()));
     }
 

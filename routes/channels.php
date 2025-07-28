@@ -1,9 +1,31 @@
 <?php
 
+use App\Models\Main\Payment\File;
+use App\Models\Main\Payment\Package;
+use App\Models\Main\Raports\Payment\Total;
 use App\Models\Main\User;
-use App\Models\Payment\Raport;
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('private-raports', function (User $user, Raport $raport) {
-    return true;
+Broadcast::channel('files.{file}', function (User $user, File $file) {
+    if(user()->hasRole('system_admin'))
+        return true;
+
+    if(user()->division->id === $file->package->division->id)
+        return true;
+
+    return false;
+});
+
+Broadcast::channel('package.{package}.files', function (User $user, Package $package) {
+    if(user()->hasRole('system_admin'))
+        return true;
+
+    if(user()->division->id === $package->division->id)
+        return true;
+
+    return false;
+});
+
+Broadcast::channel('payment.total-raports.{total}', function (User $user, Total $total) {
+    return user()->hasPermission('create_payment_raports');
 });

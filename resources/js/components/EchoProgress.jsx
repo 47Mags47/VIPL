@@ -1,31 +1,28 @@
+import { useEcho } from '@laravel/echo-react';
 import { Progress } from 'antd';
-import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { memo, useState } from 'react';
 
-
-export default function EchoProgress({ ...props }) {
+export default memo(function EchoProgress({ ...props }) {
     const statuses = {
-        'job' : 'active',
+        'job': 'active',
         'done': 'success',
         'error': 'exception'
     }
 
-    const [percent, setPercent] = useState(props.status === 'done' ? 100 : 0)
+    const [percent, setPercent] = useState(props.status !== 'job' ? 100 : 0)
     const [status, setStatus] = useState(statuses[props.status])
 
     const chanel = props.chanel
-    const event = props.event
-    const type = props.type
-    const size = props.size
 
-    Echo.channel(chanel).listen(event, (data) => {
-        setPercent(data.percent)
-        setStatus(statuses[data.status])
-        if (data.percent === 100)
-            router.reload()
-    })
+
+    const type = props.type ?? 'circle'
+    const size = props.size ?? 35
+
+    useEcho(chanel, '.change-percent', (data) => setPercent(data.percent))
+    useEcho(chanel, '.change-status', (data) => setStatus(statuses[data.status.type]))
+
 
     return (
         <Progress type={type} status={status} size={size} percent={percent} />
     )
-}
+})
