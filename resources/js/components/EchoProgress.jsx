@@ -13,6 +13,8 @@ export default memo(function EchoProgress({ ...props }) {
     const [status, setStatus] = useState(statuses[props.status])
 
     const chanel = props.chanel
+
+
     const type = props.type ?? 'circle'
     const size = props.size ?? 35
 

@@ -4,7 +4,6 @@ namespace App\Http\Resources\Main\Payment;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class FileResource extends JsonResource
 {
@@ -21,11 +20,6 @@ class FileResource extends JsonResource
             'status' => [
                 'name' => $this->status->name,
                 'type' => $this->status->type,
-                'color' => [
-                    'done' => 'green',
-                    'job' => 'orange',
-                    'error' => 'red',
-                ][$this->status->type],
             ],
             'recipients' => $this->recipients()->count(),
             'summ' => number_format($this->getTotalSumm(), 2, '.', ' ') . ' RUB',

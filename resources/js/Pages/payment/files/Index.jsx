@@ -3,7 +3,7 @@ import { usePage } from "@inertiajs/react"
 import { AuthenticatedLayout as Layout } from '@/layouts'
 import { AddButton, DeleteButton, GoToButton } from "@/components/table"
 import EchoProgress from "@/components/EchoProgress"
-import Table from "@/components/table/echo/Table"
+import { Table } from "@/components/table/echo"
 
 export default function Index() {
     const paymentPackage = usePage().props.package.data
@@ -13,8 +13,10 @@ export default function Index() {
             title: '',
             width: 80,
             center: true,
-            render: (_, record, changeState) => <EchoProgress chanel={'files.' + record.id} status={record.status.type} />
-
+            render: (_, record) => <EchoProgress
+                chanel={'files.' + record.id}
+                status={record.status.type}
+            />
         },
         {
             title: 'Нименование',

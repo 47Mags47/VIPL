@@ -38,8 +38,5 @@ class ReadToDB implements ShouldQueue
                 }
             }
         }
-
-        // broadcast(new UpdateEvent($this->file))->toOthers();
-        // UpdateEvent::dispatch($this->file);
     }
 }

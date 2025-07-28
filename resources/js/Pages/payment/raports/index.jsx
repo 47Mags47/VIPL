@@ -2,33 +2,26 @@ import { usePage, router } from "@inertiajs/react"
 
 import { AuthenticatedLayout as Layout } from "@/layouts"
 
-import { Table } from "@/components/table"
+import { Table } from "@/components/table/echo"
 import BlueButton from '@/components/buttons/BlueButton'
 import DownloadButton from '@/components/buttons/DownloadButton'
-import EchoProgress from '@/components/EchoProgress'
+import EchoProgress from "@/components/EchoProgress"
 import FileZipperIco from "@/components/icons/FileZipperIco"
 import FileIco from "@/components/icons/FileIco"
 
 
 export default function Index() {
-    const { raports, event } = usePage().props
+    const event = usePage().props.event
 
     const columns = [
         {
-            title: 'Статус',
-            dataIndex: 'status',
+            title: '',
             width: 80,
-            render: (_, record) => {
-                return (
-                    <EchoProgress
-                        chanel={`raports.${record.id}`}
-                        event='.update'
-                        type="circle"
-                        status={record.status.type}
-                        size={35}
-                    />
-                )
-            }
+            center: true,
+            render: (_, record) => <EchoProgress
+                chanel={'payment.total-raports.' + record.id}
+                status={record.status.type}
+            />
         },
         {
             title: ' Наименование',
@@ -43,14 +36,8 @@ export default function Index() {
         {
             title: 'Создан',
             dataIndex: 'created_at',
-            width: 100,
-            render: (value) => new Date(value).toLocaleString('ru-RU', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            })
+            width: 160,
+            render: (_, record) => new Date(record.created_at).toLocaleString('ru-RU')
         },
         {
             title: 'Комментарий',
@@ -58,9 +45,9 @@ export default function Index() {
             render: (_, record) => (<></>)
         },
         {
-            title: '',
             key: 'download-bank-files',
-            width: 80,
+            center: true,
+            button: true,
             render: (_, record) => {
                 return record.status.code === 'created'
                     ? (
@@ -72,9 +59,9 @@ export default function Index() {
             }
         },
         {
-            title: '',
             key: 'download-raport',
-            width: 80,
+            center: true,
+            button: true,
             render: (_, record) => {
                 return record.status.code === 'created'
                     ? (
@@ -90,14 +77,17 @@ export default function Index() {
     return (
         <Layout>
             <Table
-                rowKey="id"
                 columns={columns}
-                data={raports}
-                actions={
+                dataKey="raports"
+                channels={{
+                    itemChannel: "payment.total-raports.{id}"
+                }}
+                actions={() => (
                     <BlueButton onClick={() => router.post(route('payments.raports.store', { event: event.data.id }))}>
                         Сформировать отчет
                     </BlueButton>
-                }
+                )}
+                realtime
             />
         </Layout >
     )

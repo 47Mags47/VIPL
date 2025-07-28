@@ -1,5 +1,6 @@
 import { useEcho } from '@laravel/echo-react'
 import Cell from './Cell'
+import { router } from '@inertiajs/react'
 
 export default function Row({ ...props }) {
     const key = props.key
@@ -14,7 +15,7 @@ export default function Row({ ...props }) {
     if (channel !== undefined) {
         useEcho(
             channel,
-            '.update',
+            ['.update', '.change-status'],
             () => realtime
                 ? router.reload({ only: [dataKey] })
                 : setActuality(false)

@@ -26,7 +26,7 @@ class TotalController extends Controller
     {
         GenerateJob::dispatch($event, user());
 
-        return back()->with('message', 'Запущено формирование файлов в банк');
+        return back()->with('message', 'Запущено формирование отчета');
     }
 
     public function download(Total $raport)

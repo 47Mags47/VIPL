@@ -11,12 +11,18 @@ export default function Tbody({ ...props }) {
     const dataKey = props.dataKey
 
     function getItemChannel(item) {
-        return itemChannel
-            .match(/(?<=\{)[^\{\}]*(?=\})/g)
-            .reduce(
-                (value, attribute) => value.replace('{' + attribute + '}', item[attribute]),
-                itemChannel
-            )
+        if(typeof itemChannel === 'undefined')
+            return
+
+        let matches = itemChannel.match(/(?<=\{)[^\{\}]*(?=\})/g) ?? []
+
+        if(matches === null)
+            return
+
+        return matches.reduce(
+            (value, attribute) => value.replace('{' + attribute + '}', item[attribute]),
+            itemChannel
+        )
     }
 
     return (
