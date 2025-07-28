@@ -13,6 +13,7 @@ class TotalResource extends JsonResource
             'id' => $this->id,
             'name' => $this->original_name,
             'status' => [
+                'code' => $this->status->code,
                 'name' => $this->status->name,
                 'type' => $this->status->type,
             ],
