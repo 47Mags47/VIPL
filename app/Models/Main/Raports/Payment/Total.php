@@ -2,6 +2,7 @@
 
 namespace App\Models\Main\Raports\Payment;
 
+use App\Events\Payment\Raport\ChangeStatusEvent;
 use App\Models\Glossary\Event;
 use App\Models\Main\Payment\Package;
 use App\Models\Main\Raports\Payment\BankFile;
@@ -46,6 +47,8 @@ class Total extends Model
     public function setStatus(string $status)
     {
         $this->update(['status_id' => FileStatus::byCode($status)?->id]);
+
+        ChangeStatusEvent::dispatch($this);
     }
 
     ### Связи

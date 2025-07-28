@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Payment\BankFiles;
 
+use App\Events\Payment\Raport\ChangePercentEvent;
 use App\Models\Main\Raports\Payment\Total;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -39,5 +40,8 @@ class GenerateJob implements ShouldQueue
                 ]);
             }
         }
+
+        ChangePercentEvent::dispatch($this->raport, 100);
+        $this->raport->setStatus('created');
     }
 }

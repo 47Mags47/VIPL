@@ -109,6 +109,25 @@ class Event extends Model
         return array_values($files_groupBy_bank);
     }
 
+    /**
+     * @return array Массив типа ['division' => Division, 'files' => [File...]]
+     */
+    public function filesGroupByDivision()
+    {
+        $done_statuses = FileStatus::where('type', 'done')->get('id')->pluck('id')->toArray();
+
+        $files = $this->packages->map(fn($package) => $package->files()->whereIn('status_id', $done_statuses)->get())->collapse();
+
+        $files_groupBy_division = [];
+        foreach ($files as $file) {
+            $files_groupBy_division[$file->package->division_id]['division'] = $file->package->division;
+            $files_groupBy_division[$file->package->division_id]['banks'][$file->bank_id]['bank'] = $file->bank;
+            $files_groupBy_division[$file->package->division_id]['banks'][$file->bank_id]['files'][] = $file;
+        }
+
+        return array_values($files_groupBy_division);
+    }
+
     public static function generateNPP()
     {
         return (Event::whereBetween('date', [now()->startOfYear(), now()->endOfYear()])->max('npp') ?? 0) + 1;

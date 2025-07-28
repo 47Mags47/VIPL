@@ -2,6 +2,7 @@
 
 use App\Models\Main\Payment\File;
 use App\Models\Main\Payment\Package;
+use App\Models\Main\Raports\Payment\Total;
 use App\Models\Main\User;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -23,4 +24,8 @@ Broadcast::channel('package.{package}.files', function (User $user, Package $pac
         return true;
 
     return false;
+});
+
+Broadcast::channel('payment.total-raports.{total}', function (User $user, Total $total) {
+    return user()->hasPermission('create_payment_raports');
 });
