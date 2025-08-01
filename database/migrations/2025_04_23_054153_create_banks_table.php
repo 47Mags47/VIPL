@@ -24,8 +24,8 @@ return new class extends Migration
         Schema::create('glossary__contracts', function (Blueprint $table) {
             $table->id();
 
-            $table->string('number');
-            $table->date('signed_at');
+            $table->string('number')->nullable();
+            $table->date('signed_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

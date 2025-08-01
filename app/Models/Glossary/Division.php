@@ -14,12 +14,37 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * 
+ *
  * @var string $table glossary__divisions
- *
- * @method Builder notRoot() Исключает root из выборки
- * @method Builder createAccess() Исключает подразделения, для создания пользователей в которых у текущего пользователя нет прав
- *
- * @property \lluminate\Support\Collection $users [App\Models\Main\User] (пользователей) в подразделении
+ * @property int $id
+ * @property string $code
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static Builder<static>|Division api()
+ * @method static Builder<static>|Division byCode(string $code)
+ * @method static Builder<static>|Division createAccess()
+ * @method static Builder<static>|Division filter(\App\Classes\Filter $filter)
+ * @method static Builder<static>|Division newModelQuery()
+ * @method static Builder<static>|Division newQuery()
+ * @method static Builder<static>|Division notRoot()
+ * @method static Builder<static>|Division onlyTrashed()
+ * @method static Builder<static>|Division query()
+ * @method static Builder<static>|Division whereCode($value)
+ * @method static Builder<static>|Division whereCreatedAt($value)
+ * @method static Builder<static>|Division whereDeletedAt($value)
+ * @method static Builder<static>|Division whereId($value)
+ * @method static Builder<static>|Division whereName($value)
+ * @method static Builder<static>|Division whereUpdatedAt($value)
+ * @method static Builder<static>|Division withTrashed()
+ * @method static Builder<static>|Division withoutTrashed()
+ * @mixin \Eloquent
  */
 class Division extends Model
 {

@@ -12,6 +12,34 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $code
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Sys\Permission> $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static Builder<static>|Role api()
+ * @method static Builder<static>|Role byCode(string $code)
+ * @method static Builder<static>|Role createAccess()
+ * @method static Builder<static>|Role newModelQuery()
+ * @method static Builder<static>|Role newQuery()
+ * @method static Builder<static>|Role notRoot()
+ * @method static Builder<static>|Role query()
+ * @method static Builder<static>|Role whereCode($value)
+ * @method static Builder<static>|Role whereCreatedAt($value)
+ * @method static Builder<static>|Role whereId($value)
+ * @method static Builder<static>|Role whereName($value)
+ * @method static Builder<static>|Role whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Role extends Model
 {
     use hasApi, hasCode, HasLog, Named;

@@ -19,6 +19,36 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property Carbon $date
+ * @property int $npp
+ * @property int $payment_id
+ * @property int $status_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, BankFile> $bankFiles
+ * @property-read int|null $bank_files_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Package> $packages
+ * @property-read int|null $packages_count
+ * @property-read \App\Models\Glossary\Payment $payment
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Total> $raports
+ * @property-read int|null $raports_count
+ * @property-read EventStatus $status
+ * @method static Builder<static>|Event active()
+ * @method static Builder<static>|Event api()
+ * @method static \Database\Factories\Glossary\EventFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Event filter(\App\Classes\Filter $filter)
+ * @method static Builder<static>|Event newModelQuery()
+ * @method static Builder<static>|Event newQuery()
+ * @method static Builder<static>|Event query()
+ * @method static Builder<static>|Event whereDate($value)
+ * @method static Builder<static>|Event whereId($value)
+ * @method static Builder<static>|Event whereNpp($value)
+ * @method static Builder<static>|Event wherePaymentId($value)
+ * @method static Builder<static>|Event whereStatusId($value)
+ * @mixin \Eloquent
+ */
 class Event extends Model
 {
     ### Настройки

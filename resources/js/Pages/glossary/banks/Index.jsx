@@ -31,7 +31,7 @@ export default function Index() {
         {
             title: 'Дата заключения',
             dataIndex: ['contract', 'signed_at'],
-            render: (value) => new Date(value).toLocaleDateString()
+            render: (value) => value !== null ? new Date(value).toLocaleDateString() : null
         },
         {
             key: 'edit',
