@@ -22,7 +22,7 @@ class LawController extends Controller
     public function create()
     {
         return Inertia::render('glossary/laws/Create', [
-            'sources' => fn() => Source::api(),
+            'sources' => fn() => Source::all()->toResourceCollection(),
         ]);
     }
 
@@ -37,7 +37,7 @@ class LawController extends Controller
     {
         return Inertia::render('glossary/laws/Edit', [
             'law' => fn() => $law->toResource(),
-            'sources' => fn() => Source::api(),
+            'sources' => fn() => Source::all()->toResourceCollection(),
         ]);
     }
 
