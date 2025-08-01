@@ -23,7 +23,7 @@ class BankController extends Controller
     public function create()
     {
         return Inertia::render('glossary/banks/Create', [
-            'exporters' => fn() => BankExporter::api(),
+            'exporters' => fn() => BankExporter::all()->toResourceCollection(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class BankController extends Controller
     public function edit(Bank $bank)
     {
         return Inertia::render('glossary/banks/Edit', [
-            'exporters' => fn() => BankExporter::api(),
+            'exporters' => fn() => BankExporter::all()->toResourceCollection(),
             'bank' => fn() => $bank->toResource()
         ]);
     }

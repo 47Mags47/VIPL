@@ -27,7 +27,7 @@ class FileController extends Controller
     {
         return Inertia::render('payment/files/Create', [
             'package' => $package->toResource(),
-            'banks' => fn() => Bank::api(),
+            'banks' => fn() => Bank::all()->toResourceCollection(),
         ]);
     }
 

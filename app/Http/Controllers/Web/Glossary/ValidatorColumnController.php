@@ -21,7 +21,7 @@ class ValidatorColumnController extends Controller
     {
         return Inertia::render('glossary/validator/Edit', [
             'column' => fn() => $column->toResource(),
-            'types' => fn() => ValidatorColumnType::api(),
+            'types' => fn() => ValidatorColumnType::all()->toResourceCollection(),
         ]);
     }
 
