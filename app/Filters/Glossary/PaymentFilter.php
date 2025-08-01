@@ -13,7 +13,8 @@ class PaymentFilter extends Filter
         return $this->builder->where(function ($query) use ($value) {
             return $query
                 ->whereLike('code', $value)
-                ->orWhereLike('name', $value);
+                ->orWhereLike('name', $value)
+                ->orWhereLike('kbk', $value);
         });
     }
 }
