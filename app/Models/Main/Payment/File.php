@@ -22,6 +22,48 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $disk
+ * @property string $path
+ * @property string $name
+ * @property string $origin_name
+ * @property array<array-key, mixed> $errors
+ * @property array<array-key, mixed>|null $error_context
+ * @property string $package_id
+ * @property int $bank_id
+ * @property int $status_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read Bank $bank
+ * @property-read \App\Models\Main\Payment\Package|null $package
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Main\Payment\Recipient> $recipients
+ * @property-read int|null $recipients_count
+ * @property-read FileStatus $status
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File api()
+ * @method static \Database\Factories\Main\Payment\FileFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File getTotalSumm()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereBankId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereDisk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereErrorContext($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereErrors($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereOriginName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File wherePackageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|File whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class File extends Model
 {
     ### Настройки

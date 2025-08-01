@@ -21,8 +21,8 @@ class StoreRequest extends FormRequest
             'bank.name'                   => ['required', 'string', 'min:3', 'max:255'],
             'bank.exporter_id'            => ['required', 'exists:' . BankExporter::getTableName() . ',id'],
 
-            'contract.number'             => ['required', 'string', 'max:255'],
-            'contract.signed_at'          => ['required', 'date'],
+            'contract.number'             => ['nullable', 'string', 'max:255'],
+            'contract.signed_at'          => ['nullable', 'date'],
         ];
     }
 }

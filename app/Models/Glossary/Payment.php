@@ -13,10 +13,39 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @var string $table glossary__payments
+ * 
  *
- * @property \App\Models\Glossary\Law $law Модель закона на основании которого осуществляется выплата
- * @property \lluminate\Support\Collection $events [\App\Models\payment\Event] (событий) созданных на основе выплаты
+ * @var string $table glossary__payments
+ * @property int $id
+ * @property string $code
+ * @property string $name
+ * @property string $kbk
+ * @property int $law_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Event> $events
+ * @property-read int|null $events_count
+ * @property-read \App\Models\Glossary\Law $law
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment api()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment filter(\App\Classes\Filter $filter)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereKbk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereLawId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment withoutTrashed()
+ * @mixin \Eloquent
  */
 class Payment extends Model
 {

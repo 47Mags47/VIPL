@@ -55,17 +55,22 @@ class BankController extends Controller
 
     public function update(UpdateRequest $request, Bank $bank)
     {
-        $bank->contract->update([
-            'number'        => $request->input('contract.number'),
-            'signed_at'     => $request->input('contract.signed_at'),
-        ]);
+        $contract = $bank->contract !== null
+            ? $bank->contract->update([
+                'number'        => $request->input('contract.number'),
+                'signed_at'     => $request->input('contract.signed_at'),
+            ])
+            : Contract::create([
+                'number'        => $request->input('contract.number'),
+                'signed_at'     => $request->input('contract.signed_at'),
+            ]);
 
         $bank->update([
             'number_code'   => $request->input('bank.number_code'),
             'code'          => $request->input('bank.code'),
             'name'          => $request->input('bank.name'),
             'exporter_id'   => $request->input('bank.exporter_id'),
-            'contract_id'   => $bank->contract->id,
+            'contract_id'   => $bank->contract?->id ?? $contract->id,
         ]);
 
         return redirect()->route('glossary.banks.index')->with('message', 'Запись успешно обновлена');

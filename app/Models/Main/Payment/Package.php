@@ -16,6 +16,40 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * 
+ *
+ * @property string $id
+ * @property int $division_id
+ * @property int $event_id
+ * @property int $status_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, BankFile> $bankFiles
+ * @property-read int|null $bank_files_count
+ * @property-read Division $division
+ * @property-read Event $event
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Main\Payment\File> $files
+ * @property-read int|null $files_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Total> $raports
+ * @property-read int|null $raports_count
+ * @property-read PackageStatus $status
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package api()
+ * @method static \Database\Factories\Main\Payment\PackageFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package getTotalSumm()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereDivisionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Package whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Package extends Model
 {
     use hasApi, HasLog, hasUUID, Named, HasFactory;
