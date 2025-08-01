@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property Carbon $date
@@ -60,6 +60,7 @@ class Event extends Model
     protected $fillable = [
         'date',
         'payment_id',
+        'status_id'
     ];
 
     public function casts(): array
