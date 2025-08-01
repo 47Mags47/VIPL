@@ -52,6 +52,6 @@ class PaymentController extends Controller
     {
         $payment->delete();
 
-        return redirect()->route('glossary.payments.index')->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }
