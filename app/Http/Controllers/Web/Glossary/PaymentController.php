@@ -22,7 +22,7 @@ class PaymentController extends Controller
     public function create()
     {
         return Inertia::render('glossary/payments/Create', [
-            'laws' => fn() => Law::api(),
+            'laws' => fn() => Law::all()->toResourceCollection(),
         ]);
     }
 
@@ -37,7 +37,7 @@ class PaymentController extends Controller
     {
         return Inertia::render('glossary/payments/Edit', [
             'payment' => fn() => $payment->toResource(),
-            'laws' => fn() => Law::api(),
+            'laws' => fn() => Law::all()->toResourceCollection(),
         ]);
     }
 

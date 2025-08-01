@@ -34,8 +34,8 @@ class UserController extends Controller
     public function create()
     {
         return Inertia::render('main/users/Create', [
-            'divisions' => fn() => Division::notRoot()->createAccess()->orderBy('name')->api(),
-            'roles' => fn() => Role::notRoot()->createAccess()->orderBy('name')->api(),
+            'divisions' => fn() => Division::notRoot()->createAccess()->orderBy('name')->get()->toResourceCollection(),
+            'roles' => fn() => Role::notRoot()->createAccess()->orderBy('name')->get()->toResourceCollection(),
         ]);
     }
 
@@ -64,8 +64,8 @@ class UserController extends Controller
     {
         return Inertia::render('main/users/Edit', [
             'user' => fn() => $user->toResource(),
-            'divisions' => fn() => Division::notRoot()->createAccess()->orderBy('name')->api(),
-            'roles' => fn() => Role::notRoot()->createAccess()->orderBy('name')->api(),
+            'divisions' => fn() => Division::notRoot()->createAccess()->orderBy('name')->get()->toResourceCollection(),
+            'roles' => fn() => Role::notRoot()->createAccess()->orderBy('name')->get()->toResourceCollection(),
         ]);
     }
 

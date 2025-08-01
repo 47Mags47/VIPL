@@ -23,7 +23,7 @@ class EventController extends Controller
     public function create()
     {
         return Inertia::render('glossary/events/Create', [
-            'payments' => Payment::api()
+            'payments' => Payment::all()->toResourceCollection()
         ]);
     }
 
@@ -46,7 +46,7 @@ class EventController extends Controller
 
         return Inertia::render('glossary/events/Edit', [
             'event' => fn() => $event->toResource(),
-            'payments' => Payment::api()
+            'payments' => Payment::all()->toResourceCollection()
         ]);
     }
 
