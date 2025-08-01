@@ -26,6 +26,6 @@ class PackageController extends Controller
         $event = $package->event;
         $package->delete();
 
-        return redirect()->route('payments.packages.index', compact('event'))->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }

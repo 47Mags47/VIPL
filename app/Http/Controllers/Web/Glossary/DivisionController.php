@@ -48,6 +48,6 @@ class DivisionController extends Controller
     {
         $division->delete();
 
-        return redirect()->route('glossary.divisions.index')->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }

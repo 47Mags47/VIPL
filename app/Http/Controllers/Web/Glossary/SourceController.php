@@ -42,6 +42,6 @@ class SourceController extends Controller
     public function destroy(Source $source){
         $source->delete();
 
-        return redirect()->route('glossary.sources.index')->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }
