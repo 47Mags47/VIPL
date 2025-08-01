@@ -17,7 +17,48 @@
 - [x] b_2_7 - Проверить все выводы в Select и убрать пагинацию в них
 - [x] b_2_8 - Добавить возможность заполнять несколько выплат с одинаковым КБК
 - [x] b_2_9 - Добавить в выплату поиск по КБК
-
+- [x] b_2_10 - Переписать БД, добавить softDelete и удаление дочерних записей
+    - [x] - Glossary banks 
+        - [x] - use softDeletes (true)
+    - [x] - Glossary bank exporter
+        - [x] - use softDeletes (false)
+    - [ ] - Glossary contracts
+        - [ ] - use softDeletes (false)
+    - [x] - Glossary divisions
+        - [x] - use softDeletes (true)
+    - [ ] - Glossary laws
+        - [ ] - use softDeletes (true)
+    - [ ] - Glossary payments
+        - [x] - use softDeletes (true)
+        - [ ] - law - SET NULL
+    - [ ] - Glossary sources
+        - [ ] - use softDeletes (true)
+    - [ ] - Main payment events, delete() только для предстоящих событий
+        - [ ] - use softDeletes (true)
+        - [ ] - payment - DELETE (если предстоит)
+    - [ ] - Main payment files
+        - [x] - use softDeletes (false), delete() только для предстоящих событий
+        - [ ] - bank - SKEEP
+    - [ ] - Main payment package
+        - [x] - use softDeletes (false)
+        - [ ] - division - SKEEP
+        - [ ] - event - SKEEP
+    - [ ] - Main payment recipients
+        - [x] - use softDeletes (false)
+        - [ ] - file - DELETE
+    - [ ] - Main raports payment bank files
+        - [x] - use softDeletes (true)
+        - [ ] - raport - DELETE, физическое удаление файлов
+        - [ ] - bank - SOFT DELETE
+    - [ ] - Main raports payment bank files archive
+        - [ ] - use softDeletes (true), физическое удаление файлов
+        - [ ] - raport - DELETE
+    - [ ] - Main raports payment totals
+        - [x] - use softDeletes (true), физическое удаление файлов
+        - [ ] - start_by - SKEEP
+    - [ ] - Main users
+        - [x] - use softDeletes (true)
+        - [ ] - division - SOFT DELETE
 ### FIX
 
 
@@ -137,3 +178,6 @@
     - [ ] - Добавлена команда для очистки удаленных данных (справочников, файлов)
     - [ ] - Добавлены тесты
     - [ ] - Добавлены комментарии для всех классов
+    - [ ] - Добавить шифрование payment recipients
+    - [ ] - Добавить создание точек копирования файлов и бэкапов
+    - [ ] - Добавлена команда для очистки БД от устаревших файлов
