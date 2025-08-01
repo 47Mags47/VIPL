@@ -40,8 +40,7 @@ class StoreRequest extends FormRequest
                 'string',
                 'min:20',
                 'max:20',
-                'regex:/[0-9A-ZА-Я]{20}/',
-                'unique:' . Payment::class . ',kbk'
+                'regex:/[0-9A-ZА-Я]{20}/'
             ],
             'law_id' => [
                 'required',

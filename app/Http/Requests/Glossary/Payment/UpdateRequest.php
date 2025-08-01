@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Glossary\Payment;
 
 use App\Models\Glossary\Payment;
-use App\Models\Glossary\Law;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -33,8 +32,7 @@ class UpdateRequest extends FormRequest
                 'string',
                 'min:20',
                 'max:20',
-                'regex:/[0-9A-ZА-Я]{20}/',
-                'unique:' . Payment::class . ',kbk,' . $this->route('payment')->id
+                'regex:/[0-9A-ZА-Я]{20}/'
             ],
         ];
     }
