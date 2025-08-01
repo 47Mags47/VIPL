@@ -14,3 +14,15 @@ Route::group([], [
     base_path('routes/web/glossary.php'),
     base_path('routes/web/payment.php'),
 ]);
+
+Route::get('/test', function(){
+    $test = App\Models\Glossary\Law::first();
+    $relation = 'payments';
+
+    dd([
+        'record' => $test,
+        'sql' => $test->$relation()->toSql(),
+        'bindings' => $test->$relation()->getBindings(),
+        'result' => $test->$relation
+    ]);
+});

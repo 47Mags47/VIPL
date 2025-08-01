@@ -7,9 +7,10 @@ use App\Traits\hasCode;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @var string $table glossary__bank_exporters
  * @var bool $timestamps false
@@ -43,4 +44,11 @@ class BankExporter extends Model
     protected $fillable = ['code', 'name', 'type_id'];
 
     public $timestamps = false;
+
+    ### Связи
+    ##################################################
+    public function banks(): HasMany
+    {
+        return $this->hasMany(Bank::class, 'exporter_id');
+    }
 }

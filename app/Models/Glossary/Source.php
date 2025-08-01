@@ -8,9 +8,10 @@ use App\Traits\HasFilter;
 use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @var string $table glossary__sources
  * @property int $id
@@ -45,4 +46,11 @@ class Source extends Model
         'code',
         'name',
     ];
+
+    ### Связи
+    ##################################################
+    public function laws(): HasMany
+    {
+        return $this->hasMany(Law::class, 'source_id');
+    }
 }

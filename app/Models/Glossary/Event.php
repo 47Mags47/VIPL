@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -181,11 +182,6 @@ class Event extends Model
         return $this->hasMany(Package::class, 'event_id');
     }
 
-    public function files()
-    {
-        return $this->through('packages')->has('files');
-    }
-
     public function bankFiles(): HasMany
     {
         return $this->hasMany(BankFile::class, 'event_id');
@@ -194,5 +190,10 @@ class Event extends Model
     public function raports(): HasMany
     {
         return $this->hasMany(Total::class, 'event_id');
+    }
+
+    public function files(): HasManyThrough
+    {
+        return $this->through('packages')->has('files');
     }
 }

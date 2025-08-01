@@ -18,7 +18,7 @@
 - [x] b_2_8 - Добавить возможность заполнять несколько выплат с одинаковым КБК
 - [x] b_2_9 - Добавить в выплату поиск по КБК
 - [x] b_2_10 - Переписать БД, добавить softDelete и удаление дочерних записей
-    - [x] - Glossary banks 
+    - [x] - Glossary banks
         - [x] - use softDeletes (true)
     - [x] - Glossary bank exporter
         - [x] - use softDeletes (false)

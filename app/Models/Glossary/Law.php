@@ -9,9 +9,10 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @var string $table glossary__laws
  * @property int $id
@@ -56,5 +57,10 @@ class Law extends Model
     public function source():BelongsTo
     {
         return $this->belongsTo(Source::class, 'source_id');
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'law_id');
     }
 }
