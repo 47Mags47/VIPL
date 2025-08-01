@@ -80,6 +80,6 @@ class BankController extends Controller
     {
         $bank->delete();
 
-        return redirect()->route('glossary.banks.index')->with('message', 'Запись удалена');
+        return back()->with('message', 'Запись удалена');
     }
 }

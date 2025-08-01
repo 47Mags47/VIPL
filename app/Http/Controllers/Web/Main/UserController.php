@@ -91,7 +91,7 @@ class UserController extends Controller
         $user->setStatus('disabled');
         $user->delete();
 
-        return redirect()->route('main.users.index')->with('message', 'Пользователь удален');
+        return back()->with('message', 'Запись удалена');
     }
 
     public function invitionAccept(User $user)
