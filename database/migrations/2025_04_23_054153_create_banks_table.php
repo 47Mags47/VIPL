@@ -28,7 +28,6 @@ return new class extends Migration
             $table->date('signed_at')->nullable();
 
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('glossary__banks', function (Blueprint $table) {

@@ -22,34 +22,35 @@
         - [x] - use softDeletes (true)
     - [x] - Glossary bank exporter
         - [x] - use softDeletes (false)
-    - [ ] - Glossary contracts
-        - [ ] - use softDeletes (false)
+    - [x] - Glossary contracts
+        - [x] - use softDeletes (false)
     - [x] - Glossary divisions
         - [x] - use softDeletes (true)
-    - [ ] - Glossary laws
-        - [ ] - use softDeletes (true)
-    - [ ] - Glossary payments
+    - [x] - Glossary laws
         - [x] - use softDeletes (true)
-        - [ ] - law - SET NULL
-    - [ ] - Glossary sources
-        - [ ] - use softDeletes (true)
-    - [ ] - Main payment events, delete() только для предстоящих событий
-        - [ ] - use softDeletes (true)
-        - [ ] - payment - DELETE (если предстоит)
-    - [ ] - Main payment files
+    - [x] - Glossary payments
+        - [x] - use softDeletes (true)
+        - [x] - law - SET NULL
+    - [x] - Glossary sources
+        - [x] - use softDeletes (true)
+    - [x] - Main payment events 
+        - [x] - delete() только для предстоящих событий
+        - [x] - use softDeletes (true)
+        - [x] - payment - DELETE (если предстоит)
+    - [x] - Main payment files
         - [x] - use softDeletes (false), delete() только для предстоящих событий
-        - [ ] - bank - SKEEP
-    - [ ] - Main payment package
+        - [x] - bank - SKEEP
+    - [x] - Main payment package
         - [x] - use softDeletes (false)
-        - [ ] - division - SKEEP
-        - [ ] - event - SKEEP
-    - [ ] - Main payment recipients
+        - [x] - division - SKEEP
+        - [x] - event - SKEEP
+    - [x] - Main payment recipients
         - [x] - use softDeletes (false)
-        - [ ] - file - DELETE
+        - [x] - file - DELETE
     - [ ] - Main raports payment bank files
         - [x] - use softDeletes (true)
         - [ ] - raport - DELETE, физическое удаление файлов
-        - [ ] - bank - SOFT DELETE
+        - [x] - bank - SOFT DELETE
     - [ ] - Main raports payment bank files archive
         - [ ] - use softDeletes (true), физическое удаление файлов
         - [ ] - raport - DELETE

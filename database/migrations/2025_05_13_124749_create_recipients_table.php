@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('main__payment__recipients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('file_id')->constrained(File::getTableName())->cascadeOnDelete();
+            $table->foreignId('file_id')->constrained(File::getTableName())->onDelete('cascade');
 
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

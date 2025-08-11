@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Contract extends Model
 {
-    use HasLog, Named, SoftDeletes;
+    use HasLog, Named;
 
     ### Настройки
     ##################################################

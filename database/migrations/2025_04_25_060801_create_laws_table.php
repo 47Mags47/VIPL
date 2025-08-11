@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('source_id')->nullable()->constrained(Source::getTableName());
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('kbk');
 
-            $table->foreignId('law_id')->constrained(Law::getTableName());
+            $table->foreignId('law_id')->nullable()->constrained(Law::getTableName())->onDelete('set null');
 
             $table->timestamps();
             $table->softDeletes();

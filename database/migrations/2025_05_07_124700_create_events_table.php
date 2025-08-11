@@ -24,8 +24,10 @@ return new class extends Migration
             $table->date('date');
             $table->integer('npp');
 
-            $table->foreignId('payment_id')->constrained(Payment::getTableName());
+            $table->foreignId('payment_id')->nullable()->constrained(Payment::getTableName())->onDelete('set null');
             $table->foreignId('status_id')->constrained(EventStatus::getTableName());
+
+            $table->softDeletes();
         });
     }
 

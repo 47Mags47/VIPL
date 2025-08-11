@@ -9,6 +9,7 @@ use App\Traits\HasLog;
 use App\Traits\Named;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Source extends Model
 {
-    use hasApi, hasCode, HasFilter, HasLog, Named;
+    use hasApi, hasCode, HasFilter, HasLog, Named, SoftDeletes;
 
     ### Настройки
     ##################################################

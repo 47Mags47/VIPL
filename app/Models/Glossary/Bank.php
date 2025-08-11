@@ -3,6 +3,7 @@
 namespace App\Models\Glossary;
 
 use App\Models\Main\Payment\File;
+use App\Models\Main\Raports\Payment\BankFile;
 use App\Traits\hasApi;
 use App\Traits\HasFilter;
 use App\Traits\HasLog;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
- * 
+ *
  *
  * @var string $table glossary__banks
  * @property int $id
@@ -68,6 +69,15 @@ class Bank extends Model
         'contract_id'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function ($model) {
+            $model->bankFiles()->delete();
+        });
+    }
+
     ### Связи
     ##################################################
     public function exporter(): BelongsTo
@@ -83,5 +93,10 @@ class Bank extends Model
     public function files(): HasMany
     {
         return $this->hasMany(File::class, 'bank_id');
+    }
+
+    public function bankFiles(): HasMany
+    {
+        return $this->hasMany(BankFile::class, 'bank_id');
     }
 }

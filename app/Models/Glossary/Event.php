@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -54,7 +55,7 @@ class Event extends Model
 {
     ### Настройки
     ##################################################
-    use hasApi, HasFilter, Named, HasFactory;
+    use hasApi, HasFilter, Named, HasFactory, SoftDeletes;
 
     protected $table = 'main__payment__events';
 
@@ -81,6 +82,11 @@ class Event extends Model
             if (empty($model->user)) {
                 $model->npp = self::generateNPP();
             }
+        });
+
+        self::deleting(function ($model) {
+            if ($model->date > now())
+                return false;
         });
     }
 
