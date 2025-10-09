@@ -59,6 +59,7 @@
     - [ ] - Main users
         - [x] - use softDeletes (true)
         - [ ] - division - SOFT DELETE
+- [ ] - Код банков сделать 2х значным 
 ### FIX
 
 

@@ -33,7 +33,7 @@ class EventController extends Controller
             Event::create([
                 'date' => $date,
                 'payment_id' => $request->input('payment_id'),
-                'status_id' => EventStatus::byCode('active'),
+                'status_id' => EventStatus::byCode('active')->id,
             ]);
         }
 
